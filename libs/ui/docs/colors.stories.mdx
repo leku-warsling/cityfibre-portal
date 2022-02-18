@@ -1,0 +1,54 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { Box, Text, Wrap, WrapItem, Heading } from '@chakra-ui/react';
+import { withPixelRef, toKeyValueCollection } from './util';
+import { Fragment } from 'react';
+import { getContrast } from "polished";
+import startCase from "lodash-es/startCase"
+import theme from '../src/theme';
+
+<Meta title="Docs / Theme / Colors" id="colors" />
+
+# Colors
+
+<Box my={8}>
+  {Object.entries(theme.colors).map(([color, scheme]) => {
+    if (typeof scheme !== "object") return null
+    const isAlpha = color.includes('Alpha');
+    return (
+      <Box key={`${color}-scheme`}>
+        <Heading size="lg">{startCase(color)}</Heading>
+        <Box my={10} {...(isAlpha ? { bgColor: "gray.100", p: 8, rounded: 5 } : {})}>
+          <Wrap spacing={4}>
+            {Object.entries(scheme).map(([shade, value]) => {
+              const key = `${color}.${shade}`;
+              const isLowContrast = getContrast(value, "#fff") < 5
+              return (
+                <WrapItem key={key}>
+                  <Box display="flex" minWidth="200px">
+                    <Box 
+                      bgColor={key} 
+                      h="75px" 
+                      w="75px"
+                      rounded="4px"
+                      boxShadow={(isLowContrast && !isAlpha) ? "inner" : "none"}
+                    />
+                    <Box 
+                      display="flex" 
+                      flexDirection="column" 
+                      justifyContent="center" 
+                      alignItems="flex-start"
+                      pl={4}
+                    > 
+                      <Text fontWeight="600">{key}</Text>
+                      <Text color="gray.600">{value}</Text>
+                    </Box>
+                  </Box>
+                </WrapItem>
+              )
+            })}
+          </Wrap>
+        </Box>
+      </Box>
+    )
+  })}
+</Box>

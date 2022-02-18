@@ -1,0 +1,129 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import {
+  Box,
+  Wrap,
+  WrapItem,
+  Text,
+  Stack,
+  Heading,
+} from '@chakra-ui/react'
+import { withPixelRef, toKeyValueCollection } from "./util"
+import Table from "./components/Table"
+import theme from "../src/theme"
+
+<Meta
+  title="Docs / Theme / Typography"
+  id="typography"
+/>
+
+# Typography
+
+<br/>
+
+## Fonts
+
+<Table
+  columns={[
+    {
+      key: "key",
+      title: "Name"
+    },
+    {
+      key: "value",
+      title: "Value", 
+    }
+  ]}
+  data={toKeyValueCollection(theme.fonts)}
+/>
+
+<br/>
+
+## Font Sizes
+
+<Table
+  columns={[
+    {
+      key: "key",
+      title: "Name"
+    },
+    {
+      key: "value",
+      title: "Value",
+      render: withPixelRef, 
+    }
+  ]}
+  data={toKeyValueCollection(theme.fontSizes)}
+/>
+
+<br/>
+
+## Font Weights
+
+<Table
+  columns={[
+    {
+      key: "key",
+      title: "Name"
+    },
+    {
+      key: "value",
+      title: "Value", 
+    },
+    {
+      key: "key",
+      title: "Example",
+      render: (value) => (
+        <Text fontFamily="arial" fontWeight={value}>
+          {value}
+        </Text>
+      )
+    },
+  ]}
+  data={toKeyValueCollection(theme.fontWeights)}
+/>
+
+<br/>
+
+## Line Heights
+
+<Table
+  columns={[
+    {
+      key: "key",
+      title: "Name"
+    },
+    {
+      key: "value",
+      title: "Value", 
+    }
+  ]}
+  data={toKeyValueCollection(theme.lineHeights)}
+/>
+
+<br/>
+
+## Letter Spacing
+
+<Table
+  columns={[
+    {
+      key: "key",
+      title: "Name"
+    },
+    {
+      key: "value",
+      title: "Value",
+      render: withPixelRef, 
+    },
+    {
+      key: "key",
+      title: "Example",
+      render: (value) => (
+        <Text letterSpacing={value}>
+          {value}
+        </Text>
+      )
+    },
+  ]}
+  data={toKeyValueCollection(theme.letterSpacings)}
+/>

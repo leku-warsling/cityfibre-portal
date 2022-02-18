@@ -1,0 +1,43 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import {
+  Box,
+  Wrap,
+  WrapItem,
+  Text,
+  Stack,
+  Heading,
+} from '@chakra-ui/react'
+import { is, has } from "ramda"
+import * as icons from "@chakra-ui/icons"
+
+<Meta
+  title="Docs / Icons"
+  id="icons"
+/>
+
+# Icons
+
+<Wrap spacing={4} my={10}>
+  {Object.entries(icons).map(([iconName, Icon]) => {
+    console.log(is(Object, Icon), has("render", Icon), iconName, Icon)
+    if (iconName === "Icon" || !is(Object, Icon) || !has("render", Icon)) return null
+    return (
+      <WrapItem key={iconName}>
+        <Box 
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          bgColor="gray.100"
+          rounded={5}
+          minWidth="170px"
+          minHeight="150px"
+          p={4}
+        >
+          <Icon fontSize="24px" mb={4}/>
+          <Text as="strong" fontSize="sm">{iconName}</Text>
+        </Box>
+      </WrapItem>
+    )
+  })}
+</Wrap>

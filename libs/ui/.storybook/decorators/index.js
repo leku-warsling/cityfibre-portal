@@ -1,0 +1,1 @@
+export { default as withDocsContainer } from "./withDocsContainer" 

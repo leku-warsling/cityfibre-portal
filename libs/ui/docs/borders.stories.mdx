@@ -1,0 +1,61 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import {
+  Box,
+  Wrap,
+  WrapItem,
+  Text,
+} from '@chakra-ui/react'
+import theme from "../src/theme"
+
+<Meta
+    title="Docs / Theme / Borders"
+    id="borders"
+/>
+
+# Borders
+
+## Border
+
+<Wrap spacing={4} my={8}>
+  {Object.keys(theme.borders).map((border, idx) => (
+    <WrapItem key={idx}>
+      <Box 
+        display="flex" 
+        border={border} 
+        w="100px" 
+        h="100px"
+        borderColor="#FED7D7"
+        color="#d10505"
+        fontWeight="600"
+        justifyContent="center" 
+        alignItems="center"
+        fontSize="lg"
+      >
+        <Box>{border}</Box>
+      </Box>
+    </WrapItem>
+  ))}
+</Wrap>
+
+## Radii
+
+<Wrap spacing={4} my={8}>
+  {Object.keys(theme.radii).map((radii, idx) => (
+    <WrapItem key={idx}>
+      <Box 
+        display="flex" 
+        borderRadius={radii} 
+        w="100px" 
+        h="100px"
+        bgColor="#FED7D7"
+        color="#d10505"
+        fontWeight="600"
+        justifyContent="center" 
+        alignItems="center"
+        fontSize="lg"
+      >
+        <Box>{radii}</Box>
+      </Box>
+    </WrapItem>
+  ))}
+</Wrap>
