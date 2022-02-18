@@ -11,9 +11,11 @@ import {
   HStack,
   Stack,
   VStack,
-} from '@chakra-ui/layout';
+  Button, 
+  ButtonGroup, 
+  IconButton,
+} from '@chakra-ui/react';
 import { BeatLoader } from 'react-spinners';
-import { Button, ButtonGroup, IconButton } from '.';
 
 export default {
   title: 'Components / Forms / Button',

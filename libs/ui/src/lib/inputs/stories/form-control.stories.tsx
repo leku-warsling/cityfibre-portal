@@ -1,7 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Container } from "@chakra-ui/react"
-import { FC, ReactNode } from "react"
-import {
+import { 
+  Container,
   FormControl,
   FormErrorIcon,
   FormErrorMessage,
@@ -9,8 +8,9 @@ import {
   FormLabel,
   Input,
   Textarea,
-  Select,
-} from ".."
+  Select, 
+} from "@chakra-ui/react"
+import { FC, ReactNode } from "react"
 
 type FormItemProps = {
   isRequired: boolean

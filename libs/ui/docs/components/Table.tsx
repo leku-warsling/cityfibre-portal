@@ -2,7 +2,6 @@ import {
   Table as _Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,

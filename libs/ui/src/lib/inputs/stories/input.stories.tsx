@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { CheckIcon, PhoneIcon } from '@chakra-ui/icons';
-import { Container, Stack, useDisclosure } from '@chakra-ui/react';
-import { chakra } from '@chakra-ui/system';
-import {
+import { 
+  Container, 
+  Stack, 
+  useDisclosure,
   Input,
   InputGroup,
   InputLeftAddon,
@@ -12,9 +13,10 @@ import {
   FormControl,
   FormErrorMessage,
   FormHelperText,
-  FormLabel,
-  PasswordInput,
-} from '..';
+  FormLabel, 
+} from '@chakra-ui/react';
+import { chakra } from '@chakra-ui/system';
+import { PasswordInput } from '..';
 
 export default {
   title: 'Components / Forms / Input',
@@ -33,23 +35,6 @@ export default {
 };
 
 export const Basic = () => <Input placeholder="Basic input" isDisabled />;
-
-// export const Controlled = () => {
-//   const [value, setValue] = useState("Starting...")
-//   const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
-//     setValue(event.target.value)
-
-//   return (
-//     <>
-//       <Input
-//         value={value}
-//         onChange={handleChange}
-//         placeholder="Controlled input"
-//       />
-//       <pre>{JSON.stringify(value, null, 2)}</pre>
-//     </>
-//   )
-// }
 
 export const sizes = () => (
   <Stack align="start" spacing={6}>

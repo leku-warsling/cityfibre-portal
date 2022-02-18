@@ -1,8 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Container, Stack, VStack } from '@chakra-ui/layout';
+import { Container, Stack, VStack, Checkbox, CheckboxGroup } from '@chakra-ui/react';
 import { get } from 'lodash-es';
 import * as React from 'react';
-import { Checkbox, CheckboxGroup } from '..';
 
 export default {
   title: 'Components / Forms / Checkbox',

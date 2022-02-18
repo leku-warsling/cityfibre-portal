@@ -19,7 +19,6 @@ import * as icons from "@chakra-ui/icons"
 
 <Wrap spacing={4} my={10}>
   {Object.entries(icons).map(([iconName, Icon]) => {
-    console.log(is(Object, Icon), has("render", Icon), iconName, Icon)
     if (iconName === "Icon" || !is(Object, Icon) || !has("render", Icon)) return null
     return (
       <WrapItem key={iconName}>

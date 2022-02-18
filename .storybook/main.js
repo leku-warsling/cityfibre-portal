@@ -8,6 +8,7 @@ module.exports = {
   webpackFinal: async (config, { configType }) => {
     config.resolve.alias = {
       ...(config.resolve.alias ?? {}),
+      'react': toPath('node_modules/react'),
       '@emotion/react': toPath('node_modules/@emotion/react'),
       '@emotion/styled': toPath('node_modules/@emotion/styled'),
       '@emotion/core': toPath('node_modules/@emotion/react'),
