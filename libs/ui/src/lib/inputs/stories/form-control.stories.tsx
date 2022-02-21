@@ -53,11 +53,6 @@ export default {
       </Container>
     ),
   ],
-  parameters: {
-    docs: {
-      page: null,
-    },
-  }
 } as ComponentMeta<typeof FormItem>
 
 const Template: ComponentStory<typeof FormItem> = ({ children, ...args }) => (

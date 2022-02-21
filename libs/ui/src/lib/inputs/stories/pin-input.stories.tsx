@@ -29,11 +29,6 @@ export default {
       </Container>
     ),
   ],
-  parameters: {
-    docs: {
-      page: null,
-    },
-  }
 } as ComponentMeta<typeof ExamplePinInput>;
 
 const Template: ComponentStory<typeof ExamplePinInput> = (args) => (

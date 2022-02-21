@@ -84,12 +84,16 @@ export default {
         'twitter',
         'telegram',
       ],
-      defaultValue: 'solid',
+      table: {
+        defaultValue: 'brand',
+      }
     },
     size: {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg'],
-      defaultValue: 'md',
+      table: {
+        defaultValue: 'md',
+      }
     },
   },
   decorators: [
@@ -99,11 +103,6 @@ export default {
       </Container>
     ),
   ],
-  parameters: {
-    docs: {
-      page: null,
-    },
-  }
 } as ComponentMeta<typeof ExampleRangeSlider>;
 
 const Template: ComponentStory<typeof ExampleRangeSlider> = (args) => (

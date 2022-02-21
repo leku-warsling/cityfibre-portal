@@ -13,7 +13,9 @@ export default {
         "md",
         "lg",
       ],
-      defaultValue: "md"
+      table: {
+        defaultValue: 'md',
+      }
     },
     colorScheme: { 
       control: { type: "select"},
@@ -39,7 +41,9 @@ export default {
         "twitter",
         "telegram"
       ],
-      defaultValue: "solid"
+      table: {
+        defaultValue: 'brand',
+      }
     },
   },
   decorators: [
@@ -49,11 +53,6 @@ export default {
       </Container>
     ),
   ],
-  parameters: {
-    docs: {
-      page: null,
-    },
-  }
 } as ComponentMeta<typeof Switch>
 
 const Template: ComponentStory<typeof Switch> = (args) => (

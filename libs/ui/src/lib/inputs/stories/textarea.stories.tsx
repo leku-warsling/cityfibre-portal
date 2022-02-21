@@ -1,5 +1,6 @@
 import { Container, Stack } from "@chakra-ui/react"
-import { Textarea } from ".."
+import { Story, Meta } from '@storybook/react';
+import { Textarea, TextareaProps } from ".."
 
 export default {
   title: "Components / Forms / Textarea",
@@ -10,20 +11,26 @@ export default {
       </Container>
     ),
   ],
-  parameters: {
-    docs: {
-      page: null,
-    },
-  }
+} as Meta<TextareaProps>;
+
+const Template: Story<TextareaProps> = (args) => <Textarea {...args} />
+
+export const Primary = Template.bind({})
+Primary.args = {
+  defaultValue: "This is a textarea",
+  size: "md",
+  isDisabled: false,
+  isInvalid: false,
+  isRequired: false,
+  isReadOnly: false,
+  resize: "vertical",
 }
 
-export const basic = () => <Textarea defaultValue="This is a textarea" />
-
-export const rows = () => (
+export const Rows = () => (
   <Textarea defaultValue="This is a textarea" rows={12} />
 )
 
-export const states = () => (
+export const States = () => (
   <Stack spacing={6}>
     <Textarea placeholder="Idle textarea" />
     <Textarea isDisabled placeholder="Disabled textarea" />
@@ -32,7 +39,7 @@ export const states = () => (
   </Stack>
 )
 
-export const sizes = () => (
+export const Sizes = () => (
   <Stack spacing={6}>
     <Textarea
       size="xs"
@@ -56,6 +63,6 @@ export const sizes = () => (
   </Stack>
 )
 
-export const resize = () => (
+export const Resize = () => (
   <Textarea placeholder="Here is a sample placeholder" resize="horizontal" />
 )

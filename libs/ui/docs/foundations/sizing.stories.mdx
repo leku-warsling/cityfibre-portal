@@ -1,0 +1,209 @@
+import { Meta } from '@storybook/addon-docs';
+import { Box, Wrap, WrapItem, Text, HStack } from '@chakra-ui/react';
+import {
+  withPixelRef,
+  toKeyValueCollection,
+  remToPx,
+  sortByValue,
+} from '../util';
+import Table from '../components/Table';
+import { Tabs, TabPanel } from '../components/Tabs';
+import theme from '../../src/theme';
+
+<Meta title="Docs / Foundations / Sizing" id="sizing" />
+
+# Sizing
+
+![CSS Box Model](https://media.gcflearnfree.org/content/5ef2084faaf0ac46dc9c10be_06_23_2020/box_model.png)
+
+## Spacing
+
+Space in graphic design is the distance around the area between different design elements
+
+<br />
+
+<Tabs mb={10}>
+  <TabPanel title="Scales" maxH="700px" overflowY="scroll">
+    <Table
+      columns={[
+        {
+          key: 'key',
+          title: 'Name',
+        },
+        {
+          key: 'value',
+          title: 'Value',
+        },
+        {
+          key: 'value',
+          title: 'Example',
+          render: (value) => <Box bgColor="#FED7D7" w={value} h="25px" />,
+        },
+      ]}
+      data={sortByValue(toKeyValueCollection(theme.space))}
+      my={2}
+    />
+  </TabPanel>
+  <TabPanel title="Examples" maxH="700px" overflowY="scroll">
+    <Wrap spacing={4} my={10}>
+      {sortByValue(toKeyValueCollection(theme.space)).map(
+        ({ key, value }, idx) => (
+          <WrapItem key={idx}>
+            <Box
+              p={key}
+              bgColor="#FED7D7"
+              fontSize="lg"
+              border="1px dashed"
+              borderColor="#d10505"
+            >
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+                w="100px"
+                h="100px"
+                bgColor="white"
+                border="1px dashed"
+                borderColor="#d10505"
+              >
+                <Text fontSize="lg" fontWeight={600}>
+                  {key}
+                </Text>
+                <Text fontSize="sm">{value}</Text>
+                <Text fontSize="sm">{remToPx(value)}</Text>
+              </Box>
+            </Box>
+          </WrapItem>
+        )
+      )}
+    </Wrap>
+  </TabPanel>
+</Tabs>
+
+## Borders
+
+<br />
+
+### Border
+
+<Tabs mb={10}>
+  <TabPanel title="Scales" maxH="500px" overflowY="scroll">
+    <Table
+      columns={[
+        {
+          key: 'key',
+          title: 'Name',
+        },
+        {
+          key: 'value',
+          title: 'Value',
+        },
+      ]}
+      data={toKeyValueCollection(theme.borders)}
+      my={2}
+    />
+  </TabPanel>
+  <TabPanel title="Examples" maxH="700px" overflowY="scroll">
+    <Wrap spacing={4} my={10}>
+      {Object.keys(theme.borders).map((border, idx) => (
+        <WrapItem key={idx}>
+          <Box
+            display="flex"
+            border={border}
+            w="100px"
+            h="100px"
+            borderColor="#FED7D7"
+            color="#d10505"
+            fontWeight="600"
+            justifyContent="center"
+            alignItems="center"
+            fontSize="lg"
+          >
+            <Box>{border}</Box>
+          </Box>
+        </WrapItem>
+      ))}
+    </Wrap>
+  </TabPanel>
+</Tabs>
+
+### Radii
+
+<Tabs mb={10}>
+  <TabPanel title="Scales" maxH="700px" overflowY="scroll">
+    <Table
+      columns={[
+        {
+          key: 'key',
+          title: 'Name',
+        },
+        {
+          key: 'value',
+          title: 'Value',
+        },
+      ]}
+      data={toKeyValueCollection(theme.radii)}
+      my={2}
+    />
+  </TabPanel>
+  <TabPanel title="Examples" maxH="700px" overflowY="scroll">
+    <Wrap spacing={4} my={6}>
+      {Object.keys(theme.radii).map((radii, idx) => (
+        <WrapItem key={idx}>
+          <Box
+            display="flex"
+            borderRadius={radii}
+            w="100px"
+            h="100px"
+            bgColor="#FED7D7"
+            color="#d10505"
+            fontWeight="600"
+            justifyContent="center"
+            alignItems="center"
+            fontSize="lg"
+          >
+            <Box>{radii}</Box>
+          </Box>
+        </WrapItem>
+      ))}
+    </Wrap>
+  </TabPanel>
+</Tabs>
+
+## Breakpoints
+
+![Divice Screen Sizes](https://www.bitdegree.org/learn/storage/media/images/3a40a9ef-ab2c-4c9d-89e8-b5c50315042d.png)
+
+<Table
+  columns={[
+    {
+      key: 'key',
+      title: 'Name',
+    },
+    {
+      key: 'value',
+      title: 'Value',
+    },
+  ]}
+  data={sortByValue(toKeyValueCollection(theme.breakpoints))}
+  mb={10}
+/>
+  
+
+## Containers
+
+<Table
+  columns={[
+    {
+      key: 'key',
+      title: 'Name',
+    },
+    {
+      key: 'value',
+      title: 'Value',
+    },
+  ]}
+  data={sortByValue(toKeyValueCollection(theme.sizes.container))}
+  my={10}
+/>

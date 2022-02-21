@@ -27,11 +27,6 @@ export default {
       </Container>
     ),
   ],
-  parameters: {
-    docs: {
-      page: null,
-    },
-  }
 };
 
 export const Basic = () => <Input placeholder="Basic input" isDisabled />;

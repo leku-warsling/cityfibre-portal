@@ -4,17 +4,12 @@ import { Text, Heading } from '.';
 export default {
   title: 'Components / Typography / Text',
   decorators: [
-    (Story: any) => (
+    (story: any) => (
       <Container mt="40px">
-        <Story />
+        {story()}
       </Container>
     ),
   ],
-  parameters: {
-    docs: {
-      page: null,
-    },
-  }
 };
 
 export const sizes = () => (

@@ -70,7 +70,9 @@ export default {
         "twitter",
         "telegram"
       ],
-      defaultValue: "solid"
+      table: {
+        defaultValue: 'brand',
+      }
     },
     size: {
       control: { type: "select" },
@@ -79,7 +81,9 @@ export default {
         "md",
         "lg",
       ],
-      defaultValue: "md"
+      table: {
+        defaultValue: 'md',
+      }
     },
   },
   decorators: [
@@ -89,11 +93,6 @@ export default {
       </Container>
     ),
   ],
-  parameters: {
-    docs: {
-      page: null,
-    },
-  }
 } as ComponentMeta<typeof ExampleSlider>
 
 const Template: ComponentStory<typeof ExampleSlider> = (args) => (

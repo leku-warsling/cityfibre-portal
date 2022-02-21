@@ -1,0 +1,167 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Docs / Getting Started / Project Setup" id="project-setup" />
+
+# Project Setup
+
+Install nx cli globally
+
+```sh
+npm install -g nx
+```
+
+Clone repo to your local directory
+
+```sh
+git clone git@bitbucket.org:entanet_dev/storybook-cf-design.git
+```
+
+CD into root of directory and install dependencies
+
+```sh
+npm install
+```
+
+<br/>
+
+### NX console
+
+If you are using [VSCode](https://code.visualstudio.com/), you can install the Nx Console VSCode Plugin from Marketplace. The [Nx Console VSCode Plugin](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console) is built and maintained by the Nx team.
+
+Nx Console is the UI for Nx. It works for any generator or any architect commands. Nx Console does not have a specific UI for, say, generating a component. Instead, Nx Console does what the command-line version of Nx does - it analyzes the same meta information to create the needed UI. This means that anything you can do with Nx, you can do with Nx Console.
+
+[NX Console Documentation](https://nx.dev/using-nx/console#nx-console-for-vscode)
+
+![NX Console VSCode](https://miro.medium.com/max/1400/0*Ppcg0wybK0m4ozvz)
+
+<br />
+
+### Generate an application
+
+You can create multiple applications and libraries in the same workspace.
+
+```sh
+nx g @nrwl/react:app <my-app>
+```
+
+<br />
+
+### Generate a library
+
+Libraries are shareable across libraries and applications. They can be imported from @cityfibre-portal-client/{my-lib}.
+
+#### React library
+
+```sh
+nx g @nrwl/react:lib <my-lib>
+```
+
+#### React component
+
+```sh
+nx g @nrwl/react:component my-new-component --project=my-app
+```
+
+#### React hook
+
+```sh
+nx g @nrwl/react:hook my-new-hook --project=my-lib
+```
+
+#### JS library
+
+```sh
+nx generate @nrwl/js:library 
+```
+
+<br />
+
+### Storybook
+
+#### Generating Storybook Configuration
+
+```sh
+nx g @nrwl/react:storybook-configuration --name=my-lib
+```
+
+#### Generate stories from components
+
+```sh
+nx g @nrwl/react:stories --name=my-lib
+```
+
+#### Running storybook
+
+Serve Storybook using this command:
+
+```sh
+nx run ui:storybook
+```
+or
+
+```sh
+nx storybook ui
+```
+
+<br />
+
+#### Build storybook
+
+```sh
+nx run ui:build-storybook
+```
+or
+
+```sh
+nx build-storybook ui
+```
+
+<br />
+
+### Development server
+
+After running command navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+
+```sh
+nx serve <my-app>
+```
+
+<br />
+
+### Build
+
+The build artifacts will be stored in the dist/ directory. Use the --prod flag for a production build.
+
+```sh
+nx build <my-app>
+```
+
+<br />
+
+### Running unit tests
+
+Execute the unit tests via Jest.
+
+```sh
+nx test <my-app>
+```
+
+<br />
+
+### Running end-to-end tests
+
+Execute the end-to-end tests via Cypress.
+
+```sh
+nx e2e <my-app>
+```
+
+<br />
+
+### Workspace dependency graph
+
+See a diagram of the dependencies of your projects.
+
+```sh
+nx graph
+```

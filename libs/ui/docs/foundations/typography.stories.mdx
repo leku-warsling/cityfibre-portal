@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/addon-docs/blocks";
+import { Meta } from "@storybook/addon-docs";
 import {
   Box,
   Wrap,
@@ -7,16 +7,17 @@ import {
   Stack,
   Heading,
 } from '@chakra-ui/react'
-import { withPixelRef, toKeyValueCollection } from "./util"
-import Table from "./components/Table"
-import theme from "../src/theme"
+import { withPixelRef, toKeyValueCollection } from "../util"
+import Table from "../components/Table"
+import theme from "../../src/theme"
 
 <Meta
-  title="Docs / Theme / Typography"
+  title="Docs / Foundations / Typography"
   id="typography"
 />
 
-# Typography
+<!-- ![Typography Anatomy](https://ithemes.com/wp-content/uploads/2017/06/Anatomy-of-Typography.png) -->
+![Typography Anatomy](https://www.fotor.com/blog/wp-content/uploads/2019/03/1-anatomy-of-type.jpg)
 
 <br/>
 
@@ -127,3 +128,5 @@ import theme from "../src/theme"
   ]}
   data={toKeyValueCollection(theme.letterSpacings)}
 />
+
+## Terminology

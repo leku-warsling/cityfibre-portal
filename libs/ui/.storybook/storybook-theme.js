@@ -7,12 +7,15 @@ const theme = {
     base: "light",
     brandTitle: "Cityfibre UI",
     brandUrl: "",
+    fontBase: '"Manrope", sans-serif',
     brandImage,
+    appBg: "#edf2f7",
   }),
   docs: create({
     base: "light",
-    fontBase: "TT Interphases Variable, Arial, Helvetica, sans-serif",
-    textColor: "#04091A"
+    fontBase: '"Manrope", sans-serif',
+    textColor: "#04091A",
+    appBg: "#edf2f7",
   }) 
 }
 

@@ -1,5 +1,4 @@
 import { Container, Stack } from "@chakra-ui/layout"
-import * as React from "react"
 import { Select } from ".."
 
 export default {
@@ -11,11 +10,6 @@ export default {
       </Container>
     ),
   ],
-  parameters: {
-    docs: {
-      page: null,
-    },
-  }
 }
 
 export const variants = () => (

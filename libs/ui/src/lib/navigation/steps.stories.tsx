@@ -8,6 +8,13 @@ export default {
   title: 'Components / Navigation / Steps',
   component: Steps,
   argTypes: {
+    activeStep: {
+      control: { type: "select" },
+      options: [0, 1, 2, 3],
+      table: {
+        defaultValue: 0,
+      }
+    },
     size: {
       control: { type: "select" },
       options: [
@@ -15,14 +22,20 @@ export default {
         "md",
         "lg",
       ],
-      defaultValue: "md"
+      table: {
+        defaultValue: "md",
+      }
     },
     state: {
       control: { type: "select" },
       options: [
+        undefined,
         "error",
         "loading",
       ],
+      table: {
+        defaultValue: undefined,
+      }
     },
     orientation: {
       control: { type: "select" },
@@ -30,7 +43,9 @@ export default {
         "vertical",
         "horizontal",
       ],
-      defaultValue: "horizontal"
+      table: {
+        defaultValue: "horizontal",
+      }
     },
     labelOrientation: {
       control: { type: "select" },
@@ -38,22 +53,22 @@ export default {
         "vertical",
         "horizontal",
       ],
-      defaultValue: "horizontal"
+      table: {
+        defaultValue: "horizontal",
+      }
     },
   },
   decorators: [
-    (Story: any) => (
+    (story: any) => (
       <Container mt="40px">
-        <Story />
+        {story()}
       </Container>
     ),
   ],
-  parameters: {
-    docs: {
-      page: null,
-    },
-  }
 } as ComponentMeta<typeof Steps>;
+
+Steps.displayName = "Steps"
+Step.displayName = "Step"
 
 const Template: ComponentStory<typeof Steps> = (args) => (
   <Steps {...args}>

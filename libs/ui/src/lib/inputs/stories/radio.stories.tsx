@@ -11,11 +11,6 @@ import { Button } from '@chakra-ui/react';
 export default {
   title: 'Components / Forms / Radio',
   decorators: [(story: Function) => <Container mt="40px">{story()}</Container>],
-  parameters: {
-    docs: {
-      page: null,
-    },
-  }
 };
 
 export const States = () => (

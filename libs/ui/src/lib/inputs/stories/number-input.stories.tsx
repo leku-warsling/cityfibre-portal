@@ -17,11 +17,6 @@ export default {
       </chakra.div>
     ),
   ],
-  parameters: {
-    docs: {
-      page: null,
-    },
-  }
 }
 
 export const usage = () => (

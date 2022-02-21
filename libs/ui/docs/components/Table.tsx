@@ -5,6 +5,7 @@ import {
   Tr,
   Th,
   Td,
+  StyleProps,
 } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
@@ -14,7 +15,7 @@ type Column<T> = {
   render?: (value: any, record: T, index: number) => ReactNode;
 };
 
-type TableProps<T> = {
+type TableProps<T> = StyleProps & {
   columns: Column<T>[];
   data: T[];
   variant?: 'simple' | 'striped';
@@ -24,9 +25,10 @@ const Table = <T extends Record<string, any>>({
   columns,
   data,
   variant = 'simple',
+  ...props
 }: TableProps<T>) => {
   return (
-    <_Table variant={variant} my={6}>
+    <_Table variant={variant} {...props}>
       <Thead>
         <Tr>
           {columns.map(({ key, title }) => (

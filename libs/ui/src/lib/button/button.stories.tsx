@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Story, Meta } from '@storybook/react';
 import {
   ArrowForwardIcon,
   ChevronDownIcon,
@@ -14,6 +14,7 @@ import {
   Button, 
   ButtonGroup, 
   IconButton,
+  ButtonProps,
 } from '@chakra-ui/react';
 import { BeatLoader } from 'react-spinners';
 
@@ -32,7 +33,9 @@ export default {
         "link",
         "unstyled",
       ],
-      defaultValue: "solid"
+      table: {
+        defaultValue: "solid"
+      }
     },
     colorScheme: { 
       control: { type: "select"},
@@ -58,7 +61,9 @@ export default {
         "twitter",
         "telegram"
       ],
-      defaultValue: "solid"
+      table: {
+        defaultValue: "brand"
+      }
     },
     size: {
       control: { type: "select" },
@@ -69,7 +74,9 @@ export default {
         "lg",
         "xl",
       ],
-      defaultValue: "md"
+      table: {
+        defaultValue: "md"
+      }
     },
     spinnerPlacement: {
       control: { type: "select" },
@@ -77,7 +84,9 @@ export default {
         "start",
         "end",
       ],
-      defaultValue: "start"
+      table: {
+        defaultValue: "start"
+      }
     },
     boxShadow: {
       control: { type: "select" },
@@ -90,26 +99,21 @@ export default {
         "outline",
         "2xl"
       ],
-      defaultValue: "none"
+      table: {
+        defaultValue: "none"
+      }
     }
   },
   decorators: [
-    (Story: any) => (
+    (story: Function) => (
       <Container mt="40px">
-        <Story />
+        {story()}
       </Container>
     ),
   ],
-  parameters: {
-    docs: {
-      page: null,
-    },
-  }
-} as ComponentMeta<typeof Button>;
+} as Meta<ButtonProps>;
 
-const Template: ComponentStory<typeof Button> = (args) => (
-  <Button {...args} />
-)
+const Template: Story<ButtonProps> = (args) => <Button {...args} />
 
 export const Primary = Template.bind({})
 Primary.args = {

@@ -31,7 +31,9 @@ export default {
         "twitter",
         "telegram"
       ],
-      defaultValue: "solid"
+      table: {
+        defaultValue: "brand"
+      }
     },
     size: {
       control: { type: "select" },
@@ -40,12 +42,9 @@ export default {
         "md",
         "lg",
       ],
-      defaultValue: "md"
-    },
-  },
-  parameters: {
-    docs: {
-      page: null,
+      table: {
+        defaultValue: "md"
+      }
     },
   },
   decorators: [(story: Function) => <Container mt="40px">{story()}</Container>],
