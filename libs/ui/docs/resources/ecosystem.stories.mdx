@@ -1,12 +1,31 @@
 import { Meta } from '@storybook/addon-docs';
+import packages from "../../../../data/package-report.json";
+import FilterableList from "../components/FilterableList" 
+// import { Wrap, WrapItem, Box } from "@chakra-ui/react"
 
 <Meta title="Docs / Resources / Ecosystem" id="ecosystem" />
 
+<FilterableList 
+  items={packages}
+  filterBy="keywords"
+  renderItem={(item) => item.name}
+/>
+
 # Libraries / Packages
+
+
 
 ### Animation
 
 - [Framer Motion]()
+
+### Polyfil
+
+- [core-js]()
+
+### Fonts
+
+- [Fontsource]()
 
 ### Tools
 
