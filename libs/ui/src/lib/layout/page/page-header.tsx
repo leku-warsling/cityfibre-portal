@@ -33,7 +33,7 @@ const PageHeader: FC<PageHeaderProps> = ({
   return (
     <Box {...props}>
       {!!breadcrumb && (
-        <Breadcrumb fontSize="14px">
+        <Breadcrumb fontSize="14px" mb={1}>
           {shouldIncludeHome(breadcrumb) && (
             <Breadcrumb.Item color="gray.500">
               <Breadcrumb.Link href="/">
@@ -64,7 +64,7 @@ const PageHeader: FC<PageHeaderProps> = ({
         <Heading fontSize="20px" flexGrow={1}>
           {children}
         </Heading>
-        <ButtonGroup ml="auto">{actions}</ButtonGroup>
+        <ButtonGroup ml="auto" spacing={.5}>{actions}</ButtonGroup>
       </HStack>
     </Box>
   );

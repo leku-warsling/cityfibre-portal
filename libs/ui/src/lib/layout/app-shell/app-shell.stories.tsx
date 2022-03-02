@@ -33,6 +33,10 @@ import {
   FiPhone,
   FiHelpCircle,
   FiPlus,
+  FiMoreVertical,
+  FiGrid,
+  FiList,
+  FiDownload,
 } from 'react-icons/fi';
 import { BiHome, BiDollarCircle, BiBasket } from 'react-icons/bi';
 import { RiDashboard3Line } from 'react-icons/ri';
@@ -53,7 +57,7 @@ export default {
 } as Meta<AppShellProps>;
 
 const ExampleAppBar = () => (
-  <AppBar pl={4} pr={6} py={4} bgColor="white">
+  <AppBar pl={4} pr={6} py={3} bgColor="white">
     <AppBar.Section>
       <IconButton
         variant="ghost"
@@ -146,27 +150,13 @@ const ExampleSidebar = () => {
           <Nav.Item>Networks</Nav.Item>
         </Nav.SubMenu>
         <Nav.SubMenu icon={BiDollarCircle} label="Billing">
-          <Nav.Item fontSize="14px" py={1.5} px={3}>
-            Invoices
-          </Nav.Item>
-          <Nav.Item fontSize="14px" py={1.5} px={3}>
-            Credit Notes
-          </Nav.Item>
-          <Nav.Item fontSize="14px" py={1.5} px={3}>
-            Payments
-          </Nav.Item>
-          <Nav.Item fontSize="14px" py={1.5} px={3}>
-            Statements
-          </Nav.Item>
-          <Nav.Item fontSize="14px" py={1.5} px={3}>
-            Bank Details
-          </Nav.Item>
-          <Nav.Item fontSize="14px" py={1.5} px={3}>
-            Orders On Hold
-          </Nav.Item>
-          <Nav.Item fontSize="14px" py={1.5} px={3}>
-            Bandwidth Usage
-          </Nav.Item>
+          <Nav.Item>Invoices</Nav.Item>
+          <Nav.Item>Credit Notes</Nav.Item>
+          <Nav.Item>Payments</Nav.Item>
+          <Nav.Item>Statements</Nav.Item>
+          <Nav.Item>Bank Details</Nav.Item>
+          <Nav.Item>Orders On Hold</Nav.Item>
+          <Nav.Item>Bandwidth Usage</Nav.Item>
         </Nav.SubMenu>
         <Nav.SubMenu icon={BiBasket} label="Orders">
           <Nav.Item>FTTP</Nav.Item>
@@ -183,28 +173,67 @@ const ExampleSidebar = () => {
 };
 
 const actions = [
-  <Button
+  <IconButton
+    key={0}
+    aria-label="Download"
+    size="sm"
+    variant="ghost"
+    _hover={{ bg: 'gray.200' }}
+    icon={<FiDownload />}
+  />,
+  <IconButton
+    key={0}
+    aria-label="List view"
+    size="sm"
+    variant="ghost"
+    _hover={{ bg: 'gray.200' }}
+    icon={<FiList />}
+  />,
+  <IconButton
+    key={0}
+    aria-label="Grid view"
+    size="sm"
+    variant="ghost"
+    _hover={{ bg: 'gray.200' }}
+    icon={<FiGrid />}
+  />,
+  <IconButton
+    key={0}
+    aria-label="Settings"
+    size="sm"
+    variant="ghost"
+    _hover={{ bg: 'gray.200' }}
+    icon={<FiSettings />}
+  />,
+  <IconButton
     key={0}
     aria-label="Add Invoice"
     size="sm"
-    variant="primary"
-    leftIcon={<FiPlus />}
-  >
-    Invoice
-  </Button>,
+    variant="ghost"
+    _hover={{ bg: 'gray.200' }}
+    icon={<FiPlus />}
+  />,
+  <IconButton
+    key={0}
+    aria-label="Menu"
+    size="sm"
+    variant="ghost"
+    _hover={{ bg: 'gray.200' }}
+    icon={<FiMoreVertical />}
+  />,
 ];
 
 const Template: Story<AppShellProps> = (args) => {
   const breadcrumb = [
     {
-      path: "/billing",
-      name: "Billing",
+      path: '/billing',
+      name: 'Billing',
     },
     {
-      path: "/billing/invoices",
-      name: "Invoices",
-    }
-  ]
+      path: '/billing/invoices',
+      name: 'Invoices',
+    },
+  ];
 
   return (
     <AppShell
@@ -213,10 +242,7 @@ const Template: Story<AppShellProps> = (args) => {
       boxShadow="2xl"
     >
       <Page>
-        <Page.Header
-          breadcrumb={breadcrumb}
-          actions={actions}
-        >
+        <Page.Header breadcrumb={breadcrumb} actions={actions}>
           Invoices
         </Page.Header>
       </Page>
