@@ -1,9 +1,10 @@
-import { Box, Container, Radio, RadioGroup, Stack } from '@chakra-ui/react';
+import { Box, Container, IconButton, Radio, RadioGroup, Stack } from '@chakra-ui/react';
 import { Story, Meta } from '@storybook/react';
 import Table, { TableProps } from './Table';
 import { faker } from '@faker-js/faker';
 import { useMemo } from 'react';
 import { test, times } from 'ramda';
+import { BiChevronDown, BiChevronRight } from 'react-icons/bi';
 
 export default {
   title: 'Components / Data Display / Table',
@@ -39,6 +40,29 @@ const Template: Story<Props> = (args) => {
 
   const columns = [
     {
+      id: 'expander',
+      Header: (col: any) => (
+        <IconButton
+          aria-label="Expand all rows"
+          icon={col.isAllRowsExpanded ? <BiChevronDown /> : <BiChevronRight />}
+          size="xs"
+          fontSize="18px"
+          variant="ghost"
+          {...col.getToggleAllRowsExpandedProps()}
+        />
+      ),
+      Cell: ({ row }: any) => (
+        <IconButton
+          aria-label="Expand all rows"
+          icon={row.isExpanded ? <BiChevronDown /> : <BiChevronRight />}
+          size="xs"
+          fontSize="18px"
+          variant="ghost"
+          {...row.getToggleRowExpandedProps()}
+        />
+      ),
+    },
+    {
       Header: 'Name',
       accessor: 'name',
       disableFilters: true,
@@ -63,7 +87,7 @@ const Template: Story<Props> = (args) => {
   ] as const;
 
   return (
-    <Box bgColor="white" px="6" pt="2" pb="4" rounded={5} boxShadow="base">
+    <Box bgColor="white" pb={4} pt={1} rounded={5} boxShadow="base">
       <Table {...args} data={data} columns={columns} />
     </Box>
   );

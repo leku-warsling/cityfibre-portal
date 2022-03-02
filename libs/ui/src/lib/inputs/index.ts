@@ -75,6 +75,7 @@ import {
   FormErrorIcon,
 } from '@chakra-ui/react';
 import PasswordInput from "./password-input"
+import SearchInput from './search-input';
 
 export {
   Input,
@@ -152,4 +153,5 @@ export {
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInputStepper,
+  SearchInput,
 }

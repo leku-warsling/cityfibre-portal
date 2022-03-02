@@ -13,8 +13,5 @@ export const parameters = {
       code: Code
     },
     container: ({ context, children }) => withDocsContainer(context, children)
-  },
-  backgrounds: {
-    default: "light"
   }
 }

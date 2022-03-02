@@ -23,10 +23,24 @@ import {
   ButtonGroup,
   Button,
   Select,
+  Checkbox,
 } from '@chakra-ui/react';
-import { assoc, map, pick, range, repeat, whereEq } from 'ramda';
-import { ReactNode, useMemo } from 'react';
-import { BiCaretDown, BiCaretUp, BiChevronLeft, BiChevronRight, BiFilterAlt } from 'react-icons/bi';
+import { pick, range, repeat, whereEq } from 'ramda';
+import {
+  forwardRef,
+  Fragment,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
+import {
+  BiCaretDown,
+  BiCaretUp,
+  BiChevronLeft,
+  BiChevronRight,
+  BiFilterAlt,
+} from 'react-icons/bi';
 import {
   useTable,
   Column,
@@ -45,7 +59,7 @@ import {
   UseFiltersColumnProps,
 } from 'react-table';
 
-type TableOwnProps = {
+type TableOwnProps<T extends object> = {
   isExpandable?: boolean;
   isSticky?: boolean;
   isLoading?: boolean;
@@ -54,17 +68,14 @@ type TableOwnProps = {
   isPaginated?: boolean;
   isSelectable?: boolean;
   footer?: (state: any) => ReactNode;
+  renderExpansion?: (data: any) => ReactNode;
 };
 
 type TableProps<T extends object> = _TableProps &
   TableOptions<T> &
   UseSortByOptions<T> &
-  TableOwnProps &
+  TableOwnProps<T> &
   Record<string, any>;
-
-// sortable
-// filterable
-// pagination
 
 type SortIndicatorProps<D extends object> = Pick<
   UseSortByColumnProps<D>,
@@ -106,8 +117,8 @@ const SortIndicator = <D extends object>(props: SortIndicatorProps<D>) => {
 };
 
 type ColumnFilter<D extends object> = UseFiltersColumnProps<D> & {
-  render: (type: string) => ReactNode 
-}
+  render: (type: string) => ReactNode;
+};
 
 const ColumnFilter = <D extends object>(props: ColumnFilter<D>) => {
   if (!props.canFilter) return null;
@@ -126,7 +137,7 @@ const ColumnFilter = <D extends object>(props: ColumnFilter<D>) => {
       <PopoverContent>
         <PopoverArrow />
         <PopoverCloseButton />
-        <PopoverBody p={4}>{props.render("Filter")}</PopoverBody>
+        <PopoverBody p={4}>{props.render('Filter')}</PopoverBody>
       </PopoverContent>
     </Popover>
   );
@@ -134,17 +145,30 @@ const ColumnFilter = <D extends object>(props: ColumnFilter<D>) => {
 
 const renderSkeletonCell = <T extends object>(column: Column<T>) => ({
   ...column,
-  Cell: <Skeleton height="20px" />
+  Cell: <Skeleton height="20px" />,
 });
+
+const RowSelectCheckbox = forwardRef<any, any>(
+  ({ indeterminate, checked, ...rest }, ref) => (
+    <Checkbox
+      size="lg"
+      ref={ref}
+      isChecked={checked}
+      isIndeterminate={indeterminate}
+      {...rest}
+    />
+  )
+);
 
 const Table = <T extends object>({
   size,
   colorScheme,
   variant,
   isLoading,
+  isSticky,
+  renderExpansion,
   ...props
 }: TableProps<T>) => {
-
   const tableData = useMemo(
     () => (isLoading ? repeat({}, 30) : props.data ?? []),
     [isLoading, props.data]
@@ -155,11 +179,10 @@ const Table = <T extends object>({
     [isLoading, props.columns]
   );
 
-  const { 
+  const {
     getTableProps,
     getTableBodyProps,
     prepareRow,
-    columns,
     page,
     canNextPage,
     canPreviousPage,
@@ -168,10 +191,9 @@ const Table = <T extends object>({
     setPageSize,
     gotoPage,
     pageCount,
-    state: {
-      pageIndex,
-      pageSize,
-    }
+    visibleColumns,
+    headerGroups,
+    state: { pageIndex, pageSize },
   } = useTable<T>(
     {
       columns: tableColumns,
@@ -179,62 +201,99 @@ const Table = <T extends object>({
     },
     useFilters,
     useSortBy,
+    useExpanded,
     usePagination,
+    useRowSelect,
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => [
+        {
+          id: 'selection',
+          Header: (col: any) => (
+            <RowSelectCheckbox {...col.getToggleAllRowsSelectedProps()} />
+          ),
+          Cell: ({ row }: any) => (
+            <RowSelectCheckbox {...row.getToggleRowSelectedProps()} />
+          ),
+        },
+        ...columns,
+      ]);
+    }
   );
-  
-  console.log(pageIndex)
+
   return (
     <>
       <_Table
         colorScheme={colorScheme}
-        size={size}
-        variant={variant}
-        mb="4"
         {...getTableProps()}
+        cellPadding={0}
+        cellSpacing={0}
+        variant={variant}
+        size={size}
+        mb="4"
       >
-        <Thead>
-          <Tr>
-            {columns.map((col) => (
-              <Th {...col.getHeaderProps()}>
-                <chakra.div display="flex" alignItems="center">
-                  <Stack
-                    w="100%"
-                    direction="row"
-                    {...col.getSortByToggleProps()}
-                    justifyContent="space-between"
-                  >
-                    <span>{col.render('Header')}</span>
-                    <SortIndicator {...getSortIndicatorProps(col)} />
-                  </Stack>
-                  <ColumnFilter {...getColumnFilterProps(col)} render={col.render}/>
-                </chakra.div>
-              </Th>
-            ))}
-          </Tr>
+        <Thead
+          position="sticky"
+          top="0"
+          bgColor="#fff"
+          zIndex={999}
+          boxShadow="0 4px 6px -3px rgba(0,0,0,.1), 0 2px 4px -4px rgba(0,0,0,.25)"
+        >
+          {headerGroups.map((headerGroup) => (
+            <Tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((col) => (
+                <Th {...col.getHeaderProps()}>
+                  <chakra.div display="flex" alignItems="center">
+                    <Stack
+                      w="100%"
+                      direction="row"
+                      {...col.getSortByToggleProps()}
+                      justifyContent="space-between"
+                    >
+                      <span>{col.render('Header')}</span>
+                      <SortIndicator {...getSortIndicatorProps(col)} />
+                    </Stack>
+                    <ColumnFilter
+                      {...getColumnFilterProps(col)}
+                      render={col.render}
+                    />
+                  </chakra.div>
+                </Th>
+              ))}
+            </Tr>
+          ))}
         </Thead>
         <Tbody {...getTableBodyProps()}>
           {page.map((row, i) => {
             prepareRow(row);
             return (
-              <Tr {...row.getRowProps()}>
-                {row.cells.map((cell) => (
-                  <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
-                ))}
-              </Tr>
+              <Fragment {...row.getRowProps()}>
+                <Tr>
+                  {row.cells.map((cell) => (
+                    <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
+                  ))}
+                </Tr>
+                {row.isExpanded && (
+                  <Tr>
+                    <Td colSpan={visibleColumns.length} bgColor="gray.100">
+                      {renderExpansion && renderExpansion(row)}
+                    </Td>
+                  </Tr>
+                )}
+              </Fragment>
             );
           })}
         </Tbody>
       </_Table>
-      <Stack direction="row" justifyContent="space-between">
+      <Stack direction="row" justifyContent="space-between" px="4">
         <ButtonGroup variant="ghost" size="sm" spacing="1">
-          <IconButton 
+          <IconButton
             aria-label="previous"
             icon={<BiChevronLeft />}
-            onClick={() => previousPage()} 
+            onClick={() => previousPage()}
             disabled={!canPreviousPage}
           />
           {range(1, pageCount + 1).map((n, i) => (
-            <Button 
+            <Button
               key={i}
               isActive={i === pageIndex}
               onClick={() => gotoPage(i)}
@@ -243,8 +302,8 @@ const Table = <T extends object>({
             </Button>
           ))}
           <IconButton
-            aria-label="next" 
-            onClick={() => nextPage()} 
+            aria-label="next"
+            onClick={() => nextPage()}
             disabled={!canNextPage}
             icon={<BiChevronRight />}
           />
@@ -255,7 +314,7 @@ const Table = <T extends object>({
           maxW="150px"
           onChange={(e) => setPageSize(Number(e.target.value))}
         >
-          {[10, 20, 30, 40, 50].map(size => (
+          {[10, 20, 30, 40, 50].map((size) => (
             <option key={size} value={size}>
               Show {size}
             </option>
