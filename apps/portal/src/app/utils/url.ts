@@ -1,4 +1,4 @@
-const { NX_PUBLIC_URI = 'http://localhost4200' } = process.env;
+const { NX_PUBLIC_URI = 'http://localhost:4200' } = process.env;
 
 const redirect = (path: string, origin?: string) => {
   window.location.href = `${origin ?? window.location.origin}${path}`;
