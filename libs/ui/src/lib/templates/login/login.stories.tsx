@@ -24,7 +24,7 @@ const Template: Story<LoginProps> = (args) => (
     caption="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque porta pulvinar venenatis. Ut et metus libero. Nunc feugiat aliquam urna, et porttitor dui auctor et"
     onSubmit={(data) => console.log(data)}
     backdrop={loginBgImage}
-    height="100vh"
+    height="1080px"
     w="1680px"
     boxShadow="md"
   />
