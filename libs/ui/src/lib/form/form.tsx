@@ -1,11 +1,10 @@
-import { chakra } from '@chakra-ui/react';
+import { chakra, StyleProps } from '@chakra-ui/react';
 import {
   FormHTMLAttributes,
   ForwardedRef,
   forwardRef,
   PropsWithChildren,
   ReactElement,
-  ReactNode,
 } from 'react';
 import {
   FormProvider,
@@ -15,12 +14,15 @@ import {
   SubmitHandler,
 } from 'react-hook-form';
 
-export interface FormProps<T extends FieldValues>
-  extends Omit<FormHTMLAttributes<HTMLFormElement>, 'onSubmit'> {
+export type FormOwnProps<T extends FieldValues> = {
   config?: UseFormProps<T>;
   onSubmit: SubmitHandler<T>;
   children: ReactElement | ReactElement[];
-}
+};
+
+export type FormProps<T extends FieldValues> = FormOwnProps<T> &
+  Omit<FormHTMLAttributes<HTMLFormElement>, 'onSubmit'> &
+  StyleProps;
 
 function Form<T extends FieldValues>(
   props: PropsWithChildren<FormProps<T>>,
@@ -35,6 +37,10 @@ function Form<T extends FieldValues>(
       <chakra.form
         ref={ref}
         onSubmit={methods.handleSubmit(onSubmit)}
+        display="flex"
+        flexDirection="column"
+        alignItems="flex-start"
+        gap="6"
         {...rest}
       >
         {children}

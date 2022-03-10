@@ -17,8 +17,10 @@ import {
   Tr,
   TableRowProps
 } from '@chakra-ui/react';
+import Table from "./Table"
 
 export {
+  Table,
   SimpleTable,
   SimpleTableProps,
   Thead,

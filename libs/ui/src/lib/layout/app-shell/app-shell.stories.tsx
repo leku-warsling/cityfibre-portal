@@ -22,7 +22,7 @@ import {
 import { SearchInput } from '../../inputs';
 import AppShell, { AppShellProps } from './app-shell';
 import AppBar from '../appbar/AppBar';
-import { Sidebar } from '../sidebar';
+import Sidebar from '../sidebar';
 import Nav from '../../navigation/nav';
 import Page from '../page';
 import {

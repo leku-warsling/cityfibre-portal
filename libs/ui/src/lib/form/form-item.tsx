@@ -42,9 +42,13 @@ const FormItem: FC<FormItemProps> = ({
         })}
       </Stack>
       {(isValid && !!helpText) && <FormHelperText>{helpText}</FormHelperText>}
-      <FormErrorMessage>{errors[name].type}</FormErrorMessage>
+      <FormErrorMessage>{errors?.[name]?.type}</FormErrorMessage>
     </FormControl>
   );
 };
+
+FormItem.defaultProps = {
+  layout: "vertical"
+}
 
 export default FormItem;

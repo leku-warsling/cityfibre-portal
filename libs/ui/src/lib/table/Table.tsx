@@ -24,23 +24,41 @@ import {
   Button,
   Select,
   Checkbox,
+  Box,
+  Text,
+  HStack,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Spinner,
+  StyleProps,
 } from '@chakra-ui/react';
-import { pick, range, repeat, whereEq } from 'ramda';
 import {
-  forwardRef,
-  Fragment,
-  ReactNode,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react';
+  append,
+  omit,
+  partial,
+  pick,
+  pipe,
+  prepend,
+  range,
+  repeat,
+  whereEq,
+} from 'ramda';
+import { FC, forwardRef, Fragment, ReactNode, useEffect, useMemo } from 'react';
+import { IconType } from 'react-icons';
 import {
+  BiBox,
   BiCaretDown,
   BiCaretUp,
   BiChevronLeft,
   BiChevronRight,
   BiFilterAlt,
+  BiFlag,
+  BiTransferAlt,
+  BiTrash,
 } from 'react-icons/bi';
+import { FiMoreVertical } from 'react-icons/fi';
 import {
   useTable,
   Column,
@@ -58,15 +76,31 @@ import {
   UseSortByColumnProps,
   UseFiltersColumnProps,
 } from 'react-table';
+import { confirm, ConfirmProps } from '@ui';
+import { BeatLoader } from 'react-spinners';
+
+type Action = {
+  icon?: IconType;
+  label: ReactNode;
+  confirmConfig?: Omit<ConfirmProps, 'onConfirm'>;
+  handler: (data: any) => void;
+  isBatchable?: boolean;
+};
+
+export type Col = StyleProps & { span?: number };
 
 type TableOwnProps<T extends object> = {
+  onPaginate?: (value: { pageIndex: number; pageSize: number }) => void;
+  actions?: Action[];
   isExpandable?: boolean;
   isSticky?: boolean;
   isLoading?: boolean;
+  isFetching?: boolean;
   isSortable?: boolean;
   isFilterable?: boolean;
   isPaginated?: boolean;
   isSelectable?: boolean;
+  colgroup?: Col[];
   footer?: (state: any) => ReactNode;
   renderExpansion?: (data: any) => ReactNode;
 };
@@ -153,6 +187,7 @@ const RowSelectCheckbox = forwardRef<any, any>(
     <Checkbox
       size="lg"
       ref={ref}
+      colorScheme="brand"
       isChecked={checked}
       isIndeterminate={indeterminate}
       {...rest}
@@ -160,18 +195,81 @@ const RowSelectCheckbox = forwardRef<any, any>(
   )
 );
 
+const selectionColumn = {
+  id: 'selection',
+  Header: (col: any) => (
+    <RowSelectCheckbox {...col.getToggleAllRowsSelectedProps()} />
+  ),
+  Cell: ({ row }: any) => (
+    <RowSelectCheckbox {...row.getToggleRowSelectedProps()} />
+  ),
+};
+
+type MenuActionProps = Omit<Action, 'handler'> & {
+  onClick: () => void;
+};
+
+const MenuAction: FC<MenuActionProps> = ({
+  icon: Icon,
+  label,
+  confirmConfig,
+  onClick,
+  ...props
+}) => {
+  const _onClick = !confirmConfig
+    ? onClick
+    : () =>
+        confirm({
+          title: confirmConfig.title,
+          description: confirmConfig.description,
+          onConfirm: onClick,
+        });
+
+  return (
+    <MenuItem icon={Icon && <Icon fontSize="18px" />} onClick={_onClick}>
+      {label}
+    </MenuItem>
+  );
+};
+
+const createActionColumn = (actions: Action[]) => {
+  const OverflowMenu = ({ row }: any) => (
+    <Menu>
+      <MenuButton as={IconButton} icon={<FiMoreVertical />} variant="ghost" />
+      <MenuList>
+        {actions.map(({ handler, ...props }) => (
+          <MenuAction {...props} onClick={() => handler(row.original)} />
+        ))}
+      </MenuList>
+    </Menu>
+  );
+
+  return {
+    id: 'actions',
+    Header: 'Actions',
+    Cell: OverflowMenu,
+  };
+};
+
 const Table = <T extends object>({
-  size,
+  size = 'sm',
   colorScheme,
+  actions = [],
   variant,
   isLoading,
   isSticky,
+  onPaginate,
+  initialState,
+  isFetching,
+  manualPagination = false,
+  pageCount: count,
   renderExpansion,
+  colgroup,
   ...props
 }: TableProps<T>) => {
   const tableData = useMemo(
-    () => (isLoading ? repeat({}, 30) : props.data ?? []),
-    [isLoading, props.data]
+    () => (isLoading ? repeat({}, 10) : props.data ?? []),
+    [isLoading, props.data, initialState?.pageSize]
   ) as T[];
 
   const tableColumns = useMemo(
@@ -192,12 +290,16 @@ const Table = <T extends object>({
     gotoPage,
     pageCount,
     visibleColumns,
+    selectedFlatRows,
     headerGroups,
     state: { pageIndex, pageSize },
   } = useTable<T>(
     {
       columns: tableColumns,
       data: tableData,
+      initialState,
+      manualPagination,
+      pageCount: count,
     },
     useFilters,
     useSortBy,
@@ -205,23 +307,22 @@ const Table = <T extends object>({
     usePagination,
     useRowSelect,
     (hooks) => {
-      hooks.visibleColumns.push((columns) => [
-        {
-          id: 'selection',
-          Header: (col: any) => (
-            <RowSelectCheckbox {...col.getToggleAllRowsSelectedProps()} />
-          ),
-          Cell: ({ row }: any) => (
-            <RowSelectCheckbox {...row.getToggleRowSelectedProps()} />
-          ),
-        },
-        ...columns,
-      ]);
+      hooks.visibleColumns.push(
+        pipe(prepend<any>(selectionColumn), append(createActionColumn(actions)))
+      );
     }
   );
 
+  useEffect(() => {
+    onPaginate && onPaginate({ pageIndex, pageSize });
+  }, [pageIndex, pageSize]);
+
   return (
-    <>
+    <Box
+      {...omit(['data', 'columns'], props)}
+      opacity={isFetching ? 0.5 : 1}
+      position="relative"
+    >
       <_Table
         colorScheme={colorScheme}
         {...getTableProps()}
@@ -229,19 +330,23 @@ const Table = <T extends object>({
         cellSpacing={0}
         variant={variant}
         size={size}
-        mb="4"
       >
+        <colgroup>
+          {colgroup?.map((props) => (
+            <chakra.col {...props} />
+          ))}
+        </colgroup>
         <Thead
           position="sticky"
           top="0"
           bgColor="#fff"
-          zIndex={999}
-          boxShadow="0 4px 6px -3px rgba(0,0,0,.1), 0 2px 4px -4px rgba(0,0,0,.25)"
+          zIndex={10}
+          boxShadow="0 1px 3px -1.5px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06)"
         >
           {headerGroups.map((headerGroup) => (
             <Tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((col) => (
-                <Th {...col.getHeaderProps()}>
+                <Th {...col.getHeaderProps()} py={3}>
                   <chakra.div display="flex" alignItems="center">
                     <Stack
                       w="100%"
@@ -267,14 +372,21 @@ const Table = <T extends object>({
             prepareRow(row);
             return (
               <Fragment {...row.getRowProps()}>
-                <Tr>
+                <Tr _hover={{ bg: 'gray.100' }}>
                   {row.cells.map((cell) => (
                     <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
                   ))}
                 </Tr>
                 {row.isExpanded && (
                   <Tr>
-                    <Td colSpan={visibleColumns.length} bgColor="gray.100">
+                    <Td
+                      colSpan={visibleColumns.length}
+                      bgColor="gray.100"
+                      maxW="70vw"
+                      overflow="hidden"
+                      boxShadow="inner"
+                      p="6"
+                    >
                       {renderExpansion && renderExpansion(row)}
                     </Td>
                   </Tr>
@@ -284,30 +396,75 @@ const Table = <T extends object>({
           })}
         </Tbody>
       </_Table>
-      <Stack direction="row" justifyContent="space-between" px="4">
-        <ButtonGroup variant="ghost" size="sm" spacing="1">
-          <IconButton
-            aria-label="previous"
-            icon={<BiChevronLeft />}
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-          />
-          {range(1, pageCount + 1).map((n, i) => (
-            <Button
-              key={i}
-              isActive={i === pageIndex}
-              onClick={() => gotoPage(i)}
-            >
-              {n}
-            </Button>
-          ))}
-          <IconButton
-            aria-label="next"
-            onClick={() => nextPage()}
-            disabled={!canNextPage}
-            icon={<BiChevronRight />}
-          />
+      <HStack
+        hidden={selectedFlatRows.length < 1}
+        px="6"
+        position="sticky"
+        bottom="0"
+        bgColor="#0361FF"
+        color="white"
+        py={4}
+        zIndex={10}
+      >
+        <Text as="strong" flexGrow={1}>
+          {selectedFlatRows.length} Items Selected
+        </Text>
+        <ButtonGroup ml="auto">
+          {actions
+            .filter((a) => a.isBatchable)
+            .map(({ icon: Icon, ...action }) => (
+              <Button
+                variant="outline"
+                size="sm"
+                leftIcon={Icon && <Icon />}
+                onClick={action.handler}
+                _hover={{ bg: 'white', color: '#0361FF' }}
+              >
+                {action.label}
+              </Button>
+            ))}
         </ButtonGroup>
+      </HStack>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        boxShadow="0 -1px 3px -1.5px rgba(0, 0, 0, 0.1), 0 -1px 2px -1px rgba(0, 0, 0, 0.06)"
+        px="4"
+        position="sticky"
+        bottom="0"
+        bgColor="#fff"
+        py={3}
+        zIndex={10}
+      >
+        {isLoading ? (
+          <chakra.div mt={2} ml={2}>
+            <BeatLoader />
+          </chakra.div>
+        ) : (
+          <ButtonGroup variant="ghost" size="sm" spacing="1">
+            <IconButton
+              aria-label="previous"
+              icon={<BiChevronLeft />}
+              onClick={() => previousPage()}
+              disabled={!canPreviousPage}
+            />
+            {range(1, pageCount + 1).map((n, i) => (
+              <Button
+                key={i}
+                isActive={i === pageIndex}
+                onClick={() => gotoPage(i)}
+              >
+                {n}
+              </Button>
+            ))}
+            <IconButton
+              aria-label="next"
+              onClick={() => nextPage()}
+              disabled={!canNextPage}
+              icon={<BiChevronRight />}
+            />
+          </ButtonGroup>
+        )}
         <Select
           value={pageSize}
           size="sm"
@@ -321,7 +478,24 @@ const Table = <T extends object>({
           ))}
         </Select>
       </Stack>
-    </>
+      {!isLoading && isFetching && (
+        <chakra.div
+          top="50%"
+          left="50%"
+          transform="translate(-50%, -50%)"
+          position="absolute"
+          zIndex="10"
+        >
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
+        </chakra.div>
+      )}
+    </Box>
   );
 };
 
