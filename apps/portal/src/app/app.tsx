@@ -1,14 +1,17 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { theme } from '@ui';
+import { lazy } from "@loadable/component";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Global, css } from '@emotion/core';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import MigrationErrorsPage from './pages/migration';
-import LoginPage from './pages/auth/login.page';
-import MainLayout from './layouts/MainLayout';
+import MainLayout from './layouts/main.layout';
 import { AuthProvider } from './providers/auth.provider';
 import RequireAuth from './components/route/require-auth';
 import { AnimatePresence } from 'framer-motion';
+import { Suspense } from 'react';
+
+const LoginPage = lazy(() => import('./pages/auth/login.page'))
+const MigrationErrorsPage = lazy(() => import('./pages/migration'))
 
 const GlobalStyles = css`
   *:focus {
@@ -36,14 +39,11 @@ export function App() {
             <Global styles={GlobalStyles} />
             <AnimatePresence>
               <Routes>
-                <Route path="/login" element={<LoginPage />}/>
-                <Route path="/" element={<MainLayout />}>
-                  <Route index element={
-                    <RequireAuth>
-                      <MigrationErrorsPage />
-                    </RequireAuth>
-                  }/>
-                </Route>
+                <Route path="/" element={
+                  <Suspense fallback="loading...">
+                    <MigrationErrorsPage />
+                  </Suspense>
+                }/>
               </Routes>
             </AnimatePresence>
           </AuthProvider>

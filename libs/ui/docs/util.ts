@@ -1,5 +1,6 @@
 import { flow } from "fp-ts/lib/function"
-import { prop, sortBy } from "ramda"
+import sortBy from "ramda/es/sortBy"
+import prop from "ramda/es/prop"
 
 const remToPx = (rem: string) => `${parseFloat(rem) * 16}px`
 const withPixelRef = (rem: string) => `${rem} (${remToPx(rem)})`

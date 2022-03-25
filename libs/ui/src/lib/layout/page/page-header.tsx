@@ -6,7 +6,8 @@ import {
   HStack,
   IconButton,
 } from '@chakra-ui/react';
-import { head, pipe } from 'ramda';
+import pipe from 'ramda/es/pipe';
+import head from 'ramda/es/head';
 import { propNotEq } from 'ramda-adjunct';
 import { FC, ReactElement, ReactNode } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
@@ -27,6 +28,7 @@ const PageHeader: FC<PageHeaderProps> = ({
   onBack,
   children,
   actions,
+  fontSize,
   breadcrumb,
   ...props
 }) => {
@@ -48,7 +50,7 @@ const PageHeader: FC<PageHeaderProps> = ({
           ))}
         </Breadcrumb>
       )}
-      <HStack mb={2} spacing={1}>
+      <HStack mb={1} spacing={1} fontSize={fontSize}>
         {!!onBack && (
           <IconButton
             aria-label="Return to previous page"
@@ -58,10 +60,9 @@ const PageHeader: FC<PageHeaderProps> = ({
             rounded="full"
             _hover={{ bg: 'gray.200' }}
             ml={-2.5}
-            mb={-1}
           />
         )}
-        <Heading fontSize="20px" flexGrow={1}>
+        <Heading fontSize={fontSize} fontWeight={600} flexGrow={1} mb={2}>
           {children}
         </Heading>
         <ButtonGroup ml="auto" spacing={.5}>{actions}</ButtonGroup>
@@ -71,6 +72,7 @@ const PageHeader: FC<PageHeaderProps> = ({
 };
 
 PageHeader.defaultProps = {
+  fontSize: ["md", "lg", "xl"],
   borderBottom: '1px solid',
   borderColor: 'gray.300',
 };

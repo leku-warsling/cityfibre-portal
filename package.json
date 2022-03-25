@@ -2,6 +2,7 @@
   "name": "cityfibre-portal-client",
   "version": "0.0.0",
   "license": "MIT",
+  "sideEffects": false,
   "scripts": {
     "start": "nx serve",
     "build": "nx build --stats-json",
@@ -15,6 +16,8 @@
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@fontsource/manrope": "^4.5.4",
+    "@loadable/component": "^5.15.2",
+    "@types/loadable__component": "^5.13.4",
     "@types/lodash-es": "^4.17.6",
     "@types/ramda": "^0.27.64",
     "axios": "^0.26.0",

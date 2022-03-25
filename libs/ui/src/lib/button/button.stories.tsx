@@ -16,7 +16,7 @@ import {
   IconButton,
   ButtonProps,
 } from '@chakra-ui/react';
-import { BeatLoader } from 'react-spinners';
+import BeatLoader from 'react-spinners/BeatLoader';
 
 export default {
   title: 'Components / Forms / Button',

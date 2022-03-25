@@ -1,1 +1,1 @@
-export { default as default } from './Nav';
+export { default as default, NavProps } from './nav';

@@ -1,72 +1,72 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactElement } from 'react';
 import {
   chakra,
-  useStyleConfig,
   HTMLChakraProps,
   Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
+  useMultiStyleConfig,
+  StylesProvider,
+  useMediaQuery,
 } from '@chakra-ui/react';
-import { equals } from 'ramda';
+import SidebarSection from './sidebar-section';
+import { SidebarProvider } from './sidebar.context';
 
 export type SidebarProps = HTMLChakraProps<'aside'> & {
-  header?: ReactNode;
-  variant?: 'slim' | 'overlay' | 'static';
   colorScheme?: string;
   onClose: () => void;
   isOpen: boolean;
-  footer?: ReactNode;
 };
 
-const isOverlay = equals<any>('overlay');
+export type SidebarComponent = FC<SidebarProps> & {
+  Section: typeof SidebarSection;
+};
 
-const Sidebar: FC<SidebarProps> = ({
-  header,
-  variant,
+const Sidebar: SidebarComponent = ({
   onClose,
   isOpen,
-  footer,
   colorScheme,
   children,
   ...props
 }) => {
-  const styles = useStyleConfig('Sidebar', { variant });
+  const [isMobile] = useMediaQuery('(max-width: 1024px)');
+  const variant = isMobile || isOpen ? 'static' : 'slim';
+  const styles = useMultiStyleConfig('Sidebar', { variant });
+  const context = {
+    isCollapsed: variant === 'slim',
+  };
 
-  if (isOverlay(variant)) {
+  const content = (
+    <chakra.aside __css={styles['root']} {...props}>
+      <SidebarProvider value={context}>
+        <StylesProvider value={styles}>{children}</StylesProvider>
+      </SidebarProvider>
+    </chakra.aside>
+  );
+
+  if (isMobile) {
     return (
-      <Drawer isOpen={isOpen} onClose={onClose}>
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>{header}</DrawerHeader>
-          <DrawerBody>{children}</DrawerBody>
-          <DrawerFooter></DrawerFooter>
+      <Drawer
+        isOpen={isOpen}
+        onClose={onClose}
+        placement="left"
+      >
+        <DrawerContent maxW={["285px", "320px"]}>
+          <DrawerCloseButton
+            _hover={{ bg: 'whiteAlpha.100' }}
+            color="white"
+            top={2}
+            right={2}
+          />
+          {content}
         </DrawerContent>
       </Drawer>
     );
   }
 
-  return (
-    <chakra.aside __css={styles} {...props}>
-      <chakra.div p={8}>
-        {header}
-      </chakra.div>
-      <chakra.div flexGrow={1} width="100%" px={6} py={8}>
-        {children}
-      </chakra.div>
-      <chakra.div p={8} w="100%">
-        {footer}
-      </chakra.div>
-    </chakra.aside>
-  );
+  return content;
 };
 
-Sidebar.defaultProps = {
-  height: '100vh',
-  width: "360px",
-};
+Sidebar.Section = SidebarSection;
 
 export default Sidebar;

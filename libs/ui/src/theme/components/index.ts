@@ -1,5 +1,5 @@
 export { StepsStyleConfig as Steps } from 'chakra-ui-steps'
-export * from "./Inputs" 
-export { default as Nav } from "./Nav" 
-export { default as Sidebar } from "./Sidebar" 
-export { default as Button } from "./Button" 
+export * from "./inputs.theme" 
+export { default as Nav } from "./nav.theme" 
+export { default as Sidebar } from "./sidebar.theme" 
+export { default as Button } from "./button.theme" 

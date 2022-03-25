@@ -1,13 +1,8 @@
 import { Page, Table } from '@ui';
 import useMigrationErrors from '../../hooks/useMigrationErrors';
-import {
-  pageActions,
-  tableActions,
-  columns,
-  renderJSONBody,
-  colgroups,
-} from './util';
-import { mergeLeft } from 'ramda';
+import { tableActions, columns, renderJSONBody, colgroups } from './util';
+import mergeLeft from 'ramda/es/mergeLeft';
+import prop from 'ramda/es/prop';
 import { AxiosResponse } from 'axios';
 import { MigrationError } from '../../entities/MigrationErrors';
 import { useMemo, useState } from 'react';
@@ -18,8 +13,8 @@ import { useToast } from '@chakra-ui/react';
 const initialState = {
   _page: 0,
   _limit: 10,
-  _sort: "topic_name",
-  _order: "asc",
+  _sort: 'topic_name',
+  _order: 'asc',
 };
 
 const dataSpec = ({
@@ -38,7 +33,7 @@ const MigrationErrorsPage = () => {
   const cache = useQueryClient();
   const toast = useToast();
   const [params, setParams] = useState(initialState);
-  
+
   const removeMigration = useMutation(migration.remove, {
     onError: (err, _, context) => {
       toast({
@@ -78,7 +73,12 @@ const MigrationErrorsPage = () => {
       cache.invalidateQueries('migrations');
     },
   });
+
   const query = useMigrationErrors(params, dataSpec);
+
+  const isFetching =
+    query.isFetching ||
+    [removeMigration, updateMigration].some(prop('isLoading'));
 
   const pageCount = useMemo(() => {
     return query.isSuccess
@@ -88,28 +88,42 @@ const MigrationErrorsPage = () => {
 
   return (
     <Page maxH="93vh" overflowY="auto">
-      <Page.Header onBack={() => null} actions={pageActions} mb={8}>
-        Migration Errors
-      </Page.Header>
+      <Page.Header mb={[6, 6, 8]}>Migration Errors</Page.Header>
       <Table
         data={query.data?.rows ?? []}
         columns={columns}
         isLoading={query.isLoading}
-        isFetching={query.isFetching}
+        isFetching={isFetching}
         renderExpansion={renderJSONBody}
         actions={tableActions({
-          remove: removeMigration,
-          update: updateMigration,
+          remove: removeMigration.mutate,
+          update: updateMigration.mutate,
         })}
         initialState={{
           pageIndex: params._page,
           pageSize: params._limit,
+          sortBy: [{
+            id: "topic_name",
+            desc: false
+          }],
         }}
         manualPagination={true}
-        onPaginate={({ pageIndex, pageSize }) => setParams(mergeLeft({
-          _page: pageIndex,
-          _limit: pageSize,
-        }))}
+        onPaginate={({ pageIndex, pageSize }) =>
+          setParams(
+            mergeLeft({
+              _page: pageIndex,
+              _limit: pageSize,
+            })
+          )
+        }
+        onSort={({ id, desc }) =>
+          setParams(
+            mergeLeft({
+              _sort: id ?? "topic_name",
+              _order: desc ? "desc" : "asc",
+            })
+          )
+        }
         pageCount={pageCount}
         colgroup={colgroups}
         bgColor="white"

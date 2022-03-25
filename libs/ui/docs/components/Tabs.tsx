@@ -6,7 +6,7 @@ import {
   TabPanels,
   TabsProps as _TabsProps,
 } from '@chakra-ui/react';
-import { omit } from 'ramda';
+import omit from 'ramda/es/omit';
 import { FC, ReactElement } from 'react';
 
 type TabsProps = _TabsProps & {

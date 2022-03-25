@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react';
 import { Container } from '@chakra-ui/react';
-import Login, { LoginProps } from './login';
+import Login, { LoginProps } from './login.template';
 import loginBgImage from '../../../assets/img/login-bg.jpg';
 import { ReactComponent as Logo } from '../../../assets/svg/logo.svg';
 
@@ -21,7 +21,7 @@ const Template: Story<LoginProps> = (args) => (
   <Login 
     brand={<Logo height="40" fill="#009F4D" />}
     title="Operate Portal"
-    caption="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque porta pulvinar venenatis. Ut et metus libero. Nunc feugiat aliquam urna, et porttitor dui auctor et"
+    greeting="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque porta pulvinar venenatis. Ut et metus libero. Nunc feugiat aliquam urna, et porttitor dui auctor et"
     onSubmit={(data) => console.log(data)}
     backdrop={loginBgImage}
     height="1080px"

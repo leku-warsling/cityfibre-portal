@@ -18,6 +18,7 @@ import {
   Divider,
   Badge,
   Button,
+  Flex,
 } from '@chakra-ui/react';
 import { SearchInput } from '../../inputs';
 import AppShell, { AppShellProps } from './app-shell';
@@ -94,53 +95,50 @@ const ExampleAppBar = () => (
 );
 
 const ExampleSidebar = () => {
-  const header = (
-    <HStack spacing={3}>
-      <Box bgColor="brand.500" rounded={5} p={2}>
-        <PartnersIcon
-          height="20"
-          style={{
-            filter: 'drop-shadow(0px 5px 2px rgb(0 0 0 / 0.1)',
-          }}
-        />
-      </Box>
-      <Text fontSize="20px" fontWeight={600}>
-        Partner Suite
-      </Text>
-    </HStack>
+  const brand = (
+    <Box bgColor="brand.500" rounded={5} p={3}>
+      <PartnersIcon
+        height="20"
+        style={{
+          filter: 'drop-shadow(0px 5px 2px rgb(0 0 0 / 0.1)',
+        }}
+      />
+    </Box>
   );
 
   const footer = (
-    <VStack w="100%" color="#718589">
-      <Text fontWeight={600}>Powered by</Text>
-      <Logo height="32" />
-    </VStack>
+    <Sidebar.Section fontWeight="semibold" color="#718589" gap={1} mt="auto">
+      {({ isCollapsed }) => (
+        <Flex
+          hidden={isCollapsed}
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          mt="auto"
+          alignSelf="flex-end"
+        >
+          <Text fontWeight={600}>Powered by</Text>
+          <Logo height="32" />
+        </Flex>
+      )}
+    </Sidebar.Section>
   );
-
-  return (
-    <Sidebar
-      isOpen
-      onClose={() => null}
-      header={header}
-      footer={footer}
-      height="1080px"
-      overflowY="auto"
-    >
+  
+  const content = (
+    <Sidebar.Section flexGrow={1}>
       <Nav>
         <Nav.Item icon={FiInbox}>
-          <HStack alignItems="center" justifyContent="space-between" w="100%">
-            <span>Inbox</span>
-            <Badge
-              variant="solid"
-              colorScheme="brand"
-              fontSize="14px"
-              px="10px"
-              py="4px"
-              rounded="full"
-            >
-              3
-            </Badge>
-          </HStack>
+          <span>Inbox</span>
+          <Badge
+            variant="solid"
+            colorScheme="brand"
+            fontSize="14px"
+            px="10px"
+            py="4px"
+            rounded="full"
+          >
+            3
+          </Badge>
         </Nav.Item>
         <Divider borderColor="#718589" my="1" />
         <Nav.Item icon={RiDashboard3Line}>Dashboard</Nav.Item>
@@ -168,6 +166,26 @@ const ExampleSidebar = () => {
         <Nav.Item icon={FiSettings}>Settings</Nav.Item>
         <Nav.Item icon={FiHelpCircle}>Help & Support</Nav.Item>
       </Nav>
+    </Sidebar.Section>
+  )
+
+  return (
+    <Sidebar
+      isOpen
+      onClose={() => null}
+      height="900px"
+      overflowY="auto"
+    >    
+      <Sidebar.Section fontSize="xl" fontWeight="semibold" pt={6}>
+        {({ isCollapsed }) => (
+          <Flex alignItems="center" gap={isCollapsed ? 0 : 3}>
+            {brand}
+            <Text hidden={isCollapsed}>Partner Suite</Text>
+          </Flex>
+        )}
+      </Sidebar.Section>
+      {content}
+      {footer}
     </Sidebar>
   );
 };
@@ -181,30 +199,30 @@ const actions = [
     _hover={{ bg: 'gray.200' }}
     icon={<FiDownload />}
   />,
-  <IconButton
-    key={0}
-    aria-label="List view"
-    size="sm"
-    variant="ghost"
-    _hover={{ bg: 'gray.200' }}
-    icon={<FiList />}
-  />,
-  <IconButton
-    key={0}
-    aria-label="Grid view"
-    size="sm"
-    variant="ghost"
-    _hover={{ bg: 'gray.200' }}
-    icon={<FiGrid />}
-  />,
-  <IconButton
-    key={0}
-    aria-label="Settings"
-    size="sm"
-    variant="ghost"
-    _hover={{ bg: 'gray.200' }}
-    icon={<FiSettings />}
-  />,
+  // <IconButton
+  //   key={0}
+  //   aria-label="List view"
+  //   size="sm"
+  //   variant="ghost"
+  //   _hover={{ bg: 'gray.200' }}
+  //   icon={<FiList />}
+  // />,
+  // <IconButton
+  //   key={0}
+  //   aria-label="Grid view"
+  //   size="sm"
+  //   variant="ghost"
+  //   _hover={{ bg: 'gray.200' }}
+  //   icon={<FiGrid />}
+  // />,
+  // <IconButton
+  //   key={0}
+  //   aria-label="Settings"
+  //   size="sm"
+  //   variant="ghost"
+  //   _hover={{ bg: 'gray.200' }}
+  //   icon={<FiSettings />}
+  // />,
   <IconButton
     key={0}
     aria-label="Add Invoice"
@@ -237,6 +255,7 @@ const Template: Story<AppShellProps> = (args) => {
 
   return (
     <AppShell
+      {...args}
       header={<ExampleAppBar />}
       sidebar={<ExampleSidebar />}
       boxShadow="2xl"
@@ -251,4 +270,7 @@ const Template: Story<AppShellProps> = (args) => {
 };
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  h: "900px",
+  maxW: "1200px",
+};

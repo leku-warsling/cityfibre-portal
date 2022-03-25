@@ -1,6 +1,13 @@
-import { Box, Container, IconButton, Radio, RadioGroup, Stack } from '@chakra-ui/react';
+import {
+  Box,
+  Container,
+  IconButton,
+  Radio,
+  RadioGroup,
+  Stack,
+} from '@chakra-ui/react';
 import { Story, Meta } from '@storybook/react';
-import Table, { TableProps } from './Table';
+import Table, { TableProps } from './table';
 import { faker } from '@faker-js/faker';
 import { useMemo } from 'react';
 import { test, times } from 'ramda';
@@ -87,9 +94,16 @@ const Template: Story<Props> = (args) => {
   ] as const;
 
   return (
-    <Box bgColor="white" pb={4} pt={1} rounded={5} boxShadow="base">
-      <Table {...args} data={data} columns={columns} />
-    </Box>
+    <Table
+      {...args}
+      data={data}
+      columns={columns}
+      bgColor="white"
+      rounded={5}
+      boxShadow="base"
+      maxH="80vh"
+      overflowY="auto"
+    />
   );
 };
 
@@ -98,22 +112,19 @@ const isEmailAddress = test(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
 const EmailProviderFilter = ({ column }: any) => {
   const { filterValue, setFilter, preFilteredRows, id } = column;
   const options = useMemo(() => {
-    const providers = new Set()
+    const providers = new Set();
 
     for (const { values } of preFilteredRows) {
-      if (!isEmailAddress(values[id])) continue
-      const provider = values[id].split('@')[1].split(".")[0]
+      if (!isEmailAddress(values[id])) continue;
+      const provider = values[id].split('@')[1].split('.')[0];
       providers.add(provider);
     }
 
     return Array.from(providers);
-  }, [id, preFilteredRows]) as string[]
+  }, [id, preFilteredRows]) as string[];
 
   return (
-    <RadioGroup 
-      value={filterValue}
-      onChange={setFilter}
-    >
+    <RadioGroup value={filterValue} onChange={setFilter}>
       <Stack spacing={2} direction="column" textTransform="capitalize">
         <Radio value="">All</Radio>
         {options.map((option, i) => (

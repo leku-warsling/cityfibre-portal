@@ -1,7 +1,9 @@
 import { Box, Wrap, WrapItem, Select } from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FC, ReactNode, useMemo, useState } from 'react';
-import { includes, pipe, prop, uniq } from 'ramda';
+import prop from 'ramda/es/prop';
+import uniq from 'ramda/es/uniq';
+import includes from 'ramda/es/includes';
 import { get } from 'lodash-es';
 
 type Item = Record<string, any>;

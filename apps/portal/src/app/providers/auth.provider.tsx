@@ -5,7 +5,10 @@ import { auth, AuthCredentials } from '../api';
 import store from 'store';
 import { FC, Dispatch, SetStateAction } from 'react';
 import { useToast } from '@chakra-ui/react';
-import { otherwise, andThen as then, pipe, tap } from 'ramda';
+import otherwise from 'ramda/es/otherwise';
+import tap from 'ramda/es/tap';
+import pipe from 'ramda/es/pipe';
+import then from 'ramda/es/andThen';
 import { useContext } from 'react';
 
 export type AuthContextProps = {

@@ -1,4 +1,5 @@
 import { ComponentStyleConfig } from "@chakra-ui/theme"
+import { is } from "ramda"
 
 const Nav: ComponentStyleConfig = {
   parts: ['nav', 'item', 'subnav'],
@@ -6,7 +7,7 @@ const Nav: ComponentStyleConfig = {
     colorScheme,
     colorMode,
     orientation,
-    theme,
+    isCollapsed,
   }) => {
     return {
       nav: {
@@ -17,11 +18,15 @@ const Nav: ComponentStyleConfig = {
       item: {
         display: "flex",
         alignItems: "center",
-        width: "100%",
-        gap: 2,
-        fontWeight: 'medium',
+        justifyContent: isCollapsed ? "center" : "flex-start",
+        width: isCollapsed ? "fit-content" : "100%",
+        gap: isCollapsed ? 0 : 2,
         lineHeight: 'normal',
         color: 'white',
+        fontSize: '1rem',
+        fontWeight: 600,
+        px: isCollapsed ? 2.5 : 4,
+        py: 3,
         rounded: 5,
         _active: {
           bg: colorMode === "dark" ? `${colorScheme}.200` : `${colorScheme}.500`,
@@ -33,28 +38,7 @@ const Nav: ComponentStyleConfig = {
       },
     }
   },
-  sizes: {
-    sm: {
-      item: {
-        fontSize: '0.75rem',
-        px: 2,
-        py: 1,
-      },
-    },
-    md: {
-      item: {
-        fontSize: '1rem',
-        fontWeight: 600,
-        px: 4,
-        py: 3,
-      },
-    },
-  },
-  variants: {
-    
-  },
   defaultProps: {
-    size: 'md',
     orientation: "vertical",
     colorScheme: "brand",
   },

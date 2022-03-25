@@ -14,7 +14,7 @@ type AppBarComponent = FC<AppBarProps> & {
 }
 
 const AppBar: AppBarComponent = ({ children, ...props }) => (
-  <Flex {...props}>
+  <Flex as="header" gap={4} {...props}>
     {children}
   </Flex>
 )

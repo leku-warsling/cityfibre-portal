@@ -29,8 +29,9 @@ import { AiFillFilePdf, AiFillFileExcel, AiFillFile } from 'react-icons/ai';
 import { formatDateString } from "../../utils/date"
 import Code from '../../components/code';
 import { flow } from 'fp-ts/lib/function';
-import { prop } from 'ramda';
+import prop from 'ramda/es/prop';
 import PopoverText from '../../components/popover-text';
+import { intersperse } from 'ramda';
 
 
 const BooleanCell = (props: any) => {
@@ -67,7 +68,7 @@ const columns = [
     Header: 'Message',
     Cell: ({ value }: any) => (
       <PopoverText maxW="100px">
-        {value}
+        {value.replace(/\\'/g, "'")}
       </PopoverText>
     ),
     accessor: 'error_exception',
@@ -98,7 +99,7 @@ const tableActions = ({ update, remove }: any) => [
   {
     icon: BiFlag,
     label: 'Mark Resolved',
-    handler: (data: any) => update.mutate({ 
+    handler: (data: any) => update({ 
       ...data, 
       is_resolved: true 
     }),
@@ -107,7 +108,7 @@ const tableActions = ({ update, remove }: any) => [
   {
     icon: BiFlag,
     label: 'Mark Viewed',
-    handler: (data: any) => update.mutate({
+    handler: (data: any) => update({
        ...data, 
        is_checked: true 
     }),
@@ -126,7 +127,7 @@ const tableActions = ({ update, remove }: any) => [
       title: 'Delete Migration',
       description: "Are you sure? You can't undo this action afterwards",
     },
-    handler: ({ id }: any) => remove.mutate(id),
+    handler: ({ id }: any) => remove(id),
     isBatchable: true,
   },
 ];
@@ -165,43 +166,33 @@ const pageActions = [
       </MenuItem>
     </MenuList>
   </Menu>,
-  <Tooltip key={1} label="Display Table">
-    <IconButton
-      aria-label="Display Table"
-      size="sm"
-      variant="ghost"
-      _hover={{ bg: 'gray.200' }}
-      icon={<BiTable />}
-    />
-  </Tooltip>,
-  <Tooltip key={2} label="Display Grid">
-    <IconButton
-      aria-label="Display Grid"
-      size="sm"
-      variant="ghost"
-      _hover={{ bg: 'gray.200' }}
-      icon={<FiGrid />}
-    />
-  </Tooltip>,
-  <Tooltip key={3} label="Settings">
-    <IconButton
-      aria-label="Settings"
-      size="sm"
-      variant="ghost"
-      _hover={{ bg: 'gray.200' }}
-      icon={<FiSettings />}
-    />
-  </Tooltip>,
-  <Tooltip key={4} label="Add Migration">
-    <IconButton
-      key={0}
-      aria-label="Add Invoice"
-      size="sm"
-      variant="ghost"
-      _hover={{ bg: 'gray.200' }}
-      icon={<FiPlus />}
-    />
-  </Tooltip>,
+  // <Tooltip key={1} label="Display Table">
+  //   <IconButton
+  //     aria-label="Display Table"
+  //     size="sm"
+  //     variant="ghost"
+  //     _hover={{ bg: 'gray.200' }}
+  //     icon={<BiTable />}
+  //   />
+  // </Tooltip>,
+  // <Tooltip key={2} label="Display Grid">
+  //   <IconButton
+  //     aria-label="Display Grid"
+  //     size="sm"
+  //     variant="ghost"
+  //     _hover={{ bg: 'gray.200' }}
+  //     icon={<FiGrid />}
+  //   />
+  // </Tooltip>,
+  // <Tooltip key={3} label="Settings">
+  //   <IconButton
+  //     aria-label="Settings"
+  //     size="sm"
+  //     variant="ghost"
+  //     _hover={{ bg: 'gray.200' }}
+  //     icon={<FiSettings />}
+  //   />
+  // </Tooltip>,
   <IconButton
     key={5}
     aria-label="Menu"

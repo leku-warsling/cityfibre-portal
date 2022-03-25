@@ -7,11 +7,14 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from '@chakra-ui/react';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
-export type PopoverTextProps = Omit<TextProps, 'isTruncated'>;
+export type PopoverTextProps = Omit<TextProps, 'isTruncated'> & {
+  children: string
+  render?: (text: string) => ReactNode
+};
 
-const PopoverText: FC<PopoverTextProps> = ({ children, ...props }) => {
+const PopoverText: FC<PopoverTextProps> = ({ render, children, ...props }) => {
   return (
     <Popover trigger="hover">
       <PopoverTrigger>
@@ -22,7 +25,7 @@ const PopoverText: FC<PopoverTextProps> = ({ children, ...props }) => {
       <PopoverContent w="100%" maxW="380px">
         <PopoverArrow />
         <PopoverBody p="4">
-          <Text lineHeight="1.5">{children}</Text>
+          <Text lineHeight="1.5">{render ? render(children) : children}</Text>
         </PopoverBody>
       </PopoverContent>
     </Popover>

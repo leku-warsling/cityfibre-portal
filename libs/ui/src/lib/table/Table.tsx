@@ -34,50 +34,39 @@ import {
   Spinner,
   StyleProps,
 } from '@chakra-ui/react';
-import {
-  append,
-  omit,
-  partial,
-  pick,
-  pipe,
-  prepend,
-  range,
-  repeat,
-  whereEq,
-} from 'ramda';
+import append from 'ramda/es/append';
+import omit from 'ramda/es/omit';
+import pick from 'ramda/es/pick';
+import pipe from 'ramda/es/pipe';
+import prepend from 'ramda/es/prepend';
+import range from 'ramda/es/range';
+import repeat from 'ramda/es/repeat';
+import whereEq from 'ramda/es/whereEq';
 import { FC, forwardRef, Fragment, ReactNode, useEffect, useMemo } from 'react';
 import { IconType } from 'react-icons';
 import {
-  BiBox,
   BiCaretDown,
   BiCaretUp,
   BiChevronLeft,
   BiChevronRight,
   BiFilterAlt,
-  BiFlag,
-  BiTransferAlt,
-  BiTrash,
 } from 'react-icons/bi';
 import { FiMoreVertical } from 'react-icons/fi';
 import {
   useTable,
   Column,
   TableOptions,
-  Hooks,
-  useAsyncDebounce,
   useFilters,
   useExpanded,
   usePagination,
-  useResizeColumns,
   useRowSelect,
-  useGlobalFilter,
   useSortBy,
   UseSortByOptions,
   UseSortByColumnProps,
   UseFiltersColumnProps,
 } from 'react-table';
 import { confirm, ConfirmProps } from '@ui';
-import { BeatLoader } from 'react-spinners';
+import BeatLoader from 'react-spinners/BeatLoader';
 
 type Action = {
   icon?: IconType;
@@ -91,6 +80,7 @@ export type Col = StyleProps & { span?: number };
 
 type TableOwnProps<T extends object> = {
   onPaginate?: (value: { pageIndex: number; pageSize: number }) => void;
+  onSort?: (value: { id: string; desc?: boolean }) => void;
   actions?: Action[];
   isExpandable?: boolean;
   isSticky?: boolean;
@@ -237,8 +227,12 @@ const createActionColumn = (actions: Action[]) => {
     <Menu>
       <MenuButton as={IconButton} icon={<FiMoreVertical />} variant="ghost" />
       <MenuList>
-        {actions.map(({ handler, ...props }) => (
-          <MenuAction {...props} onClick={() => handler(row.original)} />
+        {actions.map(({ handler, ...props }, i) => (
+          <MenuAction
+            onClick={() => handler(row.original)}
+            key={`overflow-item-${i}`}
+            {...props}
+          />
         ))}
       </MenuList>
     </Menu>
@@ -259,6 +253,7 @@ const Table = <T extends object>({
   isLoading,
   isSticky,
   onPaginate,
+  onSort,
   initialState,
   isFetching,
   manualPagination = false,
@@ -292,13 +287,14 @@ const Table = <T extends object>({
     visibleColumns,
     selectedFlatRows,
     headerGroups,
-    state: { pageIndex, pageSize },
+    state: { pageIndex, pageSize, sortBy, columnOrder },
   } = useTable<T>(
     {
       columns: tableColumns,
       data: tableData,
       initialState,
       manualPagination,
+      manualSortBy: !!onSort,
       pageCount: count,
     },
     useFilters,
@@ -317,6 +313,13 @@ const Table = <T extends object>({
     onPaginate && onPaginate({ pageIndex, pageSize });
   }, [pageIndex, pageSize]);
 
+  console.log(sortBy)
+  console.log(columnOrder)
+
+  useEffect(() => {
+    (onSort && sortBy[0]) && onSort(sortBy[0]);
+  }, [sortBy]);
+
   return (
     <Box
       {...omit(['data', 'columns'], props)}
@@ -332,8 +335,8 @@ const Table = <T extends object>({
         size={size}
       >
         <colgroup>
-          {colgroup?.map((props) => (
-            <chakra.col {...props} />
+          {colgroup?.map((props, i) => (
+            <chakra.col key={`col-${i}`} {...props} />
           ))}
         </colgroup>
         <Thead
@@ -370,9 +373,10 @@ const Table = <T extends object>({
         <Tbody {...getTableBodyProps()}>
           {page.map((row, i) => {
             prepareRow(row);
+            const { key, ...props } = row.getRowProps();
             return (
-              <Fragment {...row.getRowProps()}>
-                <Tr _hover={{ bg: 'gray.100' }}>
+              <Fragment key={key}>
+                <Tr {...props} _hover={{ bg: 'gray.100' }}>
                   {row.cells.map((cell) => (
                     <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
                   ))}
@@ -414,6 +418,7 @@ const Table = <T extends object>({
             .filter((a) => a.isBatchable)
             .map(({ icon: Icon, ...action }) => (
               <Button
+                key={`action-${action.label}`}
                 variant="outline"
                 size="sm"
                 leftIcon={Icon && <Icon />}

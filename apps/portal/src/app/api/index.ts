@@ -2,7 +2,8 @@ import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { QueryFunctionContext } from 'react-query';
 import { MigrationError } from '../entities/MigrationErrors';
 import store from 'store';
-import { concat, identity, partial, pathEq } from 'ramda';
+import pathEq from 'ramda/es/pathEq';
+import identity from 'ramda/es/identity';
 import set from 'lodash-es/set';
 import { goto } from '../utils/url';
 

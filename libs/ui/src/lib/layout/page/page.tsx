@@ -37,9 +37,8 @@ const Page: PageComponent = ({ children, ...props }) => (
 );
 
 Page.defaultProps = {
-  as: "main",
-  px: 10,
-  py: 8,
+  px: [0, 2, 4, 8],
+  py: [4, 4, 6, 8],
 };
 
 Page.Header = PageHeader;
