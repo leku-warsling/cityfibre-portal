@@ -4,13 +4,9 @@ import { lazy } from "@loadable/component";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Global, css } from '@emotion/core';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import MainLayout from './layouts/main.layout';
-import { AuthProvider } from './providers/auth.provider';
-import RequireAuth from './components/route/require-auth';
 import { AnimatePresence } from 'framer-motion';
 import { Suspense } from 'react';
 
-const LoginPage = lazy(() => import('./pages/auth/login.page'))
 const MigrationErrorsPage = lazy(() => import('./pages/migration'))
 
 const GlobalStyles = css`
@@ -35,18 +31,16 @@ export function App() {
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <AuthProvider>
-            <Global styles={GlobalStyles} />
-            <AnimatePresence>
-              <Routes>
-                <Route path="/" element={
-                  <Suspense fallback="loading...">
-                    <MigrationErrorsPage />
-                  </Suspense>
-                }/>
-              </Routes>
-            </AnimatePresence>
-          </AuthProvider>
+          <Global styles={GlobalStyles} />
+          <AnimatePresence>
+            <Routes>
+              <Route path="/" element={
+                <Suspense fallback="loading...">
+                  <MigrationErrorsPage />
+                </Suspense>
+              }/>
+            </Routes>
+          </AnimatePresence>
         </BrowserRouter>
       </QueryClientProvider>
     </ChakraProvider>
