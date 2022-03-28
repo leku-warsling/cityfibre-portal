@@ -1,6 +1,8 @@
 {
   "version": 2,
   "projects": {
+    "cams-portal": "apps/cams-portal",
+    "cams-portal-e2e": "apps/cams-portal-e2e",
     "portal": "apps/portal",
     "portal-e2e": "apps/portal-e2e",
     "ui": "libs/ui"

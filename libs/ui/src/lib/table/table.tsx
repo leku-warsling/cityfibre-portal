@@ -67,6 +67,8 @@ import {
 } from 'react-table';
 import { confirm, ConfirmProps } from '@ui';
 import BeatLoader from 'react-spinners/BeatLoader';
+import { identity, prop } from 'ramda';
+import { isNilOrEmpty } from 'ramda-adjunct';
 
 type Action = {
   icon?: IconType;
@@ -105,6 +107,8 @@ type SortIndicatorProps<D extends object> = Pick<
   UseSortByColumnProps<D>,
   'canSort' | 'isSorted' | 'isSortedDesc'
 >;
+
+const hasBatchableActions = (a: Action[]) => a.filter(x => x.isBatchable).length > 0
 
 const getSortIndicatorProps = pick(['canSort', 'isSorted', 'isSortedDesc']);
 const getColumnFilterProps = pick([
@@ -303,8 +307,12 @@ const Table = <T extends object>({
     usePagination,
     useRowSelect,
     (hooks) => {
+      const hasActions = !isNilOrEmpty(actions)
       hooks.visibleColumns.push(
-        pipe(prepend<any>(selectionColumn), append(createActionColumn(actions)))
+        pipe(
+          (hasActions && hasBatchableActions(actions) ? prepend<any>(selectionColumn) : identity),
+          (hasActions ? append(createActionColumn(actions)) : identity),
+        )  
       );
     }
   );
@@ -312,9 +320,6 @@ const Table = <T extends object>({
   useEffect(() => {
     onPaginate && onPaginate({ pageIndex, pageSize });
   }, [pageIndex, pageSize]);
-
-  console.log(sortBy)
-  console.log(columnOrder)
 
   useEffect(() => {
     (onSort && sortBy[0]) && onSort(sortBy[0]);

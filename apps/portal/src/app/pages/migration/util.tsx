@@ -1,4 +1,4 @@
-import { IconButton, Text } from '@ui';
+import { IconButton } from '@ui';
 import {
   Box,
   Menu,
@@ -7,32 +7,22 @@ import {
   MenuItem,
   Tooltip,
 } from '@chakra-ui/react';
-import {
-  FiSettings,
-  FiPlus,
-  FiMoreVertical,
-  FiGrid,
-  FiDownload,
-} from 'react-icons/fi';
+import { FiMoreVertical, FiDownload } from 'react-icons/fi';
 import {
   BiChevronDown,
   BiChevronRight,
-  BiTable,
   BiSearch,
   BiCheckCircle,
   BiXCircle,
   BiFlag,
   BiTrash,
-  BiListCheck,
 } from 'react-icons/bi';
 import { AiFillFilePdf, AiFillFileExcel, AiFillFile } from 'react-icons/ai';
-import { formatDateString } from "../../utils/date"
+import { formatDateString } from '../../utils/date';
 import Code from '../../components/code';
 import { flow } from 'fp-ts/lib/function';
 import prop from 'ramda/es/prop';
 import PopoverText from '../../components/popover-text';
-import { intersperse } from 'ramda';
-
 
 const BooleanCell = (props: any) => {
   return props.value ? (
@@ -51,7 +41,7 @@ const ExpanderCell = ({ row }: any) => (
     variant="ghost"
     {...row.getToggleRowExpandedProps()}
   />
-)
+);
 
 const columns = [
   {
@@ -67,9 +57,7 @@ const columns = [
   {
     Header: 'Message',
     Cell: ({ value }: any) => (
-      <PopoverText maxW="100px">
-        {value.replace(/\\'/g, "'")}
-      </PopoverText>
+      <PopoverText maxW="100px">{value.replace(/\\'/g, "'")}</PopoverText>
     ),
     accessor: 'error_exception',
     disableFilters: true,
@@ -77,7 +65,7 @@ const columns = [
   },
   {
     Header: 'Date',
-    Cell: flow(prop<"value", string>("value"), formatDateString("dd/MM/yyyy")),
+    Cell: flow(prop<'value', string>('value'), formatDateString('dd/MM/yyyy')),
     accessor: 'error_timestamp',
     disableFilters: true,
   },
@@ -99,26 +87,22 @@ const tableActions = ({ update, remove }: any) => [
   {
     icon: BiFlag,
     label: 'Mark Resolved',
-    handler: (data: any) => update({ 
-      ...data, 
-      is_resolved: true 
-    }),
-    isBatchable: true,
+    handler: (data: any) =>
+      update({
+        ...data,
+        is_resolved: true,
+      }),
+    isBatchable: false,
   },
   {
     icon: BiFlag,
     label: 'Mark Viewed',
-    handler: (data: any) => update({
-       ...data, 
-       is_checked: true 
-    }),
-    isBatchable: true,
-  },
-  {
-    icon: BiListCheck,
-    label: 'Queue',
-    handler: (data: any) => console.log(data),
-    isBatchable: true,
+    handler: (data: any) =>
+      update({
+        ...data,
+        is_checked: true,
+      }),
+    isBatchable: false,
   },
   {
     icon: BiTrash,
@@ -128,7 +112,7 @@ const tableActions = ({ update, remove }: any) => [
       description: "Are you sure? You can't undo this action afterwards",
     },
     handler: ({ id }: any) => remove(id),
-    isBatchable: true,
+    isBatchable: false,
   },
 ];
 
@@ -155,44 +139,11 @@ const pageActions = [
       />
     </Tooltip>
     <MenuList zIndex={100}>
-      <MenuItem icon={<AiFillFile />}>
-        JSON
-      </MenuItem>
-      <MenuItem icon={<AiFillFileExcel />}>
-        CSV
-      </MenuItem>
-      <MenuItem icon={<AiFillFilePdf />}>
-        PDF
-      </MenuItem>
+      <MenuItem icon={<AiFillFile />}>JSON</MenuItem>
+      <MenuItem icon={<AiFillFileExcel />}>CSV</MenuItem>
+      <MenuItem icon={<AiFillFilePdf />}>PDF</MenuItem>
     </MenuList>
   </Menu>,
-  // <Tooltip key={1} label="Display Table">
-  //   <IconButton
-  //     aria-label="Display Table"
-  //     size="sm"
-  //     variant="ghost"
-  //     _hover={{ bg: 'gray.200' }}
-  //     icon={<BiTable />}
-  //   />
-  // </Tooltip>,
-  // <Tooltip key={2} label="Display Grid">
-  //   <IconButton
-  //     aria-label="Display Grid"
-  //     size="sm"
-  //     variant="ghost"
-  //     _hover={{ bg: 'gray.200' }}
-  //     icon={<FiGrid />}
-  //   />
-  // </Tooltip>,
-  // <Tooltip key={3} label="Settings">
-  //   <IconButton
-  //     aria-label="Settings"
-  //     size="sm"
-  //     variant="ghost"
-  //     _hover={{ bg: 'gray.200' }}
-  //     icon={<FiSettings />}
-  //   />
-  // </Tooltip>,
   <IconButton
     key={5}
     aria-label="Menu"
@@ -211,6 +162,6 @@ const renderJSONBody = ({ original }: any) => (
   </Box>
 );
 
-const colgroups = [{ width: '52px' }, { width: '105px' }]
+const colgroups = [{ width: '105px' }];
 
 export { columns, tableActions, pageActions, renderJSONBody, colgroups };

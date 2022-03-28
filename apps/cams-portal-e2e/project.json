@@ -1,0 +1,28 @@
+{
+  "root": "apps/cams-portal-e2e",
+  "sourceRoot": "apps/cams-portal-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/cams-portal-e2e/cypress.json",
+        "devServerTarget": "cams-portal:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "cams-portal:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/cams-portal-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["cams-portal"]
+}
