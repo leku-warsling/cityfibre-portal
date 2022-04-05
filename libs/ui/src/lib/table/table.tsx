@@ -108,7 +108,8 @@ type SortIndicatorProps<D extends object> = Pick<
   'canSort' | 'isSorted' | 'isSortedDesc'
 >;
 
-const hasBatchableActions = (a: Action[]) => a.filter(x => x.isBatchable).length > 0
+const hasBatchableActions = (a: Action[]) =>
+  a.filter((x) => x.isBatchable).length > 0;
 
 const getSortIndicatorProps = pick(['canSort', 'isSorted', 'isSortedDesc']);
 const getColumnFilterProps = pick([
@@ -128,6 +129,15 @@ const isAscending = whereEq({
   isSorted: true,
   isSortedDesc: false,
 });
+
+const stickyHeaderProps = {
+  position: 'sticky',
+  top: 0,
+  bgColor: '#fff',
+  zIndex: 10,
+  boxShadow:
+    '0 1px 3px -1.5px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06)',
+} as const;
 
 const SortIndicator = <D extends object>(props: SortIndicatorProps<D>) => {
   if (!props.canSort) return null;
@@ -307,12 +317,14 @@ const Table = <T extends object>({
     usePagination,
     useRowSelect,
     (hooks) => {
-      const hasActions = !isNilOrEmpty(actions)
+      const hasActions = !isNilOrEmpty(actions);
       hooks.visibleColumns.push(
         pipe(
-          (hasActions && hasBatchableActions(actions) ? prepend<any>(selectionColumn) : identity),
-          (hasActions ? append(createActionColumn(actions)) : identity),
-        )  
+          hasActions && hasBatchableActions(actions)
+            ? prepend<any>(selectionColumn)
+            : identity,
+          hasActions ? append(createActionColumn(actions)) : identity
+        )
       );
     }
   );
@@ -322,8 +334,57 @@ const Table = <T extends object>({
   }, [pageIndex, pageSize]);
 
   useEffect(() => {
-    (onSort && sortBy[0]) && onSort(sortBy[0]);
+    onSort && sortBy[0] && onSort(sortBy[0]);
   }, [sortBy]);
+
+  const head = headerGroups.map((headerGroup) => (
+    <Tr {...headerGroup.getHeaderGroupProps()}>
+      {headerGroup.headers.map((col) => (
+        <Th {...col.getHeaderProps()} py={3}>
+          <chakra.div display="flex" alignItems="center">
+            <Stack
+              w="100%"
+              direction="row"
+              {...col.getSortByToggleProps()}
+              justifyContent="space-between"
+            >
+              <span>{col.render('Header')}</span>
+              <SortIndicator {...getSortIndicatorProps(col)} />
+            </Stack>
+            <ColumnFilter {...getColumnFilterProps(col)} render={col.render} />
+          </chakra.div>
+        </Th>
+      ))}
+    </Tr>
+  ));
+
+  const rows = page.map((row, i) => {
+    prepareRow(row);
+    const { key, ...props } = row.getRowProps();
+    return (
+      <Fragment key={key}>
+        <Tr {...props} _hover={{ bg: 'gray.100' }}>
+          {row.cells.map((cell) => (
+            <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
+          ))}
+        </Tr>
+        {row.isExpanded && (
+          <Tr>
+            <Td
+              colSpan={visibleColumns.length}
+              bgColor="gray.100"
+              maxW="70vw"
+              overflow="hidden"
+              boxShadow="inner"
+              p="6"
+            >
+              {renderExpansion && renderExpansion(row)}
+            </Td>
+          </Tr>
+        )}
+      </Fragment>
+    );
+  });
 
   return (
     <Box
@@ -344,66 +405,8 @@ const Table = <T extends object>({
             <chakra.col key={`col-${i}`} {...props} />
           ))}
         </colgroup>
-        <Thead
-          position="sticky"
-          top="0"
-          bgColor="#fff"
-          zIndex={10}
-          boxShadow="0 1px 3px -1.5px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06)"
-        >
-          {headerGroups.map((headerGroup) => (
-            <Tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((col) => (
-                <Th {...col.getHeaderProps()} py={3}>
-                  <chakra.div display="flex" alignItems="center">
-                    <Stack
-                      w="100%"
-                      direction="row"
-                      {...col.getSortByToggleProps()}
-                      justifyContent="space-between"
-                    >
-                      <span>{col.render('Header')}</span>
-                      <SortIndicator {...getSortIndicatorProps(col)} />
-                    </Stack>
-                    <ColumnFilter
-                      {...getColumnFilterProps(col)}
-                      render={col.render}
-                    />
-                  </chakra.div>
-                </Th>
-              ))}
-            </Tr>
-          ))}
-        </Thead>
-        <Tbody {...getTableBodyProps()}>
-          {page.map((row, i) => {
-            prepareRow(row);
-            const { key, ...props } = row.getRowProps();
-            return (
-              <Fragment key={key}>
-                <Tr {...props} _hover={{ bg: 'gray.100' }}>
-                  {row.cells.map((cell) => (
-                    <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
-                  ))}
-                </Tr>
-                {row.isExpanded && (
-                  <Tr>
-                    <Td
-                      colSpan={visibleColumns.length}
-                      bgColor="gray.100"
-                      maxW="70vw"
-                      overflow="hidden"
-                      boxShadow="inner"
-                      p="6"
-                    >
-                      {renderExpansion && renderExpansion(row)}
-                    </Td>
-                  </Tr>
-                )}
-              </Fragment>
-            );
-          })}
-        </Tbody>
+        <Thead {...stickyHeaderProps}>{head}</Thead>
+        <Tbody {...getTableBodyProps()}>{rows}</Tbody>
       </_Table>
       <HStack
         hidden={selectedFlatRows.length < 1}

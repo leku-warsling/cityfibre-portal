@@ -1,6 +1,6 @@
-import { Container, Stack } from "@chakra-ui/react"
+import { Container, Stack, TextareaProps } from "@chakra-ui/react"
 import { Story, Meta } from '@storybook/react';
-import { Textarea, TextareaProps } from ".."
+import { Textarea } from ".."
 
 export default {
   title: "Components / Forms / Textarea",

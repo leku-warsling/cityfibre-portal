@@ -1,21 +1,27 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Container, Tooltip } from '@chakra-ui/react';
+import {
+  Container,
+  Tooltip,
+  RangeSliderMarkProps,
+  RangeSliderProps,
+} from '@chakra-ui/react';
 import { FC } from 'react';
 import {
   RangeSlider,
   RangeSliderFilledTrack,
   RangeSliderTrack,
   RangeSliderThumb,
-  RangeSliderProps,
   RangeSliderMark,
-  RangeSliderMarkProps,
 } from '..';
 
 type ExampleRangeSliderProps = RangeSliderProps & {
-  markers: RangeSliderMarkProps[]
-}
+  markers: RangeSliderMarkProps[];
+};
 
-const ExampleRangeSlider: FC<ExampleRangeSliderProps> = ({ markers = [], ...props }) => (
+const ExampleRangeSlider: FC<ExampleRangeSliderProps> = ({
+  markers = [],
+  ...props
+}) => (
   <RangeSlider {...props}>
     <RangeSliderTrack bgColor="gray.300">
       <RangeSliderFilledTrack />
@@ -49,9 +55,7 @@ const ExampleRangeSlider: FC<ExampleRangeSliderProps> = ({ markers = [], ...prop
       />
     </Tooltip>
     {markers?.map(({ children, ...props }) => (
-      <RangeSliderMark {...props}>
-        {children}
-      </RangeSliderMark>
+      <RangeSliderMark {...props}>{children}</RangeSliderMark>
     ))}
   </RangeSlider>
 );
@@ -86,14 +90,14 @@ export default {
       ],
       table: {
         defaultValue: 'brand',
-      }
+      },
     },
     size: {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg'],
       table: {
         defaultValue: 'md',
-      }
+      },
     },
   },
   decorators: [
@@ -121,17 +125,17 @@ Primary.args = {
   colorScheme: 'brand',
   markers: [
     {
-      top: "25px",
+      top: '25px',
       value: 0,
-      children: "0%",
+      children: '0%',
     },
     {
-      top: "25px",
+      top: '25px',
       value: 100,
-      ml: "-25px",
-      children: "100%",
-    }
-  ]
+      ml: '-25px',
+      children: '100%',
+    },
+  ],
 };
 
 export const HorizontalSlider = () => (

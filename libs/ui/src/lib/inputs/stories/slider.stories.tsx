@@ -1,19 +1,22 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Container, Tooltip } from "@chakra-ui/react"
-import { FC } from "react"
+import {
+  Container,
+  Tooltip,
+  SliderProps,
+  SliderMarkProps,
+} from '@chakra-ui/react';
+import { FC } from 'react';
 import {
   Slider,
   SliderMark,
   SliderThumb,
   SliderTrack,
   SliderFilledTrack,
-  SliderProps,
-  SliderMarkProps
-} from ".."
+} from '..';
 
 type ExampleSliderProps = SliderProps & {
-  markers?: SliderMarkProps[]
-}
+  markers?: SliderMarkProps[];
+};
 
 const ExampleSlider: FC<ExampleSliderProps> = ({ markers, ...props }) => (
   <Slider {...props}>
@@ -23,67 +26,64 @@ const ExampleSlider: FC<ExampleSliderProps> = ({ markers, ...props }) => (
     <Tooltip
       hasArrow
       bg={`${props.colorScheme}.500`}
-      color='white'
-      placement='top'
+      color="white"
+      placement="top"
       isOpen={true}
       label={`${props.value}%`}
     >
-      <SliderThumb border="2px solid" borderColor={`${props.colorScheme}.500`} />
+      <SliderThumb
+        border="2px solid"
+        borderColor={`${props.colorScheme}.500`}
+      />
     </Tooltip>
     {markers?.map(({ children, ...props }) => (
-      <SliderMark {...props}>
-        {children}
-      </SliderMark>
+      <SliderMark {...props}>{children}</SliderMark>
     ))}
   </Slider>
-)
+);
 
 ExampleSlider.defaultProps = {
-  colorScheme: "brand"
-}
+  colorScheme: 'brand',
+};
 
 export default {
-  title: "Components / Forms / Slider",
+  title: 'Components / Forms / Slider',
   component: ExampleSlider,
   argTypes: {
-    colorScheme: { 
-      control: { type: "select"},
+    colorScheme: {
+      control: { type: 'select' },
       options: [
-        "brand",
-        "green",
-        "blue",
-        "red",
-        "gray",
-        "orange",
-        "teal",
-        "teal",
-        "whiteAlpha",
-        "blackAlpha",
-        "yellow",
-        "cyan",
-        "purple",
-        "pink",
-        "linkedin",
-        "facebook",
-        "messenger",
-        "whatsapp",
-        "twitter",
-        "telegram"
+        'brand',
+        'green',
+        'blue',
+        'red',
+        'gray',
+        'orange',
+        'teal',
+        'teal',
+        'whiteAlpha',
+        'blackAlpha',
+        'yellow',
+        'cyan',
+        'purple',
+        'pink',
+        'linkedin',
+        'facebook',
+        'messenger',
+        'whatsapp',
+        'twitter',
+        'telegram',
       ],
       table: {
         defaultValue: 'brand',
-      }
+      },
     },
     size: {
-      control: { type: "select" },
-      options: [
-        "sm",
-        "md",
-        "lg",
-      ],
+      control: { type: 'select' },
+      options: ['sm', 'md', 'lg'],
       table: {
         defaultValue: 'md',
-      }
+      },
     },
   },
   decorators: [
@@ -93,35 +93,35 @@ export default {
       </Container>
     ),
   ],
-} as ComponentMeta<typeof ExampleSlider>
+} as ComponentMeta<typeof ExampleSlider>;
 
 const Template: ComponentStory<typeof ExampleSlider> = (args) => (
-  <ExampleSlider {...args}/>
-)
+  <ExampleSlider {...args} />
+);
 
-export const Primary = Template.bind({})
+export const Primary = Template.bind({});
 Primary.args = {
   step: 1,
-  size: "md",
+  size: 'md',
   value: 25,
   min: 0,
   max: 100,
   isDisabled: false,
   isReadOnly: false,
-  colorScheme: "brand",
+  colorScheme: 'brand',
   markers: [
     {
-      top: "25px",
+      top: '25px',
       value: 0,
-      children: "0%",
+      children: '0%',
     },
     {
-      top: "25px",
+      top: '25px',
       value: 100,
-      children: "100%",
-    }
-  ]
-}
+      children: '100%',
+    },
+  ],
+};
 
 export function HorizontalSlider() {
   return (
@@ -134,7 +134,7 @@ export function HorizontalSlider() {
         "90%"
       </SliderMark>
     </Slider>
-  )
+  );
 }
 
 export function VerticalSlider() {
@@ -146,5 +146,5 @@ export function VerticalSlider() {
       <SliderThumb />
       <SliderMark value={90} children="90%" left="40px" />
     </Slider>
-  )
+  );
 }
