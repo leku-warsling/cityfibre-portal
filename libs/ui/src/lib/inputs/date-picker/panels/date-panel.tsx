@@ -49,12 +49,12 @@ const DatePanel: FC<ReturnType<typeof useCalendar>> = ({
           {...getForwardProps({ offset: 12 })}
         />
       </HStack>
-      <Divider />
-      <chakra.table>
+      <Divider/>
+      <chakra.table mt={3}>
         <chakra.thead>
           <chakra.tr>
             {DAY_NAMES.map((wd) => (
-              <chakra.th>{wd.substring(0, 2)}</chakra.th>
+              <chakra.th fontSize="14px">{wd.substring(0, 2)}</chakra.th>
             ))}
           </chakra.tr>
         </chakra.thead>
@@ -63,7 +63,7 @@ const DatePanel: FC<ReturnType<typeof useCalendar>> = ({
             <chakra.tr key={`week-${i}`}>
               {week.map((day) => (
                 <chakra.td>
-                  <Button variant="ghost" {...getDateProps(day, {})}>
+                  <Button variant="ghost" fontSize="14px" {...getDateProps(day, {})}>
                     {day.getDate()}
                   </Button>
                 </chakra.td>

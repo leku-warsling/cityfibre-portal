@@ -1,5 +1,4 @@
 import { ComponentStyleConfig } from "@chakra-ui/theme"
-import { is } from "ramda"
 
 const Nav: ComponentStyleConfig = {
   parts: ['nav', 'item', 'subnav'],

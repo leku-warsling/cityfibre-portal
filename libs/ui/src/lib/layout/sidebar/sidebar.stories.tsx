@@ -25,8 +25,14 @@ import { BiHome, BiDollarCircle, BiBasket } from 'react-icons/bi';
 import { RiDashboard3Line } from 'react-icons/ri';
 import { ReactComponent as PartnersIcon } from '../../../assets/svg/partners.svg';
 import { ReactComponent as Logo } from '../../../assets/svg/logo.svg';
-import { IframeHTMLAttributes, useEffect, useState, FC } from 'react';
+import {
+  IframeHTMLAttributes,
+  useEffect,
+  useState,
+  FC,
+} from 'react';
 import { createPortal } from 'react-dom';
+import { prop } from 'ramda';
 
 export default {
   title: 'Components / Layout / Sidebar',
@@ -34,30 +40,33 @@ export default {
   argTypes: {},
   decorators: [
     (story: Function) => (
-      <Container maxW="5xl" mt="40px" p="0">
+      <Container maxW="5xl" mt="16px" p="0">
         {story()}
       </Container>
     ),
   ],
 } as Meta<SidebarProps>;
 
-const getStyles = () =>
-  Array.from(document.querySelectorAll('style[data-emotion]'))
-    .map(({ innerHTML }) => innerHTML)
-    .join('');
+const { from } = Array
+
+const getAllStyles = (selector: string) =>
+  from(document.querySelectorAll<HTMLStyleElement>(selector))
+    .flatMap(({ sheet }) => {
+      return sheet && from<CSSRule>(sheet.cssRules).map(prop("cssText"));
+    })
+    .join('\n');
 
 type FrameProps = IframeHTMLAttributes<HTMLIFrameElement> & StyleProps;
 
 const Frame: FC<FrameProps> = ({ children, ...props }) => {
   const [contentRef, setContentRef] = useState<HTMLIFrameElement | null>(null);
-  const [styles, setStyles] = useState<string>(null!);
+  const [styles, _setStyles] = useState<string>(null!);
+  const setStyles = () => _setStyles(getAllStyles('[data-emotion]'))
 
   useEffect(() => {
-    setStyles(getStyles());
+    setStyles();
     const head = document.getElementsByTagName('head')[0];
-    let observer = new MutationObserver((mutations, observer) => {
-      setStyles(getStyles());
-    });
+    let observer = new MutationObserver(() => setStyles());
 
     observer.observe(head, { childList: true, subtree: true });
 
@@ -80,7 +89,7 @@ const Frame: FC<FrameProps> = ({ children, ...props }) => {
           mountNode
         )}
     </chakra.iframe>
-  );
+  )
 };
 
 const Template: Story<SidebarProps> = (args) => {
@@ -176,13 +185,8 @@ const Template: Story<SidebarProps> = (args) => {
   );
 
   return (
-    <Frame width="100%" height="90vh" boxShadow="lg">
-      <Flex
-        width="100vw"
-        height="100vh"
-        bgColor="white"
-        position="relative"
-      >
+    <Frame width="100%" height="94vh" boxShadow="lg">
+      <Flex width="100vw" height="100vh" bgColor="white" position="relative">
         <IconButton
           variant="ghost"
           onClick={onToggle}

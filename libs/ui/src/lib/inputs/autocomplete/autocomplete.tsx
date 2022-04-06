@@ -70,7 +70,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
   const getInputProps = flow(pick(inputProps), comboboxProps.getInputProps)
   const indicator = isLoading ? <Spinner size="sm" /> : <ChevronDownIcon />
   // TODO: clear icon and functionality
-
+  console.log(items)
   return (
     <Flex {...getComboboxProps()} direction="column" pos="relative">
       <InputGroup>

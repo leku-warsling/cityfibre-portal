@@ -88,10 +88,10 @@ const NavSubMenu: FC<NavSubMenuProps> = ({
           <PopoverArrow bg="brand.800" borderColor="brand.800" color="white"/>
           <PopoverHeader 
             border="none"  
-            color="#718589"
-            letterSpacing="wider" 
+            color="whiteAlpha.700"
+            letterSpacing="widest" 
             pt={5} 
-            pl={7} 
+            pl={6} 
             fontWeight={800}
             fontSize="xs"
             textTransform="uppercase"
