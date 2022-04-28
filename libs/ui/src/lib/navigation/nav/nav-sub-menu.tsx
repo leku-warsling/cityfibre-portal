@@ -43,13 +43,15 @@ const NavSubMenu: FC<NavSubMenuProps> = ({
   const [show, setShow] = useState(false);
   const styles = useStyles();
   const Indicator = show ? FiChevronUp : FiChevronDown;
+
   const trigger = (
     <chakra.button
       __css={styles['item']}
       onClick={() => setShow(not)}
+      width="100%"
       {...props}
     >
-      {!!icon && <Icon as={icon} fontSize="22px" flex="0 auto"/>}
+      {!!icon && <Icon as={icon} fontSize="xl" flex="0 auto"/>}
       <HStack hidden={isCollapsed} flexGrow={1} justifyContent="space-between">
         <span>{label}</span>
         <Indicator fontSize="20px" />

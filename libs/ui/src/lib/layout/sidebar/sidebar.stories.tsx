@@ -33,6 +33,8 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import { prop } from 'ramda';
+import { __DEV__ } from '@chakra-ui/utils';
+
 
 export default {
   title: 'Components / Layout / Sidebar',
@@ -40,35 +42,60 @@ export default {
   argTypes: {},
   decorators: [
     (story: Function) => (
-      <Container maxW="5xl" mt="16px" p="0">
+      <Container maxW="100vw" mt="16px" p="0">
         {story()}
       </Container>
     ),
   ],
 } as Meta<SidebarProps>;
 
-const { from } = Array
 
-const getAllStyles = (selector: string) =>
-  from(document.querySelectorAll<HTMLStyleElement>(selector))
-    .flatMap(({ sheet }) => {
-      return sheet && from<CSSRule>(sheet.cssRules).map(prop("cssText"));
-    })
-    .join('\n');
+const getStyleNodes = () => Array.from(document.getElementsByTagName("style"))
+
+const getCSSRules = ({ sheet }: HTMLStyleElement) => {
+  return sheet && Array.from<CSSRule>(sheet.cssRules).map(prop("cssText"))
+}
+
+const getAllStyles = (nodes: HTMLStyleElement[]) => {
+  return nodes.flatMap(getCSSRules).join('\n');
+}
 
 type FrameProps = IframeHTMLAttributes<HTMLIFrameElement> & StyleProps;
 
-const Frame: FC<FrameProps> = ({ children, ...props }) => {
-  const [contentRef, setContentRef] = useState<HTMLIFrameElement | null>(null);
-  const [styles, _setStyles] = useState<string>(null!);
-  const setStyles = () => _setStyles(getAllStyles('[data-emotion]'))
+type UseStyleObserverState = {
+  target: HTMLHeadElement
+  defaultNodes?: HTMLStyleElement[]
+  selector?: string
+}
+
+const addCSSRuleWatcher = (apply: ProxyHandler<any>["apply"]) => {
+  return ({ sheet }: HTMLStyleElement) => {
+    if (!sheet) return
+
+    const proxy = new Proxy(sheet.insertRule, { apply })
+    sheet.insertRule = proxy;
+  }
+}
+
+const useStyleObserver = ({ target }: UseStyleObserverState) => {
+  const forceUpdate: () => void = useState<any>()[1].bind(null, {})
+  const nodes = getStyleNodes()
 
   useEffect(() => {
-    setStyles();
-    const head = document.getElementsByTagName('head')[0];
-    let observer = new MutationObserver(() => setStyles());
+    let observer = new MutationObserver((mutations) => {
+      console.log("mutations:", mutations)
+      setImmediate(forceUpdate)
+    });
 
-    observer.observe(head, { childList: true, subtree: true });
+    observer.observe(target, { 
+      childList: true, 
+      subtree: true,
+      attributes: true,
+      attributeOldValue: true,
+      characterData: true, 
+    });
+
+    setTimeout(forceUpdate, 100)
 
     return () => {
       observer.disconnect();
@@ -76,10 +103,26 @@ const Frame: FC<FrameProps> = ({ children, ...props }) => {
     };
   }, []);
 
-  const mountNode = contentRef?.contentDocument?.body;
+  const watcher = addCSSRuleWatcher((target, i, args) => {
+    forceUpdate()
+    return target.apply(i, args);
+  })
+
+  nodes.forEach(watcher)
+
+  return getAllStyles(nodes)
+}
+
+const Frame: FC<FrameProps> = ({ children, ...props }) => {
+  const [frameRef, setFrameRef] = useState<HTMLIFrameElement | null>(null);
+  const styles = useStyleObserver({
+    target: document.getElementsByTagName('head')[0],
+  })
+
+  const mountNode = frameRef?.contentDocument?.body;
 
   return (
-    <chakra.iframe {...props} ref={setContentRef}>
+    <chakra.iframe {...props} ref={setFrameRef}>
       {mountNode &&
         createPortal(
           <>
@@ -96,7 +139,7 @@ const Template: Story<SidebarProps> = (args) => {
   const { isOpen, onToggle, onClose } = useDisclosure();
 
   const brand = (
-    <Box bgColor="brand.500" rounded={5} p={2}>
+    <Box bgColor="brand.500" rounded={5} p={3}>
       <PartnersIcon
         height="20"
         style={{
@@ -185,32 +228,30 @@ const Template: Story<SidebarProps> = (args) => {
   );
 
   return (
-    <Frame width="100%" height="94vh" boxShadow="lg">
-      <Flex width="100vw" height="100vh" bgColor="white" position="relative">
-        <IconButton
-          variant="ghost"
-          onClick={onToggle}
-          aria-label="Toggle menu"
-          icon={<FiMenu />}
-          position="absolute"
-          top={4}
-          right={4}
-        />
-        <Sidebar
-          {...args}
-          isOpen={isOpen}
-          onClose={onClose}
-          height="100vh"
-          overflowY="auto"
-          position="absolute"
-        >
-          {header}
-          {content}
-          {footer}
-        </Sidebar>
-        <Box flexGrow={1} />
-      </Flex>
-    </Frame>
+    <Flex width="90vw" height="100vh" shadow="lg" bgColor="white" position="relative">
+      <IconButton
+        variant="ghost"
+        onClick={onToggle}
+        aria-label="Toggle menu"
+        icon={<FiMenu />}
+        position="absolute"
+        top={4}
+        right={4}
+      />
+      <Sidebar
+        {...args}
+        isOpen={isOpen}
+        onClose={onClose}
+        height="100vh"
+        overflowY="auto"
+        position="absolute"
+      >
+        {header}
+        {content}
+        {footer}
+      </Sidebar>
+      <Box flexGrow={1} />
+    </Flex>
   );
 };
 

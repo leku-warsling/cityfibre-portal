@@ -40,15 +40,16 @@ const weekdaysBefore = flow(
   Math.abs
 );
 
-type Element = HTMLElement | HTMLInputElement | HTMLButtonElement | HTMLAnchorElement 
+type Element =
+  | HTMLElement
+  | HTMLInputElement
+  | HTMLButtonElement
+  | HTMLAnchorElement;
 
-
-const triggerEvent = curry(
-  (eventName: string, el: Element) => {
-    const event = new Event(eventName, { bubbles: true });
-    el.dispatchEvent(event);
-  }
-)
+const triggerEvent = curry((eventName: string, el: Element) => {
+  const event = new Event(eventName, { bubbles: true });
+  el.dispatchEvent(event);
+});
 
 function mergeRefs<T = any>(
   ...refs: Array<MutableRefObject<T> | LegacyRef<T>>
@@ -70,4 +71,4 @@ export {
   triggerEvent,
   isZero,
   mergeRefs,
-}
+};

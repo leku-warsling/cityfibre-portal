@@ -8,11 +8,13 @@ import {
   FormControlProps,
   Stack,
 } from '@chakra-ui/react';
+import { fromState } from 'fp-ts/lib/StateT';
 
 export type FormItemOwnProps = {
   label?: ReactNode;
   helpText?: ReactNode;
   layout?: 'vertical' | 'horizontal';
+  spacing?: number;
   children: ReactElement;
 };
 
@@ -26,22 +28,25 @@ const FormItem: FC<FormItemProps> = ({
   isDisabled,
   isRequired,
   layout,
+  spacing = 0,
   children,
 }) => {
   const { name } = children.props;
-  const {
-    register,
-    formState: { errors, isValid },
-  } = useFormContext();
+  const formContext = useFormContext();
+  const { register, formState } = formContext;
+  const isValid = formState.isValid || !formState.touchedFields?.[name];
   const direction = layout === 'vertical' ? 'column' : 'row';
   const showHelpText = !isValid && !helpText;
   const inputElement = cloneElement(children, {
     ...children.props,
-    size: children.props.size ?? size, 
+    size: children.props.size ?? size,
     ...register(name, {
       required: isRequired,
       disabled: isDisabled,
     }),
+    onKeyUp: children.props.onKeyUp
+      ? (event: any) => children.props.onKeyUp(event, formContext)
+      : undefined,
   });
 
   return (
@@ -51,14 +56,14 @@ const FormItem: FC<FormItemProps> = ({
       isRequired={isRequired}
       isInvalid={!isValid}
     >
-      <Stack direction={direction}>
+      <Stack direction={direction} spacing={spacing}>
         <FormLabel hidden={!label} size={size}>
           {label}
         </FormLabel>
         {inputElement}
       </Stack>
       <FormHelperText hidden={showHelpText}>{helpText}</FormHelperText>
-      <FormErrorMessage>{errors?.[name]?.type}</FormErrorMessage>
+      <FormErrorMessage>{formState.errors?.[name]?.type}</FormErrorMessage>
     </FormControl>
   );
 };

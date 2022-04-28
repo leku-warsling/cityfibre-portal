@@ -16,13 +16,13 @@ import Breadcrumb from '../../navigation/breadcrumb';
 
 export type PageHeaderProps = BoxProps & {
   onBack?: () => void;
-  breadcrumb?: { path: string, name: string }[];
+  breadcrumb?: { path: string; name: string }[];
   subtitle?: ReactNode;
   actions?: ReactElement[];
   tags?: string[];
 };
 
-const shouldIncludeHome = pipe(head, propNotEq("path", "/"))
+const shouldIncludeHome = pipe(head, propNotEq('path', '/'));
 
 const PageHeader: FC<PageHeaderProps> = ({
   onBack,
@@ -44,13 +44,16 @@ const PageHeader: FC<PageHeaderProps> = ({
             </Breadcrumb.Item>
           )}
           {breadcrumb.map(({ path, name }, i) => (
-            <Breadcrumb.Item key={i} color={i < (breadcrumb.length - 1) ? "gray.500" : "inherit"}>
+            <Breadcrumb.Item
+              key={i}
+              color={i < breadcrumb.length - 1 ? 'gray.500' : 'inherit'}
+            >
               <Breadcrumb.Link href={path}>{name}</Breadcrumb.Link>
             </Breadcrumb.Item>
           ))}
         </Breadcrumb>
       )}
-      <HStack mb={1} spacing={1} fontSize={fontSize}>
+      <HStack mb={2} spacing={1} fontSize={fontSize}>
         {!!onBack && (
           <IconButton
             aria-label="Return to previous page"
@@ -62,17 +65,19 @@ const PageHeader: FC<PageHeaderProps> = ({
             ml={-2.5}
           />
         )}
-        <Heading fontSize={fontSize} fontWeight={600} flexGrow={1} mb={2}>
+        <Heading fontSize={fontSize} fontWeight={600} flexGrow={1}>
           {children}
         </Heading>
-        <ButtonGroup ml="auto" spacing={.5}>{actions}</ButtonGroup>
+        <ButtonGroup ml="auto" spacing={0.5}>
+          {actions}
+        </ButtonGroup>
       </HStack>
     </Box>
   );
 };
 
 PageHeader.defaultProps = {
-  fontSize: ["md", "lg", "xl"],
+  fontSize: ['md', 'lg', 'xl'],
   borderBottom: '1px solid',
   borderColor: 'gray.300',
 };

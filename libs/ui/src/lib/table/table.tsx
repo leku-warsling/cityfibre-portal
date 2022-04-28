@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import {
   Table as _Table,
   TableProps as _TableProps,
@@ -278,7 +280,7 @@ const Table = <T extends object>({
 }: TableProps<T>) => {
   const tableData = useMemo(
     () => (isLoading ? repeat({}, 10) : props.data ?? []),
-    [isLoading, props.data, initialState?.pageSize]
+    [isLoading, props.data]
   ) as T[];
 
   const tableColumns = useMemo(
@@ -302,6 +304,7 @@ const Table = <T extends object>({
     selectedFlatRows,
     headerGroups,
     state: { pageIndex, pageSize, sortBy, columnOrder },
+    ...rest
   } = useTable<T>(
     {
       columns: tableColumns,
@@ -328,6 +331,8 @@ const Table = <T extends object>({
       );
     }
   );
+
+  console.log('rest:', rest);
 
   useEffect(() => {
     onPaginate && onPaginate({ pageIndex, pageSize });
@@ -361,6 +366,7 @@ const Table = <T extends object>({
   const rows = page.map((row, i) => {
     prepareRow(row);
     const { key, ...props } = row.getRowProps();
+
     return (
       <Fragment key={key}>
         <Tr {...props} _hover={{ bg: 'gray.100' }}>

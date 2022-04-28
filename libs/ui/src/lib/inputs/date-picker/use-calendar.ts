@@ -58,6 +58,7 @@ const getDateProps = (calendar: Calendar) => {
 const useCalendar = ({
   initialDate = new Date(),
   format = 'dd/MM/yyyy',
+  selected, 
   min = defaultMaxDate,
   max = defaultMinDate,
   onSelect,
