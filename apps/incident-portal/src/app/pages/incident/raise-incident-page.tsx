@@ -28,6 +28,7 @@ import { propOr, startsWith, __ } from 'ramda';
 import { useState } from 'react';
 import { BiRightArrowAlt } from 'react-icons/bi';
 import BeatLoader from 'react-spinners/BeatLoader';
+import { formatDateString } from '../../utils/date';
 
 const steps = [
   {
@@ -46,6 +47,8 @@ const SERVICE_REFS = {
   S75659: 'down',
   S143015: 'power',
 };
+
+const displayDate = formatDateString('dd/MM/yyyy HH:mm');
 
 const RaiseIncidentPage = () => {
   const [isLoading, setLoading] = useState(false);
@@ -258,9 +261,12 @@ const RaiseIncidentPage = () => {
                 >
                   <AlertIcon boxSize="40px" mr={0} />
                   <Box ml={1}>
-                    <AlertTitle mt={4} mb={1} fontSize="lg">
+                    <AlertTitle mt={4} mb={1.5} fontSize="lg">
                       Status: Line up
                     </AlertTitle>
+                    <Heading mb={2} fontSize="sm">
+                      Last Updated: {displayDate(new Date())}
+                    </Heading>
                     <AlertDescription>
                       Our last status check was that the line is up, please
                       check service again before logging an incident
@@ -333,9 +339,12 @@ const RaiseIncidentPage = () => {
                 >
                   <AlertIcon boxSize="40px" mr={0} />
                   <Box ml={1}>
-                    <AlertTitle mt={4} mb={1} fontSize="lg">
+                    <AlertTitle mt={4} mb={1.5} fontSize="lg">
                       Status: Line down
                     </AlertTitle>
+                    <Heading mb={2} fontSize="sm">
+                      Last Updated: {displayDate(new Date())}
+                    </Heading>
                     <AlertDescription>
                       we can see the line is down so please continue to raise an
                       incident and provide as much of the requested information
@@ -359,9 +368,12 @@ const RaiseIncidentPage = () => {
                 >
                   <AlertIcon boxSize="40px" mr={0} />
                   <Box ml={1}>
-                    <AlertTitle mt={4} mb={1} fontSize="lg">
+                    <AlertTitle mt={4} mb={1.5} fontSize="lg">
                       Status: Powered Down
                     </AlertTitle>
+                    <Heading mb={2} fontSize="sm">
+                      Last Updated: {displayDate(new Date())}
+                    </Heading>
                     <AlertDescription>
                       Please check the power to your device before logging an
                       incident
