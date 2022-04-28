@@ -153,11 +153,6 @@ const MainLayout = () => {
           <Nav.Item icon={BiDollar}>Billing</Nav.Item>
           <Nav.Item icon={BiPhoneCall}>VOIP</Nav.Item>
           <Nav.Item icon={BiBasket}>Ordering</Nav.Item>
-          <Nav.SubMenu icon={BiTransferAlt} label="Migrations">
-            <Nav.Item>Pending</Nav.Item>
-            <Nav.Item>Completed</Nav.Item>
-            <Nav.Item>Failed</Nav.Item>
-          </Nav.SubMenu>
           <Divider borderColor="#718589" my={2} />
           <Nav.Item icon={FiUsers}>User Management</Nav.Item>
           <Nav.Item icon={FiSettings}>Settings</Nav.Item>
