@@ -10,7 +10,27 @@ import Modal, { ModalProps } from './modal';
 export default {
   title: 'Components / Overlay / Modal',
   component: Modal,
-  argTypes: {},
+  argTypes: {
+    size: {
+      control: { type: 'select' },
+      options: [
+        'xs',
+        'sm',
+        'md',
+        'lg',
+        'xl',
+        '2xl',
+        '3xl',
+        '4xl',
+        '5xl',
+        '6xl',
+        'full',
+      ],
+      table: {
+        defaultValue: 'xl',
+      },
+    },
+  },
   decorators: [(story: Function) => <Container mt="40px">{story()}</Container>],
 } as Meta<ModalProps>;
 
