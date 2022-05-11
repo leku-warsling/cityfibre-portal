@@ -1,24 +1,23 @@
-import { ChakraProvider } from '@chakra-ui/react';
-import { theme } from '@ui';
-import { lazy } from '@loadable/component';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { Global, css } from '@emotion/core';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
-import { Suspense } from 'react';
-import MainLayout from './layouts/main.layout';
-
-const IncidentPage = lazy(() => import('./pages/incident'));
-const RaiseIncidentPage = lazy(
-  () => import('./pages/incident/raise-incident-page')
-);
+import { ChakraProvider } from "@chakra-ui/react"
+import { theme } from "@ui"
+import { QueryClient, QueryClientProvider } from "react-query"
+import { Global, css } from "@emotion/core"
+import { Routes, Route, BrowserRouter } from "react-router-dom"
+import { AnimatePresence } from "framer-motion"
+import { Suspense } from "react"
+import MainLayout from "./layouts/main.layout"
+import {
+  IncidentPage,
+  ServiceDetailsForm,
+  RaiseIncidentPage,
+} from "./pages/incident"
 
 const GlobalStyles = css`
   *:not(:input):focus {
     outline: none !important;
     box-shadow: none !important;
   }
-`;
+`
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,7 +27,7 @@ const queryClient = new QueryClient({
       staleTime: 30000,
     },
   },
-});
+})
 
 export function App() {
   return (
@@ -54,14 +53,19 @@ export function App() {
                       <RaiseIncidentPage />
                     </Suspense>
                   }
-                />
+                >
+                  <Route
+                    path="/incidents/create/"
+                    element={<ServiceDetailsForm />}
+                  />
+                </Route>
               </Route>
             </Routes>
           </AnimatePresence>
         </BrowserRouter>
       </QueryClientProvider>
     </ChakraProvider>
-  );
+  )
 }
 
-export default App;
+export default App

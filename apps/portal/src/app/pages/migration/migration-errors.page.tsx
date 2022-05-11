@@ -1,90 +1,91 @@
-import { Page, Table } from '@ui';
-import useMigrationErrors from '../../hooks/useMigrationErrors';
-import { tableActions, columns, renderJSONBody, colgroups } from './util';
-import mergeLeft from 'ramda/es/mergeLeft';
-import prop from 'ramda/es/prop';
-import { AxiosResponse } from 'axios';
-import { MigrationError } from '../../entities/MigrationErrors';
-import { useMemo, useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
-import { migration } from '../../api';
-import { useToast } from '@chakra-ui/react';
+import { Page, Table } from "@ui"
+import useMigrationErrors from "../../hooks/useMigrationErrors"
+import { tableActions, columns, renderJSONBody, colgroups } from "./util"
+import mergeLeft from "ramda/es/mergeLeft"
+import prop from "ramda/es/prop"
+import { AxiosResponse } from "axios"
+import { MigrationErrorResponse } from "../../entities/MigrationErrors"
+import { useMemo, useState } from "react"
+import { useMutation, useQueryClient } from "react-query"
+import { migration } from "../../api"
+import { useToast } from "@chakra-ui/react"
+import { inc, lensProp, over } from "ramda"
 
 const initialState = {
   _page: 0,
   _limit: 10,
-  _sort: 'topic_name',
-  _order: 'asc',
-};
+  _sort: "topic_name",
+  _order: "asc",
+}
 
-const dataSpec = ({
-  headers,
-  data: rows,
-}: AxiosResponse<MigrationError[], any>) => ({
-  count: Number(headers['x-total-count']),
-  rows,
-});
+const dataSpec = ({ data }: AxiosResponse<MigrationErrorResponse, any>) => ({
+  count: data.total,
+  rows: data.data,
+})
 
 const calcPageCount = (count: number = 0, limit: number = 10) => {
-  return count ? Math.ceil(count / limit) : undefined;
-};
+  return count ? Math.ceil(count / limit) : undefined
+}
 
 const MigrationErrorsPage = () => {
-  const cache = useQueryClient();
-  const toast = useToast();
-  const [params, setParams] = useState(initialState);
+  const cache = useQueryClient()
+  const toast = useToast()
+  const [params, setParams] = useState(initialState)
 
   const removeMigration = useMutation(migration.remove, {
     onError: (err, _, context) => {
       toast({
-        title: 'Failed to deleted record',
-        status: 'error',
+        title: "Failed to deleted record",
+        status: "error",
         duration: 9000,
         isClosable: true,
-      });
+      })
     },
     onSuccess: () => {
       toast({
-        title: 'Successfully deleted record',
-        status: 'success',
+        title: "Successfully deleted record",
+        status: "success",
         duration: 9000,
         isClosable: true,
-      });
-      cache.invalidateQueries('migrations');
+      })
+      cache.invalidateQueries("migrations")
     },
-  });
+  })
 
   const updateMigration = useMutation(migration.update, {
     onError: (err, _, context) => {
       toast({
-        title: 'Failed to update record',
-        status: 'error',
+        title: "Failed to update record",
+        status: "error",
         duration: 9000,
         isClosable: true,
-      });
+      })
     },
     onSuccess: () => {
       toast({
-        title: 'Successfully updated record',
-        status: 'success',
+        title: "Successfully updated record",
+        status: "success",
         duration: 9000,
         isClosable: true,
-      });
-      cache.invalidateQueries('migrations');
+      })
+      cache.invalidateQueries("migrations")
     },
-  });
+  })
 
-  const query = useMigrationErrors(params, dataSpec);
+  const query = useMigrationErrors(
+    over(lensProp("_page"), inc, params),
+    dataSpec
+  )
 
   const isFetching =
     query.isFetching ||
-    [removeMigration, updateMigration].some(prop('isLoading'));
+    [removeMigration, updateMigration].some(prop("isLoading"))
 
   const pageCount = useMemo(() => {
     return query.isSuccess
       ? calcPageCount(query.data?.count, params._limit)
-      : undefined;
-  }, [query, params._limit]);
+      : undefined
+  }, [query, params._limit])
 
   return (
     <Page maxH="93vh" overflowY="auto">
@@ -102,10 +103,12 @@ const MigrationErrorsPage = () => {
         initialState={{
           pageIndex: params._page,
           pageSize: params._limit,
-          sortBy: [{
-            id: "topic_name",
-            desc: false
-          }],
+          sortBy: [
+            {
+              id: "topic_name",
+              desc: false,
+            },
+          ],
         }}
         manualPagination={true}
         onPaginate={({ pageIndex, pageSize }) =>
@@ -133,7 +136,7 @@ const MigrationErrorsPage = () => {
         overflowY="auto"
       />
     </Page>
-  );
-};
+  )
+}
 
-export default MigrationErrorsPage;
+export default MigrationErrorsPage

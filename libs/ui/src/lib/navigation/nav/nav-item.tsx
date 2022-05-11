@@ -1,9 +1,15 @@
 import { FC, useContext } from "react"
-import { chakra, useStyles, Icon, HTMLChakraProps, Tooltip } from "@chakra-ui/react"
+import {
+  chakra,
+  useStyles,
+  Icon,
+  HTMLChakraProps,
+  Tooltip,
+} from "@chakra-ui/react"
 import { NavContext } from "./nav"
 import { dataAttr } from "@chakra-ui/utils"
 import { IconType } from "react-icons"
-import ConditionalWrapper from "../../util/conditional-wrapper/conditional-wrapper"
+import ConditionalWrapper from "../../wrappers/conditional-wrapper"
 
 export type NavItemOwnProps = {
   icon?: IconType
@@ -26,9 +32,9 @@ const NavItem: FC<NavItemProps> = ({
   const shouldCollapse = isCollapsed && level < 1
 
   const label = (
-    <chakra.span 
+    <chakra.span
       display="flex"
-      alignItems="center" 
+      alignItems="center"
       flexGrow={1}
       justifyContent="space-between"
       minW="150px"
@@ -38,13 +44,13 @@ const NavItem: FC<NavItemProps> = ({
   )
 
   return (
-    <ConditionalWrapper 
-      condition={shouldCollapse} 
+    <ConditionalWrapper
+      condition={shouldCollapse}
       wrapper={(content) => (
-        <Tooltip 
-          colorScheme="brand" 
-          label={label} 
-          placement="right" 
+        <Tooltip
+          colorScheme="brand"
+          label={label}
+          placement="right"
           hasArrow
           ml={4}
           py={3}
@@ -56,14 +62,17 @@ const NavItem: FC<NavItemProps> = ({
         </Tooltip>
       )}
     >
-      <chakra.a __css={styles["item"]} data-active={dataAttr(isActive)} {...props}>
-        {!!icon && <Icon as={icon} fontSize="xl" flex="0 auto"/>}
+      <chakra.a
+        __css={styles["item"]}
+        data-active={dataAttr(isActive)}
+        {...props}
+      >
+        {!!icon && <Icon as={icon} fontSize="xl" flex="0 auto" />}
         {!shouldCollapse && label}
       </chakra.a>
     </ConditionalWrapper>
   )
 }
-
 
 NavItem.defaultProps = {
   width: "100%",

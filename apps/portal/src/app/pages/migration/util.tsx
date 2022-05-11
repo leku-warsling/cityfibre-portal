@@ -1,4 +1,4 @@
-import { IconButton } from '@ui';
+import { IconButton } from "@ui"
 import {
   Box,
   Menu,
@@ -6,8 +6,15 @@ import {
   MenuList,
   MenuItem,
   Tooltip,
-} from '@chakra-ui/react';
-import { FiMoreVertical, FiDownload } from 'react-icons/fi';
+  HStack,
+  Text,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  VStack,
+  AlertDescription,
+} from "@chakra-ui/react"
+import { FiMoreVertical, FiDownload } from "react-icons/fi"
 import {
   BiChevronDown,
   BiChevronRight,
@@ -16,21 +23,21 @@ import {
   BiXCircle,
   BiFlag,
   BiTrash,
-} from 'react-icons/bi';
-import { AiFillFilePdf, AiFillFileExcel, AiFillFile } from 'react-icons/ai';
-import { formatDateString } from '../../utils/date';
-import Code from '../../components/code';
-import { flow } from 'fp-ts/lib/function';
-import prop from 'ramda/es/prop';
-import PopoverText from '../../components/popover-text';
+} from "react-icons/bi"
+import { AiFillFilePdf, AiFillFileExcel, AiFillFile } from "react-icons/ai"
+import { formatDateString } from "../../utils/date"
+import Code from "../../components/code"
+import { flow } from "fp-ts/lib/function"
+import prop from "ramda/es/prop"
+import PopoverText from "../../components/popover-text"
 
 const BooleanCell = (props: any) => {
   return props.value ? (
     <BiCheckCircle fontSize="24px" color="green" />
   ) : (
     <BiXCircle fontSize="24px" color="red" />
-  );
-};
+  )
+}
 
 const ExpanderCell = ({ row }: any) => (
   <IconButton
@@ -41,52 +48,52 @@ const ExpanderCell = ({ row }: any) => (
     variant="ghost"
     {...row.getToggleRowExpandedProps()}
   />
-);
+)
 
 const columns = [
   {
-    id: 'expander',
-    Header: 'JSON Body',
+    id: "expander",
+    Header: "JSON Body",
     Cell: ExpanderCell,
   },
   {
-    Header: 'Topic Name',
-    accessor: 'topic_name',
+    Header: "Topic Name",
+    accessor: "topic_name",
     disableFilters: true,
   },
   {
-    Header: 'Message',
+    Header: "Message",
     Cell: ({ value }: any) => (
       <PopoverText maxW="100px">{value.replace(/\\'/g, "'")}</PopoverText>
     ),
-    accessor: 'error_exception',
+    accessor: "error_exception",
     disableFilters: true,
     disableSortBy: true,
   },
   {
-    Header: 'Date',
-    Cell: flow(prop<'value', string>('value'), formatDateString('dd/MM/yyyy')),
-    accessor: 'error_timestamp',
+    Header: "Date",
+    Cell: flow(prop<"value", string>("value"), formatDateString("dd/MM/yyyy")),
+    accessor: "error_timestamp",
     disableFilters: true,
   },
   {
-    Header: 'Viewed',
-    accessor: 'is_checked',
+    Header: "Viewed",
+    accessor: "is_checked",
     disableFilters: true,
     Cell: BooleanCell,
   },
   {
-    Header: 'Resolved',
-    accessor: 'is_resolved',
+    Header: "Resolved",
+    accessor: "is_resolved",
     disableFilters: true,
     Cell: BooleanCell,
   },
-] as const;
+] as const
 
 const tableActions = ({ update, remove }: any) => [
   {
     icon: BiFlag,
-    label: 'Mark Resolved',
+    label: "Mark Resolved",
     handler: (data: any) =>
       update({
         ...data,
@@ -96,7 +103,7 @@ const tableActions = ({ update, remove }: any) => [
   },
   {
     icon: BiFlag,
-    label: 'Mark Viewed',
+    label: "Mark Viewed",
     handler: (data: any) =>
       update({
         ...data,
@@ -106,15 +113,15 @@ const tableActions = ({ update, remove }: any) => [
   },
   {
     icon: BiTrash,
-    label: 'Delete',
+    label: "Delete",
     confirmConfig: {
-      title: 'Delete Migration',
+      title: "Delete Migration",
       description: "Are you sure? You can't undo this action afterwards",
     },
     handler: ({ id }: any) => remove(id),
     isBatchable: false,
   },
-];
+]
 
 const pageActions = [
   <Menu key={0}>
@@ -124,7 +131,7 @@ const pageActions = [
         aria-label="Download"
         size="sm"
         variant="ghost"
-        _hover={{ bg: 'gray.200' }}
+        _hover={{ bg: "gray.200" }}
         icon={<BiSearch />}
       />
     </Tooltip>
@@ -134,7 +141,7 @@ const pageActions = [
         aria-label="Download"
         size="sm"
         variant="ghost"
-        _hover={{ bg: 'gray.200' }}
+        _hover={{ bg: "gray.200" }}
         icon={<FiDownload />}
       />
     </Tooltip>
@@ -149,19 +156,34 @@ const pageActions = [
     aria-label="Menu"
     size="sm"
     variant="ghost"
-    _hover={{ bg: 'gray.200' }}
+    _hover={{ bg: "gray.200" }}
     icon={<FiMoreVertical />}
   />,
-];
+]
 
-const renderJSONBody = ({ original }: any) => (
-  <Box maxW="90vw" maxH="50vh" overflow="auto">
-    <Code language="json">
-      {JSON.stringify(JSON.parse(original.json_body), null, 2)}
-    </Code>
-  </Box>
-);
+const renderJSONBody = ({ original }: any) => {
+  try {
+    return (
+      <Box maxW="90vw" maxH="50vh" overflow="auto">
+        <Code language="json">
+          {JSON.stringify(JSON.parse(original.json_body), null, 2)}
+        </Code>
+      </Box>
+    )
+  } catch (err: any) {
+    return (
+      <VStack spacing={6} w="100%" alignItems="flex-start">
+        <Alert status="error" rounded={5} p={6} maxW="600px">
+          <AlertIcon />
+          <AlertTitle>Invalid JSON string:</AlertTitle>
+          <AlertDescription>{err?.message}</AlertDescription>
+        </Alert>
+        <Text>{original.json_body}</Text>
+      </VStack>
+    )
+  }
+}
 
-const colgroups = [{ width: '105px' }];
+const colgroups = [{ width: "105px" }]
 
-export { columns, tableActions, pageActions, renderJSONBody, colgroups };
+export { columns, tableActions, pageActions, renderJSONBody, colgroups }

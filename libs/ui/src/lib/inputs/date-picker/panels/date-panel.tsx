@@ -5,16 +5,16 @@ import {
   Heading,
   HStack,
   IconButton,
-} from '@chakra-ui/react';
-import { FC } from 'react';
+} from "@chakra-ui/react"
+import { FC } from "react"
 import {
   BiChevronLeft,
   BiChevronRight,
   BiChevronsLeft,
   BiChevronsRight,
-} from 'react-icons/bi';
-import useCalendar from '../use-calendar';
-import { DAY_NAMES, MONTH_NAMES } from '../util';
+} from "react-icons/bi"
+import useCalendar from "../use-calendar"
+import { DAY_NAMES, MONTH_NAMES } from "../util"
 
 const DatePanel: FC<ReturnType<typeof useCalendar>> = ({
   calendar,
@@ -27,7 +27,7 @@ const DatePanel: FC<ReturnType<typeof useCalendar>> = ({
       <HStack w="100%" mb={2}>
         <IconButton
           variant="ghost"
-          icon={<BiChevronsLeft fontSize="20px"/>}
+          icon={<BiChevronsLeft fontSize="20px" />}
           {...getBackProps({ offset: 12 })}
         />
         <IconButton
@@ -49,12 +49,14 @@ const DatePanel: FC<ReturnType<typeof useCalendar>> = ({
           {...getForwardProps({ offset: 12 })}
         />
       </HStack>
-      <Divider/>
+      <Divider />
       <chakra.table mt={3}>
         <chakra.thead>
           <chakra.tr>
             {DAY_NAMES.map((wd) => (
-              <chakra.th fontSize="14px">{wd.substring(0, 2)}</chakra.th>
+              <chakra.th py={1} fontSize="13px">
+                {wd.substring(0, 2)}
+              </chakra.th>
             ))}
           </chakra.tr>
         </chakra.thead>
@@ -63,7 +65,12 @@ const DatePanel: FC<ReturnType<typeof useCalendar>> = ({
             <chakra.tr key={`week-${i}`}>
               {week.map((day) => (
                 <chakra.td>
-                  <Button variant="ghost" fontSize="14px" {...getDateProps(day, {})}>
+                  <Button
+                    p={0}
+                    variant="ghost"
+                    fontSize="13px"
+                    {...getDateProps(day, {})}
+                  >
                     {day.getDate()}
                   </Button>
                 </chakra.td>
@@ -73,7 +80,7 @@ const DatePanel: FC<ReturnType<typeof useCalendar>> = ({
         </chakra.tbody>
       </chakra.table>
     </chakra.div>
-  );
-};
+  )
+}
 
-export default DatePanel;
+export default DatePanel

@@ -35,25 +35,25 @@ import {
   MenuItem,
   Spinner,
   StyleProps,
-} from '@chakra-ui/react';
-import append from 'ramda/es/append';
-import omit from 'ramda/es/omit';
-import pick from 'ramda/es/pick';
-import pipe from 'ramda/es/pipe';
-import prepend from 'ramda/es/prepend';
-import range from 'ramda/es/range';
-import repeat from 'ramda/es/repeat';
-import whereEq from 'ramda/es/whereEq';
-import { FC, forwardRef, Fragment, ReactNode, useEffect, useMemo } from 'react';
-import { IconType } from 'react-icons';
+} from "@chakra-ui/react"
+import append from "ramda/es/append"
+import omit from "ramda/es/omit"
+import pick from "ramda/es/pick"
+import pipe from "ramda/es/pipe"
+import prepend from "ramda/es/prepend"
+import range from "ramda/es/range"
+import repeat from "ramda/es/repeat"
+import whereEq from "ramda/es/whereEq"
+import { FC, forwardRef, Fragment, ReactNode, useEffect, useMemo } from "react"
+import { IconType } from "react-icons"
 import {
   BiCaretDown,
   BiCaretUp,
   BiChevronLeft,
   BiChevronRight,
   BiFilterAlt,
-} from 'react-icons/bi';
-import { FiMoreVertical } from 'react-icons/fi';
+} from "react-icons/bi"
+import { FiMoreVertical } from "react-icons/fi"
 import {
   useTable,
   Column,
@@ -66,83 +66,83 @@ import {
   UseSortByOptions,
   UseSortByColumnProps,
   UseFiltersColumnProps,
-} from 'react-table';
-import { confirm, ConfirmProps } from '@ui';
-import BeatLoader from 'react-spinners/BeatLoader';
-import { identity, prop } from 'ramda';
-import { isNilOrEmpty } from 'ramda-adjunct';
+} from "react-table"
+import { confirm, ConfirmProps } from "@ui"
+import BeatLoader from "react-spinners/BeatLoader"
+import { identity, prop } from "ramda"
+import { isNilOrEmpty } from "ramda-adjunct"
 
 type Action = {
-  icon?: IconType;
-  label: ReactNode;
-  confirmConfig?: Omit<ConfirmProps, 'onConfirm'>;
-  handler: (data: any) => void;
-  isBatchable?: boolean;
-};
+  icon?: IconType
+  label: ReactNode
+  confirmConfig?: Omit<ConfirmProps, "onConfirm">
+  handler: (data: any) => void
+  isBatchable?: boolean
+}
 
-export type Col = StyleProps & { span?: number };
+export type Col = StyleProps & { span?: number }
 
 type TableOwnProps<T extends object> = {
-  onPaginate?: (value: { pageIndex: number; pageSize: number }) => void;
-  onSort?: (value: { id: string; desc?: boolean }) => void;
-  actions?: Action[];
-  isExpandable?: boolean;
-  isSticky?: boolean;
-  isLoading?: boolean;
-  isFetching?: boolean;
-  isSortable?: boolean;
-  isFilterable?: boolean;
-  isPaginated?: boolean;
-  isSelectable?: boolean;
-  colgroup?: Col[];
-  footer?: (state: any) => ReactNode;
-  renderExpansion?: (data: any) => ReactNode;
-};
+  onPaginate?: (value: { pageIndex: number; pageSize: number }) => void
+  onSort?: (value: { id: string; desc?: boolean }) => void
+  actions?: Action[]
+  isExpandable?: boolean
+  isSticky?: boolean
+  isLoading?: boolean
+  isFetching?: boolean
+  isSortable?: boolean
+  isFilterable?: boolean
+  isPaginated?: boolean
+  isSelectable?: boolean
+  colgroup?: Col[]
+  footer?: (state: any) => ReactNode
+  renderExpansion?: (data: any) => ReactNode
+}
 
 type TableProps<T extends object> = _TableProps &
   TableOptions<T> &
   UseSortByOptions<T> &
   TableOwnProps<T> &
-  Record<string, any>;
+  Record<string, any>
 
 type SortIndicatorProps<D extends object> = Pick<
   UseSortByColumnProps<D>,
-  'canSort' | 'isSorted' | 'isSortedDesc'
->;
+  "canSort" | "isSorted" | "isSortedDesc"
+>
 
 const hasBatchableActions = (a: Action[]) =>
-  a.filter((x) => x.isBatchable).length > 0;
+  a.filter((x) => x.isBatchable).length > 0
 
-const getSortIndicatorProps = pick(['canSort', 'isSorted', 'isSortedDesc']);
+const getSortIndicatorProps = pick(["canSort", "isSorted", "isSortedDesc"])
 const getColumnFilterProps = pick([
-  'canFilter',
-  'setFilter',
-  'filterValue',
-  'preFilteredRows',
-  'filteredRows',
-]);
+  "canFilter",
+  "setFilter",
+  "filterValue",
+  "preFilteredRows",
+  "filteredRows",
+])
 
 const isDescending = whereEq({
   isSorted: true,
   isSortedDesc: true,
-});
+})
 
 const isAscending = whereEq({
   isSorted: true,
   isSortedDesc: false,
-});
+})
 
 const stickyHeaderProps = {
-  position: 'sticky',
+  position: "sticky",
   top: 0,
-  bgColor: '#fff',
+  bgColor: "#fff",
   zIndex: 10,
   boxShadow:
-    '0 1px 3px -1.5px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06)',
-} as const;
+    "0 1px 3px -1.5px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06)",
+} as const
 
 const SortIndicator = <D extends object>(props: SortIndicatorProps<D>) => {
-  if (!props.canSort) return null;
+  if (!props.canSort) return null
   return (
     <Stack
       direction="column"
@@ -153,15 +153,15 @@ const SortIndicator = <D extends object>(props: SortIndicatorProps<D>) => {
       <Icon as={BiCaretUp} opacity={isAscending(props) ? 1 : 0.5} />
       <Icon as={BiCaretDown} opacity={isDescending(props) ? 1 : 0.5} />
     </Stack>
-  );
-};
+  )
+}
 
 type ColumnFilter<D extends object> = UseFiltersColumnProps<D> & {
-  render: (type: string) => ReactNode;
-};
+  render: (type: string) => ReactNode
+}
 
 const ColumnFilter = <D extends object>(props: ColumnFilter<D>) => {
-  if (!props.canFilter) return null;
+  if (!props.canFilter) return null
   return (
     <Popover>
       <PopoverTrigger>
@@ -177,16 +177,16 @@ const ColumnFilter = <D extends object>(props: ColumnFilter<D>) => {
       <PopoverContent>
         <PopoverArrow />
         <PopoverCloseButton />
-        <PopoverBody p={4}>{props.render('Filter')}</PopoverBody>
+        <PopoverBody p={4}>{props.render("Filter")}</PopoverBody>
       </PopoverContent>
     </Popover>
-  );
-};
+  )
+}
 
 const renderSkeletonCell = <T extends object>(column: Column<T>) => ({
   ...column,
   Cell: <Skeleton height="20px" />,
-});
+})
 
 const RowSelectCheckbox = forwardRef<any, any>(
   ({ indeterminate, checked, ...rest }, ref) => (
@@ -199,21 +199,21 @@ const RowSelectCheckbox = forwardRef<any, any>(
       {...rest}
     />
   )
-);
+)
 
 const selectionColumn = {
-  id: 'selection',
+  id: "selection",
   Header: (col: any) => (
     <RowSelectCheckbox {...col.getToggleAllRowsSelectedProps()} />
   ),
   Cell: ({ row }: any) => (
     <RowSelectCheckbox {...row.getToggleRowSelectedProps()} />
   ),
-};
+}
 
-type MenuActionProps = Omit<Action, 'handler'> & {
-  onClick: () => void;
-};
+type MenuActionProps = Omit<Action, "handler"> & {
+  onClick: () => void
+}
 
 const MenuAction: FC<MenuActionProps> = ({
   icon: Icon,
@@ -229,14 +229,14 @@ const MenuAction: FC<MenuActionProps> = ({
           title: confirmConfig.title,
           description: confirmConfig.description,
           onConfirm: onClick,
-        });
+        })
 
   return (
     <MenuItem icon={Icon && <Icon fontSize="18px" />} onClick={_onClick}>
       {label}
     </MenuItem>
-  );
-};
+  )
+}
 
 const createActionColumn = (actions: Action[]) => {
   const OverflowMenu = ({ row }: any) => (
@@ -252,17 +252,17 @@ const createActionColumn = (actions: Action[]) => {
         ))}
       </MenuList>
     </Menu>
-  );
+  )
 
   return {
-    id: 'actions',
-    Header: 'Actions',
+    id: "actions",
+    Header: "Actions",
     Cell: OverflowMenu,
-  };
-};
+  }
+}
 
 const Table = <T extends object>({
-  size = 'sm',
+  size = "sm",
   colorScheme,
   actions = [],
   variant,
@@ -281,12 +281,12 @@ const Table = <T extends object>({
   const tableData = useMemo(
     () => (isLoading ? repeat({}, 10) : props.data ?? []),
     [isLoading, props.data]
-  ) as T[];
+  ) as T[]
 
   const tableColumns = useMemo(
     () => (isLoading ? props.columns.map(renderSkeletonCell) : props.columns),
     [isLoading, props.columns]
-  );
+  )
 
   const {
     getTableProps,
@@ -320,7 +320,7 @@ const Table = <T extends object>({
     usePagination,
     useRowSelect,
     (hooks) => {
-      const hasActions = !isNilOrEmpty(actions);
+      const hasActions = !isNilOrEmpty(actions)
       hooks.visibleColumns.push(
         pipe(
           hasActions && hasBatchableActions(actions)
@@ -328,19 +328,17 @@ const Table = <T extends object>({
             : identity,
           hasActions ? append(createActionColumn(actions)) : identity
         )
-      );
+      )
     }
-  );
-
-  console.log('rest:', rest);
+  )
 
   useEffect(() => {
-    onPaginate && onPaginate({ pageIndex, pageSize });
-  }, [pageIndex, pageSize]);
+    onPaginate && onPaginate({ pageIndex, pageSize })
+  }, [pageIndex, pageSize])
 
   useEffect(() => {
-    onSort && sortBy[0] && onSort(sortBy[0]);
-  }, [sortBy]);
+    onSort && sortBy[0] && onSort(sortBy[0])
+  }, [sortBy])
 
   const head = headerGroups.map((headerGroup) => (
     <Tr {...headerGroup.getHeaderGroupProps()}>
@@ -353,7 +351,7 @@ const Table = <T extends object>({
               {...col.getSortByToggleProps()}
               justifyContent="space-between"
             >
-              <span>{col.render('Header')}</span>
+              <span>{col.render("Header")}</span>
               <SortIndicator {...getSortIndicatorProps(col)} />
             </Stack>
             <ColumnFilter {...getColumnFilterProps(col)} render={col.render} />
@@ -361,17 +359,17 @@ const Table = <T extends object>({
         </Th>
       ))}
     </Tr>
-  ));
+  ))
 
   const rows = page.map((row, i) => {
-    prepareRow(row);
-    const { key, ...props } = row.getRowProps();
+    prepareRow(row)
+    const { key, ...props } = row.getRowProps()
 
     return (
       <Fragment key={key}>
-        <Tr {...props} _hover={{ bg: 'gray.100' }}>
+        <Tr {...props} _hover={{ bg: "gray.100" }}>
           {row.cells.map((cell) => (
-            <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
+            <Td {...cell.getCellProps()}>{cell.render("Cell")}</Td>
           ))}
         </Tr>
         {row.isExpanded && (
@@ -389,12 +387,12 @@ const Table = <T extends object>({
           </Tr>
         )}
       </Fragment>
-    );
-  });
+    )
+  })
 
   return (
     <Box
-      {...omit(['data', 'columns'], props)}
+      {...omit(["data", "columns"], props)}
       opacity={isFetching ? 0.5 : 1}
       position="relative"
     >
@@ -437,7 +435,7 @@ const Table = <T extends object>({
                 size="sm"
                 leftIcon={Icon && <Icon />}
                 onClick={action.handler}
-                _hover={{ bg: 'white', color: '#0361FF' }}
+                _hover={{ bg: "white", color: "#0361FF" }}
               >
                 {action.label}
               </Button>
@@ -515,13 +513,13 @@ const Table = <T extends object>({
         </chakra.div>
       )}
     </Box>
-  );
-};
+  )
+}
 
 Table.defaultProps = {
-  variant: 'simple',
-};
+  variant: "simple",
+}
 
-export default Table;
+export default Table
 
-export { Column, TableProps };
+export { Column, TableProps }
