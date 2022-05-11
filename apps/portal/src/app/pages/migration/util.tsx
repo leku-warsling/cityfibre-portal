@@ -78,13 +78,13 @@ const columns = [
   },
   {
     Header: "Viewed",
-    accessor: "is_checked",
+    accessor: "viewed",
     disableFilters: true,
     Cell: BooleanCell,
   },
   {
     Header: "Resolved",
-    accessor: "is_resolved",
+    accessor: "resolved",
     disableFilters: true,
     Cell: BooleanCell,
   },
@@ -97,7 +97,7 @@ const tableActions = ({ update, remove }: any) => [
     handler: (data: any) =>
       update({
         ...data,
-        is_resolved: true,
+        resolved: true,
       }),
     isBatchable: false,
   },
@@ -107,7 +107,7 @@ const tableActions = ({ update, remove }: any) => [
     handler: (data: any) =>
       update({
         ...data,
-        is_checked: true,
+        viewed: true,
       }),
     isBatchable: false,
   },

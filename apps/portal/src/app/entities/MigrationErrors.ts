@@ -6,8 +6,8 @@ export type MigrationError = {
   json_body: string
   error_exception: string
   error_timestamp: string
-  is_checked: boolean
-  is_resolved: boolean
+  viewed: boolean
+  resolved: boolean
 }
 
 export type MigrationErrorResponse = {
