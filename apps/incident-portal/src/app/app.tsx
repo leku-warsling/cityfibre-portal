@@ -1,4 +1,4 @@
-import { ChakraProvider } from "@chakra-ui/react"
+import { Box, ChakraProvider } from "@chakra-ui/react"
 import { theme } from "@ui"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Global, css } from "@emotion/core"
@@ -29,6 +29,25 @@ const queryClient = new QueryClient({
   },
 })
 
+const Wizard = () => {
+  const Comp = () => <p>poo</p>
+  const StepOne = () => <p>step 1</p>
+  const StepTwo = () => <p>step 2</p>
+  const StepThree = () => <p>step 3</p>
+
+  return (
+    <Box>
+      <p>yo</p>
+      <Routes>
+        <Route path="/" element={<Comp />} />
+        <Route path="/step-1" element={<StepOne />} />
+        <Route path="/step-2" element={<StepTwo />} />
+        <Route path="/step-3" element={<StepThree />} />
+      </Routes>
+    </Box>
+  )
+}
+
 export function App() {
   return (
     <ChakraProvider theme={theme}>
@@ -37,6 +56,7 @@ export function App() {
           <Global styles={GlobalStyles} />
           <AnimatePresence>
             <Routes>
+              <Route path="/wizard/*" element={<Wizard />} />
               <Route path="/" element={<MainLayout />}>
                 <Route
                   index
