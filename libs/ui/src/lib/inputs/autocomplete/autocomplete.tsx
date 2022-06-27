@@ -5,7 +5,7 @@ import {
   InputGroup,
   InputRightElement,
   Flex,
-  Spinner
+  Spinner,
 } from "@chakra-ui/react"
 import { ChevronDownIcon } from "@chakra-ui/icons"
 import { matchSorter } from "match-sorter"
@@ -23,12 +23,7 @@ const filterOptions = memoize((opts: Option[], str: string) =>
   matchSorter(opts, str, { keys: ["label"] })
 )
 
-const inputProps = [
-  "placeholder",
-  "isDisabled",
-  "value",
-  "defaultValue"
-]
+const inputProps = ["placeholder", "isDisabled", "value", "defaultValue"]
 
 const Autocomplete: FC<AutocompleteProps> = ({
   options = [],
@@ -45,7 +40,9 @@ const Autocomplete: FC<AutocompleteProps> = ({
       if (!inputValue?.trim()) return
       if (!onSearch) return setItems(filterOptions(options, inputValue))
       setLoading(true)
-      onSearch(inputValue).then(setItems).finally(() => setLoading(false))
+      onSearch(inputValue)
+        .then(setItems)
+        .finally(() => setLoading(false))
     }, 300)
   }, [])
 
@@ -59,18 +56,19 @@ const Autocomplete: FC<AutocompleteProps> = ({
     ...comboboxProps
   } = useCombobox({
     items,
-    itemToString: item => (item ? item.label : ""),
+    itemToString: (item) => (item ? item.label : ""),
     onSelectedItemChange: ({ selectedItem }) => {
       if (selectedItem && onChange) onChange(omit(["label"], selectedItem))
     },
-    onInputValueChange: searchHandler
+    onInputValueChange: searchHandler,
   })
 
   const isActive = equals(highlightedIndex)
   const getInputProps = flow(pick(inputProps), comboboxProps.getInputProps)
   const indicator = isLoading ? <Spinner size="sm" /> : <ChevronDownIcon />
+
   // TODO: clear icon and functionality
-  console.log(items)
+
   return (
     <Flex {...getComboboxProps()} direction="column" pos="relative">
       <InputGroup>
@@ -97,7 +95,7 @@ const Autocomplete: FC<AutocompleteProps> = ({
 Autocomplete.defaultProps = {
   placeholder: "Enter search text",
   isDisabled: false,
-  noOptionsMessage: "No options found"
+  noOptionsMessage: "No options found",
 }
 
 export default Autocomplete

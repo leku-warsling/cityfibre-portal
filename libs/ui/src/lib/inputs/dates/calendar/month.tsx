@@ -1,7 +1,7 @@
 import { chakra } from "@chakra-ui/react"
 import { isDate, isFirstDayOfMonth, isToday, isWeekend } from "date-fns"
 import { isFunction, isNil } from "lodash-es"
-import { all, both, or } from "ramda"
+import { both, or } from "ramda"
 import { isArray } from "ramda-adjunct"
 import { forwardRef, KeyboardEvent, ReactNode } from "react"
 import Day from "./day"
@@ -11,13 +11,13 @@ import {
   inRange,
   isSameMonth,
   isSelected,
-  isZero,
 } from "./util"
 
 export type MonthProps = {
   renderDay?: (value: Date) => ReactNode
   daysRefs?: HTMLButtonElement[][]
   onChange?: (value: Date) => void
+  size?: "sm" | "md" | "lg"
   onNextLevel?: () => void
   value?: Date | Date[]
   onDayKeyDown?(
@@ -35,6 +35,7 @@ const Month = forwardRef<HTMLTableElement, MonthProps>((props, ref) => {
   const {
     monthIndex = 0,
     onDayKeyDown,
+    size = "sm",
     renderDay,
     onChange,
     daysRefs,
@@ -52,7 +53,7 @@ const Month = forwardRef<HTMLTableElement, MonthProps>((props, ref) => {
     <chakra.thead>
       <chakra.tr>
         {DAY_NAMES.map((dayName) => (
-          <chakra.th py={2} fontSize="sm" color="#ADB5BD" fontWeight={500}>
+          <chakra.th py={2} fontSize={size} color="#ADB5BD" fontWeight={500}>
             {dayName.substring(0, 2)}
           </chakra.th>
         ))}
@@ -82,6 +83,7 @@ const Month = forwardRef<HTMLTableElement, MonthProps>((props, ref) => {
               onDayKeyDown([monthIndex, rowIndex, cellIndex], day, e)
             }
             value={day}
+            size={size}
           />
         </chakra.td>
       ))}

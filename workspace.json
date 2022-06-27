@@ -7,6 +7,8 @@
     "incident-portal-e2e": "apps/incident-portal-e2e",
     "portal": "apps/portal",
     "portal-e2e": "apps/portal-e2e",
-    "ui": "libs/ui"
+    "ui": "libs/ui",
+    "unify-portal": "apps/unify-portal",
+    "unify-portal-e2e": "apps/unify-portal-e2e"
   }
 }

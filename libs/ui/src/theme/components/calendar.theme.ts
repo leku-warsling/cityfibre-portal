@@ -26,10 +26,23 @@ const CalendarDay: ComponentStyleConfig = {
     },
   }),
   sizes: {
-    md: {
+    sm: {
       fontSize: "sm",
       height: 8,
       width: 8,
+      p: 0,
+    },
+    md: {
+      fontSize: "md",
+      height: 10,
+      width: 10,
+      p: 0,
+    },
+    lg: {
+      fontSize: "lg",
+      height: 12,
+      width: 12,
+      m: 2,
       p: 0,
     },
   },

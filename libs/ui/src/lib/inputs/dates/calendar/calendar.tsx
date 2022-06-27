@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, chakra } from "@chakra-ui/react"
+import { chakra } from "@chakra-ui/react"
 import { forwardRef, KeyboardEvent, useRef } from "react"
 import {
   cond,
@@ -29,15 +29,16 @@ export type ArrowKey = "ArrowUp" | "ArrowDown" | "ArrowLeft" | "ArrowRight"
 export type CalendarProps = {
   onChange?: (date: Date) => void
   previousYearSetLabel?: string
+  value?: Date | Date[] | null
   previousMonthLabel?: string
   allowLevelChange?: boolean
   previousYearLabel?: string
   nextYearSetLabel?: string
+  size?: "sm" | "md" | "lg"
   amountOfMonths?: number
   nextMonthLabel?: string
   preventFocus?: boolean
-  value?: Date | Date[] | null
-  nextYearLabel: string
+  nextYearLabel?: string
   initialDate?: Date
   minDate?: Date
   maxDate?: Date
@@ -98,13 +99,14 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
       initialDate = new Date(),
       allowLevelChange = true,
       previousYearSetLabel,
+      preventFocus = true,
       previousMonthLabel,
+      amountOfMonths = 1,
       previousYearLabel,
       nextYearSetLabel,
       nextYearLabel,
       nextMonthLabel,
-      preventFocus = true,
-      amountOfMonths = 1,
+      size = "sm",
       onChange,
       maxDate,
       minDate,
@@ -120,6 +122,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
     const getCell = (cellPath: number[]) => {
       return path<HTMLButtonElement>(cellPath, daysRefs.current)
     }
+
     const movePosition = {
       ArrowRight: moveRight(daysRefs.current),
       ArrowLeft: moveLeft(daysRefs.current),
@@ -162,6 +165,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
             maxDate={maxDate}
             value={value ?? []}
             ref={monthRef}
+            size={size}
             date={date}
           />
         )}

@@ -1,0 +1,28 @@
+{
+  "root": "apps/unify-portal-e2e",
+  "sourceRoot": "apps/unify-portal-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/unify-portal-e2e/cypress.json",
+        "devServerTarget": "unify-portal:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "unify-portal:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/unify-portal-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["unify-portal"]
+}

@@ -15,6 +15,7 @@ export type MonthListProps = {
   previousMonthLabel?: string
   onChange?(value: Date): void
   allowLevelChange: boolean
+  size: "sm" | "md" | "lg"
   nextMonthLabel?: string
   amountOfMonths: number
   value?: Date | Date[]
@@ -42,6 +43,7 @@ const MonthList = forwardRef<HTMLDivElement, MonthListProps>(
       minDate,
       maxDate,
       daysRefs,
+      size,
       ...props
     },
     ref
@@ -65,10 +67,10 @@ const MonthList = forwardRef<HTMLDivElement, MonthListProps>(
             nextLabel={nextMonthLabel}
           >
             <Button
-              rightIcon={<BiCaretDown />}
+              rightIcon={<BiCaretDown fontSize=".75rem" />}
               onClick={onNextLevel}
               variant="ghost"
-              size="sm"
+              size={size}
             >
               {format("MMM yyyy", monthDate)}
             </Button>
@@ -81,6 +83,7 @@ const MonthList = forwardRef<HTMLDivElement, MonthListProps>(
             minDate={minDate}
             maxDate={maxDate}
             date={monthDate}
+            size={size}
             {...props}
           />
         </div>
