@@ -103,3 +103,93 @@ export const INCIDENT_COLUMNS = [
     disableSortBy: true,
   },
 ] as const
+
+export const INVOICE_DATA = [
+  {
+    id: "9NIC0U37",
+    status: "Open",
+    created_at: new Date(),
+    expires_at: new Date(),
+    total: 524.4,
+  },
+  {
+    id: "9NIC0U37",
+    status: "Open",
+    created_at: new Date(),
+    expires_at: new Date(),
+    total: 524.4,
+  },
+  {
+    id: "9NIC0U37",
+    status: "Open",
+    created_at: new Date(),
+    expires_at: new Date(),
+    total: 524.4,
+  },
+  {
+    id: "9NIC0U37",
+    status: "Open",
+    created_at: new Date(),
+    expires_at: new Date(),
+    total: 524.4,
+  },
+  {
+    id: "9NIC0U37",
+    status: "Open",
+    created_at: new Date(),
+    expires_at: new Date(),
+    total: 524.4,
+  },
+]
+
+export const INVOICE_COLUMNS = [
+  {
+    Header: "Invoice #",
+    accessor: "id",
+    disableFilters: true,
+    disableSortBy: true,
+    Cell: ({ value }: any) => (
+      <Button size="sm" as={Link} variant="link" to={`/incidents/${value}`}>
+        {value}
+      </Button>
+    ),
+  },
+  {
+    Header: "Status",
+    accessor: "status",
+    Cell: ({ value }: any) => (
+      <Badge colorScheme="green" rounded={4} px={2} py={0.5}>
+        {value}
+      </Badge>
+    ),
+    disableFilters: true,
+    disableSortBy: true,
+  },
+  {
+    Header: "Date",
+    accessor: "created_at",
+    Cell: flow(
+      prop<"value", string>("value"),
+      util.date.formatDateString("dd/MM/yyyy")
+    ),
+    disableFilters: true,
+    disableSortBy: true,
+  },
+  {
+    Header: "Due",
+    accessor: "expires_at",
+    Cell: flow(
+      prop<"value", string>("value"),
+      util.date.formatDateString("dd/MM/yyyy")
+    ),
+    disableFilters: true,
+    disableSortBy: true,
+  },
+  {
+    Header: "Total",
+    accessor: "total",
+    disableFilters: true,
+    disableSortBy: true,
+    Cell: ({ value }: any) => `£${value.toFixed(2)}`,
+  },
+] as const
