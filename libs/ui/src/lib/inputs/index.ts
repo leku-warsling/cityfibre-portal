@@ -6,11 +6,6 @@ import {
   InputRightAddon,
   InputLeftElement,
   InputRightElement,
-  PinInput,
-  PinInputContext,
-  PinInputField,
-  PinInputDescendantsProvider,
-  PinInputProvider,
   NumberInput,
   NumberInputField,
   Select,
@@ -44,9 +39,10 @@ import {
   NumberIncrementStepper,
   NumberInputStepper,
   FormErrorIcon,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react"
 import PasswordInput from "./password-input"
-import SearchInput from './search-input';
+import { SearchInput } from "./search-input"
+import { PinInput } from "./pin-input"
 
 export {
   Input,
@@ -57,9 +53,6 @@ export {
   InputLeftElement,
   InputRightElement,
   PinInput,
-  PinInputField,
-  PinInputDescendantsProvider,
-  PinInputProvider,
   NumberInput,
   NumberInputField,
   Select,

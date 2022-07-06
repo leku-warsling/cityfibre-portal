@@ -1,2 +1,5 @@
+export * from "./authenticate-account.page"
+export * from "./forgotten-password.page"
+export * from "./reset-password.page"
+export * from "./login.page"
 export * from "./register"
-export { default as Login } from "./login.page"

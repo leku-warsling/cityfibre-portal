@@ -16,7 +16,7 @@ import {
 } from "ramda"
 import { isFalsy, isNotNaN } from "ramda-adjunct"
 import { useCallback, useEffect, useRef } from "react"
-import { select, selectAll } from "../util/dom"
+import { select, selectAll } from "../util/dom.util"
 
 const isDevelopment = process.env["NODE_ENV"] === "development"
 const TABBABLE_NODES = /input|select|textarea|button|object/

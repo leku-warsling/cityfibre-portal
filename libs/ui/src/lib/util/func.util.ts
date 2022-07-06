@@ -1,3 +1,1 @@
-const noop = () => {}
-
-export { noop }
+export const noop = () => {}

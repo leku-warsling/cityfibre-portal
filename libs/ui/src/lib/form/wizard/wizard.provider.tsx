@@ -35,6 +35,7 @@ export type FormResponse = {
 export type WizardContextProps = {
   onComplete?: (data: object) => void | Promise<FormResponse>
   onStep?: (data: object) => void | Promise<FormResponse>
+  size?: "sm" | "md" | "lg"
   onCancel?: () => void
   initialStep?: number
   redirectTo?: string
@@ -45,6 +46,7 @@ export type WizardContextProps = {
 export type WizardContextState = {
   setStep: (step: number) => void
   state: FormState<FieldValues>
+  size?: "sm" | "md" | "lg"
   Page: () => JSX.Element
   payload: object | null
   isCompleted?: boolean
@@ -76,6 +78,7 @@ export default WizardContext
 const WizardProvider: FC<WizardContextProps> = ({
   initialStep = 0,
   formData = {},
+  size = "lg",
   onComplete,
   children,
   onCancel,
@@ -144,6 +147,7 @@ const WizardProvider: FC<WizardContextProps> = ({
     onNext,
     payload,
     steps,
+    size,
     Page,
   }
 

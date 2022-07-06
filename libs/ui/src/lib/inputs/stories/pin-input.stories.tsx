@@ -1,13 +1,13 @@
-import { Container, HStack, PinInputProps } from '@chakra-ui/react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { repeat } from 'ramda';
-import { FC } from 'react';
-import { PinInput, PinInputField } from '..';
+import { Container, HStack, PinInputProps } from "@chakra-ui/react"
+import { ComponentStory, ComponentMeta } from "@storybook/react"
+import { repeat } from "ramda"
+import { FC } from "react"
+import { PinInput } from ".."
 
 type ExamplePinInputProps = PinInputProps & {
-  length: number;
-  spacing?: number;
-};
+  length: number
+  spacing?: number
+}
 
 const ExamplePinInput: FC<ExamplePinInputProps> = ({
   length = 4,
@@ -15,12 +15,12 @@ const ExamplePinInput: FC<ExamplePinInputProps> = ({
   ...props
 }) => (
   <HStack>
-    <PinInput {...props}>{repeat(<PinInputField />, length)}</PinInput>
+    <PinInput {...props} length={length} />
   </HStack>
-);
+)
 
 export default {
-  title: 'Components / Forms / PinInput',
+  title: "Components / Forms / PinInput",
   component: ExamplePinInput,
   decorators: [
     (story: Function) => (
@@ -29,27 +29,23 @@ export default {
       </Container>
     ),
   ],
-} as ComponentMeta<typeof ExamplePinInput>;
+} as ComponentMeta<typeof ExamplePinInput>
 
 const Template: ComponentStory<typeof ExamplePinInput> = (args) => (
   <ExamplePinInput {...args} />
-);
+)
 
-export const Primary = Template.bind({});
+export const Primary = Template.bind({})
 Primary.args = {
   length: 8,
-};
+}
 
 export const Sizes = () => (
   <>
-    {['xs', 'sm', 'md', 'lg'].map((size) => (
-      <div key={size} style={{ marginBottom: '1rem' }}>
-        <PinInput size={size}>
-          <PinInputField />
-          <PinInputField />
-          <PinInputField />
-        </PinInput>
+    {["xs", "sm", "md", "lg"].map((size) => (
+      <div key={size} style={{ marginBottom: "1rem" }}>
+        <PinInput size={size} length={5} />
       </div>
     ))}
   </>
-);
+)

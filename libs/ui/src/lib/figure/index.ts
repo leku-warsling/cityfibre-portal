@@ -1,1 +1,1 @@
-export { default as default } from "./figure"
+export * from "./figure"

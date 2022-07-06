@@ -1,62 +1,85 @@
 import { AddIcon } from "@chakra-ui/icons"
 import { FieldArray, FormItem } from "@ui"
 import {
-  Text,
-  Divider,
-  HStack,
   IconButton,
+  SimpleGrid,
+  ListItem,
+  Divider,
+  VStack,
+  HStack,
+  Text,
   Input,
   List,
-  ListItem,
-  SimpleGrid,
-  VStack,
 } from "@chakra-ui/react"
 
+export type AddTeamMembersFormProps = {
+  size: "sm" | "md" | "lg"
+}
+
+const defaultProps = {
+  name: "",
+  email: "",
+}
+
 const defaultValues = {
-  user: {
-    name: "",
-    email: "",
-  },
+  user: defaultProps,
   team_members: [],
 }
 
 const AddTeamMembersForm = () => {
-  const defaultValues = {
-    name: "",
-    email: "",
-  }
   return (
     <VStack spacing={6} width="100%">
       <SimpleGrid columns={2} spacing={6} w="100%">
-        <FormItem label="Your Name" isRequired>
-          <Input name="user.name" />
-        </FormItem>
-        <FormItem label="Your Email" isRequired>
-          <Input name="user.email" type="email" />
-        </FormItem>
+        <FormItem
+          render={(props) => <Input {...props} />}
+          name="user.name"
+          label="Your Name"
+          isRequired
+          size="lg"
+        />
+        <FormItem
+          render={(props) => <Input {...props} type="email" />}
+          label="Your Email"
+          name="user.email"
+          isRequired
+          size="lg"
+        />
       </SimpleGrid>
       <FieldArray
         name="team_members"
         render={({ fields, path, append }) => {
-          const fieldsets = fields.map(({ id }, index) => (
-            <ListItem key={id}>
-              <HStack spacing={6}>
-                <FormItem>
-                  <Input
-                    name={path(index, "name")}
-                    placeholder="Team member's fullname"
-                  />
-                </FormItem>
-                <FormItem>
-                  <Input
-                    placeholder="Team member's email address"
-                    name={path(index, "email")}
-                    type="email"
-                  />
-                </FormItem>
-              </HStack>
-            </ListItem>
-          ))
+          const fieldsets = fields.length > 0 && (
+            <List width="100%" spacing={6} hidden={fields.length === 0}>
+              {fields.map(({ id }, index) => (
+                <ListItem key={id}>
+                  <HStack spacing={6}>
+                    <FormItem
+                      name={path(index, "name")}
+                      render={(props) => (
+                        <Input
+                          {...props}
+                          placeholder="Team member's fullname"
+                          size="lg"
+                        />
+                      )}
+                    />
+
+                    <FormItem
+                      name={path(index, "email")}
+                      render={(props) => (
+                        <Input
+                          {...props}
+                          placeholder="Team member's email address"
+                          type="email"
+                          size="lg"
+                        />
+                      )}
+                    />
+                  </HStack>
+                </ListItem>
+              ))}
+            </List>
+          )
 
           return (
             <VStack spacing={6} width="100%" align="start">
@@ -66,14 +89,13 @@ const AddTeamMembersForm = () => {
                 </Text>
                 <Divider />
               </HStack>
-              <List width="100%" spacing={6} hidden={fields.length === 0}>
-                {fieldsets}
-              </List>
+              {fieldsets}
               <HStack spacing={4}>
                 <IconButton
-                  onClick={() => append(defaultValues)}
+                  onClick={() => append(defaultProps)}
                   aria-label="Add team members"
                   icon={<AddIcon />}
+                  color="brand.500"
                   variant="outline"
                 />
                 <span>Add another team member</span>

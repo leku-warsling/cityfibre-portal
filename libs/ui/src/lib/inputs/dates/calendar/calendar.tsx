@@ -1,5 +1,15 @@
 import { chakra } from "@chakra-ui/react"
 import { forwardRef, KeyboardEvent, useRef } from "react"
+import { useState } from "react"
+import { isArrowKey } from "./util"
+import MonthList from "./month-list"
+import MonthPicker from "./month-picker"
+import YearPicker from "./year-picker"
+import { startOfMonth } from "date-fns"
+import { addDays, subDays, isSameMonth } from "date-fns/fp"
+import { lengthGt, notEqual } from "ramda-adjunct"
+import { flow } from "fp-ts/lib/function"
+import { select } from "../../../util/dom.util"
 import {
   cond,
   dec,
@@ -13,16 +23,6 @@ import {
   when,
   __,
 } from "ramda"
-import { useState } from "react"
-import { isArrowKey } from "./util"
-import MonthList from "./month-list"
-import MonthPicker from "./month-picker"
-import YearPicker from "./year-picker"
-import { startOfMonth } from "date-fns"
-import { addDays, subDays, isSameMonth } from "date-fns/fp"
-import { lengthGt, notEqual } from "ramda-adjunct"
-import { flow } from "fp-ts/lib/function"
-import { select } from "../../../util/dom"
 
 export type ArrowKey = "ArrowUp" | "ArrowDown" | "ArrowLeft" | "ArrowRight"
 

@@ -1,42 +1,43 @@
 const Button = {
   baseStyle: {
-    borderRadius: "4px"
+    borderRadius: "4px",
   },
   sizes: {
     xl: {
       py: 5,
       px: 10,
       fontSize: "22px",
-    }
+    },
   },
   variants: {
-    primary : {
+    primary: {
       bg: "brand.500",
       color: "#fff",
       _hover: {
-        bg: "#027F3E",
+        bg: "brand.900",
       },
       _active: {
-        bg: "#005F2E",
+        bg: "brand.800",
       },
       _disabled: {
         bg: "#DBDBDB",
-        color: "#7A7A7A"
-      }
+        color: "#7A7A7A",
+      },
     },
-    secondary : {
+    secondary: {
       bg: "white",
       color: "#121212",
       border: "1px solid",
       borderColor: "#B5B5B5",
       _hover: {
-        bg: "#EDEDED"
-      }
-    }
+        bg: "#EDEDED",
+      },
+    },
   },
   defaultProps: {
-    variant: "primary"
-  }
+    variant: "solid",
+    colorScheme: "brand",
+  },
 }
 
 export default Button

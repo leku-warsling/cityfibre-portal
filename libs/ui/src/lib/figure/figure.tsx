@@ -10,10 +10,8 @@ type FigureComponent = FC<FigureProps> & {
   Header: typeof FigureHeader
 }
 
-const Figure: FigureComponent = ({ children, ...props }) => (
-  <Box {...props}>
-    {children}
-  </Box>
+export const Figure: FigureComponent = ({ children, ...props }) => (
+  <Box {...props}>{children}</Box>
 )
 
 Figure.defaultProps = {
@@ -23,5 +21,3 @@ Figure.defaultProps = {
 
 Figure.Caption = FigureCaption
 Figure.Header = FigureHeader
-
-export default Figure

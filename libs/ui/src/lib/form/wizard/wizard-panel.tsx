@@ -11,6 +11,7 @@ import {
 import { useWizard, WizardContextState } from "./wizard.provider"
 import { FC, ReactNode } from "react"
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons"
+import { Title } from "../../data-display/title"
 
 type WizardState = Omit<WizardContextState, "Page">
 
@@ -24,12 +25,16 @@ export type WizardPanelOwnProps = {
 export type WizardPanelProps = StackProps & WizardPanelOwnProps
 
 const defaultHeader = (ws: WizardState) => (
-  <VStack as="header" width="100%" align="start" justify="start" mb={8}>
-    <Heading size="md" color="brand.500">
-      Step {ws.pageNumber} of {ws.pageCount}
-    </Heading>
-    <Heading size="xl">{ws.title}</Heading>
-  </VStack>
+  <Title
+    strapline={`Step ${ws.pageNumber} of ${ws.pageCount}`}
+    justify="start"
+    align="start"
+    spacing={4}
+    as="header"
+    mb={8}
+  >
+    {ws.title}
+  </Title>
 )
 
 const defaultFooter = (ws: WizardState) => (
@@ -38,7 +43,11 @@ const defaultFooter = (ws: WizardState) => (
     <HStack w="100%">
       <Box flexGrow={1}>
         {!ws.isFirstStep && (
-          <Button variant="ghost" onClick={ws.onCancel ?? ws.onReset}>
+          <Button
+            onClick={ws.onCancel ?? ws.onReset}
+            variant="ghost"
+            size={ws.size}
+          >
             Cancel
           </Button>
         )}
@@ -47,8 +56,9 @@ const defaultFooter = (ws: WizardState) => (
         {!ws.isFirstStep && (
           <Button
             leftIcon={<ArrowBackIcon />}
-            variant="outline"
             onClick={ws.onBack}
+            variant="outline"
+            size={ws.size}
             px={10}
           >
             Back
@@ -57,7 +67,9 @@ const defaultFooter = (ws: WizardState) => (
         <Button
           rightIcon={<ArrowForwardIcon />}
           onClick={ws.onNext}
-          variant="primary"
+          colorScheme="brand"
+          variant="solid"
+          size={ws.size}
           px={10}
         >
           Next
@@ -76,9 +88,9 @@ const WizardPanel: FC<WizardPanelProps> = ({
 }) => {
   const { Page, ...rest } = useWizard()
   return (
-    <VStack {...props}>
+    <VStack {...props} align="start" spacing={8}>
       {renderHeader(rest)}
-      <Box flexGrow={1} width="100%">
+      <Box flexGrow={1} width="100%" px="1px" mx="-1px" overflowY="auto">
         <Page />
       </Box>
       {!rest.isCompleted && renderFooter(rest)}

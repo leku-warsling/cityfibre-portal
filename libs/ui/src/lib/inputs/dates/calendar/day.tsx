@@ -1,6 +1,6 @@
 import { chakra, ButtonProps, useStyleConfig } from "@chakra-ui/react"
+import { Indicator } from "../../../data-display"
 import { forwardRef } from "react"
-import Indicator from "../../../data-display/indicator/indicator"
 
 export type DayProps = Omit<ButtonProps, "onClick" | "value"> & {
   onClick?: (value: Date) => void

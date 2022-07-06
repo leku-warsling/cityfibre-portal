@@ -3,14 +3,15 @@ import { Story, Meta } from "@storybook/react"
 import FocusLock from "react-focus-lock"
 import { faker } from "@faker-js/faker"
 import { useState } from "react"
+import { addDays, addHours } from "date-fns"
+import { nanoid } from "nanoid"
+import { append, curry, range, times } from "ramda"
+import { later } from "../../util/async.util"
 import EventPicker, {
   EventPickerProps,
   EventOption,
   EventOptionId,
 } from "./event-picker"
-import { addDays, addHours } from "date-fns"
-import { nanoid } from "nanoid"
-import { append, curry, range, times } from "ramda"
 
 const createEvent = curry((date: Date, offset: number): EventOption => {
   const startAt = addHours(date, offset)
@@ -21,10 +22,6 @@ const createEvent = curry((date: Date, offset: number): EventOption => {
     startAt,
   }
 })
-
-function later<T>(delay: number, value: T) {
-  return new Promise<T>((resolve) => setTimeout(resolve, delay, value))
-}
 
 export default {
   title: "Components / Forms / EventPicker",

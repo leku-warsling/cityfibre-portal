@@ -4,7 +4,6 @@ import {
   FieldValues,
   UseFieldArrayReturn,
 } from "react-hook-form"
-import { ReactNode } from "react"
 import { partial } from "ramda"
 
 export type FieldArrayRenderProps = UseFieldArrayReturn<
@@ -28,7 +27,7 @@ const path = (...names: (string | number)[]) => names.join(".")
 // TODO: sortable list react-beautiful-dnd + swap
 // TODO: collapsable list items
 
-const FieldArray = ({
+export const FieldArray = ({
   defaultValues = {},
   render,
   name,
@@ -42,5 +41,3 @@ const FieldArray = ({
     ...fieldArrayProps,
   })
 }
-
-export default FieldArray

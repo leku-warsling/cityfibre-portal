@@ -1,10 +1,11 @@
-import getDay from "date-fns/getDay"
-import { always, subtract, when, splitEvery, times } from "ramda"
-import { isZero } from "./number.util"
+import { always, subtract, when, splitEvery, times, constructN } from "ramda"
 import startOfMonth from "date-fns/startOfMonth"
+import { flow } from "fp-ts/lib/function"
+import format from "date-fns/fp/format"
+import { isZero } from "./number.util"
+import getDay from "date-fns/getDay"
 import sub from "date-fns/fp/sub"
 import add from "date-fns/fp/add"
-import { flow } from "fp-ts/lib/function"
 
 const MONTH_NAMES = [
   "January",
@@ -38,6 +39,9 @@ const weekdaysBefore = flow(
   Math.abs
 )
 
+const toDate = constructN(1, Date)
+const formatDateString = (formatStr: string) => flow(toDate, format(formatStr))
+
 const getCalendarMonth = (dt: number | Date) => {
   const SOM = startOfMonth(dt)
   const startAt = sub({ days: weekdaysBefore(SOM) }, SOM)
@@ -45,4 +49,11 @@ const getCalendarMonth = (dt: number | Date) => {
   return splitEvery(7, period)
 }
 
-export { DAY_NAMES, MONTH_NAMES, weekdaysBefore, getCalendarMonth }
+export {
+  getCalendarMonth,
+  formatDateString,
+  weekdaysBefore,
+  MONTH_NAMES,
+  DAY_NAMES,
+  toDate,
+}

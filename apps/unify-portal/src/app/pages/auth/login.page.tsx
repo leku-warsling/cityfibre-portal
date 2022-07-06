@@ -1,21 +1,61 @@
-import { Login, Logo, loginBackdrop } from "@ui"
+import { Button, Text, VStack } from "@chakra-ui/react"
+import { AuthTemplate, LoginForm, TextDivider } from "@ui"
+import { Link } from "react-router-dom"
 // import { useAuth } from "../../providers/auth.provider"
 
-const LoginPage = () => {
-  return (
-    <Login
-      brand={<Logo height="40" fill="#009F4D" />}
-      title="Partner Portal"
-      greeting="Serve your customers quickly and effectively from everything to ordering products and services for businesses to managing and resolving service issues"
-      onSubmit={(data) => alert("not implemented / configured")}
-      backdrop={loginBackdrop}
-      height="100vh"
-      // isLoading={isLoading}
-    />
-  )
+export type LoginPageProps = {
+  showForgottenPassword?: boolean
+  showRegister?: boolean
+  strapline?: string
+  title?: string
 }
 
-export default {
-  Page: LoginPage,
-  path: "/login",
+export const LoginPage = ({
+  showForgottenPassword = true,
+  showRegister = true,
+  strapline,
+  title,
+}: LoginPageProps) => {
+  const register = showRegister && (
+    <>
+      <Text as="strong" fontSize="2xl">
+        Haven’t got an account yet?
+      </Text>
+      <Button size="lg" to="/register" variant="outline" as={Link}>
+        Create an account
+      </Button>
+    </>
+  )
+
+  const divider = showForgottenPassword && showRegister && (
+    <TextDivider>or</TextDivider>
+  )
+
+  const forgottenPassword = showForgottenPassword && (
+    <Button
+      to="/auth/forgotten-password"
+      color="brand.500"
+      variant="link"
+      as={Link}
+    >
+      Forgot your password?
+    </Button>
+  )
+
+  return (
+    <AuthTemplate
+      strapline={strapline}
+      maxWidth="550px"
+      title={title}
+      width="100%"
+      p={8}
+    >
+      <LoginForm onSubmit={(data) => console.log(data)} width="100%" mb={8} />
+      <VStack spacing={6}>
+        {forgottenPassword}
+        {divider}
+        {register}
+      </VStack>
+    </AuthTemplate>
+  )
 }

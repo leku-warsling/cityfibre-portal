@@ -93,9 +93,9 @@ const Autocomplete: FC<AutocompleteProps> = ({
 }
 
 Autocomplete.defaultProps = {
+  noOptionsMessage: "No options found",
   placeholder: "Enter search text",
   isDisabled: false,
-  noOptionsMessage: "No options found",
 }
 
 export default Autocomplete

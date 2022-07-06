@@ -1,5 +1,4 @@
-import { Box, BoxProps, CSSObject, StyleProps } from "@chakra-ui/react"
-import { merge, partial } from "ramda"
+import { Box, BoxProps, StyleProps } from "@chakra-ui/react"
 import { FC } from "react"
 
 type Position = "top" | "middle" | "bottom"
@@ -54,7 +53,7 @@ const getPositionProps = (_position: IndicatorPosition, offset = 0) => {
   return styles
 }
 
-const Indicator: FC<IndicatorProps> = ({
+export const Indicator: FC<IndicatorProps> = ({
   position = "top-end" as const,
   borderRadius = "full",
   isDisabled = false,
@@ -84,5 +83,3 @@ const Indicator: FC<IndicatorProps> = ({
     </Box>
   )
 }
-
-export default Indicator

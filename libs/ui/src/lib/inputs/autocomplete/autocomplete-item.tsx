@@ -16,7 +16,7 @@ AutocompleteItem.defaultProps = {
   transition: "background-color 220ms, color 220ms",
   cursor: "pointer",
   px: 4,
-  py: 2
+  py: 2,
 }
 
 export default memo(AutocompleteItem)

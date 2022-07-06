@@ -1,4 +1,4 @@
-import { SmallCloseIcon, SearchIcon } from '@chakra-ui/icons';
+import { SmallCloseIcon, SearchIcon } from "@chakra-ui/icons"
 import {
   Input,
   InputGroup,
@@ -6,13 +6,13 @@ import {
   InputRightElement,
   IconButton,
   InputProps,
-} from '@chakra-ui/react';
-import { ChangeEventHandler, FC, useMemo, useRef } from 'react';
+} from "@chakra-ui/react"
+import { ChangeEventHandler, FC, useMemo, useRef } from "react"
 
 export type SearchInputProps = InputProps & {
-  onSearch: (val: string) => void;
-  allowClear?: boolean;
-};
+  onSearch: (val: string) => void
+  allowClear?: boolean
+}
 
 const SearchInput: FC<SearchInputProps> = ({
   onSearch,
@@ -21,24 +21,24 @@ const SearchInput: FC<SearchInputProps> = ({
   size,
   ...props
 }) => {
-  const ref = useRef<HTMLInputElement>(null);
+  const ref = useRef<HTMLInputElement>(null)
 
   const onClear = useMemo(() => {
     return () => {
-      const { current } = ref;
-      if (!current) return;
-      current.value = '';
-      onSearch('');
-      current.focus();
-    };
-  }, []);
+      const { current } = ref
+      if (!current) return
+      current.value = ""
+      onSearch("")
+      current.focus()
+    }
+  }, [])
 
   const _onSearch: ChangeEventHandler<HTMLInputElement> = ({
     currentTarget,
   }) => {
-    const { value } = currentTarget;
-    onSearch(value);
-  };
+    const { value } = currentTarget
+    onSearch(value)
+  }
 
   return (
     <InputGroup size={size} maxW={maxW}>
@@ -64,7 +64,7 @@ const SearchInput: FC<SearchInputProps> = ({
         </InputRightElement>
       )}
     </InputGroup>
-  );
-};
+  )
+}
 
-export default SearchInput;
+export default SearchInput

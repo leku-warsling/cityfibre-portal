@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom"
 import { ChakraProvider } from "@chakra-ui/react"
 import { theme } from "@ui"
 import { QueryClient, QueryClientProvider } from "react-query"
-import { Global, css } from "@emotion/core"
+import { Global, css } from "@emotion/react"
 import { BrowserRouter } from "react-router-dom"
 import App from "./app/app"
 
@@ -11,6 +11,29 @@ const GlobalStyles = css`
   *:not(:input):focus {
     outline: none !important;
     box-shadow: none !important;
+  }
+
+  #registration .chakra-steps > li > div {
+    div:first-of-type span {
+      color: #1582ff;
+      font-weight: 600;
+    }
+
+    div:last-of-type span {
+      font-weight: 600;
+      color: white !important;
+      font-size: 20px;
+      padding-left: 8px;
+    }
+  }
+
+  #registration .chakra-steps > li[aria-disabled="true"] > div {
+    div:first-of-type {
+      background: none;
+      span {
+        color: white;
+      }
+    }
   }
 `
 

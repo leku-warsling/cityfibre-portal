@@ -1,0 +1,27 @@
+import { AuthTemplate, ForgottenPasswordForm, Text } from "@ui"
+
+export type PageProps = {
+  strapline: string
+  title: string
+}
+
+export const ForgottenPasswordPage = ({ strapline, title }: PageProps) => {
+  return (
+    <AuthTemplate
+      strapline={strapline}
+      title={title}
+      maxWidth="550px"
+      width="100%"
+      p={8}
+    >
+      <Text fontSize="lg" textAlign="center">
+        Type your email address below and we’ll email you link to reset your
+        password
+      </Text>
+      <ForgottenPasswordForm
+        onSubmit={(data) => console.log(data)}
+        width="100%"
+      />
+    </AuthTemplate>
+  )
+}

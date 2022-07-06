@@ -5,24 +5,24 @@ import {
   Heading,
   HStack,
   IconButton,
-} from '@chakra-ui/react';
-import pipe from 'ramda/es/pipe';
-import head from 'ramda/es/head';
-import { propNotEq } from 'ramda-adjunct';
-import { FC, ReactElement, ReactNode } from 'react';
-import { FiArrowLeft } from 'react-icons/fi';
-import { BiHome } from 'react-icons/bi';
-import Breadcrumb from '../../navigation/breadcrumb';
+} from "@chakra-ui/react"
+import pipe from "ramda/es/pipe"
+import head from "ramda/es/head"
+import { propNotEq } from "ramda-adjunct"
+import { FC, ReactElement, ReactNode } from "react"
+import { FiArrowLeft } from "react-icons/fi"
+import { BiHome } from "react-icons/bi"
+import Breadcrumb from "../../navigation/breadcrumb"
 
 export type PageHeaderProps = BoxProps & {
-  onBack?: () => void;
-  breadcrumb?: { path: string; name: string }[];
-  subtitle?: ReactNode;
-  actions?: ReactElement[];
-  tags?: string[];
-};
+  onBack?: () => void
+  breadcrumb?: { path: string; name: string }[]
+  subtitle?: ReactNode
+  actions?: ReactElement[]
+  tags?: string[]
+}
 
-const shouldIncludeHome = pipe(head, propNotEq('path', '/'));
+const shouldIncludeHome = pipe(head, propNotEq("path", "/"))
 
 const PageHeader: FC<PageHeaderProps> = ({
   onBack,
@@ -46,7 +46,7 @@ const PageHeader: FC<PageHeaderProps> = ({
           {breadcrumb.map(({ path, name }, i) => (
             <Breadcrumb.Item
               key={i}
-              color={i < breadcrumb.length - 1 ? 'gray.500' : 'inherit'}
+              color={i < breadcrumb.length - 1 ? "gray.500" : "inherit"}
             >
               <Breadcrumb.Link href={path}>{name}</Breadcrumb.Link>
             </Breadcrumb.Item>
@@ -61,7 +61,7 @@ const PageHeader: FC<PageHeaderProps> = ({
             icon={<FiArrowLeft />}
             onClick={onBack}
             rounded="full"
-            _hover={{ bg: 'gray.200' }}
+            _hover={{ bg: "gray.200" }}
             ml={-2.5}
           />
         )}
@@ -73,13 +73,13 @@ const PageHeader: FC<PageHeaderProps> = ({
         </ButtonGroup>
       </HStack>
     </Box>
-  );
-};
+  )
+}
 
 PageHeader.defaultProps = {
-  fontSize: ['md', 'lg', 'xl'],
-  borderBottom: '1px solid',
-  borderColor: 'gray.300',
-};
+  fontSize: ["md", "lg", "xl"],
+  borderBottom: "1px solid",
+  borderColor: "gray.300",
+}
 
-export default PageHeader;
+export default PageHeader

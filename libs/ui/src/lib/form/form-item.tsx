@@ -1,73 +1,102 @@
-import { cloneElement, FC, ReactElement, ReactNode } from "react"
-import { useFormContext } from "react-hook-form"
+import { ReactElement, ReactNode } from "react"
+import {
+  Controller,
+  FieldValues,
+  UseControllerReturn,
+  useFormContext,
+  UseFormRegisterReturn,
+} from "react-hook-form"
 import {
   FormErrorMessage,
   FormControlProps,
   FormHelperText,
+  SystemProps,
   FormControl,
   FormLabel,
   Stack,
 } from "@chakra-ui/react"
 
+type ConditionalRender =
+  | {
+      isControlled: true
+      render: (a: UseControllerReturn<FieldValues, any>) => ReactElement
+    }
+  | {
+      isControlled?: false
+      render: (a: UseFormRegisterReturn) => ReactElement
+    }
+
 export type FormItemOwnProps = {
+  justify?: SystemProps["justifyContent"]
   layout?: "vertical" | "horizontal"
-  children: ReactElement
+  align?: SystemProps["alignItems"]
   helpText?: ReactNode
   label?: ReactNode
   spacing?: number
+  name: string
 }
 
-export type FormItemProps = Omit<FormControlProps, "isInvalid"> &
-  FormItemOwnProps
+export type FormItemProps = Omit<FormControlProps, "isInvalid" | "children"> &
+  FormItemOwnProps &
+  ConditionalRender
 
 const direction = {
   vertical: "column",
   horizontal: "row",
 } as const
 
-const FormItem: FC<FormItemProps> = ({
+export const FormItem = ({
+  isDisabled: disabled = false,
+  isRequired: required = false,
   layout = "vertical",
+  isControlled,
   spacing = 0,
-  isDisabled,
-  isRequired,
   helpText,
-  children,
+  justify,
+  render,
+  align,
   label,
+  name,
   size,
-}) => {
-  const { name } = children.props
-  const formContext = useFormContext()
-  const { register, formState } = formContext
-  const isValid = formState.isValid || !formState.touchedFields?.[name]
-  const showHelpText = !isValid && !helpText
-  // TODO: abstract to factory function
-  const inputElement = cloneElement(children, {
-    ...children.props,
-    size: children.props.size ?? size,
-    ...register(name, {
-      required: isRequired,
-      disabled: isDisabled,
-    }),
-    onKeyUp: children.props.onKeyUp
-      ? (event: any) => children.props.onKeyUp(event, formContext)
-      : undefined,
-  })
+}: FormItemProps) => {
+  const { register, formState, control } = useFormContext()
+  const { touchedFields, errors } = formState
+  const isInvalid = errors?.[name] && touchedFields?.[name]
+  const hideHelpText = isInvalid || !helpText
+
+  const input = isControlled ? (
+    <Controller
+      rules={{ required }}
+      control={control}
+      render={render}
+      name={name}
+    />
+  ) : (
+    render(register(name, { disabled, required }))
+  )
 
   return (
     <FormControl
-      isDisabled={isDisabled}
-      isRequired={isRequired}
-      isInvalid={!isValid}
+      isDisabled={disabled}
+      isRequired={required}
+      isInvalid={isInvalid}
       size={size}
     >
-      <Stack direction={direction[layout]} spacing={spacing}>
-        <FormLabel hidden={!label} size={size} fontWeight={600}>
-          {label}
-        </FormLabel>
-        {inputElement}
+      <Stack
+        direction={direction[layout]}
+        spacing={spacing}
+        justify={justify}
+        align={align}
+      >
+        {label && (
+          <FormLabel size={size} htmlFor={name} fontWeight={600}>
+            {label}
+          </FormLabel>
+        )}
+        {input}
       </Stack>
-      <FormHelperText hidden={showHelpText}>{helpText}</FormHelperText>
-      <FormErrorMessage>{formState.errors?.[name]?.type}</FormErrorMessage>
+      <FormHelperText hidden={hideHelpText}>{helpText}</FormHelperText>
+      <FormErrorMessage>{errors?.[name]?.message}</FormErrorMessage>
     </FormControl>
   )
 }
@@ -75,5 +104,3 @@ const FormItem: FC<FormItemProps> = ({
 FormItem.defaultProps = {
   layout: "vertical",
 }
-
-export default FormItem

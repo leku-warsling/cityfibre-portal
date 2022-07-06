@@ -1,6 +1,6 @@
-import { FC } from "react"
-import { useFormContext } from "react-hook-form"
 import { Button, ButtonProps } from "@chakra-ui/react"
+import { useFormContext } from "react-hook-form"
+import { FC } from "react"
 
 const SubmitButton: FC<Omit<ButtonProps, "type">> = ({
   children,

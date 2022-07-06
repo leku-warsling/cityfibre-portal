@@ -11,17 +11,17 @@ const AutocompleteList = forwardRef<HTMLUListElement, AutocompleteListProps>(
 )
 
 AutocompleteList.defaultProps = {
-  boxShadow: "lg",
-  rounded: 4,
   border: "1px solid #ddd",
-  pos: "absolute",
-  zIndex: 1000,
-  w: "100%",
-  maxH: "250px",
-  bg: "white",
   overflowY: "auto",
+  boxShadow: "lg",
+  pos: "absolute",
+  maxH: "250px",
+  zIndex: 1000,
+  bg: "white",
   top: "100%",
-  mt: "4px"
+  rounded: 4,
+  w: "100%",
+  mt: "4px",
 }
 
 export default memo(AutocompleteList)
