@@ -33,8 +33,8 @@ const DashboardPage = () => {
   }, [])
 
   const actions = [
-    <Button to="/incidents/create" variant="link" size="sm" as={Link} mr={6}>
-      <span>View all issues</span>
+    <Button to="/incidents" variant="link" size="sm" as={Link} mr={6}>
+      View all issues
     </Button>,
     <Button
       leftIcon={<AddIcon fontSize="12px" />}
@@ -42,7 +42,7 @@ const DashboardPage = () => {
       as={Link}
       size="sm"
     >
-      <span>Raise an incident</span>
+      Raise an incident
     </Button>,
   ]
 
@@ -56,13 +56,10 @@ const DashboardPage = () => {
           columns={INCIDENT_COLUMNS}
           isLoading={isLoading}
           data={INCIDENT_DATA}
-          size="md"
           boxShadow="base"
-          overflowY="auto"
           bgColor="white"
-          fontSize="14px"
           rounded={5}
-          maxH="80vh"
+          size="md"
         />
         <VStack flexGrow={1} spacing={6}>
           <HStack

@@ -19,6 +19,7 @@ export type SearchInputProps = {
   renderItem?: (item: SearchOption) => ReactNode
   onSearch?: (term: string) => Promise<SearchOption[]>
   onSelect?: (item: SearchOption) => void
+  size?: "sm" | "md" | "lg"
   placeholder?: string
   icon?: ReactElement
   label?: string
@@ -26,6 +27,7 @@ export type SearchInputProps = {
 
 export const SearchInput: FC<SearchInputProps & StyleProps> = ({
   placeholder,
+  size = "md",
   renderItem,
   onSelect,
   onSearch,
@@ -36,8 +38,11 @@ export const SearchInput: FC<SearchInputProps & StyleProps> = ({
   const inputRef = useRef<HTMLInputElement>(null)
   const [items, setItems] = useState<SearchOption[]>([])
   const [isLoading, setLoading] = useState<boolean>(false)
-  const labelLength = label?.length ?? 0
-  const rightElementWidth = `${Math.ceil(labelLength * 8.3 + 24)}px`
+  const offset = {
+    sm: 0,
+    md: 1,
+    lg: 2,
+  }
 
   const _onSearch = () => {
     const value = inputRef.current?.value
@@ -74,9 +79,9 @@ export const SearchInput: FC<SearchInputProps & StyleProps> = ({
       onOpen={onOpen}
       overlay={menu}
     >
-      <InputGroup {...styleProps} size="lg">
+      <InputGroup {...styleProps} size={size}>
         <Input ref={inputRef} placeholder={placeholder} />
-        <InputRightElement width={rightElementWidth}>
+        <InputRightElement width="auto" right={offset[size]}>
           <Button
             isLoading={isLoading}
             colorScheme="brand"

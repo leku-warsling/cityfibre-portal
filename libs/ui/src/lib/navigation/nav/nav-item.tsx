@@ -1,30 +1,30 @@
-import { FC, useContext } from "react"
-import {
-  chakra,
-  useStyles,
-  Icon,
-  HTMLChakraProps,
-  Tooltip,
-} from "@chakra-ui/react"
-import { NavContext } from "./nav"
+import ConditionalWrapper from "../../wrappers/conditional-wrapper"
 import { dataAttr } from "@chakra-ui/utils"
 import { IconType } from "react-icons"
-import ConditionalWrapper from "../../wrappers/conditional-wrapper"
+import { useContext } from "react"
+import { NavContext } from "./nav"
+import {
+  ChakraComponent,
+  useStyles,
+  Tooltip,
+  chakra,
+  Icon,
+} from "@chakra-ui/react"
 
-export type NavItemOwnProps = {
-  icon?: IconType
+export type NavItemProps = {
   size?: "sm" | "md" | "lg"
   isActive?: boolean
+  icon?: IconType
   level?: number
 }
 
-export type NavItemProps = HTMLChakraProps<"a"> & NavItemOwnProps
+export type NavItemComponent = ChakraComponent<"a", NavItemProps>
 
-const NavItem: FC<NavItemProps> = ({
+const NavItem: NavItemComponent = ({
+  level = 0,
   children,
   isActive,
   icon,
-  level = 0,
   ...props
 }) => {
   const { isCollapsed } = useContext(NavContext)
@@ -33,10 +33,10 @@ const NavItem: FC<NavItemProps> = ({
 
   const label = (
     <chakra.span
-      display="flex"
-      alignItems="center"
-      flexGrow={1}
       justifyContent="space-between"
+      alignItems="center"
+      display="flex"
+      flexGrow={1}
       minW="150px"
     >
       {children}
@@ -48,15 +48,15 @@ const NavItem: FC<NavItemProps> = ({
       condition={shouldCollapse}
       wrapper={(content) => (
         <Tooltip
-          colorScheme="brand"
-          label={label}
+          fontWeight="semibold"
+          bgColor="brand.800"
+          shouldWrapChildren
           placement="right"
+          label={label}
           hasArrow
           ml={4}
           py={3}
           px={6}
-          fontWeight="semibold"
-          shouldWrapChildren
         >
           {content}
         </Tooltip>

@@ -24,7 +24,7 @@ const RADIO_BUTTON_PROPS = [
 const getRadioProps = pick(RADIO_BUTTON_PROPS)
 const omitRadioProps = omit(RADIO_BUTTON_PROPS)
 
-const RadioButton: FC<RadioButtonProps> = ({ children, ...props }) => {
+export const RadioButton: FC<RadioButtonProps> = ({ children, ...props }) => {
   const { getInputProps, getCheckboxProps } = useRadio(getRadioProps(props))
   const inputProps = getInputProps()
   const checkboxProps = {
@@ -56,4 +56,6 @@ const RadioButton: FC<RadioButtonProps> = ({ children, ...props }) => {
   )
 }
 
-export default RadioButton
+RadioButton.defaultProps = {
+  fontWeight: 600,
+}

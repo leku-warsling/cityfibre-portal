@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react';
+import { Story, Meta } from "@storybook/react"
 import {
   Badge,
   Box,
@@ -10,9 +10,16 @@ import {
   Text,
   useDisclosure,
   StyleProps,
-} from '@chakra-ui/react';
-import Sidebar, { SidebarProps } from './sidebar';
-import Nav from '../../navigation/nav';
+} from "@chakra-ui/react"
+import Sidebar, { SidebarProps } from "./sidebar"
+import Nav from "../../navigation/nav"
+import { BiHome, BiDollarCircle, BiBasket } from "react-icons/bi"
+import { RiDashboard3Line } from "react-icons/ri"
+import { ReactComponent as PartnersIcon } from "../../../assets/svg/partners.svg"
+import { ReactComponent as Logo } from "../../../assets/svg/logo.svg"
+import { IframeHTMLAttributes, useEffect, useState, FC } from "react"
+import { createPortal } from "react-dom"
+import { prop } from "ramda"
 import {
   FiSettings,
   FiUsers,
@@ -20,24 +27,10 @@ import {
   FiPhone,
   FiHelpCircle,
   FiMenu,
-} from 'react-icons/fi';
-import { BiHome, BiDollarCircle, BiBasket } from 'react-icons/bi';
-import { RiDashboard3Line } from 'react-icons/ri';
-import { ReactComponent as PartnersIcon } from '../../../assets/svg/partners.svg';
-import { ReactComponent as Logo } from '../../../assets/svg/logo.svg';
-import {
-  IframeHTMLAttributes,
-  useEffect,
-  useState,
-  FC,
-} from 'react';
-import { createPortal } from 'react-dom';
-import { prop } from 'ramda';
-import { __DEV__ } from '@chakra-ui/utils';
-
+} from "react-icons/fi"
 
 export default {
-  title: 'Components / Layout / Sidebar',
+  title: "Components / Layout / Sidebar",
   component: Sidebar,
   argTypes: {},
   decorators: [
@@ -47,8 +40,7 @@ export default {
       </Container>
     ),
   ],
-} as Meta<SidebarProps>;
-
+} as Meta<SidebarProps>
 
 const getStyleNodes = () => Array.from(document.getElementsByTagName("style"))
 
@@ -57,10 +49,10 @@ const getCSSRules = ({ sheet }: HTMLStyleElement) => {
 }
 
 const getAllStyles = (nodes: HTMLStyleElement[]) => {
-  return nodes.flatMap(getCSSRules).join('\n');
+  return nodes.flatMap(getCSSRules).join("\n")
 }
 
-type FrameProps = IframeHTMLAttributes<HTMLIFrameElement> & StyleProps;
+type FrameProps = IframeHTMLAttributes<HTMLIFrameElement> & StyleProps
 
 type UseStyleObserverState = {
   target: HTMLHeadElement
@@ -73,7 +65,7 @@ const addCSSRuleWatcher = (apply: ProxyHandler<any>["apply"]) => {
     if (!sheet) return
 
     const proxy = new Proxy(sheet.insertRule, { apply })
-    sheet.insertRule = proxy;
+    sheet.insertRule = proxy
   }
 }
 
@@ -85,27 +77,27 @@ const useStyleObserver = ({ target }: UseStyleObserverState) => {
     let observer = new MutationObserver((mutations) => {
       console.log("mutations:", mutations)
       setImmediate(forceUpdate)
-    });
+    })
 
-    observer.observe(target, { 
-      childList: true, 
+    observer.observe(target, {
+      childList: true,
       subtree: true,
       attributes: true,
       attributeOldValue: true,
-      characterData: true, 
-    });
+      characterData: true,
+    })
 
     setTimeout(forceUpdate, 100)
 
     return () => {
-      observer.disconnect();
-      observer = null!;
-    };
-  }, []);
+      observer.disconnect()
+      observer = null!
+    }
+  }, [])
 
   const watcher = addCSSRuleWatcher((target, i, args) => {
     forceUpdate()
-    return target.apply(i, args);
+    return target.apply(i, args)
   })
 
   nodes.forEach(watcher)
@@ -114,12 +106,12 @@ const useStyleObserver = ({ target }: UseStyleObserverState) => {
 }
 
 const Frame: FC<FrameProps> = ({ children, ...props }) => {
-  const [frameRef, setFrameRef] = useState<HTMLIFrameElement | null>(null);
+  const [frameRef, setFrameRef] = useState<HTMLIFrameElement | null>(null)
   const styles = useStyleObserver({
-    target: document.getElementsByTagName('head')[0],
+    target: document.getElementsByTagName("head")[0],
   })
 
-  const mountNode = frameRef?.contentDocument?.body;
+  const mountNode = frameRef?.contentDocument?.body
 
   return (
     <chakra.iframe {...props} ref={setFrameRef}>
@@ -133,21 +125,21 @@ const Frame: FC<FrameProps> = ({ children, ...props }) => {
         )}
     </chakra.iframe>
   )
-};
+}
 
 const Template: Story<SidebarProps> = (args) => {
-  const { isOpen, onToggle, onClose } = useDisclosure();
+  const { isOpen, onToggle, onClose } = useDisclosure()
 
   const brand = (
     <Box bgColor="brand.500" rounded={5} p={3}>
       <PartnersIcon
         height="20"
         style={{
-          filter: 'drop-shadow(0px 5px 2px rgb(0 0 0 / 0.1)',
+          filter: "drop-shadow(0px 5px 2px rgb(0 0 0 / 0.1)",
         }}
       />
     </Box>
-  );
+  )
 
   const footer = (
     <Sidebar.Section fontWeight="semibold" color="#718589" gap={1}>
@@ -165,7 +157,7 @@ const Template: Story<SidebarProps> = (args) => {
         </Flex>
       )}
     </Sidebar.Section>
-  );
+  )
 
   const content = (
     <Sidebar.Section flexGrow={1}>
@@ -214,7 +206,7 @@ const Template: Story<SidebarProps> = (args) => {
         </Nav>
       )}
     </Sidebar.Section>
-  );
+  )
 
   const header = (
     <Sidebar.Section fontSize="xl" fontWeight="semibold">
@@ -225,10 +217,16 @@ const Template: Story<SidebarProps> = (args) => {
         </Flex>
       )}
     </Sidebar.Section>
-  );
+  )
 
   return (
-    <Flex width="90vw" height="100vh" shadow="lg" bgColor="white" position="relative">
+    <Flex
+      width="90vw"
+      height="100vh"
+      shadow="lg"
+      bgColor="white"
+      position="relative"
+    >
       <IconButton
         variant="ghost"
         onClick={onToggle}
@@ -252,8 +250,8 @@ const Template: Story<SidebarProps> = (args) => {
       </Sidebar>
       <Box flexGrow={1} />
     </Flex>
-  );
-};
+  )
+}
 
-export const Primary = Template.bind({});
-Primary.args = {};
+export const Primary = Template.bind({})
+Primary.args = {}

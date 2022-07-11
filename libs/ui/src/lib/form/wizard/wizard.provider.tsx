@@ -9,7 +9,6 @@ import {
   createContext,
   ComponentType,
   useContext,
-  ReactNode,
   useState,
   useMemo,
   FC,
@@ -22,6 +21,7 @@ export type WizardPage = {
   isFinalStep?: boolean
   description?: string
   icon?: ComponentType
+  showTitle?: boolean
   label: string
   schema?: any
 }
@@ -61,7 +61,7 @@ export type WizardContextState = {
   steps: StepProps[]
   pageNumber: number
   pageCount: number
-  title: string
+  title?: string | null
 }
 
 const getStepProps = pick(["label", "description", "icon"])
@@ -78,7 +78,7 @@ export default WizardContext
 const WizardProvider: FC<WizardContextProps> = ({
   initialStep = 0,
   formData = {},
-  size = "lg",
+  size = "md",
   onComplete,
   children,
   onCancel,
@@ -92,6 +92,7 @@ const WizardProvider: FC<WizardContextProps> = ({
   const isLastPage = pageNumber === pages.length
   const {
     isFinalStep = isLastPage,
+    showTitle = true,
     description,
     isCompleted,
     schema,
@@ -134,7 +135,7 @@ const WizardProvider: FC<WizardContextProps> = ({
     pageCount: pages.length,
     state: form.formState,
     activeIndex: count,
-    title: label,
+    title: showTitle ? label : null,
     isCompleted,
     description,
     isFirstStep,

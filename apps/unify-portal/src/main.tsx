@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "react-query"
 import { Global, css } from "@emotion/react"
 import { BrowserRouter } from "react-router-dom"
 import App from "./app/app"
+import { AuthProvider } from "./app/providers/auth.provider"
 
 const GlobalStyles = css`
   *:not(:input):focus {
@@ -52,8 +53,10 @@ ReactDOM.render(
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <Global styles={GlobalStyles} />
-          <App />
+          <AuthProvider>
+            <Global styles={GlobalStyles} />
+            <App />
+          </AuthProvider>
         </BrowserRouter>
       </QueryClientProvider>
     </ChakraProvider>

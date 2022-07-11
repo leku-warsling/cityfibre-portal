@@ -29,7 +29,7 @@ const RADIO_GROUP_PROPS = [
 const getRadioGroupProps = pick(RADIO_GROUP_PROPS)
 const omitRadioGroupProps = omit(RADIO_GROUP_PROPS)
 
-const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
+export const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
   children,
   ...props
 }) => {
@@ -56,5 +56,3 @@ const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
     </HStack>
   )
 }
-
-export default RadioButtonGroup

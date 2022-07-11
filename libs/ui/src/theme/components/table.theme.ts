@@ -7,7 +7,7 @@ export const Table: ComponentStyleConfig = {
         fontSize: "14px",
       },
       th: {
-        pt: 3,
+        pt: 4,
         pb: 3,
       },
       td: {

@@ -190,6 +190,6 @@ export const INVOICE_COLUMNS = [
     accessor: "total",
     disableFilters: true,
     disableSortBy: true,
-    Cell: ({ value }: any) => `£${value.toFixed(2)}`,
+    Cell: ({ value }: any) => util.currency.pounds(value),
   },
 ] as const

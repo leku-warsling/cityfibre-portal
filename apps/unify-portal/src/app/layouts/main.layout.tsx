@@ -1,12 +1,11 @@
 import { RiDashboard3Line } from "react-icons/ri"
-import { Outlet } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai"
 import {
   AppShell,
   AppBar,
   Sidebar,
   IconButton,
-  SearchInput,
   Nav,
   PartnersIcon,
   Logo,
@@ -25,6 +24,9 @@ import {
   useDisclosure,
   Flex,
   Icon,
+  InputGroup,
+  InputLeftElement,
+  Input,
 } from "@chakra-ui/react"
 import {
   FiSettings,
@@ -34,14 +36,8 @@ import {
   FiUser,
   FiLogOut,
 } from "react-icons/fi"
-import {
-  BiBasket,
-  BiDollar,
-  BiError,
-  BiNetworkChart,
-  BiPhoneCall,
-  BiWrench,
-} from "react-icons/bi"
+import { BiBasket, BiDollar, BiPhoneCall, BiSupport } from "react-icons/bi"
+import { SearchIcon } from "@chakra-ui/icons"
 
 const MainLayout = () => {
   const { isOpen, onToggle, onClose } = useDisclosure()
@@ -71,6 +67,11 @@ const MainLayout = () => {
           }
         />
       </AppBar.Section>
+      <AppBar.Section>
+        <Text fontSize="lg" fontWeight={600}>
+          Dashboard
+        </Text>
+      </AppBar.Section>
       <AppBar.Section flexGrow={1} justifyContent="center">
         {/* <SearchInput
           variant="filled"
@@ -78,6 +79,16 @@ const MainLayout = () => {
           placeholder="Search for issues, invoices, services..."
           onSearch={console.log}
         /> */}
+        <InputGroup maxW="400px">
+          <InputLeftElement
+            pointerEvents="none"
+            children={<SearchIcon color="gray.400" />}
+          />
+          <Input
+            variant="filled"
+            placeholder="Search for issues, invoices, services.."
+          />
+        </InputGroup>
       </AppBar.Section>
       <AppBar.Section marginLeft="auto">
         <AppBar.Item>
@@ -144,19 +155,55 @@ const MainLayout = () => {
             </Badge>
           </Nav.Item>
           <Divider borderColor="brand.500" my="1" />
-          <Nav.Item icon={RiDashboard3Line}>Dashboard</Nav.Item>
-          <Nav.Item isActive icon={BiError}>
-            Incidents
+          <Nav.Item as={Link} to="/" icon={RiDashboard3Line}>
+            Dashboard
           </Nav.Item>
-          <Nav.Item icon={BiNetworkChart}>Networks</Nav.Item>
-          <Nav.Item icon={BiWrench}>Services</Nav.Item>
-          <Nav.Item icon={BiDollar}>Billing</Nav.Item>
+          <Nav.SubMenu icon={BiSupport} label="Support">
+            <Nav.Item as={Link} to="/incidents">
+              Incidents
+            </Nav.Item>
+            <Nav.Item as={Link} to="/services">
+              Services
+            </Nav.Item>
+            <Nav.Item>Networks</Nav.Item>
+          </Nav.SubMenu>
+          <Nav.SubMenu icon={BiDollar} label="Billing">
+            <Nav.Item as={Link} to="/invoices">
+              Invoices
+            </Nav.Item>
+            <Nav.Item as={Link} to="/credit-notes">
+              Credit Notes
+            </Nav.Item>
+            <Nav.Item as={Link} to="/payments">
+              Payments
+            </Nav.Item>
+            <Nav.Item>Statements</Nav.Item>
+            <Nav.Item as={Link} to="/bank-details">
+              Bank Details
+            </Nav.Item>
+            <Nav.Item>Orders On Hold</Nav.Item>
+            <Nav.Item>Bandwidth Usage</Nav.Item>
+          </Nav.SubMenu>
           <Nav.Item icon={BiPhoneCall}>VOIP</Nav.Item>
-          <Nav.Item icon={BiBasket}>Ordering</Nav.Item>
+          <Nav.SubMenu icon={BiBasket} label="Ordering">
+            <Nav.Item as={Link} to="/orders">
+              Orders
+            </Nav.Item>
+            <Nav.Item>Products</Nav.Item>
+          </Nav.SubMenu>
           <Divider borderColor="brand.500" my={2} />
-          <Nav.Item icon={FiUsers}>User Management</Nav.Item>
+          <Nav.SubMenu icon={FiUsers} label="User Management">
+            <Nav.Item as={Link} to="/users">
+              Users
+            </Nav.Item>
+            <Nav.Item as={Link} to="/roles">
+              Roles
+            </Nav.Item>
+          </Nav.SubMenu>
           <Nav.Item icon={FiSettings}>Settings</Nav.Item>
-          <Nav.Item icon={FiHelpCircle}>Help & Support</Nav.Item>
+          <Nav.Item as={Link} to="/help" icon={FiHelpCircle}>
+            Help & Support
+          </Nav.Item>
         </Nav>
       )}
     </Sidebar.Section>

@@ -99,6 +99,7 @@ export const AddressInput = ({
           onSearch={findAddressByPostcode}
           placeholder="Enter postcode"
           label="Find Address"
+          size={size}
           onSelect={(value) => {
             setValue(baseName, getAddress(value))
             setManualInput(true)

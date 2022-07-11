@@ -50,7 +50,7 @@ const CompanyDetailsForm = () => (
         size="lg"
       />
     </SimpleGrid>
-    <AddressInput baseName="company" label="Company Address" />
+    <AddressInput baseName="company" label="Company Address" size="lg" />
   </VStack>
 )
 

@@ -43,7 +43,7 @@ import {
 import PasswordInput from "./password-input"
 import { SearchInput } from "./search-input"
 import { PinInput } from "./pin-input"
-
+export * from "./radio-buttons"
 export {
   Input,
   InputAddon,

@@ -2,19 +2,16 @@ import { ComponentMultiStyleConfig } from "@chakra-ui/theme"
 
 const Sidebar: ComponentMultiStyleConfig = {
   parts: ["root", "header", "section"],
-  baseStyle: ({
-    colorScheme,
-    variant,
-  }) => ({
+  baseStyle: ({ colorScheme }) => ({
     root: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "flex-start",
-      color: "white",
-      height: "100vh",
-      maxWidth: "320px",
-      gap: 6,
       bg: `${colorScheme}.800`,
+      alignItems: "flex-start",
+      flexDirection: "column",
+      maxWidth: "320px",
+      display: "flex",
+      height: "100vh",
+      color: "white",
+      gap: 6,
     },
     section: {
       width: "100%",
@@ -25,24 +22,24 @@ const Sidebar: ComponentMultiStyleConfig = {
   variants: {
     slim: {
       root: {
-        width: "auto"
+        width: "auto",
       },
       header: {
-        p: 4
+        p: 4,
       },
       section: {
-        p: 4
+        p: 4,
       },
     },
     static: {
       root: {
-        width: ["285px", "320px"]
-      }
-    }
+        width: ["285px", "320px"],
+      },
+    },
   },
   defaultProps: {
-    colorScheme: "brand"
-  }
+    colorScheme: "brand",
+  },
 }
 
 export default Sidebar

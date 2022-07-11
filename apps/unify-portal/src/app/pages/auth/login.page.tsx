@@ -1,7 +1,7 @@
 import { Button, Text, VStack } from "@chakra-ui/react"
 import { AuthTemplate, LoginForm, TextDivider } from "@ui"
 import { Link } from "react-router-dom"
-// import { useAuth } from "../../providers/auth.provider"
+import { useAuth } from "../../providers/auth.provider"
 
 export type LoginPageProps = {
   showForgottenPassword?: boolean
@@ -16,6 +16,8 @@ export const LoginPage = ({
   strapline,
   title,
 }: LoginPageProps) => {
+  const { login, isLoading } = useAuth()
+
   const register = showRegister && (
     <>
       <Text as="strong" fontSize="2xl">
@@ -50,7 +52,12 @@ export const LoginPage = ({
       width="100%"
       p={8}
     >
-      <LoginForm onSubmit={(data) => console.log(data)} width="100%" mb={8} />
+      <LoginForm
+        onSubmit={(data: any) => login(data)}
+        isLoading={isLoading}
+        width="100%"
+        mb={8}
+      />
       <VStack spacing={6}>
         {forgottenPassword}
         {divider}

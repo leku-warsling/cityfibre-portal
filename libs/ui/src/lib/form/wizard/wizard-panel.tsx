@@ -89,7 +89,7 @@ const WizardPanel: FC<WizardPanelProps> = ({
   const { Page, ...rest } = useWizard()
   return (
     <VStack {...props} align="start" spacing={8}>
-      {renderHeader(rest)}
+      {rest.title && renderHeader(rest)}
       <Box flexGrow={1} width="100%" px="1px" mx="-1px" overflowY="auto">
         <Page />
       </Box>

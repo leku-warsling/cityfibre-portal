@@ -34,45 +34,6 @@ export type FormFieldsProps = {
   isLoading?: boolean
 }
 
-// export type FormOwnProps<T extends FieldValues> = {
-//   config?: UseFormProps<T>
-//   onSubmit: SubmitHandler<T>
-//   children: ReactNode
-// }
-
-// export type FormProps<T extends FieldValues> = FormOwnProps<T> &
-//   Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> &
-//   StyleProps
-
-// function _Form<T extends FieldValues>(
-//   props: PropsWithChildren<FormProps<T>>,
-//   ref: ForwardedRef<HTMLFormElement>
-// ) {
-//   const { config, onSubmit, children, ...rest } = props
-//   const methods = useForm<T>(config)
-
-//   return (
-//     <FormProvider {...methods}>
-//       <chakra.form
-//         onSubmit={methods.handleSubmit(onSubmit)}
-//         ref={ref}
-//         {...rest}
-//       >
-//         {children}
-//       </chakra.form>
-//     </FormProvider>
-//   )
-// }
-
-// export const Form = forwardRef(_Form)
-
-// Form.defaultProps = {
-//   alignItems: "flex-start",
-//   flexDir: "column",
-//   display: "flex",
-//   gap: "6",
-// }
-
 export const createForm = <P extends object>(Component: ComponentType<P>) => {
   const Form = <T extends FieldValues>(
     {

@@ -91,14 +91,14 @@ const NavSubMenu: FC<NavSubMenuProps> = ({
         <PopoverContent ml={4} bg="brand.800" borderColor="brand.800">
           <PopoverArrow bg="brand.800" borderColor="brand.800" color="white" />
           <PopoverHeader
-            border="none"
-            color="whiteAlpha.700"
+            textTransform="uppercase"
             letterSpacing="widest"
-            pt={5}
-            pl={6}
+            color="whiteAlpha.700"
             fontWeight={800}
             fontSize="xs"
-            textTransform="uppercase"
+            border="none"
+            pt={5}
+            pl={6}
           >
             {label}
           </PopoverHeader>
@@ -109,7 +109,7 @@ const NavSubMenu: FC<NavSubMenuProps> = ({
                   cloneElement(child, {
                     ...child.props,
                     key: child.key ?? i,
-                    fontSize: "14px",
+                    fontSize: "sm",
                     level: level + 1,
                   })
                 )}

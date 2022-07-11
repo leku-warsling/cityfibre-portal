@@ -3,6 +3,9 @@ const Button = {
     borderRadius: "4px",
   },
   sizes: {
+    md: {
+      fontSize: "sm",
+    },
     xl: {
       py: 5,
       px: 10,
