@@ -19,7 +19,7 @@ import {
   TransactionsPage,
 } from "./pages/billing"
 import MainLayout from "./layouts/main.layout"
-import { AuthLayout } from "@ui"
+import { AuthLayout, NotFoundPage } from "@ui"
 import {
   RegistrationPage,
   LoginPage,
@@ -207,6 +207,7 @@ export function App() {
             }
           />
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </AnimatePresence>
   )

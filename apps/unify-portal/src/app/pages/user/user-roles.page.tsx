@@ -27,7 +27,7 @@ export const UserRolesPage = () => {
     </Button>,
     <Button
       leftIcon={<AddIcon fontSize="12px" />}
-      to="/role/create"
+      to="/roles/create"
       as={Link}
       size="sm"
     >
