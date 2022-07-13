@@ -1,46 +1,47 @@
 import { RiDashboard3Line } from "react-icons/ri"
 import { Link, Outlet } from "react-router-dom"
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai"
+import { BiBasket, BiDollar, BiPhoneCall, BiSupport } from "react-icons/bi"
+import { SearchIcon } from "@chakra-ui/icons"
+import { useAuth } from "../providers/auth.provider"
 import {
-  AppShell,
-  AppBar,
-  Sidebar,
-  IconButton,
-  Nav,
   PartnersIcon,
+  IconButton,
+  AppShell,
+  Sidebar,
+  AppBar,
   Logo,
   Text,
+  Nav,
 } from "@ui"
 import {
+  InputLeftElement,
+  useDisclosure,
+  MenuDivider,
+  MenuButton,
+  InputGroup,
+  MenuList,
+  MenuItem,
+  Divider,
+  Avatar,
   Badge,
   Box,
   Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Avatar,
-  Divider,
-  MenuDivider,
-  useDisclosure,
   Flex,
   Icon,
-  InputGroup,
-  InputLeftElement,
   Input,
 } from "@chakra-ui/react"
 import {
+  FiHelpCircle,
   FiSettings,
+  FiLogOut,
   FiUsers,
   FiInbox,
-  FiHelpCircle,
-  FiUser,
-  FiLogOut,
 } from "react-icons/fi"
-import { BiBasket, BiDollar, BiPhoneCall, BiSupport } from "react-icons/bi"
-import { SearchIcon } from "@chakra-ui/icons"
 
 const MainLayout = () => {
   const { isOpen, onToggle, onClose } = useDisclosure()
+  const { logout } = useAuth()
 
   const header = (
     <AppBar
@@ -97,9 +98,13 @@ const MainLayout = () => {
               <Avatar bg="gray.200" size="sm" name="Luke Rawlings" />
             </MenuButton>
             <MenuList zIndex={100}>
-              <MenuItem icon={<FiUser />}>Profile</MenuItem>
+              <MenuItem as={Link} to="account/settings" icon={<FiSettings />}>
+                Settings
+              </MenuItem>
               <MenuDivider />
-              <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
+              <MenuItem icon={<FiLogOut />} onClick={logout}>
+                Logout
+              </MenuItem>
             </MenuList>
           </Menu>
         </AppBar.Item>
@@ -182,7 +187,9 @@ const MainLayout = () => {
               Bank Details
             </Nav.Item>
             <Nav.Item>Orders On Hold</Nav.Item>
-            <Nav.Item>Bandwidth Usage</Nav.Item>
+            <Nav.Item as={Link} to="/bandwidth-usage">
+              Bandwidth Usage
+            </Nav.Item>
           </Nav.SubMenu>
           <Nav.Item icon={BiPhoneCall}>VOIP</Nav.Item>
           <Nav.SubMenu icon={BiBasket} label="Ordering">
@@ -200,7 +207,6 @@ const MainLayout = () => {
               Roles
             </Nav.Item>
           </Nav.SubMenu>
-          <Nav.Item icon={FiSettings}>Settings</Nav.Item>
           <Nav.Item as={Link} to="/help" icon={FiHelpCircle}>
             Help & Support
           </Nav.Item>

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import { AddIcon, SearchIcon } from "@chakra-ui/icons"
+import { AddIcon, ArrowForwardIcon, SearchIcon } from "@chakra-ui/icons"
 import {
   Badge,
   Button,
@@ -18,7 +18,12 @@ import { Link } from "react-router-dom"
 import { Page, Table, util } from "@ui"
 import { prop, repeat } from "ramda"
 import { RiBarChartGroupedLine } from "react-icons/ri"
-import { BiCommentDetail, BiCommentError, BiInfoCircle } from "react-icons/bi"
+import {
+  BiCommentDetail,
+  BiCommentError,
+  BiHelpCircle,
+  BiInfoCircle,
+} from "react-icons/bi"
 
 export const HelpPage = () => {
   const [isLoading, setLoading] = useState(true)
@@ -133,8 +138,13 @@ export const HelpPage = () => {
             to hear from you.
           </Text>
           <Spacer />
-          <Button bgColor="brand.700" size="lg" isFullWidth>
-            Continue
+          <Button
+            rightIcon={<ArrowForwardIcon />}
+            bgColor="brand.700"
+            isFullWidth
+            size="lg"
+          >
+            Give feedback
           </Button>
         </VStack>
         <VStack
@@ -161,7 +171,12 @@ export const HelpPage = () => {
             get in touch below.
           </Text>
           <Spacer />
-          <Button bgColor="brand.700" size="lg" isFullWidth>
+          <Button
+            rightIcon={<ArrowForwardIcon />}
+            bgColor="brand.700"
+            isFullWidth
+            size="lg"
+          >
             Continue
           </Button>
         </VStack>
@@ -189,10 +204,47 @@ export const HelpPage = () => {
             our team will contact you.
           </Text>
           <Spacer />
-          <Button bgColor="brand.700" size="lg" isFullWidth>
+          <Button
+            rightIcon={<ArrowForwardIcon />}
+            bgColor="brand.700"
+            isFullWidth
+            size="lg"
+          >
             Continue
           </Button>
         </VStack>
+        {/* <VStack
+          bgColor="brand.500"
+          align="flex-start"
+          boxShadow="base"
+          color="white"
+          rounded={4}
+          spacing={4}
+          py={8}
+          px={8}
+        >
+          <Icon as={BiHelpCircle} fontSize="36px" />
+          <Text
+            fontSize="2xl"
+            fontWeight={800}
+            lineHeight={1.2}
+            maxWidth="300px"
+          >
+            FAQ's
+          </Text>
+          <Text fontWeight={600} maxWidth="300px">
+            Frequently asked questions and answers
+          </Text>
+          <Spacer />
+          <Button
+            rightIcon={<ArrowForwardIcon />}
+            bgColor="brand.700"
+            isFullWidth
+            size="lg"
+          >
+            Continue
+          </Button>
+        </VStack> */}
       </Flex>
       <Flex justify="space-between" mb={6} alignItems="center">
         <Text fontSize="xl" fontWeight={600}>

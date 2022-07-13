@@ -2,8 +2,6 @@ import {
   Button,
   ButtonGroup,
   Divider,
-  HStack,
-  Icon,
   IconButton,
   VStack,
 } from "@chakra-ui/react"
@@ -14,7 +12,7 @@ import { USER_ROLES } from "./data"
 import { Page } from "@ui"
 import { BiTrash } from "react-icons/bi"
 
-export const UserRolesPage = () => {
+export const RolesPage = () => {
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -38,7 +36,7 @@ export const UserRolesPage = () => {
   return (
     <Page maxH="93vh" overflowY="auto">
       <Page.Header pb={2} mb={6} actions={actions}>
-        User Roles
+        Roles
       </Page.Header>
       <VStack
         divider={<Divider />}

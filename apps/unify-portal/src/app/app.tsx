@@ -1,25 +1,32 @@
-import { UserManagementPage, UpsertRolePage, UserRolesPage } from "./pages/user"
 import { PartnerSuiteBanner } from "./components/banners/partner-suite-banner"
 import RequireAuth from "./components/route/require-auth"
+import { OrderPage, OrdersPage } from "./pages/ordering"
 import { DashboardPage } from "./pages/dashboard"
 import { Routes, Route } from "react-router-dom"
 import { AnimatePresence } from "framer-motion"
+import MainLayout from "./layouts/main.layout"
+import { AuthLayout, NotFoundPage } from "@ui"
+import {
+  AccountSettingsPage,
+  UserManagementPage,
+  UpsertRolePage,
+  RolesPage,
+} from "./pages/user"
 import {
   CreateIncidentPage,
   HelpPage,
   IncidentPage,
   ServicesPage,
 } from "./pages/support"
-import { OrderPage, OrdersPage } from "./pages/ordering"
 import {
   BankDetailsPage,
   CreditNotesPage,
   InvoicesPage,
   PaymentsPage,
   TransactionsPage,
+  BandwidthUsagePage,
+  InvoicePage,
 } from "./pages/billing"
-import MainLayout from "./layouts/main.layout"
-import { AuthLayout, NotFoundPage } from "@ui"
 import {
   RegistrationPage,
   LoginPage,
@@ -46,6 +53,14 @@ export function App() {
             element={
               <RequireAuth>
                 <UserManagementPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="account/settings"
+            element={
+              <RequireAuth>
+                <AccountSettingsPage />
               </RequireAuth>
             }
           />
@@ -110,13 +125,31 @@ export function App() {
             }
           />
           <Route
-            path="invoices"
+            path="bandwidth-usage"
             element={
               <RequireAuth>
-                <InvoicesPage />
+                <BandwidthUsagePage />
               </RequireAuth>
             }
           />
+          <Route path="invoices">
+            <Route
+              index
+              element={
+                <RequireAuth>
+                  <InvoicesPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path=":id"
+              element={
+                <RequireAuth>
+                  <InvoicePage />
+                </RequireAuth>
+              }
+            />
+          </Route>
           <Route
             path="credit-notes"
             element={
@@ -146,7 +179,7 @@ export function App() {
               index
               element={
                 <RequireAuth>
-                  <UserRolesPage />
+                  <RolesPage />
                 </RequireAuth>
               }
             />
