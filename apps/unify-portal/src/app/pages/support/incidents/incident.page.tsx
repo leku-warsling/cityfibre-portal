@@ -1,189 +1,220 @@
-import { useEffect, useMemo, useState } from "react"
-import { AddIcon, SearchIcon } from "@chakra-ui/icons"
 import {
   Badge,
+  Box,
   Button,
   Flex,
   HStack,
   Icon,
   Input,
   InputGroup,
+  InputLeftElement,
   InputRightElement,
-  Spacer,
+  SimpleGrid,
   Text,
+  VStack,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react"
-import { flow } from "fp-ts/lib/function"
-import { Link } from "react-router-dom"
-import { Page, Table, util } from "@ui"
-import { INCIDENT_DATA } from "./data"
-import { prop } from "ramda"
-import { RiBarChartGroupedLine } from "react-icons/ri"
-import { BiFilter } from "react-icons/bi"
+import { Link, useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { Indicator, Page } from "@ui"
+import {
+  AiOutlineFileExcel,
+  AiOutlineFileJpg,
+  AiOutlineFilePdf,
+  AiOutlineFileWord,
+} from "react-icons/ai"
+import { SearchIcon } from "@chakra-ui/icons"
 
 export const IncidentPage = () => {
   const [isLoading, setLoading] = useState(true)
-
-  const columns = useMemo(
-    () =>
-      [
-        {
-          Header: "Incident Reference",
-          accessor: "ref",
-          disableFilters: true,
-          disableSortBy: true,
-          Cell: ({ value }: any) => (
-            <Button
-              size="sm"
-              as={Link}
-              variant="link"
-              to={`/incidents/${value}`}
-            >
-              {value}
-            </Button>
-          ),
-        },
-        {
-          Header: "Service Reference",
-          accessor: "service_ref",
-          disableFilters: true,
-          disableSortBy: true,
-        },
-        {
-          Header: "Status",
-          accessor: "status",
-          disableSortBy: true,
-          disableFilters: true,
-          Cell: ({ value }: any) => (
-            <Badge colorScheme="green" rounded={4} px={2} py={0.5}>
-              {value}
-            </Badge>
-          ),
-        },
-        {
-          Header: "Date Raised",
-          accessor: "raised_at",
-          Cell: flow(
-            prop<"value", string>("value"),
-            util.date.formatDateString("dd/MM/yyyy")
-          ),
-          disableFilters: true,
-          disableSortBy: true,
-        },
-        {
-          Header: "Last Updated",
-          accessor: "updated_at",
-          Cell: flow(
-            prop<"value", string>("value"),
-            util.date.formatDateString("dd/MM/yyyy")
-          ),
-          disableFilters: true,
-          disableSortBy: true,
-        },
-        {
-          Header: "Raised By",
-          accessor: "raised_by",
-          disableFilters: true,
-          disableSortBy: true,
-        },
-      ] as const,
-    []
-  )
+  const { id } = useParams()
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000)
   }, [])
 
   const actions = [
-    <Button
-      leftIcon={<AddIcon fontSize="12px" />}
-      to="/incidents/create"
-      alignItems="center"
-      as={Link}
-    >
-      Raise an incident
+    <Button to="/incidents" variant="link" as={Link}>
+      View all incidents
     </Button>,
   ]
 
   return (
     <Page maxH="93vh" overflowY="auto">
-      <Page.Header mb={6} pb={2} actions={actions}>
-        Incidents
+      <Page.Header mb={8} pb={2} actions={actions}>
+        Incident: {id}
       </Page.Header>
-      <Flex gap={6} width="100%" mb={6}>
-        <HStack
-          bgColor="white"
+      <Flex gap={8}>
+        <Flex flexDir="column" gap={8} minWidth="700px">
+          <Box boxShadow="base" bgColor="white" width="100%" rounded={4} p={10}>
+            <SimpleGrid columns={2} spacing={6} w="100%" mb={6} maxW="500px">
+              <Text fontWeight={600}>Status</Text>
+              <Text>
+                <Badge px={3} py={1} colorScheme="green">
+                  New
+                </Badge>
+              </Text>
+              <Text fontWeight={600}>Service Reference</Text>
+              <Text color="gray.600">S76549</Text>
+              <Text fontWeight={600}>Raised Date</Text>
+              <Text color="gray.600">24/05/1985</Text>
+              <Text fontWeight={600}>Last Updated</Text>
+              <Text color="gray.600">24/05/1985</Text>
+            </SimpleGrid>
+            <Text fontWeight={600} mb={4}>
+              Description
+            </Text>
+            <Text maxW="500px" color="gray.600">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+              ac eros at turpis ullamcorper sollicitudin. Vivamus sed hendrerit
+              velit, at fringilla lorem. Nunc vehicula ante ut nisi ultrices
+              dapibus vel vel nisl. Curabitur sodales metus eget nisi euismod
+              blandit. Cras massa mauris, consequat eget orci vel, pretium
+              imperdiet mauris. Proin sodales maximus nulla ut pretium. Nulla
+              facilisi. Aliquam tincidunt placerat risus ut accumsan. Morbi a
+              sagittis dui.
+            </Text>
+          </Box>
+          <Box
+            boxShadow="base"
+            bgColor="white"
+            width="100%"
+            minWidth="320px"
+            rounded={4}
+            pt={6}
+            p={8}
+          >
+            <Text fontSize="lg" fontWeight={600} mb={4}>
+              Attachments
+            </Text>
+            <Wrap spacing={4}>
+              <WrapItem>
+                <VStack
+                  bgColor="brand.100"
+                  color="brand.600"
+                  _hover={{
+                    bgColor: "brand.600",
+                    cursor: "pointer",
+                    color: "white",
+                  }}
+                  minW="115px"
+                  rounded={4}
+                  py={4}
+                  px={2}
+                >
+                  <Icon as={AiOutlineFileExcel} fontSize="5xl" />
+                  <Text fontSize="xs" fontWeight={600}>
+                    data.xls
+                  </Text>
+                </VStack>
+              </WrapItem>
+              <WrapItem>
+                <VStack
+                  bgColor="brand.100"
+                  color="brand.600"
+                  _hover={{
+                    bgColor: "brand.600",
+                    cursor: "pointer",
+                    color: "white",
+                  }}
+                  minW="115px"
+                  rounded={4}
+                  py={4}
+                  px={2}
+                >
+                  <Icon as={AiOutlineFilePdf} fontSize="5xl" />
+                  <Text fontSize="xs" fontWeight={600}>
+                    data.pdf
+                  </Text>
+                </VStack>
+              </WrapItem>
+              <WrapItem>
+                <VStack
+                  bgColor="brand.100"
+                  color="brand.600"
+                  _hover={{
+                    bgColor: "brand.600",
+                    cursor: "pointer",
+                    color: "white",
+                  }}
+                  minW="115px"
+                  rounded={4}
+                  py={4}
+                  px={2}
+                >
+                  <Icon as={AiOutlineFileJpg} fontSize="5xl" />
+                  <Text fontSize="xs" fontWeight={600}>
+                    image.xls
+                  </Text>
+                </VStack>
+              </WrapItem>
+              <WrapItem>
+                <VStack
+                  bgColor="brand.100"
+                  color="brand.600"
+                  _hover={{
+                    bgColor: "brand.600",
+                    cursor: "pointer",
+                    color: "white",
+                  }}
+                  minW="115px"
+                  rounded={4}
+                  py={4}
+                  px={2}
+                >
+                  <Icon as={AiOutlineFileWord} fontSize="5xl" />
+                  <Text fontSize="xs" fontWeight={600}>
+                    text.docx
+                  </Text>
+                </VStack>
+              </WrapItem>
+            </Wrap>
+          </Box>
+        </Flex>
+        <Box
           boxShadow="base"
-          flexGrow={1}
-          rounded={4}
-          py={4}
-          px={6}
-        >
-          <Text fontSize="2xl" fontWeight={800} mr={2}>
-            169
-          </Text>
-          <Text fontWeight={600} color="gray.500">
-            Total Incidents
-          </Text>
-          <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-        </HStack>
-        <HStack
           bgColor="white"
-          boxShadow="base"
           rounded={4}
-          flexGrow={1}
-          py={4}
-          px={6}
+          flex={1}
+          py={8}
+          px={10}
         >
-          <Text fontSize="2xl" fontWeight={800} mr={2}>
-            58
-          </Text>
-          <Text fontWeight={600} color="gray.500">
-            Total Services
-          </Text>
-          <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-        </HStack>
-        <HStack
-          bgColor="white"
-          boxShadow="base"
-          flexGrow={1}
-          rounded={4}
-          py={4}
-          px={6}
-        >
-          <Text fontSize="2xl" fontWeight={800} mr={2}>
-            32
-          </Text>
-          <Text fontWeight={600} color="gray.500">
-            Ongoing Services
-          </Text>
-          <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-        </HStack>
+          <Flex justify="space-between" align="center" mb={6}>
+            <Indicator
+              bgColor="gray.500"
+              position="top-end"
+              offset={[-3, 0.5]}
+              fontWeight={600}
+              color="white"
+              fontSize="xs"
+              label="10"
+              size={6}
+            >
+              <Text fontSize="xl" fontWeight={600}>
+                Comments
+              </Text>
+            </Indicator>
+            <InputGroup maxW="250px">
+              <InputLeftElement
+                pointerEvents="none"
+                children={<SearchIcon color="gray.300" />}
+              />
+              <Input placeholder="Search commments" />
+            </InputGroup>
+          </Flex>
+          <HStack>
+            <InputGroup>
+              <Input placeholder="Add a comment..." />
+              <InputRightElement width="auto">
+                <Button size="sm" mr={1}>
+                  Post
+                </Button>
+              </InputRightElement>
+            </InputGroup>
+          </HStack>
+        </Box>
       </Flex>
-      <Flex justify="space-between" mb={6}>
-        <Button leftIcon={<BiFilter />}>Filters</Button>
-        <InputGroup maxW="320px" bgColor="white">
-          <Input placeholder="Search incidents" />
-          <InputRightElement
-            pointerEvents="none"
-            children={<SearchIcon color="gray.400" />}
-          />
-        </InputGroup>
-      </Flex>
-      <Table
-        isLoading={isLoading}
-        data={INCIDENT_DATA}
-        columns={columns}
-        boxShadow="base"
-        overflowY="auto"
-        bgColor="white"
-        isPaginated
-        rounded={5}
-        maxH="80vh"
-        size="md"
-      />
     </Page>
   )
 }

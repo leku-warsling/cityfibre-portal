@@ -96,7 +96,7 @@ export const UserManagementPage = () => {
 
   const actions = [
     <Button to="/roles" variant="link" size="sm" as={Link} mr={6}>
-      User Roles
+      Roles
     </Button>,
     <Button
       leftIcon={<AddIcon fontSize="12px" />}

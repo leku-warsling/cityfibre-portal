@@ -16,6 +16,7 @@ import {
   CreateIncidentPage,
   HelpPage,
   IncidentPage,
+  IncidentsPage,
   ServicesPage,
 } from "./pages/support"
 import {
@@ -69,7 +70,7 @@ export function App() {
               index
               element={
                 <RequireAuth>
-                  <IncidentPage />
+                  <IncidentsPage />
                 </RequireAuth>
               }
             />
@@ -78,6 +79,14 @@ export function App() {
               element={
                 <RequireAuth>
                   <CreateIncidentPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path=":id"
+              element={
+                <RequireAuth>
+                  <IncidentPage />
                 </RequireAuth>
               }
             />

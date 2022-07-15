@@ -1,7 +1,5 @@
 // @ts-nocheck
 
-import append from "ramda/es/append"
-import omit from "ramda/es/omit"
 import { FC, forwardRef, Fragment, ReactNode, useEffect, useMemo } from "react"
 import { confirm, ConfirmProps } from "../overlay/confirm"
 import BeatLoader from "react-spinners/BeatLoader"
@@ -11,10 +9,11 @@ import prepend from "ramda/es/prepend"
 import { IconType } from "react-icons"
 import whereEq from "ramda/es/whereEq"
 import repeat from "ramda/es/repeat"
+import append from "ramda/es/append"
 import range from "ramda/es/range"
+import omit from "ramda/es/omit"
 import pick from "ramda/es/pick"
-import pipe from "ramda/es/pipe"
-import { identity } from "ramda"
+import { identity, mergeRight } from "ramda"
 import {
   BiChevronRight,
   BiChevronLeft,
@@ -68,6 +67,7 @@ import {
   Tr,
   Td,
 } from "@chakra-ui/react"
+import { flow, pipe } from "fp-ts/lib/function"
 
 type Action = {
   confirmConfig?: Omit<ConfirmProps, "onConfirm">
@@ -137,6 +137,14 @@ const stickyHeaderProps = {
   boxShadow:
     "0 1px 3px -1.5px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06)",
 } as const
+
+export type GetTableHeadOpts = {
+  isSticky: boolean
+}
+
+const getTableHeadProps = ({ isSticky }) => {
+  return isSticky ? stickyHeaderProps : {}
+}
 
 const SortIndicator = <D extends object>(props: SortIndicatorProps<D>) => {
   if (!props.canSort) return null
@@ -261,6 +269,7 @@ const createActionColumn = (actions: Action[]) => {
 const Table = <T extends object>({
   manualPagination = false,
   pageCount: count,
+  isSticky = false,
   renderExpansion,
   actions = [],
   initialState,
@@ -270,7 +279,6 @@ const Table = <T extends object>({
   onPaginate,
   isFetching,
   isLoading,
-  isSticky,
   variant,
   onSort,
   colgroup,
@@ -319,7 +327,7 @@ const Table = <T extends object>({
     (hooks) => {
       const hasActions = !isNilOrEmpty(actions)
       hooks.visibleColumns.push(
-        pipe(
+        flow(
           hasActions && hasBatchableActions(actions)
             ? prepend<any>(selectionColumn)
             : identity,
@@ -462,7 +470,7 @@ const Table = <T extends object>({
             <chakra.col key={`col-${i}`} {...props} />
           ))}
         </colgroup>
-        <Thead {...stickyHeaderProps}>{head}</Thead>
+        <Thead {...getTableHeadProps({ isSticky })}>{head}</Thead>
         <Tbody {...getTableBodyProps()}>{rows}</Tbody>
       </ChakraTable>
       <HStack

@@ -10,18 +10,18 @@ export type IndicatorOwnProps = {
   position?: IndicatorPosition
   isDisabled?: boolean
   label?: string
-  offset?: number
+  offset?: number | [number, number]
   size?: number
 }
 
 export type IndicatorProps = Omit<BoxProps, "position"> & IndicatorOwnProps
 
-const getPositionProps = (_position: IndicatorPosition, offset = 0) => {
+const getPositionProps = (_position: IndicatorPosition, offset: number[]) => {
   const styles: StyleProps = {}
   const [position, placement] = _position.split("-")
 
   if (position === "top") {
-    styles.top = offset
+    styles.top = offset[1]
     styles.translateY = "-50%"
   }
 
@@ -31,12 +31,12 @@ const getPositionProps = (_position: IndicatorPosition, offset = 0) => {
   }
 
   if (position === "bottom") {
-    styles.bottom = offset
+    styles.bottom = offset[1]
     styles.translateY = "50%"
   }
 
   if (placement === "start") {
-    styles.left = offset
+    styles.left = offset[0]
     styles.translateX = "-50%"
   }
 
@@ -46,11 +46,15 @@ const getPositionProps = (_position: IndicatorPosition, offset = 0) => {
   }
 
   if (placement === "end") {
-    styles.right = offset
+    styles.right = offset[0]
     styles.translateX = "50%"
   }
 
-  return styles
+  const { translateX, translateY, ...rest } = styles
+  return {
+    ...rest,
+    transform: `translate(${translateX}, ${translateY})`,
+  }
 }
 
 export const Indicator: FC<IndicatorProps> = ({
@@ -64,19 +68,24 @@ export const Indicator: FC<IndicatorProps> = ({
   label,
   ...props
 }) => {
+  const _offset = Array.isArray(offset) ? offset : [offset, offset]
+  console.log(getPositionProps(position, _offset))
   return (
     <Box position="relative">
       {!isDisabled && (
         <Box
           {...props}
-          {...getPositionProps(position, offset)}
+          {...getPositionProps(position, _offset)}
           borderRadius={borderRadius}
           position="absolute"
           zIndex={zIndex}
           height={size}
           width={size}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
         >
-          {label}
+          <span>{label}</span>
         </Box>
       )}
       {children}
