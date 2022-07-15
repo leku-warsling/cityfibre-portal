@@ -1,13 +1,15 @@
 import {
+  Avatar,
   Badge,
   Box,
   Button,
+  Divider,
   Flex,
   HStack,
   Icon,
+  IconButton,
   Input,
   InputGroup,
-  InputLeftElement,
   InputRightElement,
   SimpleGrid,
   Text,
@@ -17,14 +19,15 @@ import {
 } from "@chakra-ui/react"
 import { Link, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { Indicator, Page } from "@ui"
+import { Page } from "@ui"
 import {
   AiOutlineFileExcel,
   AiOutlineFileJpg,
   AiOutlineFilePdf,
   AiOutlineFileWord,
 } from "react-icons/ai"
-import { SearchIcon } from "@chakra-ui/icons"
+import { BiPaperclip, BiSort, BiSortUp } from "react-icons/bi"
+import { FiPaperclip } from "react-icons/fi"
 
 export const IncidentPage = () => {
   const [isLoading, setLoading] = useState(true)
@@ -169,6 +172,26 @@ export const IncidentPage = () => {
                   </Text>
                 </VStack>
               </WrapItem>
+              <WrapItem>
+                <VStack
+                  bgColor="brand.100"
+                  color="brand.600"
+                  _hover={{
+                    bgColor: "brand.600",
+                    cursor: "pointer",
+                    color: "white",
+                  }}
+                  minW="115px"
+                  rounded={4}
+                  py={4}
+                  px={2}
+                >
+                  <Icon as={AiOutlineFileWord} fontSize="5xl" />
+                  <Text fontSize="xs" fontWeight={600}>
+                    text.docx
+                  </Text>
+                </VStack>
+              </WrapItem>
             </Wrap>
           </Box>
         </Flex>
@@ -177,33 +200,25 @@ export const IncidentPage = () => {
           bgColor="white"
           rounded={4}
           flex={1}
-          py={8}
+          pt={6}
+          pb={8}
           px={10}
         >
-          <Flex justify="space-between" align="center" mb={6}>
-            <Indicator
-              bgColor="gray.500"
-              position="top-end"
-              offset={[-3, 0.5]}
-              fontWeight={600}
-              color="white"
-              fontSize="xs"
-              label="10"
-              size={6}
+          <Flex justify="space-between" align="center" mb={4}>
+            <Text fontSize="lg" fontWeight={600}>
+              10 Comments
+            </Text>
+            <Button
+              leftIcon={<BiSortUp />}
+              variant="ghost"
+              colorScheme="gray"
+              fontSize="lg"
             >
-              <Text fontSize="xl" fontWeight={600}>
-                Comments
-              </Text>
-            </Indicator>
-            <InputGroup maxW="250px">
-              <InputLeftElement
-                pointerEvents="none"
-                children={<SearchIcon color="gray.300" />}
-              />
-              <Input placeholder="Search commments" />
-            </InputGroup>
+              Sort By
+            </Button>
           </Flex>
-          <HStack>
+          <HStack spacing={3} mb={6}>
+            <Avatar name="Luke Rawlings" size="sm" />
             <InputGroup>
               <Input placeholder="Add a comment..." />
               <InputRightElement width="auto">
@@ -212,7 +227,124 @@ export const IncidentPage = () => {
                 </Button>
               </InputRightElement>
             </InputGroup>
+            <IconButton
+              colorScheme="gray"
+              aria-label="add attachment"
+              icon={<FiPaperclip />}
+            />
           </HStack>
+          <Divider borderColor="gray.300" mb={4} />
+          <VStack
+            divider={<Divider borderColor="gray.300" />}
+            align="flex-start"
+            spacing={4}
+            w="100%"
+            maxH="525px"
+            overflowY="auto"
+          >
+            <Flex gap={4}>
+              <Avatar name="Luke Rawlings" />
+              <VStack align="flex-start" flexGrow={1} spacing={1}>
+                <Text fontWeight={600} fontSize="sm">
+                  Luke Rawlings -{" "}
+                  <Text as="span" color="gray.600">
+                    12/07/2022
+                  </Text>
+                </Text>
+                <Text fontSize="sm" color="gray.600">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a
+                  erat euismod nisl vulputate tempor. Vivamus pharetra laoreet
+                  bibendum. Etiam consectetur metus ipsum, ac interdum ipsum
+                  tincidunt sit amet.
+                </Text>
+              </VStack>
+            </Flex>
+            <Flex gap={4}>
+              <Avatar name="Luke Rawlings" />
+              <VStack align="flex-start" flexGrow={1} spacing={1}>
+                <Text fontWeight={600} fontSize="sm">
+                  Luke Rawlings -{" "}
+                  <Text as="span" color="gray.600">
+                    12/07/2022
+                  </Text>
+                </Text>
+                <Text fontSize="sm" color="gray.600">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a
+                  erat euismod nisl vulputate tempor. Vivamus pharetra laoreet
+                  bibendum. Etiam consectetur metus ipsum, ac interdum ipsum
+                  tincidunt sit amet.
+                </Text>
+              </VStack>
+            </Flex>
+            <Flex gap={4}>
+              <Avatar name="Luke Rawlings" />
+              <VStack align="flex-start" flexGrow={1} spacing={1}>
+                <Text fontWeight={600} fontSize="sm">
+                  Luke Rawlings -{" "}
+                  <Text as="span" color="gray.600">
+                    12/07/2022
+                  </Text>
+                </Text>
+                <Text fontSize="sm" color="gray.600">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a
+                  erat euismod nisl vulputate tempor. Vivamus pharetra laoreet
+                  bibendum. Etiam consectetur metus ipsum, ac interdum ipsum
+                  tincidunt sit amet.
+                </Text>
+              </VStack>
+            </Flex>
+            <Flex gap={4}>
+              <Avatar name="Luke Rawlings" />
+              <VStack align="flex-start" flexGrow={1} spacing={1}>
+                <Text fontWeight={600} fontSize="sm">
+                  Luke Rawlings -{" "}
+                  <Text as="span" color="gray.600">
+                    12/07/2022
+                  </Text>
+                </Text>
+                <Text fontSize="sm" color="gray.600">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a
+                  erat euismod nisl vulputate tempor. Vivamus pharetra laoreet
+                  bibendum. Etiam consectetur metus ipsum, ac interdum ipsum
+                  tincidunt sit amet.
+                </Text>
+              </VStack>
+            </Flex>
+            <Flex gap={4}>
+              <Avatar name="Luke Rawlings" />
+              <VStack align="flex-start" flexGrow={1} spacing={1}>
+                <Text fontWeight={600} fontSize="sm">
+                  Luke Rawlings -{" "}
+                  <Text as="span" color="gray.600">
+                    12/07/2022
+                  </Text>
+                </Text>
+                <Text fontSize="sm" color="gray.600">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a
+                  erat euismod nisl vulputate tempor. Vivamus pharetra laoreet
+                  bibendum. Etiam consectetur metus ipsum, ac interdum ipsum
+                  tincidunt sit amet.
+                </Text>
+              </VStack>
+            </Flex>
+            <Flex gap={4}>
+              <Avatar name="Luke Rawlings" />
+              <VStack align="flex-start" flexGrow={1} spacing={1}>
+                <Text fontWeight={600} fontSize="sm">
+                  Luke Rawlings -{" "}
+                  <Text as="span" color="gray.600">
+                    12/07/2022
+                  </Text>
+                </Text>
+                <Text fontSize="sm" color="gray.600">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a
+                  erat euismod nisl vulputate tempor. Vivamus pharetra laoreet
+                  bibendum. Etiam consectetur metus ipsum, ac interdum ipsum
+                  tincidunt sit amet.
+                </Text>
+              </VStack>
+            </Flex>
+          </VStack>
         </Box>
       </Flex>
     </Page>
