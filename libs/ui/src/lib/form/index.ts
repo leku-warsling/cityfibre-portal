@@ -1,4 +1,5 @@
 export * from "./field-array"
 export * from "./form-item"
+export * from "./fieldset"
 export * from "./wizard"
 export * from "./form"

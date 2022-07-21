@@ -1,5 +1,5 @@
 import { Button, Flex, Heading, HStack, Text, VStack } from "@chakra-ui/react"
-import { ReactComponent as VoidSVG } from "../../assets/svg/void.svg"
+import { ReactComponent as VoidSVG } from "../../../assets/svg/void.svg"
 import { ArrowForwardIcon } from "@chakra-ui/icons"
 import { Link } from "react-router-dom"
 

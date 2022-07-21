@@ -12,7 +12,7 @@ const defaultValues = {
   },
 }
 
-const CompanyDetailsForm = () => (
+const CompanyDetailsStep = () => (
   <VStack spacing={8} align="flex-start" w="100%">
     <SimpleGrid columns={2} spacing={8} w="100%">
       <FormItem
@@ -55,7 +55,7 @@ const CompanyDetailsForm = () => (
 )
 
 export default {
-  Page: CompanyDetailsForm,
+  Step: CompanyDetailsStep,
   label: "Your Company Details",
   defaultValues,
 }

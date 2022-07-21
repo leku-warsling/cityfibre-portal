@@ -26,7 +26,7 @@ const defaultValues = {
   team_members: [],
 }
 
-const ServiceDetailsForm = () => {
+const ServiceDetailsStep = () => {
   return (
     <VStack spacing={8} align="flex-start">
       <VStack align="flex-start">
@@ -136,6 +136,6 @@ const ServiceDetailsForm = () => {
 
 export default {
   label: "Service Details",
-  Page: ServiceDetailsForm,
+  Step: ServiceDetailsStep,
   defaultValues,
 }

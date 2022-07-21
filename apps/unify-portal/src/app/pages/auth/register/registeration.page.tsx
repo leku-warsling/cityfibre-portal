@@ -1,7 +1,7 @@
 import { WizardPanel, WizardProvider, WizardStepper } from "@ui"
-import AddTeamMembersForm from "./forms/add-team-members.form"
-import CompanyDetailsForm from "./forms/company-details.form"
-import CompleteForm from "./forms/complete.form"
+import AddTeamMembersStep from "./steps/add-team-members.step"
+import CompanyDetailsStep from "./steps/company-details.step"
+import CompleteStep from "./steps/complete.step"
 import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/react"
 import registerBg from "../../../../assets/images/register-bg.jpg"
 import { ReactComponent as Logo } from "../../../../assets/svg/logo.svg"
@@ -39,7 +39,7 @@ export const RegistrationPage = () => {
 
   return (
     <WizardProvider
-      pages={[CompanyDetailsForm, AddTeamMembersForm, CompleteForm]}
+      steps={[CompanyDetailsStep, AddTeamMembersStep, CompleteStep]}
       onComplete={console.log}
       size="lg"
     >

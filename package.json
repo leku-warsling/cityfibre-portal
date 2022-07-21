@@ -55,7 +55,8 @@
     "regenerator-runtime": "0.13.7",
     "store": "^2.0.12",
     "tslib": "^2.4.0",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "zod": "^3.17.9"
   },
   "devDependencies": {
     "@babel/core": "7.12.13",

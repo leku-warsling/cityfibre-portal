@@ -2,12 +2,9 @@ import WirelessRouterImg from "../../../../../assets/images/wireless-router.png"
 import { FormItem, RadioButton, RadioButtonGroup } from "@ui"
 import { FiPower } from "react-icons/fi"
 import {
-  SimpleGrid,
-  Divider,
   VStack,
   Text,
   Input,
-  Select,
   Flex,
   Button,
   Icon,
@@ -29,7 +26,7 @@ const defaultValues = {
   team_members: [],
 }
 
-const IncidentDetailsForm = () => {
+const IncidentDetailsStep = () => {
   return (
     <VStack spacing={8} align="flex-start" mb={8}>
       <Text fontSize="lg" fontWeight={600}>
@@ -172,7 +169,7 @@ const IncidentDetailsForm = () => {
 
 export default {
   label: "Incident Details",
-  Page: IncidentDetailsForm,
+  Step: IncidentDetailsStep,
   isFinalStep: true,
   defaultValues,
 }

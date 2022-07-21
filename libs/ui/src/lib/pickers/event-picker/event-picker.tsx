@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useState } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import { isFunction } from "ramda-adjunct"
 import { flow } from "fp-ts/lib/function"
 import { format } from "date-fns/fp"
@@ -12,16 +12,7 @@ import {
   Spinner,
   VStack,
 } from "@chakra-ui/react"
-import {
-  equals,
-  identity,
-  groupBy,
-  includes,
-  isEmpty,
-  juxt,
-  prop,
-  __,
-} from "ramda"
+import { equals, groupBy, includes, isEmpty, juxt, prop, __ } from "ramda"
 import { Calendar } from "../../inputs/dates/calendar"
 
 export type EventOptionId = string | number
@@ -44,7 +35,7 @@ export type EventOption = {
 
 export type EventPickerProps = {
   onSearch?: (value: Date) => Promise<EventOption[]>
-  renderOption: (option: EventOption) => ReactNode
+  renderOption?: (option: EventOption) => ReactNode
   filterBy?: (option: EventOption) => boolean
   value?: EventOptionId | EventOptionId[]
   onSelect?: (value: EventOptionId) => void
@@ -63,10 +54,10 @@ const startAtComparator = (a: EventOption, b: EventOption) => {
   return a.startAt.getTime() - b.startAt.getTime()
 }
 
-const EventPicker: FC<EventPickerProps> = ({
+export const EventPicker = ({
   notFoundMessage = "No options found",
   initialDate = new Date(),
-  filterBy = identity,
+  filterBy = Boolean,
   options = [],
   renderOption,
   onSearch,
@@ -74,12 +65,11 @@ const EventPicker: FC<EventPickerProps> = ({
   minDate,
   maxDate,
   value,
-}) => {
+}: EventPickerProps) => {
   const isSelected = Array.isArray(value) ? includes(__, value) : equals(value)
   const [isLoading, setLoading] = useState<boolean>(false)
   const [date, setDate] = useState(initialDate)
   const [items, setItems] = useState(groupByDay(options))
-
   const events = get(items, key(date), [])
     .filter(filterBy)
     .sort(startAtComparator)
@@ -105,7 +95,7 @@ const EventPicker: FC<EventPickerProps> = ({
       {notFoundMessage}
     </Alert>
   ) : (
-    <VStack>
+    <VStack maxW="400px" align="flex-start">
       {events.map((item) => {
         return renderOption ? (
           renderOption(item)
@@ -160,5 +150,3 @@ const EventPicker: FC<EventPickerProps> = ({
     </HStack>
   )
 }
-
-export default EventPicker

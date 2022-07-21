@@ -7,10 +7,11 @@ import { addDays, addHours } from "date-fns"
 import { nanoid } from "nanoid"
 import { append, curry, range, times } from "ramda"
 import { later } from "../../util/async.util"
-import EventPicker, {
+import {
   EventPickerProps,
-  EventOption,
   EventOptionId,
+  EventPicker,
+  EventOption,
 } from "./event-picker"
 
 const createEvent = curry((date: Date, offset: number): EventOption => {

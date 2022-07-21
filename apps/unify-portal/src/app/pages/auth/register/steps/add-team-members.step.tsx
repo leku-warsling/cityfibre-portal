@@ -26,7 +26,7 @@ const defaultValues = {
   team_members: [],
 }
 
-const AddTeamMembersForm = () => {
+const AddTeamMembersStep = () => {
   return (
     <VStack spacing={6} width="100%">
       <SimpleGrid columns={2} spacing={6} w="100%">
@@ -110,7 +110,7 @@ const AddTeamMembersForm = () => {
 
 export default {
   label: "Add Team Members",
-  Page: AddTeamMembersForm,
+  Step: AddTeamMembersStep,
   isFinalStep: true,
   defaultValues,
 }

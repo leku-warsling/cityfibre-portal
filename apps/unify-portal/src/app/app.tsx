@@ -1,11 +1,21 @@
 import { PartnerSuiteBanner } from "./components/banners/partner-suite-banner"
 import RequireAuth from "./components/route/require-auth"
-import { OrderPage, OrdersPage } from "./pages/ordering"
+import {
+  OrderEthernetPage,
+  OrderFTTPPage,
+  OrderPage,
+  OrdersPage,
+} from "./pages/ordering"
 import { DashboardPage } from "./pages/dashboard"
 import { Routes, Route } from "react-router-dom"
 import { AnimatePresence } from "framer-motion"
 import MainLayout from "./layouts/main.layout"
-import { AuthLayout, NotFoundPage } from "@ui"
+import {
+  AuthLayout,
+  NotAuthorizedPage,
+  NotFoundPage,
+  ServerErrorPage,
+} from "@ui"
 import {
   AccountSettingsPage,
   UserManagementPage,
@@ -17,6 +27,7 @@ import {
   HelpPage,
   IncidentPage,
   IncidentsPage,
+  ServicePage,
   ServicesPage,
 } from "./pages/support"
 import {
@@ -35,6 +46,8 @@ import {
   ResetPasswordPage,
   AuthenticateAccountPage,
 } from "./pages/auth"
+import { AccessControlPage, LiveWorksPage } from "./pages/contact"
+import { SafetyReportPage } from "./pages/safety"
 
 export function App() {
   return (
@@ -99,20 +112,46 @@ export function App() {
               </RequireAuth>
             }
           />
-          <Route
-            path="services"
-            element={
-              <RequireAuth>
-                <ServicesPage />
-              </RequireAuth>
-            }
-          />
+          <Route path="services">
+            <Route
+              index
+              element={
+                <RequireAuth>
+                  <ServicesPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path=":id"
+              element={
+                <RequireAuth>
+                  <ServicePage />
+                </RequireAuth>
+              }
+            />
+          </Route>
           <Route path="orders">
             <Route
               index
               element={
                 <RequireAuth>
                   <OrdersPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="ethernet"
+              element={
+                <RequireAuth>
+                  <OrderEthernetPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="fttp"
+              element={
+                <RequireAuth>
+                  <OrderFTTPPage />
                 </RequireAuth>
               }
             />
@@ -211,6 +250,9 @@ export function App() {
           </Route>
         </Route>
         <Route path="/register" element={<RegistrationPage />} />
+        <Route path="/access-control" element={<AccessControlPage />} />
+        <Route path="/live-works" element={<LiveWorksPage />} />
+        <Route path="/safety-report" element={<SafetyReportPage />} />
         <Route
           path="/auth"
           element={<AuthLayout aside={<PartnerSuiteBanner />} />}
@@ -249,6 +291,8 @@ export function App() {
             }
           />
         </Route>
+        <Route path="/unauthorized" element={<NotAuthorizedPage />} />
+        <Route path="/server-error" element={<ServerErrorPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </AnimatePresence>

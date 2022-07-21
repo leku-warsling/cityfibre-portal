@@ -7,7 +7,7 @@ export type IncidentDetailsFormProps = {
   size: "sm" | "md" | "lg"
 }
 
-const SubmitIncidentForm = () => {
+const SubmitIncidentStep = () => {
   return (
     <VStack spacing={8} w="100%" py={14}>
       <Icon as={BsCheckCircle} fontSize="135px" color="green" />
@@ -34,7 +34,7 @@ const SubmitIncidentForm = () => {
 
 export default {
   label: "Submit Incident",
-  Page: SubmitIncidentForm,
+  Step: SubmitIncidentStep,
   showTitle: false,
   isCompleted: true,
 }

@@ -1,10 +1,14 @@
+import { BiCommentDetail, BiCommentError, BiInfoCircle } from "react-icons/bi"
+import { ArrowForwardIcon, SearchIcon } from "@chakra-ui/icons"
 import { useEffect, useMemo, useState } from "react"
-import { AddIcon, ArrowForwardIcon, SearchIcon } from "@chakra-ui/icons"
+import { flow } from "fp-ts/lib/function"
+import { Link } from "react-router-dom"
+import { Page, Table, util } from "@ui"
+import { prop, repeat } from "ramda"
 import {
   Badge,
   Button,
   Flex,
-  HStack,
   Icon,
   Input,
   InputGroup,
@@ -13,17 +17,6 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react"
-import { flow } from "fp-ts/lib/function"
-import { Link } from "react-router-dom"
-import { Page, Table, util } from "@ui"
-import { prop, repeat } from "ramda"
-import { RiBarChartGroupedLine } from "react-icons/ri"
-import {
-  BiCommentDetail,
-  BiCommentError,
-  BiHelpCircle,
-  BiInfoCircle,
-} from "react-icons/bi"
 
 export const HelpPage = () => {
   const [isLoading, setLoading] = useState(true)
@@ -213,40 +206,8 @@ export const HelpPage = () => {
             Continue
           </Button>
         </VStack>
-        {/* <VStack
-          bgColor="brand.500"
-          align="flex-start"
-          boxShadow="base"
-          color="white"
-          rounded={4}
-          spacing={4}
-          py={8}
-          px={8}
-        >
-          <Icon as={BiHelpCircle} fontSize="36px" />
-          <Text
-            fontSize="2xl"
-            fontWeight={800}
-            lineHeight={1.2}
-            maxWidth="300px"
-          >
-            FAQ's
-          </Text>
-          <Text fontWeight={600} maxWidth="300px">
-            Frequently asked questions and answers
-          </Text>
-          <Spacer />
-          <Button
-            rightIcon={<ArrowForwardIcon />}
-            bgColor="brand.700"
-            isFullWidth
-            size="lg"
-          >
-            Continue
-          </Button>
-        </VStack> */}
       </Flex>
-      <Flex justify="space-between" mb={6} alignItems="center">
+      <Flex justify="space-between" mb={6} alignItems="flex-end">
         <Text fontSize="xl" fontWeight={600}>
           Your Open Items
         </Text>

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import { AddIcon, SearchIcon } from "@chakra-ui/icons"
 import {
   Badge,
@@ -15,14 +15,33 @@ import {
 import { flow } from "fp-ts/lib/function"
 import { Link } from "react-router-dom"
 import { Page, Table, util } from "@ui"
-import { INCIDENT_DATA } from "./data"
-import { prop } from "ramda"
+import { mergeLeft, prop } from "ramda"
 import { RiBarChartGroupedLine } from "react-icons/ri"
 import { BiFilter } from "react-icons/bi"
+import { useIncidents } from "../../../hooks/use-incidents.hook"
+import { Statistic } from "../../../components/statistic"
+
+const initialState = {
+  _page: 0,
+  _limit: 10,
+  _sort: "ref",
+  _order: "asc",
+}
+
+const calcPageCount = (count = 0, limit = 10) => {
+  return count ? Math.ceil(count / limit) : undefined
+}
 
 export const IncidentsPage = () => {
-  const [isLoading, setLoading] = useState(true)
+  const [params, setParams] = useState(initialState)
+  const { data, isLoading, isFetching, isSuccess } = useIncidents(params)
 
+  const pageCount = useMemo(() => {
+    return isSuccess ? calcPageCount(data?.total, params._limit) : undefined
+  }, [isSuccess, data?.total, params._limit])
+
+  console.log(data)
+  console.log(pageCount)
   const columns = useMemo(
     () =>
       [
@@ -44,7 +63,7 @@ export const IncidentsPage = () => {
         },
         {
           Header: "Service Reference",
-          accessor: "service_ref",
+          accessor: "service_reference",
           disableFilters: true,
           disableSortBy: true,
         },
@@ -61,7 +80,7 @@ export const IncidentsPage = () => {
         },
         {
           Header: "Date Raised",
-          accessor: "raised_at",
+          accessor: "created_at",
           Cell: flow(
             prop<"value", string>("value"),
             util.date.formatDateString("dd/MM/yyyy")
@@ -80,18 +99,18 @@ export const IncidentsPage = () => {
           disableSortBy: true,
         },
         {
+          id: "email",
           Header: "Raised By",
-          accessor: "raised_by",
+          accessor: (row: any) => {
+            console.log(row)
+            return row?.user?.email ?? ""
+          },
           disableFilters: true,
           disableSortBy: true,
         },
       ] as const,
     []
   )
-
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1000)
-  }, [])
 
   const actions = [
     <Button
@@ -110,57 +129,26 @@ export const IncidentsPage = () => {
         Incidents
       </Page.Header>
       <Flex gap={6} width="100%" mb={6}>
-        <HStack
-          bgColor="white"
-          boxShadow="base"
-          flexGrow={1}
-          rounded={4}
-          py={4}
-          px={6}
-        >
-          <Text fontSize="2xl" fontWeight={800} mr={2}>
-            169
-          </Text>
-          <Text fontWeight={600} color="gray.500">
-            Total Incidents
-          </Text>
-          <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-        </HStack>
-        <HStack
-          bgColor="white"
-          boxShadow="base"
-          rounded={4}
-          flexGrow={1}
-          py={4}
-          px={6}
-        >
-          <Text fontSize="2xl" fontWeight={800} mr={2}>
-            58
-          </Text>
-          <Text fontWeight={600} color="gray.500">
-            Total Services
-          </Text>
-          <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-        </HStack>
-        <HStack
-          bgColor="white"
-          boxShadow="base"
-          flexGrow={1}
-          rounded={4}
-          py={4}
-          px={6}
-        >
-          <Text fontSize="2xl" fontWeight={800} mr={2}>
-            32
-          </Text>
-          <Text fontWeight={600} color="gray.500">
-            Ongoing Services
-          </Text>
-          <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-        </HStack>
+        <Statistic
+          icon={RiBarChartGroupedLine}
+          label="Total incidents"
+          value={169}
+        />
+        <Statistic
+          icon={RiBarChartGroupedLine}
+          label="Open incidents"
+          value={58}
+        />
+        <Statistic
+          icon={RiBarChartGroupedLine}
+          label="Resolved incidents"
+          value={32}
+        />
+        <Statistic
+          icon={RiBarChartGroupedLine}
+          label="Closed incidents"
+          value={32}
+        />
       </Flex>
       <Flex justify="space-between" mb={6}>
         <Button leftIcon={<BiFilter />}>Filters</Button>
@@ -174,12 +162,41 @@ export const IncidentsPage = () => {
       </Flex>
       <Table
         isLoading={isLoading}
-        data={INCIDENT_DATA}
+        isFetching={isFetching}
         columns={columns}
         boxShadow="base"
         overflowY="auto"
         bgColor="white"
+        data={data?.items ?? []}
         isPaginated
+        manualPagination
+        initialState={{
+          pageIndex: params._page,
+          pageSize: params._limit,
+          sortBy: [
+            {
+              id: "ref",
+              desc: false,
+            },
+          ],
+        }}
+        onPaginate={({ pageIndex, pageSize }) =>
+          setParams(
+            mergeLeft({
+              _page: pageIndex,
+              _limit: pageSize,
+            })
+          )
+        }
+        onSort={({ id, desc }) =>
+          setParams(
+            mergeLeft({
+              _sort: id ?? "topic_name",
+              _order: desc ? "desc" : "asc",
+            })
+          )
+        }
+        pageCount={pageCount}
         rounded={5}
         maxH="80vh"
         size="md"

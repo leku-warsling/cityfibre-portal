@@ -14,9 +14,9 @@ import {
   FC,
 } from "react"
 
-export type WizardPage = {
+export type WizardStep = {
   defaultValues?: Record<string, unknown>
-  Page: () => JSX.Element
+  Step: () => JSX.Element
   isCompleted?: boolean
   isFinalStep?: boolean
   description?: string
@@ -39,7 +39,7 @@ export type WizardContextProps = {
   onCancel?: () => void
   initialStep?: number
   redirectTo?: string
-  pages: WizardPage[]
+  steps: WizardStep[]
   formData?: object
 }
 
@@ -47,7 +47,7 @@ export type WizardContextState = {
   setStep: (step: number) => void
   state: FormState<FieldValues>
   size?: "sm" | "md" | "lg"
-  Page: () => JSX.Element
+  Step: () => JSX.Element
   payload: object | null
   isCompleted?: boolean
   onCancel?: () => void
@@ -59,15 +59,15 @@ export type WizardContextState = {
   activeIndex: number
   onNext: () => void
   steps: StepProps[]
-  pageNumber: number
-  pageCount: number
+  stepNumber: number
+  stepCount: number
   title?: string | null
 }
 
 const getStepProps = pick(["label", "description", "icon"])
 
 const getDefaultValues = flow(
-  map<WizardPage, object[]>(propOr({}, "defaultValues")),
+  map<WizardStep, object[]>(propOr({}, "defaultValues")),
   mergeAll
 )
 
@@ -83,33 +83,33 @@ const WizardProvider: FC<WizardContextProps> = ({
   children,
   onCancel,
   onStep,
-  pages,
+  ...props
 }) => {
-  const steps = useMemo(() => pages.map(getStepProps), [pages])
+  const steps = useMemo(() => props.steps.map(getStepProps), [props.steps])
   const { count, ...counter } = useCounter(initialStep)
-  const pageNumber = inc(count)
-  const isFirstStep = pageNumber === 1
-  const isLastPage = pageNumber === pages.length
+  const stepNumber = inc(count)
+  const isFirstStep = stepNumber === 1
+  const isLastStep = stepNumber === steps.length
   const {
-    isFinalStep = isLastPage,
+    isFinalStep = isLastStep,
     showTitle = true,
     description,
     isCompleted,
     schema,
-    Page,
+    Step,
     label,
-  } = pages[count]
+  } = props.steps[count]
   // add isLoading
   const [payload, setPayload] = useState<object | null>(null)
 
   const form = useForm({
-    defaultValues: mergeRight(getDefaultValues(pages), formData),
+    defaultValues: mergeRight(getDefaultValues(props.steps), formData),
     resolver: schema ? yupResolver(schema) : undefined,
     mode: "onChange",
   })
 
   const onNext = form.handleSubmit((data) => {
-    if (!isLastPage) counter.increment()
+    if (!isLastStep) counter.increment()
     if (!isFinalStep) {
       isFunction(onStep) && onStep(data)
       return
@@ -132,7 +132,7 @@ const WizardProvider: FC<WizardContextProps> = ({
   }
 
   const context = {
-    pageCount: pages.length,
+    stepCount: steps.length,
     state: form.formState,
     activeIndex: count,
     title: showTitle ? label : null,
@@ -140,7 +140,7 @@ const WizardProvider: FC<WizardContextProps> = ({
     description,
     isFirstStep,
     isFinalStep,
-    pageNumber,
+    stepNumber,
     onCancel,
     onReset,
     setStep,
@@ -149,7 +149,7 @@ const WizardProvider: FC<WizardContextProps> = ({
     payload,
     steps,
     size,
-    Page,
+    Step,
   }
 
   return (

@@ -64,7 +64,7 @@ const AuthProvider: FC = ({ children }) => {
     setToken(null)
     setUser(null)
     store.clearAll()
-    navigate("/login", { replace: true })
+    navigate("/auth", { replace: true })
   }
 
   const context = {

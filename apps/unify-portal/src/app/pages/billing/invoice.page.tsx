@@ -38,7 +38,7 @@ export const InvoicePage = () => {
         pb={20}
         px={12}
       >
-        <HStack w="100%" justifyContent="space-between">
+        <HStack w="100%" justifyContent="space-between" color="brand.500">
           <Logo height="50px" />
           <Text fontSize="xl">
             Invoice <strong>#CFL0006007</strong>
@@ -78,7 +78,9 @@ export const InvoicePage = () => {
             </Text>
             <SimpleGrid columns={2} spacingY={0.5} spacingX={0}>
               <Text>Total Due:</Text>
-              <Text fontWeight={600}>£4000.00</Text>
+              <Text fontWeight={600} color="brand.500">
+                £4000.00
+              </Text>
               <Text>Bank name:</Text>
               <Text fontWeight={600}>Halifax</Text>
               <Text>Country:</Text>

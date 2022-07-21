@@ -1,19 +1,18 @@
-import {
-  StackProps,
-  Button,
-  ButtonGroup,
-  Heading,
-  HStack,
-  VStack,
-  Box,
-  Divider,
-} from "@chakra-ui/react"
 import { useWizard, WizardContextState } from "./wizard.provider"
 import { FC, ReactNode } from "react"
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons"
 import { Title } from "../../data-display/title"
+import {
+  ButtonGroup,
+  StackProps,
+  Divider,
+  Button,
+  HStack,
+  VStack,
+  Box,
+} from "@chakra-ui/react"
 
-type WizardState = Omit<WizardContextState, "Page">
+type WizardState = Omit<WizardContextState, "Step">
 
 export type WizardPanelOwnProps = {
   renderComplete?: (props: WizardState) => ReactNode
@@ -26,7 +25,7 @@ export type WizardPanelProps = StackProps & WizardPanelOwnProps
 
 const defaultHeader = (ws: WizardState) => (
   <Title
-    strapline={`Step ${ws.pageNumber} of ${ws.pageCount}`}
+    strapline={`Step ${ws.stepNumber} of ${ws.stepCount}`}
     justify="start"
     align="start"
     spacing={4}
@@ -86,12 +85,12 @@ const WizardPanel: FC<WizardPanelProps> = ({
   children,
   ...props
 }) => {
-  const { Page, ...rest } = useWizard()
+  const { Step, ...rest } = useWizard()
   return (
     <VStack {...props} align="start" spacing={8}>
       {rest.title && renderHeader(rest)}
       <Box flexGrow={1} width="100%" px="1px" mx="-1px" overflowY="auto">
-        <Page />
+        <Step />
       </Box>
       {!rest.isCompleted && renderFooter(rest)}
     </VStack>

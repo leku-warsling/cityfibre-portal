@@ -14,6 +14,7 @@ import {
   FormControl,
   FormLabel,
   Stack,
+  HTMLChakraProps,
 } from "@chakra-ui/react"
 
 type ConditionalRender =
@@ -36,7 +37,10 @@ export type FormItemOwnProps = {
   name: string
 }
 
-export type FormItemProps = Omit<FormControlProps, "isInvalid" | "children"> &
+export type FormItemProps = Pick<
+  FormControlProps,
+  "isRequired" | "isDisabled" | "size"
+> &
   FormItemOwnProps &
   ConditionalRender
 
@@ -58,6 +62,7 @@ export const FormItem = ({
   label,
   name,
   size,
+  ...props
 }: FormItemProps) => {
   const { register, formState, control } = useFormContext()
   const { touchedFields, errors } = formState

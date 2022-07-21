@@ -7,7 +7,7 @@ import store from "store"
 
 const { NX_API_URI, NX_BASE_REQUEST_TIMEOUT = 15000 } = process.env
 
-const api = axios.create({
+export const api = axios.create({
   timeout: Number(NX_BASE_REQUEST_TIMEOUT),
   baseURL: NX_API_URI,
 })

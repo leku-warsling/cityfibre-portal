@@ -2,7 +2,7 @@ import { ArrowForwardIcon } from "@chakra-ui/icons"
 import { VStack, Button, Text } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 
-const CompleteForm = () => {
+const CompleteStep = () => {
   return (
     <VStack align="start" spacing={14}>
       <Text fontSize="lg" maxWidth="500px">
@@ -24,7 +24,7 @@ const CompleteForm = () => {
 }
 
 export default {
-  Page: CompleteForm,
+  Step: CompleteStep,
   isCompleted: true,
   label: "Done!",
 }

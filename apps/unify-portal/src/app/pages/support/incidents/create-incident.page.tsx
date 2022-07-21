@@ -1,7 +1,7 @@
 import { Page, WizardPanel, WizardProvider, WizardStepper } from "@ui"
-import ServiceDetailsForm from "./forms/service-details.form"
-import IncidentDetailsForm from "./forms/incident-details.form"
-import SubmitIncidentForm from "./forms/submit-incident.form"
+import ServiceDetailsStep from "./steps/service-details.step"
+import IncidentDetailsStep from "./steps/incident-details.step"
+import SubmitIncidentStep from "./steps/submit-incident.step"
 import { Button, Heading, VStack } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { AddIcon } from "@chakra-ui/icons"
@@ -32,7 +32,7 @@ export const CreateIncidentPage = () => {
         Raise an Incident
       </Page.Header>
       <WizardProvider
-        pages={[ServiceDetailsForm, IncidentDetailsForm, SubmitIncidentForm]}
+        steps={[ServiceDetailsStep, IncidentDetailsStep, SubmitIncidentStep]}
         onComplete={console.log}
       >
         <VStack spacing={8} w="100%">
