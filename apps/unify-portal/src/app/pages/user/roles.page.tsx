@@ -36,7 +36,7 @@ export const RolesPage = () => {
   return (
     <Page maxH="93vh" overflowY="auto">
       <Page.Header pb={2} mb={6} actions={actions}>
-        Roles
+        User Roles
       </Page.Header>
       <VStack
         divider={<Divider />}

@@ -1,14 +1,5 @@
 // @ts-nocheck
 import { USER_STATUSES, USER_DATA, USER_ROLES } from "./data"
-import {
-  Button,
-  VStack,
-  Flex,
-  useDisclosure,
-  Badge,
-  Text,
-  Avatar,
-} from "@chakra-ui/react"
 import { useEffect, useMemo, useState } from "react"
 import { AddIcon } from "@chakra-ui/icons"
 import { flow } from "fp-ts/lib/function"
@@ -18,6 +9,18 @@ import { props, join } from "ramda"
 import { Page, Table } from "@ui"
 import { EditUserModal } from "./modals/edit-user.modal"
 import { EditUserForm } from "./forms/edit-user.form"
+import { RiBarChartGroupedLine } from "react-icons/ri"
+import {
+  Button,
+  VStack,
+  Flex,
+  useDisclosure,
+  Badge,
+  Text,
+  Avatar,
+  Box,
+} from "@chakra-ui/react"
+import { Statistic } from "../../components/statistic"
 
 const getFullName = flow(props(["first_name", "last_name"]), join(" "))
 const randomNth = (arr: any[]) => arr[random(arr.length - 1)]
@@ -96,7 +99,7 @@ export const UserManagementPage = () => {
 
   const actions = [
     <Button to="/roles" variant="link" size="sm" as={Link} mr={6}>
-      Roles
+      User Roles
     </Button>,
     <Button
       leftIcon={<AddIcon fontSize="12px" />}
@@ -111,7 +114,7 @@ export const UserManagementPage = () => {
   return (
     <Page maxH="93vh" overflowY="auto">
       <Page.Header pb={2} mb={6} actions={actions}>
-        User Management
+        All Users ({USER_DATA.length})
       </Page.Header>
       <Flex gap={6} align="flex-start">
         <VStack w="100%" maxWidth="300px" align="flex-start">
@@ -124,18 +127,32 @@ export const UserManagementPage = () => {
             </Button>
           ))}
         </VStack>
-        <Table
-          isLoading={isLoading}
-          columns={columns}
-          data={USER_DATA}
-          boxShadow="base"
-          overflowY="auto"
-          bgColor="white"
-          flexGrow={1}
-          isPaginated
-          rounded={5}
-          maxH="80vh"
-        />
+        <Box flexGrow={1}>
+          <Flex gap={6} width="100%" mb={6}>
+            <Statistic
+              icon={RiBarChartGroupedLine}
+              label="Total users"
+              value={109}
+            />
+            <Statistic
+              icon={RiBarChartGroupedLine}
+              label="Require activation"
+              value={54}
+            />
+          </Flex>
+          <Table
+            isLoading={isLoading}
+            columns={columns}
+            data={USER_DATA}
+            boxShadow="base"
+            overflowY="auto"
+            bgColor="white"
+            flexGrow={1}
+            isPaginated
+            rounded={5}
+            maxH="80vh"
+          />
+        </Box>
       </Flex>
       <EditUserModal
         isOpen={isOpen}
