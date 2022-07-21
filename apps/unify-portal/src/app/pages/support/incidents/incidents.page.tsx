@@ -1,17 +1,5 @@
 import { useMemo, useState } from "react"
 import { AddIcon, SearchIcon } from "@chakra-ui/icons"
-import {
-  Badge,
-  Button,
-  Flex,
-  HStack,
-  Icon,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Spacer,
-  Text,
-} from "@chakra-ui/react"
 import { flow } from "fp-ts/lib/function"
 import { Link } from "react-router-dom"
 import { Page, Table, util } from "@ui"
@@ -20,6 +8,14 @@ import { RiBarChartGroupedLine } from "react-icons/ri"
 import { BiFilter } from "react-icons/bi"
 import { useIncidents } from "../../../hooks/use-incidents.hook"
 import { Statistic } from "../../../components/statistic"
+import {
+  InputRightElement,
+  InputGroup,
+  Button,
+  Badge,
+  Flex,
+  Input,
+} from "@chakra-ui/react"
 
 const initialState = {
   _page: 0,

@@ -115,12 +115,11 @@ export const UserManagementPage = () => {
       </Page.Header>
       <Flex gap={6} align="flex-start">
         <VStack w="100%" maxWidth="300px" align="flex-start">
+          <Button variant="solid" isActive size="sm">
+            All Users
+          </Button>
           {USER_ROLES.map((role, index) => (
-            <Button
-              variant={index === 0 ? "solid" : "ghost"}
-              isActive={index === 0}
-              size="sm"
-            >
+            <Button size="sm" variant="ghost" colorScheme="brand">
               {role}
             </Button>
           ))}

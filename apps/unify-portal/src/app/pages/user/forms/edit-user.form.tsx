@@ -1,5 +1,24 @@
-import { Button, Input, BoxProps, ButtonGroup } from "@chakra-ui/react"
-import { createForm, FormFieldsProps, FormItem } from "@ui"
+import {
+  Autocomplete,
+  createForm,
+  FieldArray,
+  FormFieldsProps,
+  FormItem,
+} from "@ui"
+import { USER_ROLES } from "../data"
+import {
+  ButtonGroup,
+  FormControl,
+  FormLabel,
+  BoxProps,
+  Button,
+  Input,
+  Wrap,
+  WrapItem,
+  Tag,
+  TagLabel,
+  TagCloseButton,
+} from "@chakra-ui/react"
 
 export type EditUserFieldsProps = BoxProps & FormFieldsProps
 
@@ -32,6 +51,44 @@ const EditUserFields = ({
       name="username"
       label="Username"
       render={(props) => <Input {...props} size={size} />}
+    />
+    <FieldArray
+      name="roles"
+      render={({ fields, append, remove }) => {
+        const tokens = (
+          <Wrap spacing={2} mb={4}>
+            <WrapItem>
+              <Tag size="lg" colorScheme="brand">
+                <TagLabel>Admin</TagLabel>
+                <TagCloseButton
+                  onClick={() =>
+                    alert("Demo functionality not implemented yet")
+                  }
+                />
+              </Tag>
+            </WrapItem>
+            {fields.map((item: any, idx) => (
+              <WrapItem key={item.id}>
+                <Tag size="lg" colorScheme="brand">
+                  <TagLabel>{item?.value}</TagLabel>
+                  <TagCloseButton onClick={() => remove(idx)} />
+                </Tag>
+              </WrapItem>
+            ))}
+          </Wrap>
+        )
+
+        return (
+          <FormControl>
+            <FormLabel fontWeight={600}>User Role(s)</FormLabel>
+            {tokens}
+            <Autocomplete
+              options={USER_ROLES.map((value) => ({ value, label: value }))}
+              onChange={(value) => append(value)}
+            />
+          </FormControl>
+        )
+      }}
     />
     <FormItem
       size={size}

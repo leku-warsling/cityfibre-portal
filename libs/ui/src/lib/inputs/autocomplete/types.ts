@@ -1,10 +1,7 @@
-import { FC, ReactNode } from "react"
+import { ReactNode } from "react"
 import { ListProps, ListItemProps } from "@chakra-ui/react"
-import AutocompleteList from "./autocomplete-list"
-import AutocompleteItem from "./autocomplete-item"
-
 export interface Option {
-  value?: (number | string)
+  value?: number | string
   label: string
   [key: string]: any
 }

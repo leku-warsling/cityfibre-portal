@@ -1,5 +1,4 @@
 export const USER_ROLES = [
-  "All Users",
   "1st Support Agent",
   "2nd Support Agent",
   "Administrators",

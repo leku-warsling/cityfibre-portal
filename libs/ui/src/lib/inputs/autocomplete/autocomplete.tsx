@@ -1,23 +1,23 @@
-import { FC, useState, useMemo } from "react"
-import { useCombobox } from "downshift"
-import {
-  Input,
-  InputGroup,
-  InputRightElement,
-  Flex,
-  Spinner,
-} from "@chakra-ui/react"
+import { AutocompleteProps, Option } from "./types"
+import AutocompleteList from "./autocomplete-list"
 import { ChevronDownIcon } from "@chakra-ui/icons"
+import AutocompleteItem from "./autocomplete-item"
+import { FC, useState, useMemo, useRef } from "react"
 import { matchSorter } from "match-sorter"
 import debounce from "lodash-es/debounce"
+import { flow } from "fp-ts/lib/function"
+import { useCombobox } from "downshift"
 import memoize from "fast-memoize"
 import pick from "ramda/es/pick"
-import AutocompleteList from "./autocomplete-list"
-import AutocompleteItem from "./autocomplete-item"
-import { AutocompleteProps, Option } from "./types"
-import { flow } from "fp-ts/lib/function"
 import omit from "ramda/es/omit"
 import { equals } from "ramda"
+import {
+  InputRightElement,
+  InputGroup,
+  Spinner,
+  Input,
+  Flex,
+} from "@chakra-ui/react"
 
 const filterOptions = memoize((opts: Option[], str: string) =>
   matchSorter(opts, str, { keys: ["label"] })
@@ -25,7 +25,7 @@ const filterOptions = memoize((opts: Option[], str: string) =>
 
 const inputProps = ["placeholder", "isDisabled", "value", "defaultValue"]
 
-const Autocomplete: FC<AutocompleteProps> = ({
+export const Autocomplete: FC<AutocompleteProps> = ({
   options = [],
   onSearch,
   onChange,
@@ -97,5 +97,3 @@ Autocomplete.defaultProps = {
   placeholder: "Enter search text",
   isDisabled: false,
 }
-
-export default Autocomplete

@@ -1,1 +1,2 @@
-export { default as default } from "./autocomplete"
+export * from "./autocomplete"
+export * from "./types"
