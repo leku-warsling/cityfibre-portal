@@ -1,9 +1,10 @@
 import { RiDashboard3Line } from "react-icons/ri"
+import { PageState } from "../hooks/use-page.hook"
 import { Link, Outlet } from "react-router-dom"
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai"
-import { BiBasket, BiDollar, BiPhoneCall, BiSupport } from "react-icons/bi"
 import { SearchIcon } from "@chakra-ui/icons"
 import { useAuth } from "../providers/auth.provider"
+import { useState } from "react"
 import {
   PartnersIcon,
   IconButton,
@@ -30,6 +31,7 @@ import {
   Flex,
   Icon,
   Input,
+  Portal,
 } from "@chakra-ui/react"
 import {
   FiHelpCircle,
@@ -38,9 +40,18 @@ import {
   FiUsers,
   FiInbox,
 } from "react-icons/fi"
+import {
+  BiBasket,
+  BiBell,
+  BiDollar,
+  BiErrorCircle,
+  BiPhoneCall,
+  BiSupport,
+} from "react-icons/bi"
 
 const MainLayout = () => {
   const { isOpen, onToggle, onClose } = useDisclosure()
+  const [page, setPage] = useState<PageState>({})
   const { logout } = useAuth()
 
   const header = (
@@ -70,16 +81,10 @@ const MainLayout = () => {
       </AppBar.Section>
       <AppBar.Section>
         <Text fontSize="lg" fontWeight={600}>
-          Dashboard
+          {page?.title}
         </Text>
       </AppBar.Section>
       <AppBar.Section flexGrow={1} justifyContent="center">
-        {/* <SearchInput
-          variant="filled"
-          maxW="400px"
-          placeholder="Search for issues, invoices, services..."
-          onSearch={console.log}
-        /> */}
         <InputGroup maxW="400px">
           <InputLeftElement
             pointerEvents="none"
@@ -91,7 +96,73 @@ const MainLayout = () => {
           />
         </InputGroup>
       </AppBar.Section>
-      <AppBar.Section marginLeft="auto">
+      <AppBar.Section marginLeft="auto" gap={2}>
+        <AppBar.Item>
+          <Menu>
+            <MenuButton
+              aria-label="Notifications"
+              as={IconButton}
+              variant="ghost"
+              fontSize="lg"
+              colorScheme="gray"
+              icon={<BiBell />}
+            />
+            <Portal>
+              <MenuList zIndex={100} p={4}>
+                <MenuItem
+                  as={Link}
+                  to="incidents/INC0084093"
+                  icon={<BiErrorCircle fontSize="24px" />}
+                >
+                  <Text fontSize="sm" fontWeight={600}>
+                    Support
+                  </Text>
+                  <Text fontSize="xs">Incident INC0084093 updated</Text>
+                </MenuItem>
+                <MenuItem
+                  as={Link}
+                  to="incidents/INC0084093"
+                  icon={<BiErrorCircle fontSize="24px" />}
+                >
+                  <Text fontSize="sm" fontWeight={600}>
+                    Support
+                  </Text>
+                  <Text fontSize="xs">Incident INC0084093 updated</Text>
+                </MenuItem>
+                <MenuItem
+                  as={Link}
+                  to="incidents/INC0084093"
+                  icon={<BiErrorCircle fontSize="24px" />}
+                >
+                  <Text fontSize="sm" fontWeight={600}>
+                    Support
+                  </Text>
+                  <Text fontSize="xs">Incident INC0084093 updated</Text>
+                </MenuItem>
+                <MenuItem
+                  as={Link}
+                  to="incidents/INC0084093"
+                  icon={<BiErrorCircle fontSize="24px" />}
+                >
+                  <Text fontSize="sm" fontWeight={600}>
+                    Support
+                  </Text>
+                  <Text fontSize="xs">Incident INC0084093 updated</Text>
+                </MenuItem>
+                <MenuItem
+                  as={Link}
+                  to="incidents/INC0084093"
+                  icon={<BiErrorCircle fontSize="24px" />}
+                >
+                  <Text fontSize="sm" fontWeight={600}>
+                    Support
+                  </Text>
+                  <Text fontSize="xs">Incident INC0084093 updated</Text>
+                </MenuItem>
+              </MenuList>
+            </Portal>
+          </Menu>
+        </AppBar.Item>
         <AppBar.Item>
           <Menu>
             <MenuButton>
@@ -196,7 +267,9 @@ const MainLayout = () => {
             <Nav.Item as={Link} to="/orders">
               Orders
             </Nav.Item>
-            <Nav.Item>Products</Nav.Item>
+            <Nav.Item as={Link} to="/orders/products">
+              Products
+            </Nav.Item>
           </Nav.SubMenu>
           <Divider borderColor="brand.500" my={2} />
           <Nav.SubMenu icon={FiUsers} label="User Management">
@@ -232,7 +305,7 @@ const MainLayout = () => {
 
   return (
     <AppShell header={header} sidebar={sidebar}>
-      <Outlet />
+      <Outlet context={{ setPage }} />
     </AppShell>
   )
 }

@@ -1,11 +1,12 @@
+import { ReactComponent as TeamSVG } from "../../../assets/svg/team.svg"
+import FTTPServicesImg from "../../../assets/images/fttp-services.jpg"
 import { AddIcon, ArrowForwardIcon } from "@chakra-ui/icons"
 import { RiBarChartGroupedLine } from "react-icons/ri"
+import { usePage } from "../../hooks/use-page.hook"
 import { Card } from "../../components/card"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { Page, Table } from "@ui"
-import FTTPServicesImg from "../../../assets/images/fttp-services.jpg"
-import { ReactComponent as TeamSVG } from "../../../assets/svg/team.svg"
 import {
   INCIDENT_COLUMNS,
   INCIDENT_DATA,
@@ -14,29 +15,29 @@ import {
 } from "./data"
 import {
   UnorderedList,
+  useDisclosure,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
   ListItem,
   Button,
   HStack,
   Spacer,
   VStack,
+  Modal,
   Image,
   Flex,
   Icon,
   Text,
   Box,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
 } from "@chakra-ui/react"
 
 const DashboardPage = () => {
+  usePage({ title: "Dashboard" })
   const [isLoading, setLoading] = useState(true)
   const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true })
-
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000)
   }, [])

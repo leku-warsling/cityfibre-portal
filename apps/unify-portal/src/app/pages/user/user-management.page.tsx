@@ -1,15 +1,17 @@
 // @ts-nocheck
 import { USER_STATUSES, USER_DATA, USER_ROLES } from "./data"
+import { EditUserModal } from "./modals/edit-user.modal"
+import { Statistic } from "../../components/statistic"
+import { RiBarChartGroupedLine } from "react-icons/ri"
+import { EditUserForm } from "./forms/edit-user.form"
 import { useEffect, useMemo, useState } from "react"
+import { usePage } from "../../hooks/use-page.hook"
 import { AddIcon } from "@chakra-ui/icons"
 import { flow } from "fp-ts/lib/function"
 import { Link } from "react-router-dom"
 import random from "lodash-es/random"
 import { props, join } from "ramda"
 import { Page, Table } from "@ui"
-import { EditUserModal } from "./modals/edit-user.modal"
-import { EditUserForm } from "./forms/edit-user.form"
-import { RiBarChartGroupedLine } from "react-icons/ri"
 import {
   Button,
   VStack,
@@ -20,12 +22,12 @@ import {
   Avatar,
   Box,
 } from "@chakra-ui/react"
-import { Statistic } from "../../components/statistic"
 
 const getFullName = flow(props(["first_name", "last_name"]), join(" "))
 const randomNth = (arr: any[]) => arr[random(arr.length - 1)]
 
 export const UserManagementPage = () => {
+  usePage({ title: "User Management" })
   const [isLoading, setLoading] = useState(true)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [user, setUser] = useState(null)

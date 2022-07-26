@@ -1,112 +1,137 @@
-import { useMemo, useState } from "react"
-import { AddIcon, SearchIcon } from "@chakra-ui/icons"
+import { FieldSearch } from "../../../components/field-search/field-search"
+import { SelectFilter } from "../../../components/filters/select-filter"
+import { useIncidents } from "../../../hooks/use-incidents.hook"
+import { useQueryParams } from "../../../hooks/use-query-params"
+import { Button, Badge, Flex, Spacer } from "@chakra-ui/react"
+import { Statistic } from "../../../components/statistic"
+import { usePage } from "../../../hooks/use-page.hook"
+import { RiBarChartGroupedLine } from "react-icons/ri"
+import { AddIcon } from "@chakra-ui/icons"
 import { flow } from "fp-ts/lib/function"
 import { Link } from "react-router-dom"
 import { Page, Table, util } from "@ui"
-import { mergeLeft, prop } from "ramda"
-import { RiBarChartGroupedLine } from "react-icons/ri"
-import { BiFilter } from "react-icons/bi"
-import { useIncidents } from "../../../hooks/use-incidents.hook"
-import { Statistic } from "../../../components/statistic"
-import {
-  InputRightElement,
-  InputGroup,
-  Button,
-  Badge,
-  Flex,
-  Input,
-} from "@chakra-ui/react"
+import { pathOr, prop } from "ramda"
+import { z } from "zod"
 
 const initialState = {
   _page: 0,
   _limit: 10,
   _sort: "ref",
-  _order: "asc",
+  _order: "asc" as const,
 }
 
-const calcPageCount = (count = 0, limit = 10) => {
-  return count ? Math.ceil(count / limit) : undefined
+const querySchema = z.object({
+  _order: z.optional(z.enum(["asc", "desc"])),
+  _sort: z.optional(z.string()),
+  q: z.optional(z.string()),
+  _limit: z.number(),
+  _page: z.number(),
+})
+
+const incidentQuerySchema = querySchema.extend({
+  status: z.optional(
+    z.enum([
+      "New",
+      "In Progress",
+      "Closed",
+      "Submitted",
+      "On Hold",
+      "Resolved",
+      "Cancelled",
+    ])
+  ),
+  ref_like: z.optional(z.string()),
+  service_ref_like: z.optional(z.string()),
+  "user.email_like": z.optional(z.string()),
+})
+
+type IncidentQuery = z.infer<typeof incidentQuerySchema>
+
+const defaultValues = {
+  totals: {
+    resolved: 0,
+    results: 0,
+    records: 0,
+    closed: 0,
+    pages: 0,
+    open: 0,
+  },
+  items: [],
 }
+
+const getColorScheme = (state: string) => {
+  switch (state) {
+    case "Cancelled":
+      return "red"
+    case "New":
+    case "In Progress":
+    case "Submitted":
+      return "blue"
+    default:
+      return "green"
+  }
+}
+
+const columns = [
+  {
+    Header: "Incident Reference",
+    accessor: "ref",
+    disableFilters: true,
+    Cell: ({ value }: any) => (
+      <Button size="sm" as={Link} variant="link" to={`/incidents/${value}`}>
+        {value}
+      </Button>
+    ),
+  },
+  {
+    Header: "Service Reference",
+    accessor: "service_reference",
+    disableFilters: true,
+    disableSortBy: true,
+  },
+  {
+    Header: "Status",
+    accessor: "status",
+    disableFilters: true,
+    Cell: ({ value }: any) => (
+      <Badge colorScheme={getColorScheme(value)} rounded={4} px={2} py={0.5}>
+        {value}
+      </Badge>
+    ),
+  },
+  {
+    Header: "Date Raised",
+    accessor: "created_at",
+    Cell: flow(
+      prop<"value", string>("value"),
+      util.date.formatDateString("dd/MM/yyyy")
+    ),
+    disableFilters: true,
+  },
+  {
+    Header: "Last Updated",
+    accessor: "updated_at",
+    Cell: flow(
+      prop<"value", string>("value"),
+      util.date.formatDateString("dd/MM/yyyy")
+    ),
+    disableFilters: true,
+  },
+  {
+    id: "email",
+    Header: "Raised By",
+    accessor: pathOr("", ["user", "email"]),
+    disableFilters: true,
+    disableSortBy: true,
+  },
+] as const
 
 export const IncidentsPage = () => {
-  const [params, setParams] = useState(initialState)
-  const { data, isLoading, isFetching, isSuccess } = useIncidents(params)
-
-  const pageCount = useMemo(() => {
-    return isSuccess ? calcPageCount(data?.total, params._limit) : undefined
-  }, [isSuccess, data?.total, params._limit])
-
-  console.log(data)
-  console.log(pageCount)
-  const columns = useMemo(
-    () =>
-      [
-        {
-          Header: "Incident Reference",
-          accessor: "ref",
-          disableFilters: true,
-          disableSortBy: true,
-          Cell: ({ value }: any) => (
-            <Button
-              size="sm"
-              as={Link}
-              variant="link"
-              to={`/incidents/${value}`}
-            >
-              {value}
-            </Button>
-          ),
-        },
-        {
-          Header: "Service Reference",
-          accessor: "service_reference",
-          disableFilters: true,
-          disableSortBy: true,
-        },
-        {
-          Header: "Status",
-          accessor: "status",
-          disableSortBy: true,
-          disableFilters: true,
-          Cell: ({ value }: any) => (
-            <Badge colorScheme="green" rounded={4} px={2} py={0.5}>
-              {value}
-            </Badge>
-          ),
-        },
-        {
-          Header: "Date Raised",
-          accessor: "created_at",
-          Cell: flow(
-            prop<"value", string>("value"),
-            util.date.formatDateString("dd/MM/yyyy")
-          ),
-          disableFilters: true,
-          disableSortBy: true,
-        },
-        {
-          Header: "Last Updated",
-          accessor: "updated_at",
-          Cell: flow(
-            prop<"value", string>("value"),
-            util.date.formatDateString("dd/MM/yyyy")
-          ),
-          disableFilters: true,
-          disableSortBy: true,
-        },
-        {
-          id: "email",
-          Header: "Raised By",
-          accessor: (row: any) => {
-            console.log(row)
-            return row?.user?.email ?? ""
-          },
-          disableFilters: true,
-          disableSortBy: true,
-        },
-      ] as const,
-    []
-  )
+  usePage({ title: "Support" })
+  const { params, mergeParams, renameParam, searchHandler, setParam } =
+    useQueryParams<IncidentQuery>(initialState)
+  const { data = defaultValues, isLoading, isFetching } = useIncidents(params)
+  const { totals, items } = data
 
   const actions = [
     <Button
@@ -128,42 +153,66 @@ export const IncidentsPage = () => {
         <Statistic
           icon={RiBarChartGroupedLine}
           label="Total incidents"
-          value={169}
+          value={totals.records}
         />
         <Statistic
           icon={RiBarChartGroupedLine}
           label="Open incidents"
-          value={58}
+          value={totals.open}
         />
         <Statistic
           icon={RiBarChartGroupedLine}
           label="Resolved incidents"
-          value={32}
+          value={totals.resolved}
         />
         <Statistic
           icon={RiBarChartGroupedLine}
           label="Closed incidents"
-          value={32}
+          value={totals.closed}
         />
       </Flex>
-      <Flex justify="space-between" mb={6}>
-        <Button leftIcon={<BiFilter />}>Filters</Button>
-        <InputGroup maxW="320px" bgColor="white">
-          <Input placeholder="Search incidents" />
-          <InputRightElement
-            pointerEvents="none"
-            children={<SearchIcon color="gray.400" />}
-          />
-        </InputGroup>
+      <Flex align="center" gap={6} mb={6}>
+        <SelectFilter
+          onSelect={(value) =>
+            setParam("status", value as IncidentQuery["status"])
+          }
+          options={[
+            { label: "All", value: undefined },
+            { label: "New", value: "New" },
+            { label: "In Progress", value: "In Progress" },
+            { label: "Submitted", value: "Submitted" },
+            { label: "Closed", value: "Closed" },
+            { label: "Resolved", value: "Resolved" },
+            { label: "Cancelled", value: "Cancelled" },
+          ]}
+        >
+          Status {params?.status ?? "All"}
+        </SelectFilter>
+        <Spacer />
+        <FieldSearch
+          onFieldChange={renameParam}
+          onChange={searchHandler}
+          placeholder="Search incidents..."
+          defaultField="q"
+          bgColor="white"
+          maxWidth="400px"
+          fields={[
+            { value: "q", label: "All" },
+            { value: "ref_like", label: "Incident Reference" },
+            { value: "service_ref_like", label: "Service Reference" },
+            { value: "user.email_like", label: "Raised By" },
+          ]}
+        />
       </Flex>
       <Table
+        isSticky
         isLoading={isLoading}
         isFetching={isFetching}
         columns={columns}
         boxShadow="base"
         overflowY="auto"
         bgColor="white"
-        data={data?.items ?? []}
+        data={items}
         isPaginated
         manualPagination
         initialState={{
@@ -177,22 +226,18 @@ export const IncidentsPage = () => {
           ],
         }}
         onPaginate={({ pageIndex, pageSize }) =>
-          setParams(
-            mergeLeft({
-              _page: pageIndex,
-              _limit: pageSize,
-            })
-          )
+          mergeParams({
+            _page: pageIndex,
+            _limit: pageSize,
+          })
         }
         onSort={({ id, desc }) =>
-          setParams(
-            mergeLeft({
-              _sort: id ?? "topic_name",
-              _order: desc ? "desc" : "asc",
-            })
-          )
+          mergeParams({
+            _sort: id ?? "ref",
+            _order: desc ? "desc" : "asc",
+          })
         }
-        pageCount={pageCount}
+        pageCount={totals.pages}
         rounded={5}
         maxH="80vh"
         size="md"

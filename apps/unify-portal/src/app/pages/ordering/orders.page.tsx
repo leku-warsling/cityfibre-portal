@@ -1,6 +1,7 @@
-import { SearchIcon } from "@chakra-ui/icons"
 import { RiBarChartGroupedLine } from "react-icons/ri"
 import { useEffect, useMemo, useState } from "react"
+import { usePage } from "../../hooks/use-page.hook"
+import { SearchIcon } from "@chakra-ui/icons"
 import { BiFilter } from "react-icons/bi"
 import { flow } from "fp-ts/lib/function"
 import { Link } from "react-router-dom"
@@ -20,6 +21,7 @@ import {
 } from "@chakra-ui/react"
 
 export const OrdersPage = () => {
+  usePage({ title: "Orders" })
   const [isLoading, setLoading] = useState(true)
   const data = useMemo(
     () =>

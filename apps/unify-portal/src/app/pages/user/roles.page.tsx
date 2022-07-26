@@ -1,18 +1,20 @@
-import {
-  Button,
-  ButtonGroup,
-  Divider,
-  IconButton,
-  VStack,
-} from "@chakra-ui/react"
+import { usePage } from "../../hooks/use-page.hook"
 import { useEffect, useState } from "react"
 import { AddIcon } from "@chakra-ui/icons"
+import { BiTrash } from "react-icons/bi"
 import { Link } from "react-router-dom"
 import { USER_ROLES } from "./data"
 import { Page } from "@ui"
-import { BiTrash } from "react-icons/bi"
+import {
+  ButtonGroup,
+  IconButton,
+  Divider,
+  Button,
+  VStack,
+} from "@chakra-ui/react"
 
 export const RolesPage = () => {
+  usePage({ title: "User Management" })
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {

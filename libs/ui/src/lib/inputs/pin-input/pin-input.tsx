@@ -31,5 +31,3 @@ export const PinInput = ({
     </HStack>
   )
 }
-
-console.log(PinInput)

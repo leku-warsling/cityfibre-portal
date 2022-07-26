@@ -1,9 +1,11 @@
 import { BankDetailsForm } from "./forms/bank-details.form"
 import { Text, VStack, Heading } from "@chakra-ui/react"
+import { usePage } from "../../hooks/use-page.hook"
 import { useEffect, useState } from "react"
 import { Page } from "@ui"
 
 export const BankDetailsPage = () => {
+  usePage({ title: "Billing" })
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {

@@ -14,7 +14,6 @@ import {
   FormControl,
   FormLabel,
   Stack,
-  HTMLChakraProps,
 } from "@chakra-ui/react"
 
 type ConditionalRender =
@@ -101,7 +100,7 @@ export const FormItem = ({
         {input}
       </Stack>
       <FormHelperText hidden={hideHelpText}>{helpText}</FormHelperText>
-      <FormErrorMessage>{errors?.[name]?.message}</FormErrorMessage>
+      <FormErrorMessage>{errors?.[name]?.["message"]}</FormErrorMessage>
     </FormControl>
   )
 }

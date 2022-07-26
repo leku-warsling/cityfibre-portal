@@ -12,12 +12,20 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react"
-import { BiBell, BiInfoCircle, BiLockAlt, BiUser } from "react-icons/bi"
+import {
+  BiBell,
+  BiCreditCard,
+  BiInfoCircle,
+  BiLockAlt,
+  BiUser,
+} from "react-icons/bi"
 import { Page } from "@ui"
 import { ProfileForm } from "./forms/profile.form"
 import { ChangePasswordForm } from "./forms/change-password.form"
+import { usePage } from "../../hooks/use-page.hook"
 
 export const AccountSettingsPage = () => {
+  usePage({ title: "Settings" })
   return (
     <Page>
       <Page.Header pb={4} mb={8}>
@@ -41,6 +49,10 @@ export const AccountSettingsPage = () => {
             Information
           </Tab>
           <Tab rounded={4} justifyContent="flex-start">
+            <Icon as={BiCreditCard} mr={2} />
+            Bank Details
+          </Tab>
+          <Tab rounded={4} justifyContent="flex-start">
             <Icon as={BiBell} mr={2} />
             Notifications
           </Tab>
@@ -52,6 +64,9 @@ export const AccountSettingsPage = () => {
           </TabPanel>
           <TabPanel px={14} pt={14} pb={8}>
             <ChangePasswordForm onSubmit={console.log} />
+          </TabPanel>
+          <TabPanel px={14} pt={14} pb={8}>
+            <p>Todo</p>
           </TabPanel>
           <TabPanel px={14} pt={14} pb={8}>
             <p>Todo</p>

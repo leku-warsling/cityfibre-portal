@@ -18,7 +18,7 @@ export const OrderEthernetPage = () => {
     <Button
       leftIcon={<AddIcon fontSize="12px" />}
       alignItems="center"
-      to="/products"
+      to="/orders/products"
       variant="link"
       as={Link}
     >
@@ -43,6 +43,7 @@ export const OrderEthernetPage = () => {
             )}
             boxShadow="base"
             bgColor="white"
+            minH="70vh"
             rounded={4}
             w="100%"
             pt={12}

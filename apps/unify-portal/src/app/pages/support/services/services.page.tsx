@@ -18,8 +18,10 @@ import {
   Icon,
   Text,
 } from "@chakra-ui/react"
+import { usePage } from "../../../hooks/use-page.hook"
 
 export const ServicesPage = () => {
+  usePage({ title: "Support" })
   const [isLoading, setLoading] = useState(true)
   const data = useMemo(
     () =>

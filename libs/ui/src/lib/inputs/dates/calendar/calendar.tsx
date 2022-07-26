@@ -118,7 +118,8 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
     const [mode, setMode] = useState<"date" | "month" | "year">("date")
     const monthRef = useRef<HTMLDivElement>(null!)
     const daysRefs = useRef<HTMLButtonElement[][][]>(repeat([], amountOfMonths))
-    const autofocus = () => select("[data-autofocus]", monthRef.current).focus()
+    const autofocus = () =>
+      select("[data-autofocus]", monthRef.current)?.focus()
     const getCell = (cellPath: number[]) => {
       return path<HTMLButtonElement>(cellPath, daysRefs.current)
     }

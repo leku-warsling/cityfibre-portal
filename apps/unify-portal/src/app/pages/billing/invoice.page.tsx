@@ -1,3 +1,4 @@
+import { usePage } from "../../hooks/use-page.hook"
 import { useEffect, useState } from "react"
 import { Logo, Page } from "@ui"
 import {
@@ -16,6 +17,7 @@ import {
 } from "@chakra-ui/react"
 
 export const InvoicePage = () => {
+  usePage({ title: "Billing" })
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {

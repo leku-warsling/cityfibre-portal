@@ -1,3 +1,4 @@
+export * from "./products.page"
 export * from "./orders.page"
 export * from "./order.page"
 export * from "./ethernet"

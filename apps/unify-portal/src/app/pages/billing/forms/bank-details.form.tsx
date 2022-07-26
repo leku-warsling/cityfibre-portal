@@ -38,7 +38,7 @@ const BankDetailsFields = ({
     <FormItem
       size={size}
       name="sort_code"
-      label="Sort Xode"
+      label="Sort Code"
       render={(props) => <Input {...props} size={size} maxW="500px" />}
     />
     <FormItem

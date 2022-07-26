@@ -1,3 +1,4 @@
+import { usePage } from "../../hooks/use-page.hook"
 import { useEffect, useState } from "react"
 import { Page } from "@ui"
 import {
@@ -18,6 +19,7 @@ import {
 } from "@chakra-ui/react"
 
 export const OrderPage = () => {
+  usePage({ title: "Orders" })
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {

@@ -3,8 +3,10 @@ import { useEffect, useState } from "react"
 import { Box, Button } from "@chakra-ui/react"
 import { Link, useParams } from "react-router-dom"
 import { Page } from "@ui"
+import { usePage } from "../../hooks/use-page.hook"
 
 export const UpsertRolePage = (props: any) => {
+  usePage({ title: "User Management" })
   const { id } = useParams()
   const mode = id ? "edit" : "create"
   const [isLoading, setLoading] = useState(true)

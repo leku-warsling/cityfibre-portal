@@ -1,15 +1,16 @@
 import { PartnerSuiteBanner } from "./components/banners/partner-suite-banner"
 import RequireAuth from "./components/route/require-auth"
+import { DashboardPage } from "./pages/dashboard"
+import { Routes, Route } from "react-router-dom"
+import { AnimatePresence } from "framer-motion"
+import MainLayout from "./layouts/main.layout"
 import {
   OrderEthernetPage,
   OrderFTTPPage,
   OrderPage,
   OrdersPage,
+  ProductsPage,
 } from "./pages/ordering"
-import { DashboardPage } from "./pages/dashboard"
-import { Routes, Route } from "react-router-dom"
-import { AnimatePresence } from "framer-motion"
-import MainLayout from "./layouts/main.layout"
 import {
   AuthLayout,
   NotAuthorizedPage,
@@ -144,6 +145,14 @@ export function App() {
               element={
                 <RequireAuth>
                   <OrderEthernetPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="products"
+              element={
+                <RequireAuth>
+                  <ProductsPage />
                 </RequireAuth>
               }
             />

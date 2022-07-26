@@ -1,7 +1,7 @@
 import { map } from "ramda"
 import { useQuery } from "react-query"
 import { api } from "../api"
-import { incidentSchema } from "../entities"
+import { incidentSchema, totalsSchema } from "../entities"
 
 const options = {
   keepPreviousData: true,
@@ -14,10 +14,22 @@ export const useIncidents = (params: any = {}) => {
     async (context) => {
       const [, params] = context.queryKey
       const res = await api.get("/incidents", { params })
-      console.log("headers:", res.headers)
+      const { data, meta } = res.data
+      const { records, closed, resolved, results } = totalsSchema.parse({
+        results: res.headers["x-total-count"],
+        ...meta.totals,
+      })
+
       return {
-        total: Number(res.headers["x-total-count"]),
-        items: map(incidentSchema.parse, res.data),
+        totals: {
+          pages: Math.ceil(results / params._limit),
+          open: records - (closed + resolved),
+          resolved,
+          results,
+          records,
+          closed,
+        },
+        items: map(incidentSchema.parse, data),
       }
     },
     options

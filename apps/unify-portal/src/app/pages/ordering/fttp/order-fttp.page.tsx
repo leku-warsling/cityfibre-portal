@@ -20,7 +20,7 @@ export const OrderFTTPPage = () => {
     <Button
       leftIcon={<AddIcon fontSize="12px" />}
       alignItems="center"
-      to="/products"
+      to="/orders/products"
       variant="link"
       as={Link}
     >
@@ -57,6 +57,7 @@ export const OrderFTTPPage = () => {
             boxShadow="base"
             bgColor="white"
             rounded={4}
+            minH="70vh"
             w="100%"
             pt={12}
             px={12}

@@ -1,3 +1,15 @@
+import { usePage } from "../../../hooks/use-page.hook"
+import { Link, useParams } from "react-router-dom"
+import { FiPaperclip } from "react-icons/fi"
+import { useEffect, useState } from "react"
+import { BiSortUp } from "react-icons/bi"
+import { Page } from "@ui"
+import {
+  AiOutlineFileExcel,
+  AiOutlineFileJpg,
+  AiOutlineFilePdf,
+  AiOutlineFileWord,
+} from "react-icons/ai"
 import {
   Avatar,
   Badge,
@@ -17,19 +29,9 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react"
-import { Link, useParams } from "react-router-dom"
-import { useEffect, useState } from "react"
-import { Page } from "@ui"
-import {
-  AiOutlineFileExcel,
-  AiOutlineFileJpg,
-  AiOutlineFilePdf,
-  AiOutlineFileWord,
-} from "react-icons/ai"
-import { BiPaperclip, BiSort, BiSortUp } from "react-icons/bi"
-import { FiPaperclip } from "react-icons/fi"
 
 export const IncidentPage = () => {
+  usePage({ title: "Support" })
   const [isLoading, setLoading] = useState(true)
   const { id } = useParams()
 

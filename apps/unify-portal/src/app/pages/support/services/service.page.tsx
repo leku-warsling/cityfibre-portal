@@ -17,8 +17,10 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { useParams } from "react-router-dom"
+import { usePage } from "../../../hooks/use-page.hook"
 
 export const ServicePage = () => {
+  usePage({ title: "Support" })
   const { id } = useParams()
   const [isLoading, setLoading] = useState(true)
 
