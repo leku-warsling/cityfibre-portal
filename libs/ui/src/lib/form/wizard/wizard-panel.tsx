@@ -28,9 +28,9 @@ const defaultHeader = (ws: WizardState) => (
     strapline={`Step ${ws.stepNumber} of ${ws.stepCount}`}
     justify="start"
     align="start"
-    spacing={4}
+    spacing={{ base: 2, lg: 4 }}
     as="header"
-    mb={8}
+    mb={{ base: 4, lg: 8 }}
   >
     {ws.title}
   </Title>
@@ -51,25 +51,25 @@ const defaultFooter = (ws: WizardState) => (
           </Button>
         )}
       </Box>
-      <ButtonGroup spacing={6}>
+      <ButtonGroup spacing={{ base: 4, lg: 6 }}>
         {!ws.isFirstStep && (
           <Button
             leftIcon={<ArrowBackIcon />}
+            px={{ base: 4, lg: 10 }}
             onClick={ws.onBack}
             variant="outline"
             size={ws.size}
-            px={10}
           >
             Back
           </Button>
         )}
         <Button
           rightIcon={<ArrowForwardIcon />}
+          px={{ base: 4, lg: 10 }}
           onClick={ws.onNext}
           colorScheme="brand"
           variant="solid"
           size={ws.size}
-          px={10}
         >
           Next
         </Button>
@@ -87,7 +87,7 @@ const WizardPanel: FC<WizardPanelProps> = ({
 }) => {
   const { Step, ...rest } = useWizard()
   return (
-    <VStack {...props} align="start" spacing={8}>
+    <VStack {...props} align="start">
       {rest.title && renderHeader(rest)}
       <Box flexGrow={1} width="100%" px="1px" mx="-1px" overflowY="auto">
         <Step />
@@ -98,7 +98,7 @@ const WizardPanel: FC<WizardPanelProps> = ({
 }
 
 WizardPanel.defaultProps = {
-  spacing: 6,
+  spacing: { base: 6, lg: 8 },
 }
 
 export default WizardPanel

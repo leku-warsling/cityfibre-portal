@@ -1,6 +1,6 @@
-import { Input, SimpleGrid, VStack } from "@chakra-ui/react"
-import { FormItem } from "@ui"
+import { Input, SimpleGrid, useBreakpointValue, VStack } from "@chakra-ui/react"
 import { AddressInput } from "../../../../components/inputs/address-input"
+import { FormItem } from "@ui"
 
 const defaultValues = {
   company: {
@@ -12,47 +12,59 @@ const defaultValues = {
   },
 }
 
-const CompanyDetailsStep = () => (
-  <VStack spacing={8} align="flex-start" w="100%">
-    <SimpleGrid columns={2} spacing={8} w="100%">
-      <FormItem
-        render={(props) => <Input {...props} size="lg" />}
-        label="Company Name"
-        name="company.name"
-        isRequired
-        size="lg"
+const CompanyDetailsStep = () => {
+  const size = useBreakpointValue({ base: "md", lg: "lg" } as const)
+  return (
+    <VStack spacing={{ base: 4, lg: 8 }} align="flex-start" w="100%">
+      <SimpleGrid
+        columns={{ lg: 2, base: 1 }}
+        spacing={{ base: 6, lg: 8 }}
+        w="100%"
+      >
+        <FormItem
+          render={(props) => <Input {...props} size={size} />}
+          label="Company Name"
+          name="company.name"
+          isRequired
+          size={size}
+        />
+        <FormItem
+          render={(props) => <Input {...props} type="email" size={size} />}
+          label="Company Email"
+          name="company.email"
+          isRequired
+          size={size}
+        />
+        <FormItem
+          render={(props) => <Input {...props} type="tel" size={size} />}
+          label="Company Phone"
+          name="company.phone"
+          isRequired
+          size={size}
+        />
+        <FormItem
+          render={(props) => <Input {...props} type="url" size={size} />}
+          label="Company Website"
+          name="company.website"
+          size={size}
+        />
+        <FormItem
+          render={(props) => <Input {...props} size={size} />}
+          label="Company Registered Number"
+          name="company.registered_number"
+          isRequired
+          size={size}
+        />
+      </SimpleGrid>
+      <AddressInput
+        columns={{ lg: 2, base: 1 }}
+        label="Company Address"
+        baseName="company"
+        size={size}
       />
-      <FormItem
-        render={(props) => <Input {...props} type="email" size="lg" />}
-        label="Company Email"
-        name="company.email"
-        isRequired
-        size="lg"
-      />
-      <FormItem
-        render={(props) => <Input {...props} type="tel" size="lg" />}
-        label="Company Phone"
-        name="company.phone"
-        isRequired
-        size="lg"
-      />
-      <FormItem
-        render={(props) => <Input {...props} type="url" size="lg" />}
-        label="Company Website"
-        name="company.website"
-        size="lg"
-      />
-      <FormItem
-        render={(props) => <Input {...props} size="lg" />}
-        label="Company Registered Number"
-        name="company.registered_number"
-        isRequired
-        size="lg"
-      />
-    </SimpleGrid>
-    <AddressInput baseName="company" label="Company Address" size="lg" />
-  </VStack>
-)
+    </VStack>
+  )
+}
 
 export default {
   Step: CompanyDetailsStep,

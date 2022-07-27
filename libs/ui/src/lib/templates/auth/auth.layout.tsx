@@ -1,6 +1,6 @@
 import { position } from "../../util/component.util"
 import { ArrowBackIcon } from "@chakra-ui/icons"
-import { Button, Flex } from "@chakra-ui/react"
+import { Button, Flex, Hide } from "@chakra-ui/react"
 import { Outlet } from "react-router-dom"
 import { FC, ReactNode } from "react"
 
@@ -12,13 +12,13 @@ const AffixButton = position(Button)
 
 export const AuthLayout: FC<AuthLayoutProps> = ({ aside }) => {
   return (
-    <Flex h="100vh" maxW="100vw">
-      {aside}
+    <Flex h={{ base: "auto", lg: "100vh" }} maxW="100vw" overflowY="auto">
+      <Hide below="lg">{aside}</Hide>
       <Flex
         position="relative"
         justify="center"
         bgColor="white"
-        height="100vh"
+        minHeight="100vh"
         align="center"
         flexGrow={1}
       >
@@ -31,7 +31,7 @@ export const AuthLayout: FC<AuthLayoutProps> = ({ aside }) => {
           as="a"
           size="sm"
         >
-          Back to CityFibre.com
+          <Hide below="lg">Back to CityFibre.com</Hide>
         </AffixButton>
         <Outlet />
       </Flex>

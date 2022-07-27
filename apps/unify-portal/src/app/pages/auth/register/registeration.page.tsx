@@ -2,17 +2,26 @@ import { WizardPanel, WizardProvider, WizardStepper } from "@ui"
 import AddTeamMembersStep from "./steps/add-team-members.step"
 import CompanyDetailsStep from "./steps/company-details.step"
 import CompleteStep from "./steps/complete.step"
-import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/react"
+import {
+  Box,
+  Flex,
+  Heading,
+  Hide,
+  Text,
+  useBreakpointValue,
+  VStack,
+} from "@chakra-ui/react"
 import registerBg from "../../../../assets/images/register-bg.jpg"
 import { ReactComponent as Logo } from "../../../../assets/svg/logo.svg"
 
 export const RegistrationPage = () => {
+  const size = useBreakpointValue({ base: "md", lg: "lg" } as const)
   const aside = (
     <VStack
+      height={{ base: "auto", lg: "100vh" }}
       bgImage={registerBg}
       bgColor="brand.500"
       justify="start"
-      height="100vh"
       bgSize="cover"
       align="start"
       width="600px"
@@ -41,17 +50,18 @@ export const RegistrationPage = () => {
     <WizardProvider
       steps={[CompanyDetailsStep, AddTeamMembersStep, CompleteStep]}
       onComplete={console.log}
-      size="lg"
+      size={size}
     >
       <Flex id="registration">
-        {aside}
+        <Hide below="lg">{aside}</Hide>
         <WizardPanel
+          minHeight={{ base: "100vh", lg: "auto" }}
+          height={{ base: "auto", lg: "100vh" }}
+          pt={{ lg: 36, base: 14 }}
+          px={{ lg: 36, base: 4 }}
+          pb={{ lg: 8, base: 6 }}
           bgColor="white"
-          height="100vh"
           flexGrow={1}
-          pt={36}
-          px={36}
-          pb={8}
         />
       </Flex>
     </WizardProvider>

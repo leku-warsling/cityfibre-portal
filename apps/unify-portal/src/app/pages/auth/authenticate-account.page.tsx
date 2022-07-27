@@ -1,3 +1,4 @@
+import { useBreakpointValue } from "@chakra-ui/react"
 import { AuthenticateAccountForm, AuthTemplate, Text, Button } from "@ui"
 
 type PageProps = {
@@ -6,6 +7,7 @@ type PageProps = {
 }
 
 export const AuthenticateAccountPage = ({ strapline, title }: PageProps) => {
+  const size = useBreakpointValue({ base: "md", lg: "lg" } as const)
   return (
     <AuthTemplate
       strapline={strapline}
@@ -14,14 +16,15 @@ export const AuthenticateAccountPage = ({ strapline, title }: PageProps) => {
       width="100%"
       p={8}
     >
-      <Text fontSize="lg" textAlign="center">
+      <Text fontSize={{ base: "sm", lg: "lg" }} textAlign="center">
         Please confirm your account by entering the authorization code sent to
         your email address
       </Text>
       <AuthenticateAccountForm
         onSubmit={(data) => console.log(data)}
         width="100%"
-        spacing={12}
+        spacing={{ base: 6, lg: 12 }}
+        size={size}
       />
       <Text>
         Didn’t receive a code?{" "}

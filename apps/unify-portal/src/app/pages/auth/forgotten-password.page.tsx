@@ -1,3 +1,4 @@
+import { useBreakpointValue } from "@chakra-ui/react"
 import { AuthTemplate, ForgottenPasswordForm, Text } from "@ui"
 
 export type PageProps = {
@@ -6,6 +7,7 @@ export type PageProps = {
 }
 
 export const ForgottenPasswordPage = ({ strapline, title }: PageProps) => {
+  const size = useBreakpointValue({ base: "md", lg: "lg" } as const)
   return (
     <AuthTemplate
       strapline={strapline}
@@ -14,13 +16,14 @@ export const ForgottenPasswordPage = ({ strapline, title }: PageProps) => {
       width="100%"
       p={8}
     >
-      <Text fontSize="lg" textAlign="center">
+      <Text fontSize={{ base: "sm", lg: "lg" }} textAlign="center">
         Type your email address below and we’ll email you link to reset your
         password
       </Text>
       <ForgottenPasswordForm
         onSubmit={(data) => console.log(data)}
         width="100%"
+        size={size}
       />
     </AuthTemplate>
   )

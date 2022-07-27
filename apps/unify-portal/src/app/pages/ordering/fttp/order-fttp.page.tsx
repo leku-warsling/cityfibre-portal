@@ -4,13 +4,15 @@ import ProductOptionsStep from "./steps/product-options.step"
 import AvailabilityStep from "./steps/availability.step"
 import AppointmentStep from "./steps/appointment.step"
 import SummaryStep from "./steps/summary.step"
-import { Button, Heading, VStack } from "@chakra-ui/react"
+import { Button, Heading, useToast, VStack } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { AddIcon } from "@chakra-ui/icons"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export const OrderFTTPPage = () => {
   const [isLoading, setLoading] = useState(true)
+  const navigate = useNavigate()
+  const toast = useToast()
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000)
@@ -41,7 +43,18 @@ export const OrderFTTPPage = () => {
           AppointmentStep,
           SummaryStep,
         ]}
-        onComplete={console.log}
+        onComplete={() => {
+          navigate("/orders")
+          toast({
+            title: "Order Successfull",
+            description:
+              "Your order is being processed and additional checks may be required",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+            position: "top",
+          })
+        }}
       >
         <VStack spacing={8} w="100%">
           <WizardStepper

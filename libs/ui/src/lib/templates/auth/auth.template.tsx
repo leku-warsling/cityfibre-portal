@@ -31,9 +31,9 @@ const AnimationConfig = {
 }
 
 export const AuthTemplate: FC<AuthTemplateProps> = ({
-  title,
   strapline,
   children,
+  title,
   ...props
 }) => (
   <FlexMotion {...AnimationConfig} {...props}>

@@ -1,4 +1,4 @@
-import { Button, Text, VStack } from "@chakra-ui/react"
+import { Button, Text, useBreakpointValue, VStack } from "@chakra-ui/react"
 import { AuthTemplate, LoginForm, TextDivider } from "@ui"
 import { Link } from "react-router-dom"
 import { useAuth } from "../../providers/auth.provider"
@@ -17,20 +17,21 @@ export const LoginPage = ({
   title,
 }: LoginPageProps) => {
   const { login, isLoading } = useAuth()
+  const size = useBreakpointValue({ base: "md", lg: "lg" } as const)
 
   const register = showRegister && (
     <>
-      <Text as="strong" fontSize="2xl">
+      <Text as="strong" fontSize={{ base: "sm", lg: "2xl" }}>
         Haven’t got an account yet?
       </Text>
-      <Button size="lg" to="/register" variant="outline" as={Link}>
+      <Button size={size} to="/register" variant="outline" as={Link}>
         Create an account
       </Button>
     </>
   )
 
   const divider = showForgottenPassword && showRegister && (
-    <TextDivider>or</TextDivider>
+    <TextDivider fontSize={{ base: "sm", lg: "md" }}>or</TextDivider>
   )
 
   const forgottenPassword = showForgottenPassword && (
@@ -50,15 +51,17 @@ export const LoginPage = ({
       maxWidth="550px"
       title={title}
       width="100%"
-      p={8}
+      p={{ base: 4, lg: 8 }}
     >
       <LoginForm
         onSubmit={(data: any) => login(data)}
+        spacing={{ base: 4, lg: 6 }}
         isLoading={isLoading}
         width="100%"
-        mb={8}
+        size={size}
+        mb={{ base: 4, lg: 8 }}
       />
-      <VStack spacing={6}>
+      <VStack spacing={{ base: 4, lg: 6 }}>
         {forgottenPassword}
         {divider}
         {register}

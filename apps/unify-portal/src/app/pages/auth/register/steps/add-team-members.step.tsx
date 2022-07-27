@@ -10,6 +10,7 @@ import {
   Text,
   Input,
   List,
+  useBreakpointValue,
 } from "@chakra-ui/react"
 
 export type AddTeamMembersFormProps = {
@@ -27,39 +28,51 @@ const defaultValues = {
 }
 
 const AddTeamMembersStep = () => {
+  const size = useBreakpointValue({ base: "md", lg: "lg" } as const)
   return (
     <VStack spacing={6} width="100%">
-      <SimpleGrid columns={2} spacing={6} w="100%">
+      <SimpleGrid
+        columns={{ base: 1, lg: 2 }}
+        spacing={{ base: 4, lg: 6 }}
+        w="100%"
+      >
         <FormItem
           render={(props) => <Input {...props} />}
           name="user.name"
           label="Your Name"
           isRequired
-          size="lg"
+          size={size}
         />
         <FormItem
           render={(props) => <Input {...props} type="email" />}
           label="Your Email"
           name="user.email"
           isRequired
-          size="lg"
+          size={size}
         />
       </SimpleGrid>
       <FieldArray
         name="team_members"
         render={({ fields, path, append }) => {
           const fieldsets = fields.length > 0 && (
-            <List width="100%" spacing={6} hidden={fields.length === 0}>
+            <List
+              width="100%"
+              spacing={{ base: 4, lg: 6 }}
+              hidden={fields.length === 0}
+            >
               {fields.map(({ id }, index) => (
                 <ListItem key={id}>
-                  <HStack spacing={6}>
+                  <SimpleGrid
+                    columns={{ base: 1, lg: 2 }}
+                    spacing={{ base: 4, lg: 6 }}
+                  >
                     <FormItem
                       name={path(index, "name")}
                       render={(props) => (
                         <Input
                           {...props}
                           placeholder="Team member's fullname"
-                          size="lg"
+                          size={size}
                         />
                       )}
                     />
@@ -71,11 +84,11 @@ const AddTeamMembersStep = () => {
                           {...props}
                           placeholder="Team member's email address"
                           type="email"
-                          size="lg"
+                          size={size}
                         />
                       )}
                     />
-                  </HStack>
+                  </SimpleGrid>
                 </ListItem>
               ))}
             </List>
@@ -84,7 +97,7 @@ const AddTeamMembersStep = () => {
           return (
             <VStack spacing={6} width="100%" align="start">
               <HStack width="100%" hidden={fields.length === 0}>
-                <Text width="100px" color="gray.500">
+                <Text width="110px" color="gray.500">
                   Your Team
                 </Text>
                 <Divider />

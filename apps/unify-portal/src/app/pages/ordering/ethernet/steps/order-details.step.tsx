@@ -244,5 +244,6 @@ const OrderDetailsStep = () => {
 export default {
   label: "Order Details",
   Step: OrderDetailsStep,
+  isFinalStep: true,
   defaultValues,
 }

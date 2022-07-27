@@ -40,7 +40,7 @@ export const Title: FC<TitleProps & StackProps> = ({
         <Text
           color={colors?.strapline ?? "brand.500"}
           fontWeight={weights?.strapline ?? 600}
-          fontSize="xl"
+          fontSize={{ lg: "xl", base: "md" }}
           lineHeight="0"
         >
           {strapline}
@@ -49,7 +49,7 @@ export const Title: FC<TitleProps & StackProps> = ({
       <Heading
         color={colors?.title ?? "gray.900"}
         fontWeight={weights?.title ?? 800}
-        fontSize="4xl"
+        fontSize={{ lg: "4xl", base: "2xl" }}
       >
         {children}
       </Heading>
