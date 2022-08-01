@@ -1,5 +1,6 @@
+import { flow } from "fp-ts/lib/function"
 import { debounce } from "lodash-es"
-import { dissoc, has, mergeLeft, when } from "ramda"
+import { dissoc, mergeLeft, when } from "ramda"
 import { renameKeys } from "ramda-adjunct"
 import { ChangeEvent, useMemo, useState } from "react"
 
@@ -11,11 +12,19 @@ export type UseQueryParamsProps = {
   q?: string
 }
 
-export const useQueryParams = <T extends UseQueryParamsProps>(props: T) => {
+const has =
+  (k: string) =>
+  <T extends object>(obj: T) =>
+    k in obj
+
+export const useQueryParams = <T extends UseQueryParamsProps>(
+  props: T,
+  parse: (data: unknown) => T
+) => {
   const [params, setParams] = useState<T>(props)
 
-  const removeParam = (key: keyof T) => {
-    if (key in params) setParams(dissoc(key, params) as T)
+  const removeParam = (key: string) => {
+    setParams(flow(when(has(key), dissoc(key)), parse))
   }
 
   const setParam = (key: string, value: any) =>
@@ -37,15 +46,15 @@ export const useQueryParams = <T extends UseQueryParamsProps>(props: T) => {
 
   const renameParam = (newField: string, currentField: string) => {
     setParams(
-      when<any, any>(
-        has(currentField),
-        renameKeys({ [currentField]: newField })
+      flow(
+        when(has(currentField), renameKeys({ [currentField]: newField })),
+        parse
       )
     )
   }
 
   const mergeParams = (props: Partial<T>) =>
-    setParams(mergeLeft(props, params) as T)
+    setParams(flow(mergeLeft(props), parse))
 
   return {
     searchHandler,

@@ -1,33 +1,24 @@
 import { Page, WizardPanel, WizardProvider, WizardStepper } from "@ui"
-import ServiceDetailsStep from "./steps/service-details.step"
+import { Button, Heading, Hide, VStack } from "@chakra-ui/react"
 import IncidentDetailsStep from "./steps/incident-details.step"
+import ServiceDetailsStep from "./steps/service-details.step"
 import SubmitIncidentStep from "./steps/submit-incident.step"
-import { Button, Heading, VStack } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
-import { AddIcon } from "@chakra-ui/icons"
 import { Link } from "react-router-dom"
 
 export const CreateIncidentPage = () => {
-  const [isLoading, setLoading] = useState(true)
-
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1000)
-  }, [])
-
   const actions = [
-    <Button
-      leftIcon={<AddIcon fontSize="12px" />}
-      alignItems="center"
-      to="/incidents"
-      variant="link"
-      as={Link}
-    >
+    <Button alignItems="center" to="/incidents" variant="link" as={Link}>
       View all incidents
     </Button>,
   ]
 
   return (
-    <Page maxH="93vh" overflowY="auto">
+    <Page
+      maxH="93vh"
+      overflowY="auto"
+      mx={{ base: 2, lg: 0 }}
+      mt={{ base: 2, lg: 0 }}
+    >
       <Page.Header mb={8} pb={2} actions={actions}>
         Raise an Incident
       </Page.Header>
@@ -36,7 +27,9 @@ export const CreateIncidentPage = () => {
         onComplete={console.log}
       >
         <VStack spacing={8} w="100%">
-          <WizardStepper width="100%" maxW="960px" colorScheme="brand" />
+          <Hide below="lg">
+            <WizardStepper width="100%" maxW="960px" colorScheme="brand" />
+          </Hide>
           <WizardPanel
             renderHeader={({ title }) => (
               <Heading fontSize="2xl">{title}</Heading>
@@ -45,8 +38,8 @@ export const CreateIncidentPage = () => {
             bgColor="white"
             rounded={4}
             w="100%"
-            pt={12}
-            px={12}
+            pt={{ base: 6, lg: 12 }}
+            px={{ base: 6, lg: 12 }}
             pb={8}
           />
         </VStack>

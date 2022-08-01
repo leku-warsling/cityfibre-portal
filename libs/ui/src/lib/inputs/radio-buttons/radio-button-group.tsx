@@ -1,19 +1,19 @@
 import {
-  HStack,
-  StackProps,
+  SimpleGrid,
+  SimpleGridProps,
   useRadioGroup,
   UseRadioGroupProps,
 } from "@chakra-ui/react"
 import { omit, pick } from "ramda"
 import { RadioButtonProps } from "./radio-button"
-import { FC, ReactElement, cloneElement } from "react"
+import { ReactElement, cloneElement } from "react"
 
 export type RadioButtonGroupOwnProps = {
   children: ReactElement<RadioButtonProps>[]
 }
 
 export type RadioButtonGroupProps = RadioButtonGroupOwnProps &
-  StackProps &
+  SimpleGridProps &
   UseRadioGroupProps
 
 const RADIO_GROUP_PROPS = [
@@ -29,17 +29,24 @@ const RADIO_GROUP_PROPS = [
 const getRadioGroupProps = pick(RADIO_GROUP_PROPS)
 const omitRadioGroupProps = omit(RADIO_GROUP_PROPS)
 
-export const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
+export const RadioButtonGroup = ({
   children,
+  columns,
+  spacing = 4,
   ...props
-}) => {
+}: RadioButtonGroupProps) => {
   const { getRootProps, getRadioProps } = useRadioGroup(
     getRadioGroupProps(props)
   )
   const groupProps = getRootProps()
 
   return (
-    <HStack {...omitRadioGroupProps(props)} {...groupProps}>
+    <SimpleGrid
+      columns={columns ?? children.length}
+      spacing={spacing}
+      {...omitRadioGroupProps(props)}
+      {...groupProps}
+    >
       {children.map((child) => {
         const value = child.props.value
 
@@ -53,6 +60,6 @@ export const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
         // @ts-ignore
         return cloneElement(child, radioProps)
       })}
-    </HStack>
+    </SimpleGrid>
   )
 }

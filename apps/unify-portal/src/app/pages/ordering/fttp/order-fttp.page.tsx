@@ -19,13 +19,7 @@ export const OrderFTTPPage = () => {
   }, [])
 
   const actions = [
-    <Button
-      leftIcon={<AddIcon fontSize="12px" />}
-      alignItems="center"
-      to="/orders/products"
-      variant="link"
-      as={Link}
-    >
+    <Button alignItems="center" to="/orders/products" variant="link" as={Link}>
       View all products
     </Button>,
   ]
@@ -46,7 +40,7 @@ export const OrderFTTPPage = () => {
         onComplete={() => {
           navigate("/orders")
           toast({
-            title: "Order Successfull",
+            title: "Order Successful",
             description:
               "Your order is being processed and additional checks may be required",
             status: "success",

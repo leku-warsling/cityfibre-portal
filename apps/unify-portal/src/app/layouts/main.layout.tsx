@@ -32,6 +32,8 @@ import {
   Icon,
   Input,
   Portal,
+  Hide,
+  Show,
 } from "@chakra-ui/react"
 import {
   FiHelpCircle,
@@ -84,19 +86,31 @@ const MainLayout = () => {
           {page?.title}
         </Text>
       </AppBar.Section>
-      <AppBar.Section flexGrow={1} justifyContent="center">
-        <InputGroup maxW="400px">
-          <InputLeftElement
-            pointerEvents="none"
-            children={<SearchIcon color="gray.400" />}
-          />
-          <Input
-            variant="filled"
-            placeholder="Search for issues, invoices, services.."
-          />
-        </InputGroup>
-      </AppBar.Section>
-      <AppBar.Section marginLeft="auto" gap={2}>
+      <Hide below="lg">
+        <AppBar.Section flexGrow={1} justifyContent="center">
+          <InputGroup maxW="400px">
+            <InputLeftElement
+              pointerEvents="none"
+              children={<SearchIcon color="gray.400" />}
+            />
+            <Input
+              variant="filled"
+              placeholder="Search for issues, invoices, services.."
+            />
+          </InputGroup>
+        </AppBar.Section>
+      </Hide>
+      <AppBar.Section marginLeft="auto">
+        <Show below="lg">
+          <AppBar.Item>
+            <IconButton
+              aria-label="Site Search"
+              colorScheme="gray"
+              icon={<SearchIcon />}
+              variant="ghost"
+            />
+          </AppBar.Item>
+        </Show>
         <AppBar.Item>
           <Menu>
             <MenuButton
@@ -163,7 +177,7 @@ const MainLayout = () => {
             </Portal>
           </Menu>
         </AppBar.Item>
-        <AppBar.Item>
+        <AppBar.Item ml={2}>
           <Menu>
             <MenuButton>
               <Avatar bg="gray.200" size="sm" name="Luke Rawlings" />
@@ -304,7 +318,11 @@ const MainLayout = () => {
   )
 
   return (
-    <AppShell header={header} sidebar={sidebar}>
+    <AppShell
+      height={{ base: "auto", height: "100vh" }}
+      sidebar={sidebar}
+      header={header}
+    >
       <Outlet context={{ setPage }} />
     </AppShell>
   )

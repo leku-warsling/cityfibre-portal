@@ -7,27 +7,22 @@ export type AppShellProps = BoxProps & {
   sidebar?: ReactNode
 }
 
-const AppShell: FC<AppShellProps> = ({ 
+const AppShell: FC<AppShellProps> = ({
   sidebar,
   header,
   children,
-  ...props 
+  ...props
 }) => {
   const sidebarRef = useRef<HTMLDivElement>(null)
   const contentRect = useObserver(sidebarRef)
-  const maxWidth = useMemo(
-    () => {
-      return window.matchMedia("(min-width: 1024px)") && contentRect 
-        ? `calc(100vw - ${contentRect.width}px)` 
-        : "100vw"
-    },
-    [contentRect]
-  ) 
+  const maxWidth = useMemo(() => {
+    return window.matchMedia("(min-width: 1024px)") && contentRect
+      ? `calc(100vw - ${contentRect.width}px)`
+      : "100vw"
+  }, [contentRect])
   return (
     <Flex {...props}>
-      <div ref={sidebarRef}>
-        {sidebar}
-      </div>
+      <div ref={sidebarRef}>{sidebar}</div>
       <Box flexGrow={1}>
         {header}
         <Container as="main" maxWidth={maxWidth} overflow="auto" px={2}>
@@ -39,9 +34,9 @@ const AppShell: FC<AppShellProps> = ({
 }
 
 AppShell.defaultProps = {
-  bg: "gray.100", 
-  h: "100vh",
-  w: "100vw",
+  bg: "gray.100",
+  height: "100vh",
+  width: "100vw",
 }
 
 export default AppShell

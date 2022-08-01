@@ -106,22 +106,32 @@ const WizardProvider: FC<WizardContextProps> = ({
     defaultValues: mergeRight(getDefaultValues(props.steps), formData),
     resolver: schema ? yupResolver(schema) : undefined,
     mode: "onChange",
+    criteriaMode: "all",
+    reValidateMode: "onChange",
   })
 
-  const onNext = form.handleSubmit((data) => {
-    if (!isLastStep) counter.increment()
-    if (!isFinalStep) {
-      isFunction(onStep) && onStep(data)
-      return
+  const onNext = form.handleSubmit(
+    (data) => {
+      if (!isLastStep) counter.increment()
+      if (!isFinalStep) {
+        isFunction(onStep) && onStep(data)
+        return
+      }
+
+      const res = isFunction(onComplete) && onComplete(data)
+      if (isPromise(res)) res.then(setPayload)
+    },
+    (errors) => {
+      console.log(errors)
     }
-    const res = isFunction(onComplete) && onComplete(data)
-    if (isPromise(res)) res.then(setPayload)
-  })
+  )
 
   const onBack = () => counter.decrement()
 
   const setStep = (n: number) => {
     form.handleSubmit((values) => {
+      console.log(values)
+      console.log(props.steps[count])
       counter.setCount(n)
     })
   }

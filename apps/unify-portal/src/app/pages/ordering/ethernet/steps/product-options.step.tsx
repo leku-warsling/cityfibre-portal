@@ -159,17 +159,20 @@ const ProductOptionsStep = () => {
           )}
         />
       </VStack>
-      <Box
-        src="https://map.enta.cloud/postcode/BaMVaHZ6Q4/Milton%20Keynes/MK6 2XJ"
-        title="Network Map"
-        height="500px"
-        maxW="750px"
-        flexGrow={1}
-        rounded={4}
-        overflow="hidden"
-        width="100%"
-        as="iframe"
-      />
+      <Box flexGrow={1} width="100%" maxW="750px">
+        <Text fontWeight={600} mb={2}>
+          Network Map
+        </Text>
+        <Box
+          src="https://map.enta.cloud/postcode/BaMVaHZ6Q4/Milton%20Keynes/MK6 2XJ"
+          title="Network Map"
+          height="500px"
+          rounded={4}
+          overflow="hidden"
+          width="100%"
+          as="iframe"
+        />
+      </Box>
     </Flex>
   )
 }

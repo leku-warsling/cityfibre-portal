@@ -8,7 +8,7 @@ import {
   PartnersIcon,
   Logo,
   Text,
-} from '@ui';
+} from "@ui"
 import {
   Badge,
   VStack,
@@ -23,7 +23,7 @@ import {
   useDisclosure,
   Flex,
   Icon,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react"
 import {
   FiSettings,
   FiUsers,
@@ -31,16 +31,16 @@ import {
   FiHelpCircle,
   FiUser,
   FiLogOut,
-} from 'react-icons/fi';
-import { BiTransferAlt } from 'react-icons/bi';
-import { RiDashboard3Line } from 'react-icons/ri';
-import { Outlet } from 'react-router-dom';
-import { useAuth } from '../providers/auth.provider';
-import { AiOutlineMenuFold, AiOutlineMenuUnfold } from 'react-icons/ai';
+} from "react-icons/fi"
+import { BiTransferAlt } from "react-icons/bi"
+import { RiDashboard3Line } from "react-icons/ri"
+import { Outlet } from "react-router-dom"
+import { useAuth } from "../providers/auth.provider"
+import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai"
 
 const MainLayout = () => {
-  const { logout } = useAuth();
-  const { isOpen, onToggle, onClose } = useDisclosure();
+  const { logout } = useAuth()
+  const { isOpen, onToggle, onClose } = useDisclosure()
 
   const header = (
     <AppBar pl={4} pr={6} py={3} bgColor="white" boxShadow="sm">
@@ -83,18 +83,18 @@ const MainLayout = () => {
         </AppBar.Item>
       </AppBar.Section>
     </AppBar>
-  );
+  )
 
   const brand = (
     <Box bgColor="brand.500" rounded={5} p={3}>
       <PartnersIcon
         height="20"
         style={{
-          filter: 'drop-shadow(0px 5px 2px rgb(0 0 0 / 0.1)',
+          filter: "drop-shadow(0px 5px 2px rgb(0 0 0 / 0.1)",
         }}
       />
     </Box>
-  );
+  )
 
   const footer = (
     <Sidebar.Section fontWeight="semibold" color="#718589" gap={1}>
@@ -112,7 +112,7 @@ const MainLayout = () => {
         </Flex>
       )}
     </Sidebar.Section>
-  );
+  )
 
   const content = (
     <Sidebar.Section flexGrow={1}>
@@ -147,13 +147,13 @@ const MainLayout = () => {
         </Nav>
       )}
     </Sidebar.Section>
-  );
+  )
 
   const sidebar = (
     <Sidebar
+      height={{ base: "auto", lg: "100vh" }}
       isOpen={isOpen}
       onClose={onClose}
-      height="100vh"
       overflowY="auto"
     >
       <Sidebar.Section fontSize="xl" fontWeight="semibold" pt={6}>
@@ -167,13 +167,13 @@ const MainLayout = () => {
       {content}
       {footer}
     </Sidebar>
-  );
+  )
 
   return (
     <AppShell header={header} sidebar={sidebar}>
       <Outlet />
     </AppShell>
-  );
-};
+  )
+}
 
-export default MainLayout;
+export default MainLayout

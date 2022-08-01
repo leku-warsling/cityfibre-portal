@@ -49,6 +49,9 @@ import {
 } from "./pages/auth"
 import { AccessControlPage, LiveWorksPage } from "./pages/contact"
 import { SafetyReportPage } from "./pages/safety"
+import { DashboardTouch } from "./pages/dashboard/touch/dashboard-touch.page"
+import { UsersTouchPage } from "./pages/user/touch/users-touch.page"
+import { OrderTouchPage } from "./pages/ordering/touch/order-touch.page"
 
 export function App() {
   return (
@@ -63,6 +66,9 @@ export function App() {
               </RequireAuth>
             }
           />
+          <Route path="mobile" element={<DashboardTouch />} />
+          <Route path="mobile/users" element={<UsersTouchPage />} />
+          <Route path="mobile/order" element={<OrderTouchPage />} />
           <Route
             path="users"
             element={

@@ -9,7 +9,7 @@ export const theme = extendTheme({
   styles: {
     global: ({ colorMode }: any) => ({
       body: {
-        bg: colorMode === "dark" ? "black" : "gray.50",
+        bg: colorMode === "dark" ? "black" : "gray.100",
       },
     }),
   },

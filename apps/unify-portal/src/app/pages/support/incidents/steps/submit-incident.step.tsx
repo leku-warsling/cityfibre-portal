@@ -12,7 +12,7 @@ const SubmitIncidentStep = () => {
     <VStack spacing={8} w="100%" py={14}>
       <Icon as={BsCheckCircle} fontSize="135px" color="green" />
       <Heading>Thank you</Heading>
-      <Text fontWeight={600} fontSize="xl">
+      <Text fontWeight={600} fontSize="xl" textAlign="center">
         Your incident reference number is INC0099293
       </Text>
       <Text maxWidth="300px" textAlign="center" pb={8}>

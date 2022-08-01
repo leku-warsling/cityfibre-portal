@@ -4,7 +4,6 @@ import ProductOptionsStep from "./steps/product-options.step"
 import AvailabilityStep from "./steps/availability.step"
 import { Button, Heading, useToast, VStack } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
-import { AddIcon } from "@chakra-ui/icons"
 import { Link, useNavigate } from "react-router-dom"
 
 export const OrderEthernetPage = () => {
@@ -17,13 +16,7 @@ export const OrderEthernetPage = () => {
   }, [])
 
   const actions = [
-    <Button
-      leftIcon={<AddIcon fontSize="12px" />}
-      alignItems="center"
-      to="/orders/products"
-      variant="link"
-      as={Link}
-    >
+    <Button alignItems="center" to="/orders/products" variant="link" as={Link}>
       View all products
     </Button>,
   ]
@@ -38,7 +31,7 @@ export const OrderEthernetPage = () => {
         onComplete={() => {
           navigate("/orders")
           toast({
-            title: "Order Successfull",
+            title: "Order Successful",
             description:
               "Your order is being processed and additional checks may be required",
             status: "success",

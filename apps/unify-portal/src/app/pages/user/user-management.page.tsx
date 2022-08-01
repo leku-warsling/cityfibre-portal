@@ -116,7 +116,7 @@ export const UserManagementPage = () => {
   return (
     <Page maxH="93vh" overflowY="auto">
       <Page.Header pb={2} mb={6} actions={actions}>
-        All Users ({USER_DATA.length})
+        Users ({USER_DATA.length})
       </Page.Header>
       <Flex gap={6} align="flex-start">
         <VStack w="100%" maxWidth="300px" align="flex-start">

@@ -129,7 +129,7 @@ const columns = [
 export const IncidentsPage = () => {
   usePage({ title: "Support" })
   const { params, mergeParams, renameParam, searchHandler, setParam } =
-    useQueryParams<IncidentQuery>(initialState)
+    useQueryParams<IncidentQuery>(initialState, incidentQuerySchema.parse)
   const { data = defaultValues, isLoading, isFetching } = useIncidents(params)
   const { totals, items } = data
 

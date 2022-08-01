@@ -1,3 +1,4 @@
+import { ErrorMessage } from "@hookform/error-message"
 import { ReactElement, ReactNode } from "react"
 import {
   Controller,
@@ -64,10 +65,12 @@ export const FormItem = ({
   ...props
 }: FormItemProps) => {
   const { register, formState, control } = useFormContext()
-  const { touchedFields, errors } = formState
-  const isInvalid = errors?.[name] && touchedFields?.[name]
+  const { touchedFields, errors, isValid } = formState
+  // const isInvalid = errors?.[name] && touchedFields?.[name]
+  const isInvalid = errors?.[name] && !isValid
   const hideHelpText = isInvalid || !helpText
-
+  console.log(formState)
+  console.log(errors?.[name])
   const input = isControlled ? (
     <Controller
       rules={{ required }}
@@ -100,7 +103,13 @@ export const FormItem = ({
         {input}
       </Stack>
       <FormHelperText hidden={hideHelpText}>{helpText}</FormHelperText>
-      <FormErrorMessage>{errors?.[name]?.["message"]}</FormErrorMessage>
+      <FormErrorMessage>
+        <ErrorMessage
+          errors={errors}
+          name={name}
+          message="This field is required"
+        />
+      </FormErrorMessage>
     </FormControl>
   )
 }

@@ -40,8 +40,10 @@ export const SelectFilter: FC<SelectFilterProps> = ({
       </MenuButton>
       <Portal>
         <MenuList zIndex={10}>
-          {options.map(({ label, value }) => (
-            <MenuItem onClick={() => onSelect(value)}>{label}</MenuItem>
+          {options.map(({ label, value }, index) => (
+            <MenuItem key={index} onClick={() => onSelect(value)}>
+              {label}
+            </MenuItem>
           ))}
         </MenuList>
       </Portal>

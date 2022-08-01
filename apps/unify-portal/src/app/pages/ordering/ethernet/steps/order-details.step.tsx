@@ -7,6 +7,7 @@ import {
   Radio,
   GridItem,
   Textarea,
+  Select,
 } from "@chakra-ui/react"
 
 const defaultValues = {}
@@ -110,19 +111,29 @@ const OrderDetailsStep = () => {
         columns={2}
       >
         <FormItem
-          label="Contact Name"
-          name="site.contact.name"
+          label="Product"
+          name="product.name"
           render={(props) => <Input {...props} />}
         />
         <FormItem
-          label="Contact Email"
-          name="site.contact.email"
-          render={(props) => <Input {...props} type="email" />}
+          label="Contract Term"
+          name="product.contract_term"
+          render={(props) => <Input {...props} />}
         />
         <FormItem
-          label="Contact Number"
-          name="site.contact.number"
-          render={(props) => <Input {...props} type="tel" />}
+          label="ENNI"
+          name="product.enni"
+          render={(props) => <Input {...props} />}
+        />
+        <FormItem
+          label="VLAN"
+          name="product.vlan"
+          render={(props) => <Input {...props} />}
+        />
+        <FormItem
+          label="Ethernet Presentation"
+          name="product.ethernet_presentation"
+          render={(props) => <Select {...props}></Select>}
         />
       </Fieldset>
       <Fieldset

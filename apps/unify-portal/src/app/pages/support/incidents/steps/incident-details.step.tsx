@@ -10,6 +10,8 @@ import {
   Icon,
   Image,
   Box,
+  Divider,
+  useBreakpointValue,
 } from "@chakra-ui/react"
 
 export type IncidentDetailsFormProps = {
@@ -27,25 +29,24 @@ const defaultValues = {
 }
 
 const IncidentDetailsStep = () => {
+  const orientation = useBreakpointValue({
+    base: "horizontal",
+    lg: "vertical",
+  } as const)
   return (
     <VStack spacing={8} align="flex-start" mb={8}>
       <Text fontSize="lg" fontWeight={600}>
         Use Trouble Shooter
       </Text>
       <Flex
+        flexDir={{ base: "column", lg: "row" }}
         justify="space-between"
         border="1px solid"
         borderColor="gray.300"
         w="100%"
         p={4}
       >
-        <VStack
-          borderRight="1px solid"
-          borderColor="gray.300"
-          flexGrow={1}
-          spacing={4}
-          p={10}
-        >
+        <VStack flexGrow={1} spacing={4} py={10}>
           <Flex
             borderColor="brand.500"
             border="2px solid"
@@ -68,7 +69,12 @@ const IncidentDetailsStep = () => {
           </Box>
           <Button variant="outline">Mark as Done</Button>
         </VStack>
-        <VStack flexGrow={1} spacing={4} p={10}>
+        <Divider
+          orientation={orientation}
+          h={{ lg: "394px" }}
+          borderColor="gray.300"
+        />
+        <VStack flexGrow={1} spacing={4} py={10}>
           <Flex
             borderColor="brand.500"
             border="2px solid"
@@ -99,11 +105,11 @@ const IncidentDetailsStep = () => {
         label="Type of issue"
         name="issue.type"
         render={({ onChange, ...props }) => (
-          <RadioButtonGroup {...props}>
-            <RadioButton value="Total loss of service" w="300px">
+          <RadioButtonGroup {...props} columns={{ base: 1, md: 2 }}>
+            <RadioButton value="Total loss of service">
               Total loss of service
             </RadioButton>
-            <RadioButton value="Intermittent loss of service" w="300px">
+            <RadioButton value="Intermittent loss of service">
               Intermittent loss of service
             </RadioButton>
           </RadioButtonGroup>
@@ -126,12 +132,8 @@ const IncidentDetailsStep = () => {
         name="issue.type"
         render={({ onChange, ...props }) => (
           <RadioButtonGroup {...props}>
-            <RadioButton value="yes" w="300px">
-              Yes
-            </RadioButton>
-            <RadioButton value="no" w="300px">
-              No
-            </RadioButton>
+            <RadioButton value="yes">Yes</RadioButton>
+            <RadioButton value="no">No</RadioButton>
           </RadioButtonGroup>
         )}
       />
@@ -140,12 +142,8 @@ const IncidentDetailsStep = () => {
         name="issue.type"
         render={({ onChange, ...props }) => (
           <RadioButtonGroup {...props}>
-            <RadioButton value="yes" w="300px">
-              Yes
-            </RadioButton>
-            <RadioButton value="no" w="300px">
-              No
-            </RadioButton>
+            <RadioButton value="yes">Yes</RadioButton>
+            <RadioButton value="no">No</RadioButton>
           </RadioButtonGroup>
         )}
       />
@@ -154,12 +152,8 @@ const IncidentDetailsStep = () => {
         name="issue.type"
         render={({ onChange, ...props }) => (
           <RadioButtonGroup {...props}>
-            <RadioButton value="yes" w="300px">
-              Yes
-            </RadioButton>
-            <RadioButton value="no" w="300px">
-              No
-            </RadioButton>
+            <RadioButton value="yes">Yes</RadioButton>
+            <RadioButton value="no">No</RadioButton>
           </RadioButtonGroup>
         )}
       />
