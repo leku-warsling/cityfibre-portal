@@ -9,7 +9,7 @@ import App from "./app/app"
 import { AuthProvider } from "./app/providers/auth.provider"
 
 const GlobalStyles = css`
-  *:not(:input):focus {
+  *:not(input):focus {
     outline: none !important;
     box-shadow: none !important;
   }

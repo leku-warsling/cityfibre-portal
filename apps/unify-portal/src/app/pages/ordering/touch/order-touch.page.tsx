@@ -14,7 +14,7 @@ import {
   ButtonGroup,
 } from "@chakra-ui/react"
 
-export const OrderTouchPage = () => {
+const OrderTouchPage = () => {
   return (
     <Box py={6} px={2}>
       <HStack justify="space-between" width="100%" mb={4}>
@@ -26,7 +26,7 @@ export const OrderTouchPage = () => {
       <Accordion bgColor="white" rounded={4} boxShadow="base">
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Text fontSize="sm" flex={1} textAlign="left" fontWeight={800}>
                 Your Order
               </Text>
@@ -72,7 +72,7 @@ export const OrderTouchPage = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Text fontSize="sm" flex={1} textAlign="left" fontWeight={800}>
                 Your Site
               </Text>
@@ -118,7 +118,7 @@ export const OrderTouchPage = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Text fontSize="sm" flex={1} textAlign="left" fontWeight={800}>
                 Appointment
               </Text>
@@ -164,7 +164,7 @@ export const OrderTouchPage = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Text fontSize="sm" flex={1} textAlign="left" fontWeight={800}>
                 Network
               </Text>
@@ -210,7 +210,7 @@ export const OrderTouchPage = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Text fontSize="sm" flex={1} textAlign="left" fontWeight={800}>
                 History
               </Text>
@@ -256,7 +256,7 @@ export const OrderTouchPage = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Text fontSize="sm" flex={1} textAlign="left" fontWeight={800}>
                 Activities
               </Text>
@@ -304,3 +304,5 @@ export const OrderTouchPage = () => {
     </Box>
   )
 }
+
+export default OrderTouchPage

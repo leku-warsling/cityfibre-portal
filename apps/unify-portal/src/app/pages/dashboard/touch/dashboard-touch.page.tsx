@@ -157,7 +157,7 @@ const LatestIssues = () => {
       <Accordion bgColor="white" rounded={4} boxShadow="base">
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box
                 flex={1}
                 textAlign="left"
@@ -194,7 +194,7 @@ const LatestIssues = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box
                 flex={1}
                 textAlign="left"
@@ -231,7 +231,7 @@ const LatestIssues = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box
                 flex={1}
                 textAlign="left"
@@ -268,7 +268,7 @@ const LatestIssues = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box
                 flex={1}
                 textAlign="left"
@@ -305,7 +305,7 @@ const LatestIssues = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box
                 flex={1}
                 textAlign="left"
@@ -342,7 +342,7 @@ const LatestIssues = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box
                 flex={1}
                 textAlign="left"
@@ -405,7 +405,7 @@ const Invoices = () => {
       <Accordion bgColor="white" rounded={4} boxShadow="base">
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box
                 flex={1}
                 textAlign="left"
@@ -437,7 +437,7 @@ const Invoices = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box
                 flex={1}
                 textAlign="left"
@@ -469,7 +469,7 @@ const Invoices = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box
                 flex={1}
                 textAlign="left"
@@ -501,7 +501,7 @@ const Invoices = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box
                 flex={1}
                 textAlign="left"
@@ -533,7 +533,7 @@ const Invoices = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box
                 flex={1}
                 textAlign="left"
@@ -565,7 +565,7 @@ const Invoices = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box
                 flex={1}
                 textAlign="left"
@@ -597,7 +597,7 @@ const Invoices = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box
                 flex={1}
                 textAlign="left"
@@ -632,7 +632,7 @@ const Invoices = () => {
   )
 }
 
-export const DashboardTouch = () => {
+const DashboardTouch = () => {
   return (
     <Tabs size="sm" py={6}>
       <TabList px={2}>
@@ -660,3 +660,5 @@ export const DashboardTouch = () => {
     </Tabs>
   )
 }
+
+export default DashboardTouch

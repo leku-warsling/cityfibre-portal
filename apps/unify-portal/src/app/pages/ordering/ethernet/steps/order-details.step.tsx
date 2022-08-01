@@ -26,21 +26,25 @@ const OrderDetailsStep = () => {
         columns={2}
       >
         <FormItem
+          //isRequired
           label="Business Name"
           name="business_name"
           render={(props) => <Input {...props} />}
         />
         <FormItem
+          //isRequired
           label="Your Reference"
           name="reference"
           render={(props) => <Input {...props} />}
         />
         <FormItem
+          //isRequired
           label="Address"
           name="address"
           render={(props) => <Input {...props} />}
         />
         <FormItem
+          //isRequired
           label="Room Reference"
           name="room_reference"
           render={(props) => <Input {...props} />}
@@ -64,11 +68,13 @@ const OrderDetailsStep = () => {
         columns={2}
       >
         <FormItem
+          //isRequired
           label="Contact Name"
           name="wayleave.contact.name"
           render={(props) => <Input {...props} />}
         />
         <FormItem
+          //isRequired
           label="Contact Email"
           name="wayleave.contact.email"
           render={(props) => <Input {...props} type="email" />}
@@ -88,11 +94,13 @@ const OrderDetailsStep = () => {
         columns={2}
       >
         <FormItem
+          //isRequired
           label="Contact Name"
           name="site.contact.name"
           render={(props) => <Input {...props} />}
         />
         <FormItem
+          //isRequired
           label="Contact Email"
           name="site.contact.email"
           render={(props) => <Input {...props} type="email" />}
@@ -113,14 +121,17 @@ const OrderDetailsStep = () => {
         <FormItem
           label="Product"
           name="product.name"
+          //isRequired
           render={(props) => <Input {...props} />}
         />
         <FormItem
+          //isRequired
           label="Contract Term"
           name="product.contract_term"
           render={(props) => <Input {...props} />}
         />
         <FormItem
+          //isRequired
           label="ENNI"
           name="product.enni"
           render={(props) => <Input {...props} />}
@@ -204,6 +215,7 @@ const OrderDetailsStep = () => {
           )}
         />
         <FormItem
+          //isRequired
           label="Asbestos Register on-site"
           name="site_information.asbestos_register_onsite"
           helpText="This will result in abortive visit charges being applied if confirmed

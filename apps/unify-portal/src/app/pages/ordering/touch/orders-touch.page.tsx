@@ -3,30 +3,12 @@ import { times } from "ramda"
 import { Link } from "react-router-dom"
 import { FieldSearch } from "../../../components/field-search/field-search"
 import { SelectFilter } from "../../../components/filters/select-filter"
-import { CrudTouchTemplate } from "@ui"
-import { random } from "lodash-es"
+import { CrudTouchTemplate, util } from "@ui"
 
-const randomChar = () => {
-  const chars = "ABCDEFGHIJKLMOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-  return chars.charAt(Math.floor(Math.random() * chars.length))
-}
-
-const createId = (s: string) => {
-  return s.split("").reduce((str, char) => {
-    switch (char) {
-      case "#":
-        return str + random(9)
-      case "?":
-        return str + randomChar()
-      default:
-        return str + char
-    }
-  }, "")
-}
 const createOrder = (n: number) => {
   return {
     id: n + 1,
-    buyer_ref: createId("???######").toUpperCase(),
+    buyer_ref: util.data.createSequence("???######").toUpperCase(),
     status: "Committed",
     seller_ref: "STAGING00002205",
     service_ref: "S76626",

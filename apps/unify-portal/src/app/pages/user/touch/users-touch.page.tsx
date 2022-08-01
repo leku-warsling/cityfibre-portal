@@ -38,7 +38,7 @@ const DataTag: FC<{ label: string }> = ({ label, children }) => (
   </Box>
 )
 
-export const UsersTouchPage = () => {
+const UsersTouchPage = () => {
   return (
     <Box py={6} px={2}>
       <Heading fontSize="lg" mb={4}>
@@ -96,7 +96,7 @@ export const UsersTouchPage = () => {
       <Accordion bgColor="white" rounded={4} boxShadow="base">
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box flex={1} textAlign="left" display="flex" alignItems="center">
                 <Avatar name="Luke Rawlings" size="xs" mr={2} />
                 <Button variant="link" as={Link} to="/incidents/INC0091712">
@@ -123,7 +123,7 @@ export const UsersTouchPage = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box flex={1} textAlign="left" display="flex" alignItems="center">
                 <Avatar name="Luke Rawlings" size="xs" mr={2} />
                 <Button variant="link" as={Link} to="/incidents/INC0091712">
@@ -150,7 +150,7 @@ export const UsersTouchPage = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box flex={1} textAlign="left" display="flex" alignItems="center">
                 <Avatar name="Luke Rawlings" size="xs" mr={2} />
                 <Button variant="link" as={Link} to="/incidents/INC0091712">
@@ -177,7 +177,7 @@ export const UsersTouchPage = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box flex={1} textAlign="left" display="flex" alignItems="center">
                 <Avatar name="Luke Rawlings" size="xs" mr={2} />
                 <Button variant="link" as={Link} to="/incidents/INC0091712">
@@ -204,7 +204,7 @@ export const UsersTouchPage = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box flex={1} textAlign="left" display="flex" alignItems="center">
                 <Avatar name="Luke Rawlings" size="xs" mr={2} />
                 <Button variant="link" as={Link} to="/incidents/INC0091712">
@@ -231,7 +231,7 @@ export const UsersTouchPage = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box flex={1} textAlign="left" display="flex" alignItems="center">
                 <Avatar name="Luke Rawlings" size="xs" mr={2} />
                 <Button variant="link" as={Link} to="/incidents/INC0091712">
@@ -258,7 +258,7 @@ export const UsersTouchPage = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box flex={1} textAlign="left" display="flex" alignItems="center">
                 <Avatar name="Luke Rawlings" size="xs" mr={2} />
                 <Button variant="link" as={Link} to="/incidents/INC0091712">
@@ -285,7 +285,7 @@ export const UsersTouchPage = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box flex={1} textAlign="left" display="flex" alignItems="center">
                 <Avatar name="Luke Rawlings" size="xs" mr={2} />
                 <Button variant="link" as={Link} to="/incidents/INC0091712">
@@ -312,7 +312,7 @@ export const UsersTouchPage = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box flex={1} textAlign="left" display="flex" alignItems="center">
                 <Avatar name="Luke Rawlings" size="xs" mr={2} />
                 <Button variant="link" as={Link} to="/incidents/INC0091712">
@@ -339,7 +339,7 @@ export const UsersTouchPage = () => {
         </AccordionItem>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton py={4}>
               <Box flex={1} textAlign="left" display="flex" alignItems="center">
                 <Avatar name="Luke Rawlings" size="xs" mr={2} />
                 <Button variant="link" as={Link} to="/incidents/INC0091712">
@@ -368,3 +368,5 @@ export const UsersTouchPage = () => {
     </Box>
   )
 }
+
+export default UsersTouchPage
