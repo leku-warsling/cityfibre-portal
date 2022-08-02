@@ -19,7 +19,7 @@ import {
 import { useParams } from "react-router-dom"
 import { usePage } from "../../../hooks/use-page.hook"
 
-export const ServicePage = () => {
+export const ServiceAltPage = () => {
   usePage({ title: "Support" })
   const { id } = useParams()
   const [isLoading, setLoading] = useState(true)

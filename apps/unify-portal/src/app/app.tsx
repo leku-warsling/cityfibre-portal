@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom"
 import { AnimatePresence } from "framer-motion"
 import MainLayout from "./layouts/main.layout"
 import {
+  OrderAltPage,
   OrderEthernetPage,
   OrderFTTPPage,
   OrderPage,
@@ -29,6 +30,7 @@ import {
   IncidentPage,
   IncidentsPage,
   NetworksPage,
+  ServiceAltPage,
   ServicePage,
   ServicesPage,
 } from "./pages/support"
@@ -132,6 +134,14 @@ export function App() {
               }
             />
             <Route
+              path="alt"
+              element={
+                <RequireAuth>
+                  <ServiceAltPage />
+                </RequireAuth>
+              }
+            />
+            <Route
               path=":id"
               element={
                 <RequireAuth>
@@ -170,6 +180,14 @@ export function App() {
               element={
                 <RequireAuth>
                   <OrderFTTPPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="alt"
+              element={
+                <RequireAuth>
+                  <OrderAltPage />
                 </RequireAuth>
               }
             />

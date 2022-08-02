@@ -1,7 +1,7 @@
 import { RiBarChartGroupedLine } from "react-icons/ri"
 import { useEffect, useMemo, useState } from "react"
 import { SearchIcon } from "@chakra-ui/icons"
-import { BiFilter } from "react-icons/bi"
+import { BiDownload, BiFilter } from "react-icons/bi"
 import { flow } from "fp-ts/lib/function"
 import { Link } from "react-router-dom"
 import { Page, Table, util } from "@ui"
@@ -112,13 +112,17 @@ const OrdersDesktopPage = () => {
     []
   )
 
+  const actions = [
+    <Button leftIcon={<BiDownload fontSize="12px" />}>Export</Button>,
+  ]
+
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000)
   }, [])
 
   return (
     <Page maxH="93vh" overflowY="auto">
-      <Page.Header mb={6} pb={2}>
+      <Page.Header actions={actions} mb={6} pb={2}>
         Orders
       </Page.Header>
       <Flex gap={6} width="100%" mb={6}>
