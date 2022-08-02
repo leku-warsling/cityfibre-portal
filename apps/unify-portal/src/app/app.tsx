@@ -28,6 +28,7 @@ import {
   HelpPage,
   IncidentPage,
   IncidentsPage,
+  NetworksPage,
   ServicePage,
   ServicesPage,
 } from "./pages/support"
@@ -110,6 +111,14 @@ export function App() {
             element={
               <RequireAuth>
                 <HelpPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="networks"
+            element={
+              <RequireAuth>
+                <NetworksPage />
               </RequireAuth>
             }
           />

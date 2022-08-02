@@ -255,7 +255,9 @@ const MainLayout = () => {
             <Nav.Item as={Link} to="/services">
               Services
             </Nav.Item>
-            <Nav.Item>Networks</Nav.Item>
+            <Nav.Item as={Link} to="/networks">
+              Networks
+            </Nav.Item>
           </Nav.SubMenu>
           <Nav.SubMenu icon={BiDollar} label="Billing">
             <Nav.Item as={Link} to="/invoices">

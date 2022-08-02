@@ -136,15 +136,20 @@ const OrderPage = () => {
               mb={14}
             >
               <Text fontWeight={600}>Address</Text>
-              <Text>Residential FTTH</Text>
+              <Text>
+                MRTEST202105121631,
+                <br /> The Keepers Flat Edinburgh Zoo 134 Corstorphine Road,
+                <br /> Edinburgh,
+                <br /> EH12 6TS
+              </Text>
               <Text fontWeight={600}>Site Contact</Text>
-              <Text>T220/15/40</Text>
+              <Text>Joe Bloggs</Text>
               <Text fontWeight={600}>Phone</Text>
-              <Text>08/07/2022</Text>
+              <Text>01952 99 88 66</Text>
               <Text fontWeight={600}>Email</Text>
-              <Text>08/07/2022</Text>
+              <Text>joe.bloggs@cityfibre.com</Text>
               <Text fontWeight={600}>Hazards</Text>
-              <Text>No</Text>
+              <Text>None</Text>
               <Text fontWeight={600}>Access Restrictions</Text>
               <Text>Key Code</Text>
             </SimpleGrid>
