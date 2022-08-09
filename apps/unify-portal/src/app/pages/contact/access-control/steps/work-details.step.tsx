@@ -1,5 +1,5 @@
 import { FormItem } from "@ui"
-import { SimpleGrid, VStack, Input, Textarea } from "@chakra-ui/react"
+import { VStack, Textarea } from "@chakra-ui/react"
 
 const defaultValues = {
   visit_reason: "",

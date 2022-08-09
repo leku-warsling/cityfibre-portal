@@ -23,9 +23,9 @@ const CompleteStep = () => (
       rightIcon={<ArrowForwardIcon />}
       variant="outline"
       w="230px"
-      as={Link}
+      as="a"
       size="lg"
-      to="/"
+      href="https://cityfibre.com/"
     >
       Go to Website
     </Button>
