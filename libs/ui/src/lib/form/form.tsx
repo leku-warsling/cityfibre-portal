@@ -1,5 +1,5 @@
 import { chakra, SystemProps } from "@chakra-ui/react"
-import { yupResolver } from "@hookform/resolvers/yup"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { ComponentType, ForwardedRef, forwardRef } from "react"
 import {
   FormProvider,
@@ -43,7 +43,7 @@ export const createForm = <P extends object>(Component: ComponentType<P>) => {
     ref: ForwardedRef<HTMLFormElement>
   ) => {
     const methods = useForm<T>({
-      resolver: schema ? yupResolver(schema) : undefined,
+      resolver: schema ? zodResolver(schema) : undefined,
       criteriaMode: "all",
       mode: "onChange",
       defaultValues,

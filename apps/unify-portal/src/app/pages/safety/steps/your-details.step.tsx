@@ -1,40 +1,77 @@
-import { FormItem, RadioButton, RadioButtonGroup } from "@ui"
+import { DependentField, FormItem, RadioButton, RadioButtonGroup } from "@ui"
 import { SimpleGrid, VStack, Input } from "@chakra-ui/react"
+import { z } from "zod"
 
 const defaultValues = {
-  engineer: {
-    contact_number: "",
-    firstname: "",
-    lastname: "",
-  },
-  requestor: {
-    contact_number: "",
-    name: "",
-  },
-  vehicle: {
-    registration: "",
-    type: "",
-  },
+  firstname: "",
+  lastname: "",
   company_name: "",
 }
+
+const schema = z.object({
+  firstname: z.string().min(1, "This field is required"),
+  lastname: z.string().min(1, "This field is required"),
+  email: z
+    .string()
+    .min(1, "This field is required")
+    .email("Please enter a valid address"),
+})
+
+const EmployeeFields = () => (
+  <SimpleGrid columns={2} spacing={6} w="100%">
+    <FormItem
+      size="lg"
+      name="employment.department"
+      label="Department"
+      render={(props) => <Input {...props} />}
+    />
+    <FormItem
+      size="lg"
+      name="employment.role"
+      label="Role"
+      render={(props) => <Input {...props} />}
+    />
+  </SimpleGrid>
+)
+
+const ContractorFields = () => (
+  <SimpleGrid columns={2} spacing={6} w="100%">
+    <FormItem
+      size="lg"
+      isRequired
+      name="company.name"
+      label="Company Name"
+      render={(props) => <Input {...props} />}
+    />
+    <FormItem
+      size="lg"
+      name="pc_ref"
+      label="PC Reference"
+      render={(props) => <Input {...props} />}
+    />
+  </SimpleGrid>
+)
 
 const YourDetailsStep = () => (
   <VStack spacing={8} width="100%">
     <SimpleGrid columns={2} spacing={8} w="100%">
       <FormItem
         size="lg"
+        isRequired
         name="firstname"
         label="First Name"
         render={(props) => <Input {...props} />}
       />
       <FormItem
         size="lg"
+        isRequired
         name="lastname"
         label="Last Name"
         render={(props) => <Input {...props} />}
       />
       <FormItem
         size="lg"
+        isRequired
         name="email"
         label="Email"
         render={(props) => <Input {...props} type="email" />}
@@ -48,33 +85,23 @@ const YourDetailsStep = () => (
     </SimpleGrid>
     <FormItem
       size="lg"
-      name="employment_type"
+      name="employment.type"
       label="Are you a contractor working for CityFibre, or an Employee?"
-      render={(props) => (
-        <RadioButtonGroup display="flex" gap={4}>
-          <RadioButton value="yes" w="300px">
-            Contractor
-          </RadioButton>
-          <RadioButton value="no" w="300px">
-            Employee
-          </RadioButton>
+      isControlled
+      render={({ field }) => (
+        <RadioButtonGroup {...field}>
+          <RadioButton value="Contractor">Contractor</RadioButton>
+          <RadioButton value="Employee">Employee</RadioButton>
         </RadioButtonGroup>
       )}
     />
-    <SimpleGrid columns={2} spacing={6} w="100%">
-      <FormItem
-        size="lg"
-        name="company.name"
-        label="Company Name"
-        render={(props) => <Input {...props} />}
-      />
-      <FormItem
-        size="lg"
-        name="pc_ref"
-        label="PC Reference"
-        render={(props) => <Input {...props} />}
-      />
-    </SimpleGrid>
+    <DependentField
+      fieldName="employment.type"
+      match={{
+        Contractor: ContractorFields,
+        Employee: EmployeeFields,
+      }}
+    />
   </VStack>
 )
 
@@ -82,4 +109,5 @@ export default {
   label: "Your Details",
   Step: YourDetailsStep,
   defaultValues,
+  schema,
 }

@@ -1,7 +1,7 @@
 import { createForm, FormItem, FormFieldsProps } from "../../form"
 import { PasswordInput } from "../../inputs"
 import { Button, List, ListIcon, ListItem } from "@chakra-ui/react"
-import * as Yup from "yup"
+import { z } from "zod"
 import { useFormContext } from "react-hook-form"
 import { BiCheckCircle } from "react-icons/bi"
 import { applySpec, test } from "ramda"
@@ -15,21 +15,26 @@ const applyPasswordSpec = applySpec({
   isCorrectLength: lengthGte(10),
 })
 
-export const ResetPasswordSchema = Yup.object().shape({
-  password: Yup.string()
-    .required("Password is required")
-    .min(10, "Password must be 10 or more characters long")
-    .matches(/^(?=.*[a-z])/, "Must contain at least one lowercase character")
-    .matches(/^(?=.*[A-Z])/, "Must contain at least one uppercase character")
-    .matches(/^(?=.*[0-9])/, "Must contain at least one number")
-    .matches(
-      /^(?=.*[!@#%&$?_])/,
-      "Must contain at least one special character"
-    ),
-  confirm_password: Yup.string()
-    .required("Confirm password is required")
-    .oneOf([Yup.ref("password")], "Passwords do not match"),
-})
+export const ResetPasswordSchema = z
+  .object({
+    password: z
+      .string({ required_error: "Password is required" })
+      .min(10, "Password must be 10 or more characters long")
+      .regex(/^(?=.*[a-z])/, "Must contain at least one lowercase character")
+      .regex(/^(?=.*[A-Z])/, "Must contain at least one uppercase character")
+      .regex(/^(?=.*[0-9])/, "Must contain at least one number")
+      .regex(
+        /^(?=.*[!@#%&$?_])/,
+        "Must contain at least one special character"
+      ),
+    confirm_password: z.string({
+      required_error: "Confirm password is required",
+    }),
+  })
+  .refine((data) => data.password === data.confirm_password, {
+    message: "Passwords don't match",
+    path: ["confirm_password"],
+  })
 
 const PasswordCriteria = () => {
   const { watch } = useFormContext()

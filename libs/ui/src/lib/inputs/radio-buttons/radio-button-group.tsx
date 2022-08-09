@@ -38,14 +38,13 @@ export const RadioButtonGroup = ({
   const { getRootProps, getRadioProps } = useRadioGroup(
     getRadioGroupProps(props)
   )
-  const groupProps = getRootProps()
 
   return (
     <SimpleGrid
       columns={columns ?? children.length}
       spacing={spacing}
       {...omitRadioGroupProps(props)}
-      {...groupProps}
+      {...getRootProps()}
     >
       {children.map((child) => {
         const value = child.props.value

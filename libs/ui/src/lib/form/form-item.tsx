@@ -16,6 +16,7 @@ import {
   FormLabel,
   Stack,
 } from "@chakra-ui/react"
+import { has } from "lodash-es"
 
 type ConditionalRender =
   | {
@@ -65,12 +66,11 @@ export const FormItem = ({
   ...props
 }: FormItemProps) => {
   const { register, formState, control } = useFormContext()
-  const { touchedFields, errors, isValid } = formState
-  // const isInvalid = errors?.[name] && touchedFields?.[name]
-  const isInvalid = errors?.[name] && !isValid
+  const { touchedFields, errors, isSubmitted } = formState
+  const isInvalid =
+    has(errors, name) && (has(touchedFields, name) || isSubmitted)
   const hideHelpText = isInvalid || !helpText
-  console.log(formState)
-  console.log(errors?.[name])
+
   const input = isControlled ? (
     <Controller
       rules={{ required }}

@@ -1,3 +1,4 @@
+export * from "./dependent-field"
 export * from "./field-array"
 export * from "./form-item"
 export * from "./fieldset"

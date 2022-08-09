@@ -13,7 +13,7 @@ const CompleteStep = () => (
     <Icon as={BsCheckCircle} fontSize="135px" color="green" />
     <Heading>Thank you</Heading>
     <Text fontWeight={600} fontSize="xl">
-      Your incident reference number is INC0099293
+      Your reference number is CHF0012368
     </Text>
     <Text maxWidth="500px" textAlign="center" pb={8}>
       Your incident has been raised. You will be contacted by a member of our

@@ -1,7 +1,7 @@
 import { FieldValues, FormProvider, FormState, useForm } from "react-hook-form"
 import { inc, map, mergeAll, mergeRight, pick, propOr } from "ramda"
 import { useCounter } from "../../hooks/use-counter.hook"
-import { yupResolver } from "@hookform/resolvers/yup"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { StepProps } from "chakra-ui-steps"
 import { isFunction, isPromise } from "ramda-adjunct"
 import { flow } from "fp-ts/lib/function"
@@ -104,14 +104,15 @@ const WizardProvider: FC<WizardContextProps> = ({
 
   const form = useForm({
     defaultValues: mergeRight(getDefaultValues(props.steps), formData),
-    resolver: schema ? yupResolver(schema) : undefined,
-    mode: "onChange",
-    criteriaMode: "all",
+    resolver: schema ? zodResolver(schema) : undefined,
     reValidateMode: "onChange",
+    shouldUnregister: true,
+    mode: "onChange",
   })
 
   const onNext = form.handleSubmit(
     (data) => {
+      console.log(data)
       if (!isLastStep) counter.increment()
       if (!isFinalStep) {
         isFunction(onStep) && onStep(data)

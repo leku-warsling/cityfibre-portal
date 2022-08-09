@@ -26,7 +26,6 @@ const omitRadioProps = omit(RADIO_BUTTON_PROPS)
 
 export const RadioButton: FC<RadioButtonProps> = ({ children, ...props }) => {
   const { getInputProps, getCheckboxProps } = useRadio(getRadioProps(props))
-  const inputProps = getInputProps()
   const checkboxProps = {
     ...omitRadioProps(props),
     ...getCheckboxProps(),
@@ -34,7 +33,7 @@ export const RadioButton: FC<RadioButtonProps> = ({ children, ...props }) => {
 
   return (
     <Box as="label">
-      <input {...inputProps} />
+      <input {...getInputProps()} />
       <Box
         border="2px solid"
         borderColor="gray.300"
