@@ -48,7 +48,7 @@ const UsersTouchPage = () => {
         <Button variant="link" as={Link} to="/roles" size="sm">
           User Roles
         </Button>
-        <Button size="sm" variant="link" as={Link} to="/incidents/create">
+        {/* <Button size="sm" variant="link" as={Link} to="/incidents/create">
           Add User{" "}
           <Box
             bgColor="brand.500"
@@ -61,7 +61,7 @@ const UsersTouchPage = () => {
           >
             <Icon as={AddIcon} fontSize="10px" />
           </Box>
-        </Button>
+        </Button> */}
       </HStack>
       <HStack
         divider={<Divider orientation="vertical" height="30px" />}

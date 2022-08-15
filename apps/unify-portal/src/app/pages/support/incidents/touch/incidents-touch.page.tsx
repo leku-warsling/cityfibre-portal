@@ -1,63 +1,44 @@
 import { Button, Box, Spacer } from "@chakra-ui/react"
-import { times } from "ramda"
 import { Link } from "react-router-dom"
-import { FieldSearch } from "../../../components/field-search/field-search"
-import { SelectFilter } from "../../../components/filters/select-filter"
-import { CrudTouchTemplate, util } from "@ui"
-
-const createOrder = (n: number) => {
-  return {
-    id: n + 1,
-    buyer_ref: util.data.createSequence("???######").toUpperCase(),
-    status: "Committed",
-    seller_ref: "STAGING00002205",
-    service_ref: "S76626",
-    product: "Residential FTTH",
-    address: "163 Newport Road, Milton Keynes, MK13 0AJ",
-    appointment_at: new Date().toLocaleDateString(),
-    updated_at: new Date().toLocaleDateString(),
-    ordered_at: new Date().toLocaleDateString(),
-    ordered_by: "Sammy Walford",
-  }
-}
+import { FieldSearch } from "../../../../components/field-search/field-search"
+import { SelectFilter } from "../../../../components/filters/select-filter"
+import { CrudTouchTemplate } from "@ui"
+import { INCIDENT_DATA } from "../data"
+import { AddIcon } from "@chakra-ui/icons"
+import { take } from "ramda"
 
 const keys = [
-  {
-    label: "Seller Reference",
-    accessor: "seller_ref",
-  },
   {
     label: "Service Reference",
     accessor: "service_ref",
   },
   {
-    label: "Appointment Date",
-    accessor: "appointment_at",
-  },
-  {
-    label: "Ordered On",
-    accessor: "ordered_at",
+    label: "Date Raised",
+    accessor: (data: any) => data?.["raised_at"].toLocaleDateString(),
   },
   {
     label: "Last Updated",
-    accessor: "updated_at",
+    accessor: (data: any) => data?.["updated_at"].toLocaleDateString(),
   },
   {
-    label: "Ordered By",
-    accessor: "ordered_by",
-  },
-  {
-    label: "Product",
-    accessor: "product",
-  },
-  {
-    label: "Address",
-    accessor: "address",
+    label: "Raised By",
+    accessor: "raised_by",
   },
 ]
 
-const OrdersTouchPage = () => {
-  const orders = times(createOrder, 10)
+const IncidentsTouchPage = () => {
+  const actions = [
+    <Button
+      leftIcon={<AddIcon fontSize="12px" />}
+      to="/incidents/create"
+      alignItems="center"
+      size="sm"
+      as={Link}
+    >
+      Raise an incident
+    </Button>,
+  ]
+
   const filters = [
     <SelectFilter
       onSelect={
@@ -80,10 +61,11 @@ const OrdersTouchPage = () => {
 
   return (
     <CrudTouchTemplate
-      title="Orders"
+      title="Incidents"
       keys={keys}
-      data={orders}
+      data={take(10, INCIDENT_DATA)}
       filters={filters}
+      actions={actions}
       pagination={{
         limit: 10,
         page: 1,
@@ -92,22 +74,22 @@ const OrdersTouchPage = () => {
       }}
       renderLabel={(data) => (
         <>
-          <Button variant="link" as={Link} to={data?.["buyer_ref"]}>
-            {data?.["buyer_ref"]}
+          <Button variant="link" as={Link} to={`/incidents/${data?.["ref"]}`}>
+            {data?.["ref"]}
           </Button>
           <Spacer />
           <Box w={3} h={3} bgColor="green.400" rounded="full" mr={4} />
         </>
       )}
       stats={[
-        { label: "Total", value: 169 },
-        { label: "In Progress", value: 58 },
-        { label: "Completed", value: 58 },
-        { label: "Cancelled", value: 58 },
+        { label: "Total", value: 100 },
+        { label: "Open", value: 64 },
+        { label: "Resolved", value: 18 },
+        { label: "Closed", value: 18 },
       ]}
       searchInput={
         <FieldSearch
-          placeholder="Search options..."
+          placeholder="Search incidents..."
           onFieldChange={console.log}
           onChange={console.log}
           defaultField="q"
@@ -126,4 +108,4 @@ const OrdersTouchPage = () => {
   )
 }
 
-export default OrdersTouchPage
+export default IncidentsTouchPage

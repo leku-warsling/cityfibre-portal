@@ -1,63 +1,37 @@
 import { Button, Box, Spacer } from "@chakra-ui/react"
-import { times } from "ramda"
 import { Link } from "react-router-dom"
 import { FieldSearch } from "../../../components/field-search/field-search"
 import { SelectFilter } from "../../../components/filters/select-filter"
 import { CrudTouchTemplate, util } from "@ui"
-
-const createOrder = (n: number) => {
-  return {
-    id: n + 1,
-    buyer_ref: util.data.createSequence("???######").toUpperCase(),
-    status: "Committed",
-    seller_ref: "STAGING00002205",
-    service_ref: "S76626",
-    product: "Residential FTTH",
-    address: "163 Newport Road, Milton Keynes, MK13 0AJ",
-    appointment_at: new Date().toLocaleDateString(),
-    updated_at: new Date().toLocaleDateString(),
-    ordered_at: new Date().toLocaleDateString(),
-    ordered_by: "Sammy Walford",
-  }
-}
+import { repeat } from "ramda"
+import { useMemo } from "react"
 
 const keys = [
   {
-    label: "Seller Reference",
-    accessor: "seller_ref",
+    label: "Payment Date",
+    accessor: "payment_at",
   },
   {
-    label: "Service Reference",
-    accessor: "service_ref",
-  },
-  {
-    label: "Appointment Date",
-    accessor: "appointment_at",
-  },
-  {
-    label: "Ordered On",
-    accessor: "ordered_at",
-  },
-  {
-    label: "Last Updated",
-    accessor: "updated_at",
-  },
-  {
-    label: "Ordered By",
-    accessor: "ordered_by",
-  },
-  {
-    label: "Product",
-    accessor: "product",
-  },
-  {
-    label: "Address",
-    accessor: "address",
+    label: "Total",
+    accessor: (data: any) => util.currency.pounds(data.total),
   },
 ]
 
-const OrdersTouchPage = () => {
-  const orders = times(createOrder, 10)
+const CreditNotesTouchPage = () => {
+  const data = useMemo(
+    () =>
+      repeat(
+        {
+          payment_at: new Date().toLocaleDateString(),
+          ref: "EIL0026014",
+          status: "Fully Applied",
+          total: 100,
+        },
+        10
+      ),
+    []
+  )
+
   const filters = [
     <SelectFilter
       onSelect={
@@ -80,9 +54,9 @@ const OrdersTouchPage = () => {
 
   return (
     <CrudTouchTemplate
-      title="Orders"
+      title="Credit Notes"
       keys={keys}
-      data={orders}
+      data={data}
       filters={filters}
       pagination={{
         limit: 10,
@@ -92,22 +66,16 @@ const OrdersTouchPage = () => {
       }}
       renderLabel={(data) => (
         <>
-          <Button variant="link" as={Link} to={data?.["buyer_ref"]}>
-            {data?.["buyer_ref"]}
+          <Button variant="link" as={Link} to={`/invoices/${data?.["ref"]}`}>
+            {data?.["ref"]}
           </Button>
           <Spacer />
           <Box w={3} h={3} bgColor="green.400" rounded="full" mr={4} />
         </>
       )}
-      stats={[
-        { label: "Total", value: 169 },
-        { label: "In Progress", value: 58 },
-        { label: "Completed", value: 58 },
-        { label: "Cancelled", value: 58 },
-      ]}
       searchInput={
         <FieldSearch
-          placeholder="Search options..."
+          placeholder="Search invoices..."
           onFieldChange={console.log}
           onChange={console.log}
           defaultField="q"
@@ -126,4 +94,4 @@ const OrdersTouchPage = () => {
   )
 }
 
-export default OrdersTouchPage
+export default CreditNotesTouchPage

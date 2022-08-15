@@ -8,6 +8,7 @@ import {
   Flex,
   Image,
   ListItem,
+  SimpleGrid,
   Text,
   UnorderedList,
   VStack,
@@ -22,8 +23,8 @@ export const ProductsPage = () => {
       <Page.Header mb={6} pb={2}>
         Products
       </Page.Header>
-      <Flex gap={6}>
-        <Card rounded={4} boxShadow="base">
+      <SimpleGrid columns={{ base: 1, lg: 5 }} spacing={6}>
+        <Card rounded={4} boxShadow="base" maxWidth="320px" ml="auto" mr="auto">
           <Card.Section mb={4}>
             <Image
               src={FTTPServicesImg}
@@ -51,7 +52,7 @@ export const ProductsPage = () => {
             </Button>
           </VStack>
         </Card>
-        <Card rounded={4} boxShadow="base">
+        <Card rounded={4} boxShadow="base" maxWidth="320px" ml="auto" mr="auto">
           <Card.Section mb={4}>
             <Image
               src={FTTPServicesImg}
@@ -79,7 +80,7 @@ export const ProductsPage = () => {
             </Button>
           </VStack>
         </Card>
-      </Flex>
+      </SimpleGrid>
     </Page>
   )
 }

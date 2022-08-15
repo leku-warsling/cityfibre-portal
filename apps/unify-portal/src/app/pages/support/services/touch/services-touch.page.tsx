@@ -1,63 +1,52 @@
 import { Button, Box, Spacer } from "@chakra-ui/react"
-import { times } from "ramda"
 import { Link } from "react-router-dom"
-import { FieldSearch } from "../../../components/field-search/field-search"
-import { SelectFilter } from "../../../components/filters/select-filter"
-import { CrudTouchTemplate, util } from "@ui"
-
-const createOrder = (n: number) => {
-  return {
-    id: n + 1,
-    buyer_ref: util.data.createSequence("???######").toUpperCase(),
-    status: "Committed",
-    seller_ref: "STAGING00002205",
-    service_ref: "S76626",
-    product: "Residential FTTH",
-    address: "163 Newport Road, Milton Keynes, MK13 0AJ",
-    appointment_at: new Date().toLocaleDateString(),
-    updated_at: new Date().toLocaleDateString(),
-    ordered_at: new Date().toLocaleDateString(),
-    ordered_by: "Sammy Walford",
-  }
-}
+import { FieldSearch } from "../../../../components/field-search/field-search"
+import { SelectFilter } from "../../../../components/filters/select-filter"
+import { CrudTouchTemplate } from "@ui"
+import { repeat } from "ramda"
+import { useMemo } from "react"
 
 const keys = [
   {
-    label: "Seller Reference",
-    accessor: "seller_ref",
-  },
-  {
-    label: "Service Reference",
+    label: "Customer Reference",
     accessor: "service_ref",
-  },
-  {
-    label: "Appointment Date",
-    accessor: "appointment_at",
-  },
-  {
-    label: "Ordered On",
-    accessor: "ordered_at",
-  },
-  {
-    label: "Last Updated",
-    accessor: "updated_at",
-  },
-  {
-    label: "Ordered By",
-    accessor: "ordered_by",
   },
   {
     label: "Product",
     accessor: "product",
   },
   {
-    label: "Address",
-    accessor: "address",
+    label: "Line Profile",
+    accessor: "line_profile",
+  },
+  {
+    label: "Contract Start",
+    accessor: "contract_start",
+  },
+  {
+    label: "Contract End",
+    accessor: "contract_end",
   },
 ]
 
-const OrdersTouchPage = () => {
-  const orders = times(createOrder, 10)
+const ServicesTouchPage = () => {
+  const data = useMemo(
+    () =>
+      repeat(
+        {
+          ref: "S123456",
+          customer_ref: "S123456",
+          status: "In Progress",
+          product: "ftthl2r",
+          line_profile: "N/A",
+          contract_start: new Date().toLocaleDateString(),
+          contract_end: new Date().toLocaleDateString(),
+        },
+        10
+      ),
+    []
+  )
+
   const filters = [
     <SelectFilter
       onSelect={
@@ -80,9 +69,9 @@ const OrdersTouchPage = () => {
 
   return (
     <CrudTouchTemplate
-      title="Orders"
+      title="Incidents"
       keys={keys}
-      data={orders}
+      data={data}
       filters={filters}
       pagination={{
         limit: 10,
@@ -92,22 +81,22 @@ const OrdersTouchPage = () => {
       }}
       renderLabel={(data) => (
         <>
-          <Button variant="link" as={Link} to={data?.["buyer_ref"]}>
-            {data?.["buyer_ref"]}
+          <Button variant="link" as={Link} to={`/incidents/${data?.["ref"]}`}>
+            {data?.["ref"]}
           </Button>
           <Spacer />
           <Box w={3} h={3} bgColor="green.400" rounded="full" mr={4} />
         </>
       )}
       stats={[
-        { label: "Total", value: 169 },
-        { label: "In Progress", value: 58 },
-        { label: "Completed", value: 58 },
-        { label: "Cancelled", value: 58 },
+        { label: "Total", value: 100 },
+        { label: "Live", value: 64 },
+        { label: "In Delivery", value: 18 },
+        { label: "Ceased", value: 18 },
       ]}
       searchInput={
         <FieldSearch
-          placeholder="Search options..."
+          placeholder="Search services..."
           onFieldChange={console.log}
           onChange={console.log}
           defaultField="q"
@@ -126,4 +115,4 @@ const OrdersTouchPage = () => {
   )
 }
 
-export default OrdersTouchPage
+export default ServicesTouchPage

@@ -1,5 +1,5 @@
 import { Pagination } from "../../navigation/pagination"
-import { ChangeEvent, FC, ReactNode } from "react"
+import { ChangeEvent, FC, ReactElement, ReactNode } from "react"
 import { isFunction, isString } from "ramda-adjunct"
 import { path } from "ramda"
 import {
@@ -16,6 +16,7 @@ import {
   Wrap,
   Text,
   Box,
+  ButtonGroup,
 } from "@chakra-ui/react"
 
 export type Stat = {
@@ -32,10 +33,11 @@ export type Key = {
 export type CrudTouchTemplateProps = {
   onPaginate?: ({ page, limit }: { page: number; limit: number }) => void
   renderLabel: (data: Record<string, any>) => ReactNode
+  actions?: ReactElement[]
   searchInput: ReactNode
   filters: ReactNode[]
   title: ReactNode
-  stats: Stat[]
+  stats?: Stat[]
   data: any[]
   keys: Key[]
   pagination: {
@@ -84,37 +86,47 @@ export const CrudTouchTemplate = ({
   renderLabel,
   pagination,
   onPaginate,
+  actions,
   filters,
   title,
   stats,
   data,
   keys,
 }: CrudTouchTemplateProps) => {
+  const statsPanel = stats && (
+    <HStack
+      divider={<Divider orientation="vertical" height="30px" />}
+      justifyContent="center"
+      boxShadow="base"
+      bgColor="white"
+      spacing={4}
+      width="100%"
+      rounded={4}
+      mb={6}
+      p={4}
+    >
+      {stats.map((stat) => (
+        <Box flex={1}>
+          <Text fontWeight={800}>{stat.value}</Text>
+          <Text fontSize="xs" color="gray.600">
+            {stat.label}
+          </Text>
+        </Box>
+      ))}
+    </HStack>
+  )
+
   return (
     <Box py={6} px={2}>
-      <Heading fontSize="lg" mb={4}>
-        {title}
-      </Heading>
-      <HStack
-        divider={<Divider orientation="vertical" height="30px" />}
-        justifyContent="center"
-        boxShadow="base"
-        bgColor="white"
-        spacing={4}
-        width="100%"
-        rounded={4}
-        mb={6}
-        p={4}
-      >
-        {stats.map((stat) => (
-          <Box flex={1}>
-            <Text fontWeight={800}>{stat.value}</Text>
-            <Text fontSize="xs" color="gray.600">
-              {stat.label}
-            </Text>
-          </Box>
-        ))}
+      <HStack mb={4} spacing={1}>
+        <Heading fontSize="lg" flexGrow={1}>
+          {title}
+        </Heading>
+        <ButtonGroup ml="auto" spacing={0.5}>
+          {actions}
+        </ButtonGroup>
       </HStack>
+      {statsPanel}
       <Wrap spacing={4} mb={6}>
         <WrapItem>{searchInput}</WrapItem>
         {filters.map((filter, index) => (
