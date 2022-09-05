@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { chakra, SystemProps } from "@chakra-ui/react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ComponentType, ForwardedRef, forwardRef } from "react"

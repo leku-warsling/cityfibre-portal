@@ -8,7 +8,8 @@
     "build": "nx build --stats-json",
     "test": "nx test",
     "compress:build": "cd dist/ && zip -rq build-artifact-$(date +\"%Y-%m-%d_%H%M%S\").zip ./",
-    "analyze:portal": "webpack-bundle-analyzer dist/apps/portal/stats.json"
+    "analyze:portal": "webpack-bundle-analyzer dist/apps/portal/stats.json",
+    "analyze:unify": "webpack-bundle-analyzer dist/apps/unify-portal/stats.json"
   },
   "private": true,
   "dependencies": {
@@ -53,6 +54,7 @@
     "react-spinners": "^0.11.0",
     "react-table": "^7.8.0",
     "react-use": "^17.4.0",
+    "recharts": "^2.1.13",
     "regenerator-runtime": "0.13.7",
     "store": "^2.0.12",
     "tslib": "^2.4.0",

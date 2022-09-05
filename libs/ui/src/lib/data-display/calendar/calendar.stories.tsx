@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Container } from "@chakra-ui/react"
 import { ComponentStory, ComponentMeta } from "@storybook/react"
 import { Calendar, dateFnsLocalizer } from "react-big-calendar"

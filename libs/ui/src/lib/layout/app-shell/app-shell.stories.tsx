@@ -1,31 +1,24 @@
-import { Story, Meta } from '@storybook/react';
+import { Story, Meta } from "@storybook/react"
 import {
   Container,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
   IconButton,
   Avatar,
-  HStack,
   Box,
   Text,
-  VStack,
   Divider,
   Badge,
-  Button,
   Flex,
-} from '@chakra-ui/react';
-import { SearchInput } from '../../inputs';
-import AppShell, { AppShellProps } from './app-shell';
-import AppBar from '../appbar/AppBar';
-import Sidebar from '../sidebar';
-import Nav from '../../navigation/nav';
-import Page from '../page';
+} from "@chakra-ui/react"
+// import { SearchInput } from "../../inputs"
+import AppShell, { AppShellProps } from "./app-shell"
+import AppBar from "../appbar/AppBar"
+import Sidebar from "../sidebar"
+import Nav from "../../navigation/nav"
+import Page from "../page"
 import {
   FiMenu,
   FiSettings,
@@ -35,17 +28,15 @@ import {
   FiHelpCircle,
   FiPlus,
   FiMoreVertical,
-  FiGrid,
-  FiList,
   FiDownload,
-} from 'react-icons/fi';
-import { BiHome, BiDollarCircle, BiBasket } from 'react-icons/bi';
-import { RiDashboard3Line } from 'react-icons/ri';
-import { ReactComponent as PartnersIcon } from '../../../assets/svg/partners.svg';
-import { ReactComponent as Logo } from '../../../assets/svg/logo.svg';
+} from "react-icons/fi"
+import { BiHome, BiDollarCircle, BiBasket } from "react-icons/bi"
+import { RiDashboard3Line } from "react-icons/ri"
+import { ReactComponent as PartnersIcon } from "../../../assets/svg/partners.svg"
+import { ReactComponent as Logo } from "../../../assets/svg/logo.svg"
 
 export default {
-  title: 'Components / Layout / AppShell',
+  title: "Components / Layout / AppShell",
   component: AppBar,
   argTypes: {},
   decorators: [
@@ -55,7 +46,7 @@ export default {
       </Container>
     ),
   ],
-} as Meta<AppShellProps>;
+} as Meta<AppShellProps>
 
 const ExampleAppBar = () => (
   <AppBar pl={4} pr={6} py={3} bgColor="white">
@@ -68,12 +59,12 @@ const ExampleAppBar = () => (
       />
     </AppBar.Section>
     <AppBar.Section flexGrow={1} justifyContent="center">
-      <SearchInput
+      {/* <SearchInput
         variant="filled"
         maxW="400px"
         placeholder="Search for issues, invoices, services..."
         onSearch={console.log}
-      />
+      /> */}
     </AppBar.Section>
     <AppBar.Section marginLeft="auto">
       <AppBar.Item>
@@ -92,7 +83,7 @@ const ExampleAppBar = () => (
       </AppBar.Item>
     </AppBar.Section>
   </AppBar>
-);
+)
 
 const ExampleSidebar = () => {
   const brand = (
@@ -100,11 +91,11 @@ const ExampleSidebar = () => {
       <PartnersIcon
         height="20"
         style={{
-          filter: 'drop-shadow(0px 5px 2px rgb(0 0 0 / 0.1)',
+          filter: "drop-shadow(0px 5px 2px rgb(0 0 0 / 0.1)",
         }}
       />
     </Box>
-  );
+  )
 
   const footer = (
     <Sidebar.Section fontWeight="semibold" color="#718589" gap={1} mt="auto">
@@ -122,8 +113,8 @@ const ExampleSidebar = () => {
         </Flex>
       )}
     </Sidebar.Section>
-  );
-  
+  )
+
   const content = (
     <Sidebar.Section flexGrow={1}>
       <Nav>
@@ -170,12 +161,7 @@ const ExampleSidebar = () => {
   )
 
   return (
-    <Sidebar
-      isOpen
-      onClose={() => null}
-      height="900px"
-      overflowY="auto"
-    >    
+    <Sidebar isOpen onClose={() => null} height="900px" overflowY="auto">
       <Sidebar.Section fontSize="xl" fontWeight="semibold" pt={6}>
         {({ isCollapsed }) => (
           <Flex alignItems="center" gap={isCollapsed ? 0 : 3}>
@@ -187,8 +173,8 @@ const ExampleSidebar = () => {
       {content}
       {footer}
     </Sidebar>
-  );
-};
+  )
+}
 
 const actions = [
   <IconButton
@@ -196,7 +182,7 @@ const actions = [
     aria-label="Download"
     size="sm"
     variant="ghost"
-    _hover={{ bg: 'gray.200' }}
+    _hover={{ bg: "gray.200" }}
     icon={<FiDownload />}
   />,
   // <IconButton
@@ -228,7 +214,7 @@ const actions = [
     aria-label="Add Invoice"
     size="sm"
     variant="ghost"
-    _hover={{ bg: 'gray.200' }}
+    _hover={{ bg: "gray.200" }}
     icon={<FiPlus />}
   />,
   <IconButton
@@ -236,22 +222,22 @@ const actions = [
     aria-label="Menu"
     size="sm"
     variant="ghost"
-    _hover={{ bg: 'gray.200' }}
+    _hover={{ bg: "gray.200" }}
     icon={<FiMoreVertical />}
   />,
-];
+]
 
 const Template: Story<AppShellProps> = (args) => {
   const breadcrumb = [
     {
-      path: '/billing',
-      name: 'Billing',
+      path: "/billing",
+      name: "Billing",
     },
     {
-      path: '/billing/invoices',
-      name: 'Invoices',
+      path: "/billing/invoices",
+      name: "Invoices",
     },
-  ];
+  ]
 
   return (
     <AppShell
@@ -266,11 +252,11 @@ const Template: Story<AppShellProps> = (args) => {
         </Page.Header>
       </Page>
     </AppShell>
-  );
-};
+  )
+}
 
-export const Primary = Template.bind({});
+export const Primary = Template.bind({})
 Primary.args = {
   h: "900px",
   maxW: "1200px",
-};
+}

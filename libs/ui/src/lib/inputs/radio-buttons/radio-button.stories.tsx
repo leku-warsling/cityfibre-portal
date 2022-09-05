@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react"
-import { Container, Stack, VStack } from "@chakra-ui/react"
-import RadioButton from "./radio-button"
-import RadioButtonGroup from "./radio-button-group"
+import { Container } from "@chakra-ui/react"
+import { RadioButton } from "./radio-button"
+import { RadioButtonGroup } from "./radio-button-group"
 import { useState } from "react"
 import { is } from "ramda"
 
@@ -30,9 +30,11 @@ export const Group = () => {
 
   return (
     <RadioButtonGroup
+      onChange={(val) => {
+        is(String, val) && setValue(val)
+      }}
       name="option"
       value={value}
-      onChange={(val) => is(String, val) && setValue(val)}
     >
       <RadioButton value="option 1">Option 1</RadioButton>
       <RadioButton value="option 2">Option 2</RadioButton>

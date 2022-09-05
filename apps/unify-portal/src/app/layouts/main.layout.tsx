@@ -45,6 +45,7 @@ import {
 import {
   BiBasket,
   BiBell,
+  BiBookReader,
   BiDollar,
   BiErrorCircle,
   BiPhoneCall,
@@ -287,6 +288,9 @@ const MainLayout = () => {
               Products
             </Nav.Item>
           </Nav.SubMenu>
+          <Nav.Item as={Link} to="/" icon={BiBookReader}>
+            ISP Hub
+          </Nav.Item>
           <Divider borderColor="brand.500" my={2} />
           <Nav.SubMenu icon={FiUsers} label="User Management">
             <Nav.Item as={Link} to="/users">

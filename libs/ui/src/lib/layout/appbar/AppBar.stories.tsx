@@ -1,23 +1,19 @@
-import { Story, Meta } from '@storybook/react';
+import { Story, Meta } from "@storybook/react"
 import {
   Container,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
   IconButton,
   Avatar,
-} from '@chakra-ui/react';
-import { SearchInput } from "../../inputs"
-import AppBar, { AppBarProps } from './AppBar';
-import { FiMenu } from 'react-icons/fi';
+} from "@chakra-ui/react"
+// import { SearchInput } from "../../inputs"
+import AppBar, { AppBarProps } from "./AppBar"
+import { FiMenu } from "react-icons/fi"
 
 export default {
-  title: 'Components / Layout / AppBar',
+  title: "Components / Layout / AppBar",
   component: AppBar,
   argTypes: {},
   decorators: [
@@ -27,7 +23,7 @@ export default {
       </Container>
     ),
   ],
-} as Meta<AppBarProps>;
+} as Meta<AppBarProps>
 
 const Template: Story<AppBarProps> = (args) => {
   return (
@@ -41,13 +37,11 @@ const Template: Story<AppBarProps> = (args) => {
         />
       </AppBar.Section>
       <AppBar.Section flexGrow={1} justifyContent="center">
-        <SearchInput
+        {/* <SearchInput
           variant="filled"
           maxW="400px"
-          placeholder="Search for issues, invoices, services...
-"
-          onSearch={console.log}
-        />
+          placeholder="Search for issues, invoices, services..."
+        /> */}
       </AppBar.Section>
       <AppBar.Section marginLeft="auto">
         <AppBar.Item>
@@ -66,8 +60,8 @@ const Template: Story<AppBarProps> = (args) => {
         </AppBar.Item>
       </AppBar.Section>
     </AppBar>
-  );
-};
+  )
+}
 
-export const Primary = Template.bind({});
-Primary.args = {};
+export const Primary = Template.bind({})
+Primary.args = {}

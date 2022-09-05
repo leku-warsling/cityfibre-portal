@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BoxProps, StyleProps } from "@chakra-ui/react"
 import { ComponentType } from "react"
 
