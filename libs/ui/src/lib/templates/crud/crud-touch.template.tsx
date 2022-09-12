@@ -151,7 +151,7 @@ export const CrudTouchTemplate = ({
         ))}
       </Accordion>
       <HStack justify="space-between" align="center">
-        <Pagination isCompact page={1} total={5} />
+        <Pagination page={1} total={5} onChange={console.log} />
         <Select
           onChange={(evt: ChangeEvent<HTMLSelectElement>) =>
             isFunction(onPaginate) &&

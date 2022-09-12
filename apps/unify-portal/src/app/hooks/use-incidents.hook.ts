@@ -15,19 +15,12 @@ export const useIncidents = (params: any = {}) => {
       const [, params] = context.queryKey
       const res = await api.get("/incidents", { params })
       const { data, meta } = res.data
-      const { records, closed, resolved, results } = totalsSchema.parse({
-        results: res.headers["x-total-count"],
-        ...meta.totals,
-      })
+      const totals = totalsSchema.parse(meta.totals)
 
       return {
         totals: {
-          pages: Math.ceil(results / params._limit),
-          open: records - (closed + resolved),
-          resolved,
-          results,
-          records,
-          closed,
+          open: totals.records - (totals.closed + totals.resolved),
+          ...totals,
         },
         items: map(incidentSchema.parse, data),
       }

@@ -23,8 +23,8 @@ export const ProductsPage = () => {
       <Page.Header mb={6} pb={2}>
         Products
       </Page.Header>
-      <SimpleGrid columns={{ base: 1, lg: 5 }} spacing={6}>
-        <Card rounded={4} boxShadow="base" maxWidth="320px" ml="auto" mr="auto">
+      <Flex flexDir={{ base: "column", md: "row" }} gap={6} align="center">
+        <Card rounded={4} boxShadow="base" maxWidth="320px">
           <Card.Section mb={4}>
             <Image
               src={FTTPServicesImg}
@@ -52,7 +52,7 @@ export const ProductsPage = () => {
             </Button>
           </VStack>
         </Card>
-        <Card rounded={4} boxShadow="base" maxWidth="320px" ml="auto" mr="auto">
+        <Card rounded={4} boxShadow="base" maxWidth="320px">
           <Card.Section mb={4}>
             <Image
               src={FTTPServicesImg}
@@ -80,7 +80,7 @@ export const ProductsPage = () => {
             </Button>
           </VStack>
         </Card>
-      </SimpleGrid>
+      </Flex>
     </Page>
   )
 }

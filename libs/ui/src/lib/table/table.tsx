@@ -10,17 +10,12 @@ import { IconType } from "react-icons"
 import whereEq from "ramda/es/whereEq"
 import repeat from "ramda/es/repeat"
 import append from "ramda/es/append"
-import range from "ramda/es/range"
 import omit from "ramda/es/omit"
 import pick from "ramda/es/pick"
-import { identity, mergeRight } from "ramda"
-import {
-  BiChevronRight,
-  BiChevronLeft,
-  BiCaretDown,
-  BiFilterAlt,
-  BiCaretUp,
-} from "react-icons/bi"
+import { identity } from "ramda"
+import { BiCaretDown, BiFilterAlt, BiCaretUp } from "react-icons/bi"
+import { Pagination } from "../navigation/pagination"
+import { flow } from "fp-ts/lib/function"
 import {
   UseFiltersColumnProps,
   UseSortByColumnProps,
@@ -67,7 +62,6 @@ import {
   Tr,
   Td,
 } from "@chakra-ui/react"
-import { flow, pipe } from "fp-ts/lib/function"
 
 type Action = {
   confirmConfig?: Omit<ConfirmProps, "onConfirm">
@@ -84,6 +78,7 @@ type TableOwnProps<T extends object> = {
   onSort?: (value: { id: string; desc?: boolean }) => void
   renderExpansion?: (data: any) => ReactNode
   footer?: (state: any) => ReactNode
+  hiddenColumns?: string[]
   isExpandable?: boolean
   isFilterable?: boolean
   isSelectable?: boolean
@@ -271,6 +266,7 @@ const Table = <T extends object>({
   pageCount: count,
   isSticky = false,
   renderExpansion,
+  hiddenColumns,
   actions = [],
   initialState,
   isPaginated,
@@ -297,18 +293,15 @@ const Table = <T extends object>({
   const {
     state: { pageIndex, pageSize, sortBy },
     getTableBodyProps,
+    setHiddenColumns,
     selectedFlatRows,
-    canPreviousPage,
     visibleColumns,
     getTableProps,
     headerGroups,
-    previousPage,
-    canNextPage,
     setPageSize,
     prepareRow,
     gotoPage,
     pageCount,
-    nextPage,
     page,
   } = useTable<T>(
     {
@@ -344,6 +337,10 @@ const Table = <T extends object>({
   useEffect(() => {
     onSort && sortBy[0] && onSort(sortBy[0])
   }, [sortBy])
+
+  useEffect(() => {
+    hiddenColumns && setHiddenColumns(hiddenColumns)
+  }, [hiddenColumns])
 
   const head = headerGroups.map((headerGroup) => (
     <Tr {...headerGroup.getHeaderGroupProps()}>
@@ -407,34 +404,13 @@ const Table = <T extends object>({
       px="4"
       py={3}
     >
-      {isLoading ? (
+      {isLoading && (
         <chakra.div mt={2} ml={2}>
           <BeatLoader />
         </chakra.div>
-      ) : (
-        <ButtonGroup variant="ghost" size="sm" spacing="1">
-          <IconButton
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-            icon={<BiChevronLeft />}
-            aria-label="previous"
-          />
-          {range(1, pageCount + 1).map((n, i) => (
-            <Button
-              isActive={i === pageIndex}
-              onClick={() => gotoPage(i)}
-              key={i}
-            >
-              {n}
-            </Button>
-          ))}
-          <IconButton
-            onClick={() => nextPage()}
-            icon={<BiChevronRight />}
-            disabled={!canNextPage}
-            aria-label="next"
-          />
-        </ButtonGroup>
+      )}
+      {!isLoading && (
+        <Pagination onChange={gotoPage} page={pageIndex} total={pageCount} />
       )}
       <Select
         onChange={(e) => setPageSize(Number(e.target.value))}

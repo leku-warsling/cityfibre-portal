@@ -2,22 +2,39 @@ import { FieldSearch } from "../../../../components/field-search/field-search"
 import { SelectFilter } from "../../../../components/filters/select-filter"
 import { useIncidents } from "../../../../hooks/use-incidents.hook"
 import { useQueryParams } from "../../../../hooks/use-query-params"
-import { Button, Badge, Flex, Spacer } from "@chakra-ui/react"
+import {
+  Button,
+  Badge,
+  Flex,
+  Spacer,
+  Popover,
+  PopoverTrigger,
+  Portal,
+  PopoverContent,
+  PopoverBody,
+  CheckboxGroup,
+  VStack,
+  Checkbox,
+} from "@chakra-ui/react"
 import { Statistic } from "../../../../components/statistic"
 import { RiBarChartGroupedLine } from "react-icons/ri"
-import { AddIcon } from "@chakra-ui/icons"
+import { AddIcon, ArrowForwardIcon, ChevronDownIcon } from "@chakra-ui/icons"
 import { flow } from "fp-ts/lib/function"
 import { Link } from "react-router-dom"
 import { Page, Table, util } from "@ui"
-import { pathOr, prop } from "ramda"
+import { difference, pathOr, prop } from "ramda"
 import { z } from "zod"
+import { BiDownload } from "react-icons/bi"
+import { useState } from "react"
+import { BsEye } from "react-icons/bs"
 
-const initialState = {
+const DEFAULT_QUERY = {
   _page: 0,
   _limit: 10,
   _sort: "ref",
-  _order: "asc" as const,
-}
+  _order: "desc",
+  status: "New",
+} as const
 
 const querySchema = z.object({
   _order: z.optional(z.enum(["asc", "desc"])),
@@ -71,7 +88,7 @@ const getColorScheme = (state: string) => {
   }
 }
 
-const columns = [
+const TABLE_COLUMNS = [
   {
     Header: "Incident Reference",
     accessor: "ref",
@@ -103,7 +120,7 @@ const columns = [
     accessor: "created_at",
     Cell: flow(
       prop<"value", string>("value"),
-      util.date.formatDateString("dd/MM/yyyy")
+      util.date.formatDateString("dd/MM/yyyy, HH:mm")
     ),
     disableFilters: true,
   },
@@ -125,26 +142,111 @@ const columns = [
   },
 ] as const
 
+const COLUMN_MAP = TABLE_COLUMNS.reduce<Record<string, string>>((m, item) => {
+  const key = "id" in item ? item.id : item.accessor
+  m[key] = item.Header
+  return m
+}, {})
+
+const COLUMN_KEYS = Object.keys(COLUMN_MAP)
+
+type ColumnVisibilityProps = {
+  onChange: (value: string[]) => void
+  options: [string, string][]
+  value: string[]
+}
+
+const ColumnVisibility = ({
+  options,
+  onChange,
+  value,
+}: ColumnVisibilityProps) => {
+  return (
+    <Popover>
+      <PopoverTrigger>
+        <Button
+          rightIcon={<ChevronDownIcon fontSize="xl" />}
+          leftIcon={<BsEye />}
+          variant="outline"
+        >
+          Columns
+        </Button>
+      </PopoverTrigger>
+      <Portal>
+        <PopoverContent>
+          <PopoverBody p={4}>
+            <CheckboxGroup onChange={onChange} value={value}>
+              <VStack spacing={4} align="flex-start">
+                {options.map(([value, label]) => (
+                  <Checkbox key={value} value={value}>
+                    {label}
+                  </Checkbox>
+                ))}
+              </VStack>
+            </CheckboxGroup>
+          </PopoverBody>
+        </PopoverContent>
+      </Portal>
+    </Popover>
+  )
+}
+
+const DataExport = () => {
+  return (
+    <Popover>
+      <PopoverTrigger>
+        <Button
+          leftIcon={<BiDownload />}
+          rightIcon={<ChevronDownIcon fontSize="xl" />}
+        >
+          Export
+        </Button>
+      </PopoverTrigger>
+      <Portal>
+        <PopoverContent>
+          <PopoverBody p={4}>
+            <CheckboxGroup defaultValue={COLUMN_KEYS}>
+              <VStack spacing={4} align="flex-start" mb={4}>
+                {Object.entries(COLUMN_MAP).map(([value, label]) => (
+                  <Checkbox key={value} value={value} defaultChecked>
+                    {label}
+                  </Checkbox>
+                ))}
+              </VStack>
+            </CheckboxGroup>
+            <Button rightIcon={<ArrowForwardIcon />} isFullWidth>
+              Download
+            </Button>
+          </PopoverBody>
+        </PopoverContent>
+      </Portal>
+    </Popover>
+  )
+}
+
+const PAGE_ACTIONS = [
+  <Button
+    leftIcon={<AddIcon fontSize="12px" />}
+    to="/incidents/create"
+    alignItems="center"
+    mr={4}
+    as={Link}
+  >
+    Raise an incident
+  </Button>,
+  <DataExport />,
+]
+
 const IncidentsDesktopPage = () => {
   const { params, mergeParams, renameParam, searchHandler, setParam } =
-    useQueryParams<IncidentQuery>(initialState, incidentQuerySchema.parse)
+    useQueryParams<IncidentQuery>(DEFAULT_QUERY, incidentQuerySchema.parse)
   const { data = defaultValues, isLoading, isFetching } = useIncidents(params)
+  const [visibleColumns, setVisibleColumns] = useState(Object.keys(COLUMN_MAP))
   const { totals, items } = data
-
-  const actions = [
-    <Button
-      leftIcon={<AddIcon fontSize="12px" />}
-      to="/incidents/create"
-      alignItems="center"
-      as={Link}
-    >
-      Raise an incident
-    </Button>,
-  ]
 
   return (
     <Page maxH="93vh" overflowY="auto">
-      <Page.Header mb={6} pb={2} actions={actions}>
+      <Page.Header mb={6} pb={2} actions={PAGE_ACTIONS}>
         Incidents
       </Page.Header>
       <Flex gap={6} width="100%" mb={6}>
@@ -170,6 +272,11 @@ const IncidentsDesktopPage = () => {
         />
       </Flex>
       <Flex align="center" gap={6} mb={6}>
+        <ColumnVisibility
+          onChange={setVisibleColumns}
+          value={visibleColumns}
+          options={Object.entries(COLUMN_MAP)}
+        />
         <SelectFilter
           onSelect={(value) =>
             setParam("status", value as IncidentQuery["status"])
@@ -203,10 +310,11 @@ const IncidentsDesktopPage = () => {
         />
       </Flex>
       <Table
+        hiddenColumns={difference(COLUMN_KEYS, visibleColumns)}
         isSticky
         isLoading={isLoading}
         isFetching={isFetching}
-        columns={columns}
+        columns={TABLE_COLUMNS}
         boxShadow="base"
         overflowY="auto"
         bgColor="white"
@@ -218,8 +326,8 @@ const IncidentsDesktopPage = () => {
           pageSize: params._limit,
           sortBy: [
             {
-              id: "ref",
-              desc: false,
+              id: "created_at",
+              desc: true,
             },
           ],
         }}
@@ -231,7 +339,7 @@ const IncidentsDesktopPage = () => {
         }
         onSort={({ id, desc }) =>
           mergeParams({
-            _sort: id ?? "ref",
+            _sort: id ?? "created_at",
             _order: desc ? "desc" : "asc",
           })
         }

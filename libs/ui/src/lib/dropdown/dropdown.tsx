@@ -47,7 +47,6 @@ export const Dropdown: DropdownComponent = ({
       onClose={onClose}
       isOpen={isOpen}
       onOpen={onOpen}
-      matchWidth
       isLazy
     >
       <PopoverAnchor>{children}</PopoverAnchor>

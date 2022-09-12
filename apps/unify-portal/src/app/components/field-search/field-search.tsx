@@ -15,6 +15,7 @@ import {
   Radio,
   Flex,
   Portal,
+  PopoverAnchor,
 } from "@chakra-ui/react"
 
 export type FieldSearchOwnProps = {
@@ -46,72 +47,75 @@ export const FieldSearch = ({
   const currentField = useRef<string>(defaultValue)
 
   return (
-    <InputGroup
-      size={size}
-      variant={variant}
-      colorScheme={colorScheme}
-      maxWidth={maxWidth}
-    >
-      <InputLeftElement
-        pointerEvents="none"
-        children={<SearchIcon color="gray.400" />}
-      />
-      <Input
-        placeholder={placeholder}
-        onChange={(event: ChangeEvent<HTMLInputElement>) => {
-          onChange(event, currentField.current)
-        }}
-        {...props}
-      />
-      <InputRightElement as={Flex} width="auto" gap={0} pr={1}>
-        <IconButton
-          aria-label="Select search field"
-          _hover={{ color: "brand.600" }}
-          colorScheme="gray"
-          color="gray.400"
-          icon={<BiX />}
-          fontSize="18px"
-          variant="text"
-          size="xs"
-          px={0}
-        />
-        <Popover>
-          <PopoverTrigger>
+    <Popover matchWidth>
+      <PopoverAnchor>
+        <InputGroup
+          size={size}
+          variant={variant}
+          colorScheme={colorScheme}
+          maxWidth={maxWidth}
+        >
+          <InputLeftElement
+            pointerEvents="none"
+            children={<SearchIcon color="gray.400" />}
+          />
+          <Input
+            placeholder={placeholder}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              onChange(event, currentField.current)
+            }}
+            {...props}
+          />
+          <InputRightElement as={Flex} width="auto" gap={0} pr={1}>
             <IconButton
               aria-label="Select search field"
               _hover={{ color: "brand.600" }}
               colorScheme="gray"
               color="gray.400"
-              icon={<BiCog />}
+              icon={<BiX />}
               fontSize="18px"
               variant="text"
               size="xs"
+              px={0}
             />
-          </PopoverTrigger>
-          <Portal>
-            <PopoverContent zIndex={10}>
-              <RadioGroup
-                defaultValue={defaultValue}
-                display="flex"
-                flexDir="column"
-                fontWeight={600}
-                gap={2}
-                p={4}
-                onChange={(field: string) => {
-                  onFieldChange(field, currentField.current)
-                  currentField.current = field
-                }}
-              >
-                {fields.map(({ label, value }) => (
-                  <Radio key={value} value={value}>
-                    {label}
-                  </Radio>
-                ))}
-              </RadioGroup>
-            </PopoverContent>
-          </Portal>
-        </Popover>
-      </InputRightElement>
-    </InputGroup>
+
+            <PopoverTrigger>
+              <IconButton
+                aria-label="Select search field"
+                _hover={{ color: "brand.600" }}
+                colorScheme="gray"
+                color="gray.400"
+                icon={<BiCog />}
+                fontSize="18px"
+                variant="text"
+                size="xs"
+              />
+            </PopoverTrigger>
+          </InputRightElement>
+        </InputGroup>
+      </PopoverAnchor>
+      <Portal>
+        <PopoverContent zIndex={10}>
+          <RadioGroup
+            defaultValue={defaultValue}
+            display="flex"
+            flexDir="column"
+            fontWeight={600}
+            gap={2}
+            p={4}
+            onChange={(field: string) => {
+              onFieldChange(field, currentField.current)
+              currentField.current = field
+            }}
+          >
+            {fields.map(({ label, value }) => (
+              <Radio key={value} value={value}>
+                {label}
+              </Radio>
+            ))}
+          </RadioGroup>
+        </PopoverContent>
+      </Portal>
+    </Popover>
   )
 }

@@ -42,21 +42,18 @@ import {
   CircularProgressLabel,
 } from "@chakra-ui/react"
 import {
-  BarChart,
-  XAxis,
-  Bar,
   LabelList,
+  AreaChart,
+  BarChart,
   PieChart,
   Legend,
-  Pie,
+  XAxis,
   Label,
-  Cell,
-  CartesianGrid,
   YAxis,
+  Bar,
+  Pie,
+  Cell,
   Area,
-  ResponsiveContainer,
-  AreaChart,
-  Tooltip,
 } from "recharts"
 import { GroupStats } from "../../../components/statistic/group-stats"
 import { prop, sum, times } from "ramda"

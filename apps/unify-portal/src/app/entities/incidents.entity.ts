@@ -46,6 +46,7 @@ export const incidentSchema = z.object({
 
 export const totalsSchema = z.object({
   records: z.number(),
+  pages: z.number(),
   on_hold: z.number(),
   submitted: z.number(),
   closed: z.number(),
@@ -53,7 +54,7 @@ export const totalsSchema = z.object({
   resolved: z.number(),
   cancelled: z.number(),
   in_progress: z.number(),
-  results: z.string().transform(Number),
+  results: z.number(),
 })
 
 export type Incident = z.infer<typeof incidentSchema>

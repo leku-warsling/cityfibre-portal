@@ -2,7 +2,7 @@ import { Steps, Step } from "chakra-ui-steps"
 import { Page, util } from "@ui"
 import { times } from "ramda"
 import { useMemo } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { BiMessageDetail, BiSend } from "react-icons/bi"
 import { FiPaperclip } from "react-icons/fi"
 import {
@@ -42,6 +42,7 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react"
+import { AddIcon } from "@chakra-ui/icons"
 
 const createCommunication = (n: number) => ({
   id: util.data.createSequence("???######").toUpperCase(),
@@ -56,9 +57,20 @@ const OrderPage = () => {
   const communications = useMemo(() => times(createCommunication, 5), [])
   const { isOpen, onClose, onOpen } = useDisclosure()
 
+  const PAGE_ACTIONS = [
+    <Button
+      leftIcon={<AddIcon fontSize="12px" />}
+      to={`/incidents/create?service_reference=${id}`}
+      alignItems="center"
+      as={Link}
+    >
+      Raise an incident
+    </Button>,
+  ]
+
   return (
     <Page maxH="93vh" overflowY="auto">
-      <Page.Header mb={8} pb={2}>
+      <Page.Header actions={PAGE_ACTIONS} mb={8} pb={2}>
         Order: #{id}
       </Page.Header>
       <Flex justify="center" w="100%" mb={8}>
