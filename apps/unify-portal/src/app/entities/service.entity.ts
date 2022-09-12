@@ -38,15 +38,15 @@ export const serviceSchema = z.object({
     .optional(),
 })
 
-export const serviceTotalsSchema = z.object({
+export const serviceMetaSchema = z.object({
   cancellation_requested: z.number(),
   progressing: z.number(),
   completed: z.number(),
   in_delay: z.number(),
   records: z.number(),
-  results: z.number(),
   ceased: z.number(),
   pages: z.number(),
+  count: z.number(),
 })
 
 export type Service = z.infer<typeof serviceSchema>

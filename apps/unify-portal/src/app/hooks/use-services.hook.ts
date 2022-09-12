@@ -1,4 +1,4 @@
-import { serviceSchema, serviceTotalsSchema } from "../entities"
+import { serviceSchema, serviceMetaSchema } from "../entities"
 import { useQuery } from "react-query"
 import { map } from "ramda"
 import { api } from "../api"
@@ -14,12 +14,9 @@ export const useServices = (params: any = {}) => {
     async (context) => {
       const [, params] = context.queryKey
       const res = await api.get("/services", { params })
-      const { data, meta } = res.data
-      const totals = serviceTotalsSchema.parse(meta.totals)
-
       return {
-        totals,
-        items: map(serviceSchema.parse, data),
+        totals: serviceMetaSchema.parse(res.data.meta),
+        items: map(serviceSchema.parse, res.data.data),
       }
     },
     options

@@ -66,10 +66,10 @@ const DEFAULT_VALUES = {
     cancelled: 0,
     committed: 0,
     completed: 0,
-    results: 0,
     records: 0,
     pending: 0,
     placed: 0,
+    count: 0,
     pages: 0,
   },
 } as const

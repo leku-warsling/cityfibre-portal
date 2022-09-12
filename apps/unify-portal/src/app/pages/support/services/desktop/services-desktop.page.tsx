@@ -54,9 +54,9 @@ const DEFAULT_DATA = {
     completed: 0,
     in_delay: 0,
     records: 0,
-    results: 0,
     ceased: 0,
     pages: 0,
+    count: 0,
   },
 }
 

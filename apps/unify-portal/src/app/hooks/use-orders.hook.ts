@@ -1,4 +1,4 @@
-import { orderSchema, orderTotalsSchema } from "../entities"
+import { orderSchema, orderMetaSchema } from "../entities"
 import { useQuery } from "react-query"
 import { map } from "ramda"
 import { api } from "../api"
@@ -14,12 +14,10 @@ export const useOrders = (params: any = {}) => {
     async (context) => {
       const [, params] = context.queryKey
       const res = await api.get("/orders", { params })
-      const { data, meta } = res.data
-      const totals = orderTotalsSchema.parse(meta.totals)
 
       return {
-        totals,
-        items: map(orderSchema.parse, data),
+        totals: orderMetaSchema.parse(res.data.meta),
+        items: map(orderSchema.parse, res.data.data),
       }
     },
     options

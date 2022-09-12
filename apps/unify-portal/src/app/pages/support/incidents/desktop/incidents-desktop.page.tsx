@@ -29,9 +29,9 @@ import { useState } from "react"
 import { BsEye } from "react-icons/bs"
 
 const DEFAULT_QUERY = {
-  _page: 0,
+  _page: 1,
   _limit: 10,
-  _sort: "ref",
+  _sort: "created_at",
   _order: "desc",
   status: "New",
 } as const
@@ -66,9 +66,9 @@ type IncidentQuery = z.infer<typeof incidentQuerySchema>
 const defaultValues = {
   totals: {
     resolved: 0,
-    results: 0,
     records: 0,
     closed: 0,
+    count: 0,
     pages: 0,
     open: 0,
   },

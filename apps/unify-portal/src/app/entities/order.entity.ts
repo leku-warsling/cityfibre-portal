@@ -57,16 +57,16 @@ export const orderSchema = z.object({
   id: z.number(),
 })
 
-export const orderTotalsSchema = z.object({
+export const orderMetaSchema = z.object({
   acknowledged: z.number(),
   committed: z.number(),
   cancelled: z.number(),
   completed: z.number(),
   records: z.number(),
-  results: z.number(),
   pending: z.number(),
   placed: z.number(),
   pages: z.number(),
+  count: z.number(),
 })
 
 export type Order = z.infer<typeof orderSchema>
