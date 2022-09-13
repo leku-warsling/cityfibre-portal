@@ -41,10 +41,10 @@ import {
   FormErrorIcon,
 } from "@chakra-ui/react"
 import PasswordInput from "./password-input"
-import { SearchInput } from "./search-input"
 import { PinInput } from "./pin-input"
 export * from "./radio-buttons"
 export * from "./autocomplete"
+export * from "./search-input"
 export {
   Input,
   InputAddon,
@@ -88,5 +88,4 @@ export {
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInputStepper,
-  SearchInput,
 }

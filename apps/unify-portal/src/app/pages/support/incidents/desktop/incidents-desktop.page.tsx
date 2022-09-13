@@ -1,32 +1,19 @@
-import { FieldSearch } from "../../../../components/field-search/field-search"
-import { SelectFilter } from "../../../../components/filters/select-filter"
-import { useIncidents } from "../../../../hooks/use-incidents.hook"
-import { useQueryParams } from "../../../../hooks/use-query-params"
-import {
-  Button,
-  Badge,
-  Flex,
-  Spacer,
-  Popover,
-  PopoverTrigger,
-  Portal,
-  PopoverContent,
-  PopoverBody,
-  CheckboxGroup,
-  VStack,
-  Checkbox,
-} from "@chakra-ui/react"
-import { Statistic } from "../../../../components/statistic"
-import { RiBarChartGroupedLine } from "react-icons/ri"
-import { AddIcon, ArrowForwardIcon, ChevronDownIcon } from "@chakra-ui/icons"
+import { Button, Badge, Flex, Spacer } from "@chakra-ui/react"
+import { useIncidents, useQueryParams } from "@unify/hooks"
+import { difference, pathOr, prop } from "ramda"
+import { AddIcon } from "@chakra-ui/icons"
 import { flow } from "fp-ts/lib/function"
 import { Link } from "react-router-dom"
 import { Page, Table, util } from "@ui"
-import { difference, pathOr, prop } from "ramda"
-import { z } from "zod"
-import { BiDownload } from "react-icons/bi"
 import { useState } from "react"
-import { BsEye } from "react-icons/bs"
+import { z } from "zod"
+import {
+  ColumnVisibility,
+  SelectFilter,
+  FieldSearch,
+  DataExport,
+  Statistic,
+} from "@unify/components"
 
 const DEFAULT_QUERY = {
   _page: 1,
@@ -150,80 +137,6 @@ const COLUMN_MAP = TABLE_COLUMNS.reduce<Record<string, string>>((m, item) => {
 
 const COLUMN_KEYS = Object.keys(COLUMN_MAP)
 
-type ColumnVisibilityProps = {
-  onChange: (value: string[]) => void
-  options: [string, string][]
-  value: string[]
-}
-
-const ColumnVisibility = ({
-  options,
-  onChange,
-  value,
-}: ColumnVisibilityProps) => {
-  return (
-    <Popover>
-      <PopoverTrigger>
-        <Button
-          rightIcon={<ChevronDownIcon fontSize="xl" />}
-          leftIcon={<BsEye />}
-          variant="outline"
-        >
-          Columns
-        </Button>
-      </PopoverTrigger>
-      <Portal>
-        <PopoverContent>
-          <PopoverBody p={4}>
-            <CheckboxGroup onChange={onChange} value={value}>
-              <VStack spacing={4} align="flex-start">
-                {options.map(([value, label]) => (
-                  <Checkbox key={value} value={value}>
-                    {label}
-                  </Checkbox>
-                ))}
-              </VStack>
-            </CheckboxGroup>
-          </PopoverBody>
-        </PopoverContent>
-      </Portal>
-    </Popover>
-  )
-}
-
-const DataExport = () => {
-  return (
-    <Popover>
-      <PopoverTrigger>
-        <Button
-          leftIcon={<BiDownload />}
-          rightIcon={<ChevronDownIcon fontSize="xl" />}
-        >
-          Export
-        </Button>
-      </PopoverTrigger>
-      <Portal>
-        <PopoverContent>
-          <PopoverBody p={4}>
-            <CheckboxGroup defaultValue={COLUMN_KEYS}>
-              <VStack spacing={4} align="flex-start" mb={4}>
-                {Object.entries(COLUMN_MAP).map(([value, label]) => (
-                  <Checkbox key={value} value={value} defaultChecked>
-                    {label}
-                  </Checkbox>
-                ))}
-              </VStack>
-            </CheckboxGroup>
-            <Button rightIcon={<ArrowForwardIcon />} isFullWidth>
-              Download
-            </Button>
-          </PopoverBody>
-        </PopoverContent>
-      </Portal>
-    </Popover>
-  )
-}
-
 const PAGE_ACTIONS = [
   <Button
     leftIcon={<AddIcon fontSize="12px" />}
@@ -234,7 +147,7 @@ const PAGE_ACTIONS = [
   >
     Raise an incident
   </Button>,
-  <DataExport />,
+  <DataExport columns={Object.entries(COLUMN_MAP)} />,
 ]
 
 const IncidentsDesktopPage = () => {
@@ -244,32 +157,53 @@ const IncidentsDesktopPage = () => {
   const [visibleColumns, setVisibleColumns] = useState(Object.keys(COLUMN_MAP))
   const { totals, items } = data
 
+  const _onSort = ({
+    id,
+    desc,
+  }: {
+    id: string
+    desc?: boolean | undefined
+  }) => {
+    mergeParams({
+      _sort: id ?? "created_at",
+      _order: desc ? "desc" : "asc",
+    })
+  }
+
+  const _onPaginate = ({
+    pageIndex,
+    pageSize,
+  }: {
+    pageIndex: number
+    pageSize: number
+  }) => {
+    mergeParams({
+      _page: pageIndex,
+      _limit: pageSize,
+    })
+  }
+
+  const initialState = {
+    pageIndex: params._page,
+    pageSize: params._limit,
+    sortBy: [
+      {
+        id: "created_at",
+        desc: true,
+      },
+    ],
+  }
+
   return (
     <Page maxH="93vh" overflowY="auto">
       <Page.Header mb={6} pb={2} actions={PAGE_ACTIONS}>
         Incidents
       </Page.Header>
       <Flex gap={6} width="100%" mb={6}>
-        <Statistic
-          icon={RiBarChartGroupedLine}
-          label="Total incidents"
-          value={totals.records}
-        />
-        <Statistic
-          icon={RiBarChartGroupedLine}
-          label="Open incidents"
-          value={totals.open}
-        />
-        <Statistic
-          icon={RiBarChartGroupedLine}
-          label="Resolved incidents"
-          value={totals.resolved}
-        />
-        <Statistic
-          icon={RiBarChartGroupedLine}
-          label="Closed incidents"
-          value={totals.closed}
-        />
+        <Statistic label="Total incidents" value={totals.records} />
+        <Statistic label="Open incidents" value={totals.open} />
+        <Statistic label="Resolved incidents" value={totals.resolved} />
+        <Statistic label="Closed incidents" value={totals.closed} />
       </Flex>
       <Flex align="center" gap={6} mb={6}>
         <ColumnVisibility
@@ -311,39 +245,20 @@ const IncidentsDesktopPage = () => {
       </Flex>
       <Table
         hiddenColumns={difference(COLUMN_KEYS, visibleColumns)}
-        isSticky
-        isLoading={isLoading}
+        initialState={initialState}
+        onPaginate={_onPaginate}
+        pageCount={totals.pages}
         isFetching={isFetching}
         columns={TABLE_COLUMNS}
+        isLoading={isLoading}
+        onSort={_onSort}
+        manualPagination
         boxShadow="base"
         overflowY="auto"
         bgColor="white"
         data={items}
         isPaginated
-        manualPagination
-        initialState={{
-          pageIndex: params._page,
-          pageSize: params._limit,
-          sortBy: [
-            {
-              id: "created_at",
-              desc: true,
-            },
-          ],
-        }}
-        onPaginate={({ pageIndex, pageSize }) =>
-          mergeParams({
-            _page: pageIndex,
-            _limit: pageSize,
-          })
-        }
-        onSort={({ id, desc }) =>
-          mergeParams({
-            _sort: id ?? "created_at",
-            _order: desc ? "desc" : "asc",
-          })
-        }
-        pageCount={totals.pages}
+        isSticky
         rounded={5}
         maxH="80vh"
         size="md"
@@ -351,4 +266,5 @@ const IncidentsDesktopPage = () => {
     </Page>
   )
 }
+
 export default IncidentsDesktopPage

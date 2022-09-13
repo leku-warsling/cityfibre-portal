@@ -399,6 +399,7 @@ const Table = <T extends object>({
       position="sticky"
       bgColor="#fff"
       direction="row"
+      align="center"
       zIndex={10}
       bottom="0"
       px="4"

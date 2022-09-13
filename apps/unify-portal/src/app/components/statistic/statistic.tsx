@@ -1,4 +1,5 @@
 import { HStack, Icon, Spacer, StackProps, Text } from "@chakra-ui/react"
+import { RiBarChartGroupedLine } from "react-icons/ri"
 import { ReactNode } from "react"
 
 export type StatisticOwnProps = {
@@ -10,6 +11,7 @@ export type StatisticOwnProps = {
 export type StatisticProps = StatisticOwnProps & StackProps
 
 export const Statistic = ({
+  icon = RiBarChartGroupedLine,
   boxShadow = "base",
   bgColor = "white",
   flexGrow = 1,
@@ -18,7 +20,6 @@ export const Statistic = ({
   px = 6,
   value,
   label,
-  icon,
 }: StatisticProps) => (
   <HStack
     bgColor={bgColor}

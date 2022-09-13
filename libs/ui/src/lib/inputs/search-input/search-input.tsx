@@ -58,8 +58,9 @@ export const SearchInput: FC<SearchInputProps & StyleProps> = ({
 
   const menu = items && (
     <Dropdown.Menu>
-      {items.map((item) => (
+      {items.map((item, index) => (
         <Dropdown.Item
+          key={index}
           onClick={() => {
             isFunction(onSelect) && onSelect(item)
             onClose()

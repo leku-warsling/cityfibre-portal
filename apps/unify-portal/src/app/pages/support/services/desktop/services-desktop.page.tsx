@@ -1,49 +1,28 @@
-import {
-  AddIcon,
-  ArrowForwardIcon,
-  ChevronDownIcon,
-  SearchIcon,
-} from "@chakra-ui/icons"
-import { RiBarChartGroupedLine } from "react-icons/ri"
-import { useMemo, useState } from "react"
-import { BiDownload, BiFlag } from "react-icons/bi"
-import { flow } from "fp-ts/lib/function"
-import { Link, useNavigate } from "react-router-dom"
-import { Page, Table, util } from "@ui"
+import { Button, Spacer, Badge, Flex } from "@chakra-ui/react"
 import { always, difference, ifElse, path, prop } from "ramda"
-import { z } from "zod"
-import { SERVICE_STATUSES } from "../../../../entities"
-import { useServices } from "../../../../hooks/use-services.hook"
-import {
-  InputRightElement,
-  InputGroup,
-  Button,
-  Spacer,
-  HStack,
-  Badge,
-  Input,
-  Flex,
-  Icon,
-  Text,
-  Popover,
-  PopoverTrigger,
-  Portal,
-  PopoverContent,
-  PopoverBody,
-  CheckboxGroup,
-  VStack,
-  Checkbox,
-} from "@chakra-ui/react"
-import { useQueryParams } from "../../../../hooks/use-query-params"
-import { BsEye } from "react-icons/bs"
-import { SelectFilter } from "../../../../components/filters/select-filter"
+import { useServices, useQueryParams } from "@unify/hooks"
+import { Link, useNavigate } from "react-router-dom"
+import { SERVICE_STATUSES } from "@unify/entities"
+import { AddIcon } from "@chakra-ui/icons"
+import { useMemo, useState } from "react"
+import { BiFlag } from "react-icons/bi"
+import { flow } from "fp-ts/lib/function"
+import { Page, Table, util } from "@ui"
 import { isDate } from "date-fns"
+import { z } from "zod"
+import {
+  ColumnVisibility,
+  SelectFilter,
+  FieldSearch,
+  DataExport,
+  Statistic,
+} from "@unify/components"
 
 const DEFAULT_QUERY = {
-  _order: "asc",
+  _order: "desc",
   _limit: 10,
   _page: 1,
-  _sort: "servcie_reference",
+  _sort: "created_at",
 } as const
 
 const DEFAULT_DATA = {
@@ -86,7 +65,7 @@ const TABLE_COLUMNS = [
     accessor: "service_reference",
     disableFilters: true,
     Cell: ({ value }: any) => (
-      <Button to={`/services/${value}`} variant="link" size="sm" as={Link}>
+      <Button to={`/orders/${value}`} variant="link" size="sm" as={Link}>
         {value}
       </Button>
     ),
@@ -127,6 +106,12 @@ const TABLE_COLUMNS = [
     disableFilters: true,
   },
   {
+    Header: "Created Date",
+    accessor: "created_at",
+    Cell: renderCellDate,
+    disableFilters: true,
+  },
+  {
     id: "contract.start",
     Header: "Contract Start",
     accessor: path(["contract", "start"]),
@@ -150,80 +135,6 @@ const COLUMN_MAP = TABLE_COLUMNS.reduce<Record<string, string>>((m, item) => {
 
 const COLUMN_KEYS = Object.keys(COLUMN_MAP)
 
-type ColumnVisibilityProps = {
-  onChange: (value: string[]) => void
-  options: [string, string][]
-  value: string[]
-}
-
-const ColumnVisibility = ({
-  options,
-  onChange,
-  value,
-}: ColumnVisibilityProps) => {
-  return (
-    <Popover>
-      <PopoverTrigger>
-        <Button
-          rightIcon={<ChevronDownIcon fontSize="xl" />}
-          leftIcon={<BsEye />}
-          variant="outline"
-        >
-          Columns
-        </Button>
-      </PopoverTrigger>
-      <Portal>
-        <PopoverContent>
-          <PopoverBody p={4}>
-            <CheckboxGroup onChange={onChange} value={value}>
-              <VStack spacing={4} align="flex-start">
-                {options.map(([value, label]) => (
-                  <Checkbox key={value} value={value}>
-                    {label}
-                  </Checkbox>
-                ))}
-              </VStack>
-            </CheckboxGroup>
-          </PopoverBody>
-        </PopoverContent>
-      </Portal>
-    </Popover>
-  )
-}
-
-const DataExport = () => {
-  return (
-    <Popover>
-      <PopoverTrigger>
-        <Button
-          leftIcon={<BiDownload />}
-          rightIcon={<ChevronDownIcon fontSize="xl" />}
-        >
-          Export
-        </Button>
-      </PopoverTrigger>
-      <Portal>
-        <PopoverContent>
-          <PopoverBody p={4}>
-            <CheckboxGroup defaultValue={COLUMN_KEYS}>
-              <VStack spacing={4} align="flex-start" mb={4}>
-                {Object.entries(COLUMN_MAP).map(([value, label]) => (
-                  <Checkbox key={value} value={value} defaultChecked>
-                    {label}
-                  </Checkbox>
-                ))}
-              </VStack>
-            </CheckboxGroup>
-            <Button rightIcon={<ArrowForwardIcon />} isFullWidth>
-              Download
-            </Button>
-          </PopoverBody>
-        </PopoverContent>
-      </Portal>
-    </Popover>
-  )
-}
-
 const PAGE_ACTIONS = [
   <Button
     leftIcon={<AddIcon fontSize="12px" />}
@@ -234,7 +145,7 @@ const PAGE_ACTIONS = [
   >
     Raise an incident
   </Button>,
-  <DataExport />,
+  <DataExport columns={Object.entries(COLUMN_MAP)} />,
 ]
 
 const ServicesDesktopPage = () => {
@@ -245,6 +156,7 @@ const ServicesDesktopPage = () => {
   const { totals, items } = data
   const columns = useMemo(() => TABLE_COLUMNS, [])
   const navigate = useNavigate()
+
   const serviceActions = [
     {
       icon: BiFlag,
@@ -257,103 +169,60 @@ const ServicesDesktopPage = () => {
     },
   ]
 
+  const _onSort = ({
+    id,
+    desc,
+  }: {
+    id: string
+    desc?: boolean | undefined
+  }) => {
+    mergeParams({
+      _sort: id ?? "created_at",
+      _order: desc ? "desc" : "asc",
+    })
+  }
+
+  const _onPaginate = ({
+    pageIndex,
+    pageSize,
+  }: {
+    pageIndex: number
+    pageSize: number
+  }) => {
+    mergeParams({
+      _page: pageIndex,
+      _limit: pageSize,
+    })
+  }
+
+  const initialState = {
+    pageIndex: params._page,
+    pageSize: params._limit,
+    sortBy: [
+      {
+        id: "created_at",
+        desc: false,
+      },
+    ],
+  }
+
   return (
     <Page maxH="93vh" overflowY="auto">
       <Page.Header mb={6} pb={2} actions={PAGE_ACTIONS}>
         Services
       </Page.Header>
       <Flex gap={6} width="100%" mb={6}>
-        <HStack
-          bgColor="white"
-          boxShadow="base"
-          flexGrow={1}
-          rounded={4}
-          py={4}
-          px={6}
-        >
-          <Text fontSize="2xl" fontWeight={800} mr={2}>
-            {totals.records}
-          </Text>
-          <Text fontWeight={600} color="gray.500">
-            Total Services
-          </Text>
-          <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-        </HStack>
-        <HStack
-          bgColor="white"
-          boxShadow="base"
-          rounded={4}
-          flexGrow={1}
-          py={4}
-          px={6}
-        >
-          <Text fontSize="2xl" fontWeight={800} mr={2}>
-            {totals.completed}
-          </Text>
-          <Text fontWeight={600} color="gray.500">
-            Live Services
-          </Text>
-          <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-        </HStack>
-        <HStack
-          bgColor="white"
-          boxShadow="base"
-          flexGrow={1}
-          rounded={4}
-          py={4}
-          px={6}
-        >
-          <Text fontSize="2xl" fontWeight={800} mr={2}>
-            {totals.progressing}
-          </Text>
-          <Text fontWeight={600} color="gray.500">
-            Services in Delivery
-          </Text>
-          <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-        </HStack>
-        <HStack
-          bgColor="white"
-          boxShadow="base"
-          flexGrow={1}
-          rounded={4}
-          py={4}
-          px={6}
-        >
-          <Text fontSize="2xl" fontWeight={800} mr={2}>
-            {totals.ceased}
-          </Text>
-          <Text fontWeight={600} color="gray.500">
-            Ceased Services
-          </Text>
-          <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-        </HStack>
-        <HStack
-          bgColor="white"
-          boxShadow="base"
-          flexGrow={1}
-          rounded={4}
-          py={4}
-          px={6}
-        >
-          <Text fontSize="2xl" fontWeight={800} mr={2}>
-            {totals.cancellation_requested}
-          </Text>
-          <Text fontWeight={600} color="gray.500">
-            Cancelled Orders
-          </Text>
-          <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-        </HStack>
+        <Statistic label="Total" value={totals.records} />
+        <Statistic label="Live Services" value={totals.completed} />
+        <Statistic label="Services in Delivery" value={totals.in_delay} />
+        <Statistic label="Ceased" value={totals.ceased} />
+        <Statistic label="Cancelled" value={totals.cancellation_requested} />
       </Flex>
       <Flex gap={4} mb={6}>
         <ColumnVisibility
+          options={Object.entries(COLUMN_MAP)}
           onChange={setVisibleColumns}
           value={visibleColumns}
-          options={Object.entries(COLUMN_MAP)}
         />
         <SelectFilter
           onSelect={(value) =>
@@ -361,64 +230,50 @@ const ServicesDesktopPage = () => {
           }
           options={[
             { label: "All", value: undefined },
-            { label: "Acknowledged", value: "acknowledged" },
-            { label: "Committed", value: "committed" },
-            { label: "Pending", value: "pending" },
-            { label: "Completed", value: "completed" },
-            { label: "Placed", value: "placed" },
+            { label: "In Delay", value: "In Delay" },
+            { label: "Progressing", value: "Progressing" },
+            { label: "Completed", value: "Completed" },
             { label: "Cancelled", value: "Cancelled" },
+            { label: "Ceased", value: "Ceased" },
           ]}
         >
           Status {params?.status ?? "All"}
         </SelectFilter>
         <Spacer />
-        <InputGroup maxW="320px" bgColor="white">
-          <Input placeholder="Search services" />
-          <InputRightElement
-            pointerEvents="none"
-            children={<SearchIcon color="gray.400" />}
-          />
-        </InputGroup>
+        <FieldSearch
+          onFieldChange={renameParam}
+          onChange={searchHandler}
+          placeholder="Search incidents..."
+          defaultField="q"
+          bgColor="white"
+          maxWidth="400px"
+          fields={[
+            { value: "q", label: "All" },
+            { value: "customer_reference_like", label: "Customer Reference" },
+            { value: "service_reference_like", label: "Service Reference" },
+          ]}
+        />
       </Flex>
       <Table
         hiddenColumns={difference(COLUMN_KEYS, visibleColumns)}
+        initialState={initialState}
+        actions={serviceActions}
+        pageCount={totals.pages}
+        onPaginate={_onPaginate}
         isFetching={isFetching}
         isLoading={isLoading}
         columns={columns}
+        onSort={_onSort}
         boxShadow="base"
         manualPagination
-        actions={serviceActions}
         overflowY="auto"
         bgColor="white"
-        isPaginated
         data={items}
+        isPaginated
         rounded={5}
         maxH="80vh"
         size="md"
         isSticky
-        initialState={{
-          pageIndex: params._page,
-          pageSize: params._limit,
-          sortBy: [
-            {
-              id: "service_reference",
-              desc: false,
-            },
-          ],
-        }}
-        onPaginate={({ pageIndex, pageSize }) =>
-          mergeParams({
-            _page: pageIndex,
-            _limit: pageSize,
-          })
-        }
-        onSort={({ id, desc }) =>
-          mergeParams({
-            _sort: id ?? "service_reference",
-            _order: desc ? "desc" : "asc",
-          })
-        }
-        pageCount={totals.pages}
       />
     </Page>
   )

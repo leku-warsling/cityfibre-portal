@@ -105,7 +105,11 @@ const IncidentDetailsStep = () => {
         label="Type of issue"
         name="issue.type"
         render={({ onChange, ...props }) => (
-          <RadioButtonGroup {...props} columns={{ base: 1, md: 2 }}>
+          <RadioButtonGroup
+            {...props}
+            columns={{ base: 1, md: 2 }}
+            maxW="900px"
+          >
             <RadioButton value="Total loss of service">
               Total loss of service
             </RadioButton>
@@ -131,7 +135,7 @@ const IncidentDetailsStep = () => {
         label="Are the patch leads connected to the correct ports on the ODF?"
         name="issue.type"
         render={({ onChange, ...props }) => (
-          <RadioButtonGroup {...props}>
+          <RadioButtonGroup {...props} maxW="500px">
             <RadioButton value="yes">Yes</RadioButton>
             <RadioButton value="no">No</RadioButton>
           </RadioButtonGroup>
@@ -141,7 +145,7 @@ const IncidentDetailsStep = () => {
         label="Is the Port Operational?"
         name="issue.type"
         render={({ onChange, ...props }) => (
-          <RadioButtonGroup {...props}>
+          <RadioButtonGroup {...props} maxW="500px">
             <RadioButton value="yes">Yes</RadioButton>
             <RadioButton value="no">No</RadioButton>
           </RadioButtonGroup>
@@ -151,7 +155,7 @@ const IncidentDetailsStep = () => {
         label="Have the OTDR Traces been completed?"
         name="issue.type"
         render={({ onChange, ...props }) => (
-          <RadioButtonGroup {...props}>
+          <RadioButtonGroup {...props} maxW="500px">
             <RadioButton value="yes">Yes</RadioButton>
             <RadioButton value="no">No</RadioButton>
           </RadioButtonGroup>

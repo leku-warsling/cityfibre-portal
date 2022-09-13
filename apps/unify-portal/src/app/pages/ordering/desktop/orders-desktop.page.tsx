@@ -1,41 +1,22 @@
-import { RiBarChartGroupedLine } from "react-icons/ri"
+import { Button, Spacer, Badge, Flex } from "@chakra-ui/react"
+import { useQueryParams, useOrders } from "@unify/hooks"
+import { ORDER_STATUSES } from "@unify/entities"
+import { difference, path, prop } from "ramda"
+import { AddIcon } from "@chakra-ui/icons"
 import { useMemo, useState } from "react"
-import { AddIcon, ChevronDownIcon, SearchIcon } from "@chakra-ui/icons"
-import { BiDownload } from "react-icons/bi"
 import { flow } from "fp-ts/lib/function"
 import { Link } from "react-router-dom"
 import { Page, Table, util } from "@ui"
-import { difference, path, prop } from "ramda"
-import { useOrders } from "../../../hooks/use-orders.hook"
+import { get } from "lodash-es"
 import { z } from "zod"
-import { ORDER_STATUSES } from "../../../entities"
-import { useQueryParams } from "../../../hooks/use-query-params"
 import {
-  InputRightElement,
-  InputGroup,
-  Button,
-  Spacer,
-  HStack,
-  Badge,
-  Input,
-  Flex,
-  Icon,
-  Text,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  Portal,
-  PopoverBody,
-  CheckboxGroup,
-  Checkbox,
-  VStack,
-} from "@chakra-ui/react"
-import { SelectFilter } from "../../../components/filters/select-filter"
-import { BsEye } from "react-icons/bs"
+  ColumnVisibility,
+  SelectFilter,
+  FieldSearch,
+  DataExport,
+  Statistic,
+  LinkMenu,
+} from "@unify/components"
 
 const DEFAULT_QUERY = {
   _order: "desc",
@@ -53,8 +34,12 @@ const querySchema = z.object({
 })
 
 const orderQuerySchema = querySchema.extend({
+  "customer.address_like": z.optional(z.string()),
+  service_reference_like: z.optional(z.string()),
+  seller_reference_like: z.optional(z.string()),
+  buyer_reference_like: z.optional(z.string()),
+  "customer.name_like": z.optional(z.string()),
   status: z.enum(ORDER_STATUSES).optional(),
-  ref_like: z.optional(z.string()),
 })
 
 type OrderQuery = z.infer<typeof orderQuerySchema>
@@ -72,6 +57,12 @@ const DEFAULT_VALUES = {
     count: 0,
     pages: 0,
   },
+} as const
+
+const STATUS_MAP = {
+  Acknowledged: "KCI 1",
+  Committed: "KCI 2",
+  Completed: "KCI 3",
 } as const
 
 const TABLE_COLUMNS = [
@@ -125,9 +116,9 @@ const TABLE_COLUMNS = [
     Header: "Status",
     accessor: "status",
     disableFilters: true,
-    Cell: ({ value }: any) => (
+    Cell: ({ value = "" }) => (
       <Badge colorScheme="orange" rounded={4} px={2} py={0.5}>
-        {value}
+        {value} {get(STATUS_MAP, value, "")}
       </Badge>
     ),
   },
@@ -139,7 +130,15 @@ const TABLE_COLUMNS = [
       util.date.formatDateString("dd/MM/yyyy, HH:mm")
     ),
     disableFilters: true,
-    disableSortBy: true,
+  },
+  {
+    Header: "Last Updated",
+    accessor: "updated_at",
+    Cell: flow(
+      prop<"value", string>("value"),
+      util.date.formatDateString("dd/MM/yyyy, HH:mm")
+    ),
+    disableFilters: true,
   },
   {
     id: "customer.name",
@@ -158,62 +157,16 @@ const COLUMN_MAP = TABLE_COLUMNS.reduce<Record<string, string>>((m, item) => {
 
 const COLUMN_KEYS = Object.keys(COLUMN_MAP)
 
-type ColumnVisibilityProps = {
-  onChange: (value: string[]) => void
-  options: [string, string][]
-  value: string[]
-}
-
-const ColumnVisibility = ({
-  options,
-  onChange,
-  value,
-}: ColumnVisibilityProps) => {
-  return (
-    <Popover>
-      <PopoverTrigger>
-        <Button
-          rightIcon={<ChevronDownIcon fontSize="xl" />}
-          leftIcon={<BsEye />}
-          variant="outline"
-        >
-          Columns
-        </Button>
-      </PopoverTrigger>
-      <Portal>
-        <PopoverContent>
-          <PopoverBody p={4}>
-            <CheckboxGroup onChange={onChange} value={value}>
-              <VStack spacing={4} align="flex-start">
-                {options.map(([value, label]) => (
-                  <Checkbox key={value} value={value}>
-                    {label}
-                  </Checkbox>
-                ))}
-              </VStack>
-            </CheckboxGroup>
-          </PopoverBody>
-        </PopoverContent>
-      </Portal>
-    </Popover>
-  )
-}
+const PRODUCT_LINKS = [
+  { title: "FTTP Services", url: "/orders/fttp" },
+  { title: "Ethernet Services", url: "/orders/ethernet" },
+]
 
 const PAGE_ACTIONS = [
-  <Menu>
-    <MenuButton as={Button} mr={4} leftIcon={<AddIcon fontSize="12px" />}>
-      New Order
-    </MenuButton>
-    <MenuList fontSize="md">
-      <MenuItem as={Link} to="/orders/fttp">
-        FTTP Services
-      </MenuItem>
-      <MenuItem as={Link} to="/orders/ethernet">
-        Ethernet Services
-      </MenuItem>
-    </MenuList>
-  </Menu>,
-  <Button leftIcon={<BiDownload fontSize="12px" />}>Export</Button>,
+  <LinkMenu leftIcon={<AddIcon fontSize="12px" />} items={PRODUCT_LINKS}>
+    New Order
+  </LinkMenu>,
+  <DataExport columns={Object.entries(COLUMN_MAP)} />,
 ]
 
 const OrdersDesktopPage = () => {
@@ -224,80 +177,53 @@ const OrdersDesktopPage = () => {
   const { totals, items } = data
   const columns = useMemo(() => TABLE_COLUMNS, [])
 
+  const _onSort = ({
+    id,
+    desc,
+  }: {
+    id: string
+    desc?: boolean | undefined
+  }) => {
+    mergeParams({
+      _sort: id ?? "created_at",
+      _order: desc ? "desc" : "asc",
+    })
+  }
+
+  const _onPaginate = ({
+    pageIndex,
+    pageSize,
+  }: {
+    pageIndex: number
+    pageSize: number
+  }) => {
+    mergeParams({
+      _page: pageIndex,
+      _limit: pageSize,
+    })
+  }
+
+  const initialState = {
+    pageIndex: params._page,
+    pageSize: params._limit,
+    sortBy: [
+      {
+        id: "created_at",
+        desc: true,
+      },
+    ],
+  }
+
   return (
     <Page maxH="93vh" overflowY="auto">
       <Page.Header actions={PAGE_ACTIONS} mb={6} pb={2}>
         Orders
       </Page.Header>
       <Flex gap={6} width="100%" mb={6}>
-        <HStack
-          bgColor="white"
-          boxShadow="base"
-          flexGrow={1}
-          rounded={4}
-          py={4}
-          px={6}
-        >
-          <Text fontSize="2xl" fontWeight={800} mr={2}>
-            {totals.records}
-          </Text>
-          <Text fontWeight={600} color="gray.500">
-            Total Orders
-          </Text>
-          <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-        </HStack>
-        <HStack
-          bgColor="white"
-          boxShadow="base"
-          rounded={4}
-          flexGrow={1}
-          py={4}
-          px={6}
-        >
-          <Text fontSize="2xl" fontWeight={800} mr={2}>
-            {totals.pending}
-          </Text>
-          <Text fontWeight={600} color="gray.500">
-            In Progress Orders
-          </Text>
-          <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-        </HStack>
-        <HStack
-          bgColor="white"
-          boxShadow="base"
-          flexGrow={1}
-          rounded={4}
-          py={4}
-          px={6}
-        >
-          <Text fontSize="2xl" fontWeight={800} mr={2}>
-            {totals.completed}
-          </Text>
-          <Text fontWeight={600} color="gray.500">
-            Completed Orders
-          </Text>
-          <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-        </HStack>
-        <HStack
-          bgColor="white"
-          boxShadow="base"
-          flexGrow={1}
-          rounded={4}
-          py={4}
-          px={6}
-        >
-          <Text fontSize="2xl" fontWeight={800} mr={2}>
-            {totals.cancelled}
-          </Text>
-          <Text fontWeight={600} color="gray.500">
-            Cancelled Orders
-          </Text>
-          <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-        </HStack>
+        <Statistic label="Total" value={totals.records} />
+        <Statistic label="In Progress" value={totals.pending} />
+        <Statistic label="Completed" value={totals.completed} />
+        <Statistic label="Cancelled" value={totals.cancelled} />
       </Flex>
       <Flex align="center" gap={4} mb={6}>
         <ColumnVisibility
@@ -311,37 +237,43 @@ const OrdersDesktopPage = () => {
           }
           options={[
             { label: "All", value: undefined },
-            { label: "Acknowledged", value: "acknowledged" },
-            { label: "Committed", value: "committed" },
-            { label: "Pending", value: "pending" },
-            { label: "Completed", value: "completed" },
-            { label: "Placed", value: "placed" },
+            { label: "Acknowledged", value: "Acknowledged" },
+            { label: "Committed", value: "Committed" },
+            { label: "Pending", value: "Pending" },
+            { label: "Completed", value: "Completed" },
+            { label: "Placed", value: "Placed" },
             { label: "Cancelled", value: "Cancelled" },
           ]}
         >
           Status {params?.status ?? "All"}
         </SelectFilter>
         <Spacer />
-        <InputGroup maxW="320px" bgColor="white">
-          <Input placeholder="Search orders" />
-          <InputRightElement
-            pointerEvents="none"
-            children={<SearchIcon color="gray.400" />}
-          />
-        </InputGroup>
-        {/* <IconButton
-          icon={<BiDotsVerticalRounded />}
-          fontSize="xl"
-          colorScheme="gray"
-          aria-label="menu"
-          variant="ghost"
-        /> */}
+        <FieldSearch
+          onFieldChange={renameParam}
+          onChange={searchHandler}
+          placeholder="Search incidents..."
+          defaultField="q"
+          bgColor="white"
+          maxWidth="400px"
+          fields={[
+            { value: "q", label: "All" },
+            { value: "buyer_reference_like", label: "Buyer Reference" },
+            { value: "service_reference_like", label: "Service Reference" },
+            { value: "seller_reference_like", label: "Seller Reference" },
+            { value: "customer.address_like", label: "Address" },
+            { value: "customer.name_like", label: "Ordered By" },
+          ]}
+        />
       </Flex>
       <Table
         hiddenColumns={difference(COLUMN_KEYS, visibleColumns)}
+        initialState={initialState}
+        onPaginate={_onPaginate}
+        pageCount={totals.pages}
         isFetching={isFetching}
         isLoading={isLoading}
         columns={columns}
+        onSort={_onSort}
         manualPagination
         overflowY="auto"
         boxShadow="base"
@@ -352,29 +284,6 @@ const OrdersDesktopPage = () => {
         maxH="80vh"
         size="md"
         isSticky
-        initialState={{
-          pageIndex: params._page,
-          pageSize: params._limit,
-          sortBy: [
-            {
-              id: "created_at",
-              desc: true,
-            },
-          ],
-        }}
-        onPaginate={({ pageIndex, pageSize }) =>
-          mergeParams({
-            _page: pageIndex,
-            _limit: pageSize,
-          })
-        }
-        onSort={({ id, desc }) =>
-          mergeParams({
-            _sort: id ?? "created_at",
-            _order: desc ? "desc" : "asc",
-          })
-        }
-        pageCount={totals.pages}
       />
     </Page>
   )
