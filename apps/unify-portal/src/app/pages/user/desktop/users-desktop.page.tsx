@@ -27,8 +27,13 @@ import {
   Spacer,
   Wrap,
   WrapItem,
+  HStack,
+  Box,
+  Icon,
+  IconButton,
 } from "@chakra-ui/react"
 import { flow } from "fp-ts/lib/function"
+import { BiMessageAdd } from "react-icons/bi"
 
 const DEFAULT_QUERY = {
   _order: "asc",
@@ -229,6 +234,54 @@ const UsersDesktopPage = () => {
         Users
       </Page.Header>
       <Flex gap={6} width="100%" mb={6}>
+        <HStack
+          bgColor="white"
+          boxShadow="base"
+          flexGrow={1}
+          rounded={4}
+          spacing={6}
+          py={4}
+          px={6}
+        >
+          <Avatar name="Adam Astle" />
+          <Box>
+            <Text
+              fontSize="xs"
+              letterSpacing="wider"
+              textTransform="uppercase"
+              fontWeight={800}
+              lineHeight={1}
+            >
+              Administrator
+            </Text>
+            <Text fontWeight={600} color="gray.500">
+              Adam Astle
+            </Text>
+          </Box>
+          <Box>
+            <Text
+              fontSize="xs"
+              letterSpacing="wider"
+              textTransform="uppercase"
+              fontWeight={800}
+              lineHeight={1}
+            >
+              Email Address
+            </Text>
+            <Text fontWeight={600} color="gray.500">
+              adam.astle@cityfibre.com
+            </Text>
+          </Box>
+          <Spacer />
+          <IconButton
+            href="mailto: adam.astle@cityfibre.com"
+            aria-label="Send email to administrator"
+            icon={<BiMessageAdd />}
+            variant="ghost"
+            fontSize="3xl"
+            as="a"
+          />
+        </HStack>
         <Statistic label="Total users" value={totals.records} />
         <Statistic
           label="Awaiting activation"
