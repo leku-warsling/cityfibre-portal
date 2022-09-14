@@ -162,9 +162,12 @@ const ServicesDesktopPage = () => {
       icon: BiFlag,
       label: "Raise Incident",
       handler: (data: any) =>
-        navigate(`/incidents/create?service_ref=${data.service_reference}`, {
-          replace: true,
-        }),
+        navigate(
+          `/incidents/create?service_reference=${data.service_reference}`,
+          {
+            replace: true,
+          }
+        ),
       isBatchable: false,
     },
   ]

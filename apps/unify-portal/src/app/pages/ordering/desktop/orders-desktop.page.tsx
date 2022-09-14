@@ -34,7 +34,6 @@ const querySchema = z.object({
 })
 
 const orderQuerySchema = querySchema.extend({
-  "customer.address_like": z.optional(z.string()),
   service_reference_like: z.optional(z.string()),
   seller_reference_like: z.optional(z.string()),
   buyer_reference_like: z.optional(z.string()),
@@ -64,6 +63,25 @@ const STATUS_MAP = {
   Committed: "KCI 2",
   Completed: "KCI 3",
 } as const
+
+const getColorScheme = (state: string) => {
+  switch (state) {
+    case "Cancelled":
+      return "red"
+    case "Acknowledged":
+      return "teal"
+    case "Completed":
+      return "green"
+    case "Placed":
+      return "cyan"
+    case "Pending":
+      return "orange"
+    case "Committed":
+      return "blue"
+    default:
+      return "gray"
+  }
+}
 
 const TABLE_COLUMNS = [
   {
@@ -117,7 +135,7 @@ const TABLE_COLUMNS = [
     accessor: "status",
     disableFilters: true,
     Cell: ({ value = "" }) => (
-      <Badge colorScheme="orange" rounded={4} px={2} py={0.5}>
+      <Badge colorScheme={getColorScheme(value)} rounded={4} px={2} py={0.5}>
         {value} {get(STATUS_MAP, value, "")}
       </Badge>
     ),
@@ -145,7 +163,6 @@ const TABLE_COLUMNS = [
     Header: "Ordered By",
     accessor: path(["customer", "name"]),
     disableFilters: true,
-    disableSortBy: true,
   },
 ] as const
 
@@ -260,7 +277,6 @@ const OrdersDesktopPage = () => {
             { value: "buyer_reference_like", label: "Buyer Reference" },
             { value: "service_reference_like", label: "Service Reference" },
             { value: "seller_reference_like", label: "Seller Reference" },
-            { value: "customer.address_like", label: "Address" },
             { value: "customer.name_like", label: "Ordered By" },
           ]}
         />

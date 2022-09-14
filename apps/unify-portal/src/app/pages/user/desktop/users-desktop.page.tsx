@@ -1,16 +1,21 @@
 // @ts-nocheck
-import { USER_STATUSES, USER_DATA, USER_ROLES } from "../data"
+import { USER_ROLES, USER_STATUSES } from "@unify/entities"
 import { EditUserModal } from "../modals/edit-user.modal"
-import { Statistic } from "../../../components/statistic"
-import { RiBarChartGroupedLine } from "react-icons/ri"
 import { EditUserForm } from "../forms/edit-user.form"
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import { AddIcon } from "@chakra-ui/icons"
-import { flow } from "fp-ts/lib/function"
 import { Link } from "react-router-dom"
-import random from "lodash-es/random"
-import { props, join } from "ramda"
-import { Page, Table } from "@ui"
+import { difference, prop } from "ramda"
+import { Page, Table, util } from "@ui"
+import { useUsers, useQueryParams } from "@unify/hooks"
+import { z } from "zod"
+import {
+  ColumnVisibility,
+  SelectFilter,
+  FieldSearch,
+  DataExport,
+  Statistic,
+} from "@unify/components"
 import {
   Button,
   VStack,
@@ -19,25 +24,61 @@ import {
   Badge,
   Text,
   Avatar,
-  Box,
+  Spacer,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react"
+import { flow } from "fp-ts/lib/function"
 
-const getFullName = flow(props(["first_name", "last_name"]), join(" "))
-const randomNth = (arr: any[]) => arr[random(arr.length - 1)]
+const DEFAULT_QUERY = {
+  _order: "asc",
+  _limit: 10,
+  _page: 1,
+  _sort: "name",
+} as const
+
+const querySchema = z.object({
+  _order: z.optional(z.enum(["asc", "desc"])),
+  _sort: z.optional(z.string()),
+  q: z.string().optional(),
+  _limit: z.number(),
+  _page: z.number(),
+})
+
+const userQuerySchema = querySchema.extend({
+  name_like: z.optional(z.string()),
+  email_like: z.optional(z.string()),
+  status: z.enum(USER_STATUSES).optional(),
+  roles: z.enum(USER_ROLES).optional(),
+})
+
+type UserQuery = z.infer<typeof userQuerySchema>
+
+const DEFAULT_VALUES = {
+  items: [],
+  totals: {
+    awaiting_activation: 0,
+    active: 0,
+    records: 0,
+    count: 0,
+    pages: 0,
+  },
+} as const
 
 const UsersDesktopPage = () => {
-  const [isLoading, setLoading] = useState(true)
+  const { params, mergeParams, renameParam, searchHandler, setParam } =
+    useQueryParams<UserQuery>(DEFAULT_QUERY, userQuerySchema.parse)
+  const { data = DEFAULT_VALUES, isLoading, isFetching } = useUsers(params)
+  const { totals, items } = data
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [user, setUser] = useState(null)
 
   const columns = useMemo(
     () => [
       {
-        id: "name",
         Header: "Name",
-        accessor: getFullName,
+        accessor: "name",
         disableFilters: true,
-        disableSortBy: true,
         Cell: (cell: any) => (
           <Button
             variant="link"
@@ -63,97 +104,197 @@ const UsersDesktopPage = () => {
         Header: "Email",
         accessor: "email",
         disableFilters: true,
-        disableSortBy: true,
       },
       {
         id: "role",
         Header: "Roles",
-        accessor: () => randomNth(USER_ROLES),
+        accessor: "roles",
         disableFilters: true,
-        disableSortBy: true,
         Cell: ({ value }: any) => (
           <Badge colorScheme="gray" rounded={4} px={2} py={0.5}>
             {value}
           </Badge>
         ),
+        // Cell: ({ value }: any) => (
+        //   <Wrap spacing={2}>
+        //     {value.map((role) => (
+        //       <WrapItem>
+        //         <Badge colorScheme="gray" rounded={4} px={2} py={0.5}>
+        //           {role}
+        //         </Badge>
+        //       </WrapItem>
+        //     ))}
+        //   </Wrap>
+        // ),
       },
       {
-        id: "status",
         Header: "Status",
-        accessor: () => randomNth(USER_STATUSES),
+        accessor: "status",
         disableFilters: true,
-        disableSortBy: true,
         Cell: ({ value }: any) => (
           <Badge colorScheme="green" rounded={4} px={2} py={0.5}>
             {value}
           </Badge>
         ),
       },
+      {
+        Header: "Created Date",
+        accessor: "created_at",
+        Cell: flow(
+          prop<"value", string>("value"),
+          util.date.formatDateString("dd/MM/yyyy")
+        ),
+        disableFilters: true,
+      },
+      {
+        Header: "Last Updated",
+        accessor: "updated_at",
+        Cell: flow(
+          prop<"value", string>("value"),
+          util.date.formatDateString("dd/MM/yyyy")
+        ),
+        disableFilters: true,
+      },
     ],
     []
   )
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1000)
+  const COLUMN_MAP = useMemo(() => {
+    return columns.reduce<Record<string, string>>((m, item) => {
+      const key = "id" in item ? item.id : item.accessor
+      m[key] = item.Header
+      return m
+    }, {})
   }, [])
 
-  const actions = [
-    <Button to="/roles" variant="link" size="sm" as={Link} mr={6}>
+  const COLUMN_KEYS = Object.keys(COLUMN_MAP)
+
+  const _onSort = ({
+    id,
+    desc,
+  }: {
+    id: string
+    desc?: boolean | undefined
+  }) => {
+    mergeParams({
+      _sort: id ?? "name",
+      _order: desc ? "desc" : "asc",
+    })
+  }
+
+  const _onPaginate = ({
+    pageIndex,
+    pageSize,
+  }: {
+    pageIndex: number
+    pageSize: number
+  }) => {
+    mergeParams({
+      _page: pageIndex,
+      _limit: pageSize,
+    })
+  }
+
+  const initialState = {
+    pageIndex: params._page,
+    pageSize: params._limit,
+    sortBy: [
+      {
+        id: "name",
+        desc: false,
+      },
+    ],
+  }
+
+  const [visibleColumns, setVisibleColumns] = useState(Object.keys(COLUMN_MAP))
+
+  const PAGE_ACTIONS = [
+    <Button to="/roles" variant="link" as={Link} mr={6}>
       User Roles
     </Button>,
     <Button
       leftIcon={<AddIcon fontSize="12px" />}
       to="/incidents/create"
       as={Link}
-      size="sm"
+      mr={2}
     >
       Add User
     </Button>,
+    <DataExport columns={Object.entries(COLUMN_MAP)} />,
   ]
 
   return (
     <Page maxH="93vh" overflowY="auto">
-      <Page.Header pb={2} mb={6} actions={actions}>
-        Users ({USER_DATA.length})
+      <Page.Header pb={2} mb={6} actions={PAGE_ACTIONS}>
+        Users
       </Page.Header>
-      <Flex gap={6} align="flex-start">
-        <VStack w="100%" maxWidth="300px" align="flex-start">
-          <Button variant="solid" isActive size="sm">
-            All Users
-          </Button>
-          {USER_ROLES.map((role, index) => (
-            <Button size="sm" variant="ghost" colorScheme="brand">
-              {role}
-            </Button>
-          ))}
-        </VStack>
-        <Box flexGrow={1}>
-          <Flex gap={6} width="100%" mb={6}>
-            <Statistic
-              icon={RiBarChartGroupedLine}
-              label="Total users"
-              value={109}
-            />
-            <Statistic
-              icon={RiBarChartGroupedLine}
-              label="Require activation"
-              value={54}
-            />
-          </Flex>
-          <Table
-            isLoading={isLoading}
-            columns={columns}
-            data={USER_DATA}
-            boxShadow="base"
-            overflowY="auto"
-            bgColor="white"
-            flexGrow={1}
-            isPaginated
-            rounded={5}
-            maxH="80vh"
-          />
-        </Box>
+      <Flex gap={6} width="100%" mb={6}>
+        <Statistic label="Total users" value={totals.records} />
+        <Statistic
+          label="Awaiting activation"
+          value={totals.awaiting_activation}
+        />
       </Flex>
+      <Flex align="center" gap={4} mb={6}>
+        <ColumnVisibility
+          onChange={setVisibleColumns}
+          value={visibleColumns}
+          options={Object.entries(COLUMN_MAP)}
+        />
+        <SelectFilter
+          onSelect={(value) => setParam("roles", value as UserQuery["roles"])}
+          options={[
+            { label: "All", value: undefined },
+            ...USER_ROLES.map((value) => ({ label: value, value })),
+          ]}
+        >
+          Role {params?.role ?? "All"}
+        </SelectFilter>
+        <SelectFilter
+          onSelect={(value) => setParam("status", value as UserQuery["status"])}
+          options={[
+            { label: "All", value: undefined },
+            { label: "Active", value: "Active" },
+            { label: "Awaiting Activation", value: "Awaiting Activation" },
+          ]}
+        >
+          Status {params?.status ?? "All"}
+        </SelectFilter>
+        <Spacer />
+        <FieldSearch
+          onFieldChange={renameParam}
+          onChange={searchHandler}
+          placeholder="Search incidents..."
+          defaultField="q"
+          bgColor="white"
+          maxWidth="400px"
+          fields={[
+            { value: "q", label: "All" },
+            { value: "name_like", label: "Name" },
+            { value: "email_like", label: "Email" },
+          ]}
+        />
+      </Flex>
+      <Table
+        hiddenColumns={difference(COLUMN_KEYS, visibleColumns)}
+        initialState={initialState}
+        onPaginate={_onPaginate}
+        pageCount={totals.pages}
+        isFetching={isFetching}
+        isLoading={isLoading}
+        columns={columns}
+        onSort={_onSort}
+        manualPagination
+        overflowY="auto"
+        boxShadow="base"
+        bgColor="white"
+        data={items}
+        isPaginated
+        rounded={5}
+        maxH="80vh"
+        size="md"
+        isSticky
+      />
       <EditUserModal
         isOpen={isOpen}
         onClose={onClose}

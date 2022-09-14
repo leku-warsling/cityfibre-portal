@@ -1,12 +1,8 @@
-import { Fieldset, FormItem } from "@ui"
+import { FormItem } from "@ui"
 import {
-  Divider,
   VStack,
-  Input,
   RadioGroup,
   Radio,
-  GridItem,
-  Textarea,
   Flex,
   Box,
   Select,
@@ -32,7 +28,12 @@ const ProductOptionsStep = () => {
         <FormItem
           label="Contract Term"
           name="contract_term"
-          render={(props) => <Select {...props} maxW="400px"></Select>}
+          render={(props) => (
+            <Select {...props} placeholder="Select term" maxW="400px">
+              <option value={12}>12 Months</option>
+              <option value={36}>36 Months</option>
+            </Select>
+          )}
         />
         <FormItem
           name="product"
