@@ -301,7 +301,7 @@ const UsersDesktopPage = () => {
             ...USER_ROLES.map((value) => ({ label: value, value })),
           ]}
         >
-          Role {params?.role ?? "All"}
+          Role {params?.roles ?? "All"}
         </SelectFilter>
         <SelectFilter
           onSelect={(value) => setParam("status", value as UserQuery["status"])}
