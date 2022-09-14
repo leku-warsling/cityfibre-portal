@@ -268,7 +268,7 @@ const OrdersDesktopPage = () => {
         <FieldSearch
           onFieldChange={renameParam}
           onChange={searchHandler}
-          placeholder="Search incidents..."
+          placeholder="Search orders..."
           defaultField="q"
           bgColor="white"
           maxWidth="400px"

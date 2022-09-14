@@ -317,7 +317,7 @@ const UsersDesktopPage = () => {
         <FieldSearch
           onFieldChange={renameParam}
           onChange={searchHandler}
-          placeholder="Search incidents..."
+          placeholder="Search users..."
           defaultField="q"
           bgColor="white"
           maxWidth="400px"

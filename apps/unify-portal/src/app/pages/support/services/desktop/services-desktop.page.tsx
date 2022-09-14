@@ -246,7 +246,7 @@ const ServicesDesktopPage = () => {
         <FieldSearch
           onFieldChange={renameParam}
           onChange={searchHandler}
-          placeholder="Search incidents..."
+          placeholder="Search services..."
           defaultField="q"
           bgColor="white"
           maxWidth="400px"
