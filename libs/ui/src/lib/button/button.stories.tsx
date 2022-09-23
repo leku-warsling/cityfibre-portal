@@ -1,29 +1,29 @@
-import { Story, Meta } from '@storybook/react';
+import { Story, Meta } from "@storybook/react"
 import {
   ArrowForwardIcon,
   ChevronDownIcon,
   EmailIcon,
   PhoneIcon,
   SearchIcon,
-} from '@chakra-ui/icons';
+} from "@chakra-ui/icons"
 import {
   Container,
   HStack,
   Stack,
   VStack,
-  Button, 
-  ButtonGroup, 
+  Button,
+  ButtonGroup,
   IconButton,
   ButtonProps,
-} from '@chakra-ui/react';
-import BeatLoader from 'react-spinners/BeatLoader';
+} from "@chakra-ui/react"
+import BeatLoader from "react-spinners/BeatLoader"
 
 export default {
-  title: 'Components / Forms / Button',
+  title: "Components / Forms / Button",
   component: Button,
   argTypes: {
-    variant: { 
-      control: { type: "select"},
+    variant: {
+      control: { type: "select" },
       options: [
         "primary",
         "secondary",
@@ -34,13 +34,13 @@ export default {
         "unstyled",
       ],
       table: {
-        defaultValue: "solid"
-      }
+        defaultValue: "solid",
+      },
     },
-    colorScheme: { 
-      control: { type: "select"},
+    colorScheme: {
+      control: { type: "select" },
       options: [
-        "brand",
+        "primary",
         "green",
         "blue",
         "red",
@@ -59,59 +59,36 @@ export default {
         "messenger",
         "whatsapp",
         "twitter",
-        "telegram"
+        "telegram",
       ],
       table: {
-        defaultValue: "brand"
-      }
+        defaultValue: "primary",
+      },
     },
     size: {
       control: { type: "select" },
-      options: [
-        "xs",
-        "sm",
-        "md",
-        "lg",
-        "xl",
-      ],
+      options: ["xs", "sm", "md", "lg", "xl"],
       table: {
-        defaultValue: "md"
-      }
+        defaultValue: "md",
+      },
     },
     spinnerPlacement: {
       control: { type: "select" },
-      options: [
-        "start",
-        "end",
-      ],
+      options: ["start", "end"],
       table: {
-        defaultValue: "start"
-      }
+        defaultValue: "start",
+      },
     },
     boxShadow: {
       control: { type: "select" },
-      options: [
-        "none",
-        "base",
-        "dark-lg",
-        "lg",
-        "md",
-        "outline",
-        "2xl"
-      ],
+      options: ["none", "base", "dark-lg", "lg", "md", "outline", "2xl"],
       table: {
-        defaultValue: "none"
-      }
-    }
+        defaultValue: "none",
+      },
+    },
   },
-  decorators: [
-    (story: Function) => (
-      <Container mt="40px">
-        {story()}
-      </Container>
-    ),
-  ],
-} as Meta<ButtonProps>;
+  decorators: [(story: Function) => <Container mt="40px">{story()}</Container>],
+} as Meta<ButtonProps>
 
 const Template: Story<ButtonProps> = (args) => <Button {...args} />
 
@@ -119,14 +96,13 @@ export const Primary = Template.bind({})
 Primary.args = {
   isActive: false,
   isDisabled: false,
-  isFullWidth: false,
   isLoading: false,
   variant: "solid",
-  colorScheme: "brand",
+  colorScheme: "primary",
   loadingText: "Loading",
   size: "md",
   spinnerPlacement: "start",
-  children: "Button"
+  children: "Button",
 }
 
 export const states = () => (
@@ -187,18 +163,18 @@ export const states = () => (
       </Button>
     </HStack>
     <HStack justifyContent="space-between">
-      <Button variant="link" colorScheme="brand">
+      <Button variant="link" colorScheme="primary">
         Normal
       </Button>
-      <Button variant="link" colorScheme="brand" isActive>
+      <Button variant="link" colorScheme="primary" isActive>
         Active
       </Button>
-      <Button variant="link" colorScheme="brand" isDisabled>
+      <Button variant="link" colorScheme="primary" isDisabled>
         Disabled
       </Button>
       <Button
         variant="link"
-        colorScheme="brand"
+        colorScheme="primary"
         loadingText="Loading"
         isLoading
       >
@@ -206,37 +182,33 @@ export const states = () => (
       </Button>
     </HStack>
   </VStack>
-);
+)
 
 export const variants = () => (
   <VStack spacing={6}>
     <HStack spacing={6}>
-      <Button variant="primary">
-        Primary
-      </Button>
-      <Button variant="secondary">
-        Secondary
-      </Button>
-      <Button colorScheme="blue" variant="solid">
+      <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button colorScheme="blue" variant="primary">
         Solid
       </Button>
     </HStack>
     <HStack spacing={6}>
-      <Button colorScheme="brand" variant="outline">
+      <Button colorScheme="primary" variant="outline">
         Outline
       </Button>
-      <Button colorScheme="brand" variant="ghost">
+      <Button colorScheme="primary" variant="ghost">
         Ghost
       </Button>
-      <Button colorScheme="brand" variant="link">
+      <Button colorScheme="primary" variant="link">
         Link
       </Button>
-      <Button colorScheme="brand" variant="unstyled">
+      <Button colorScheme="primary" variant="unstyled">
         Unstyled
       </Button>
     </HStack>
   </VStack>
-);
+)
 
 export const sizes = () => (
   <VStack spacing="6">
@@ -309,24 +281,24 @@ export const sizes = () => (
       </Button>
     </HStack>
     <HStack justifyContent="space-between" w="100%">
-      <Button variant="link" colorScheme="brand" size="xs">
+      <Button variant="link" colorScheme="primary" size="xs">
         XSmall
       </Button>
-      <Button variant="link" colorScheme="brand" size="sm">
+      <Button variant="link" colorScheme="primary" size="sm">
         Small
       </Button>
-      <Button variant="link" colorScheme="brand" size="md">
+      <Button variant="link" colorScheme="primary" size="md">
         Medium
       </Button>
-      <Button variant="link" colorScheme="brand" size="lg">
+      <Button variant="link" colorScheme="primary" size="lg">
         Large
       </Button>
-      <Button variant="link" colorScheme="brand" size="xl">
+      <Button variant="link" colorScheme="primary" size="xl">
         XLarge
       </Button>
     </HStack>
   </VStack>
-);
+)
 
 export const WithIcon = () => (
   <Stack direction="row" spacing={4}>
@@ -339,71 +311,155 @@ export const WithIcon = () => (
     <Button leftIcon={<EmailIcon />} variant="outline" colorScheme="gray">
       Email
     </Button>
-    <Button rightIcon={<ArrowForwardIcon />} variant="link" colorScheme="brand">
+    <Button
+      rightIcon={<ArrowForwardIcon />}
+      variant="link"
+      colorScheme="primary"
+    >
       Call us
     </Button>
   </Stack>
-);
+)
 
 export const Loading = () => (
   <VStack spacing="6">
     <HStack justifyContent="space-between">
-      <Button variant="primary" isLoading>Loading</Button>
+      <Button variant="primary" isLoading>
+        Loading
+      </Button>
       <Button variant="primary" loadingText="Loading" isLoading>
         Loading
       </Button>
-      <Button variant="primary" spinnerPlacement="start" loadingText="Loading" isLoading>
+      <Button
+        variant="primary"
+        spinnerPlacement="start"
+        loadingText="Loading"
+        isLoading
+      >
         Loading
       </Button>
-      <Button variant="primary" spinnerPlacement="end" loadingText="Loading" isLoading>
+      <Button
+        variant="primary"
+        spinnerPlacement="end"
+        loadingText="Loading"
+        isLoading
+      >
         Loading
       </Button>
-      <Button variant="primary" spinner={<BeatLoader size={8} color="gray" />} isLoading>
+      <Button
+        variant="primary"
+        spinner={<BeatLoader size={8} color="gray" />}
+        isLoading
+      >
         Loading
       </Button>
     </HStack>
     <HStack justifyContent="space-between">
-      <Button variant="secondary" isLoading>Loading</Button>
+      <Button variant="secondary" isLoading>
+        Loading
+      </Button>
       <Button variant="secondary" loadingText="Loading" isLoading>
         Loading
       </Button>
-      <Button variant="secondary" spinnerPlacement="start" loadingText="Loading" isLoading>
+      <Button
+        variant="secondary"
+        spinnerPlacement="start"
+        loadingText="Loading"
+        isLoading
+      >
         Loading
       </Button>
-      <Button variant="secondary" spinnerPlacement="end" loadingText="Loading" isLoading>
+      <Button
+        variant="secondary"
+        spinnerPlacement="end"
+        loadingText="Loading"
+        isLoading
+      >
         Loading
       </Button>
-      <Button variant="secondary" spinner={<BeatLoader size={8} color="gray" />} isLoading>
+      <Button
+        variant="secondary"
+        spinner={<BeatLoader size={8} color="gray" />}
+        isLoading
+      >
         Loading
       </Button>
     </HStack>
     <HStack justifyContent="space-between">
-      <Button variant="outline" colorScheme="blackAlpha" isLoading>Loading</Button>
-      <Button variant="outline" colorScheme="blackAlpha" loadingText="Loading" isLoading>
+      <Button variant="outline" colorScheme="blackAlpha" isLoading>
         Loading
       </Button>
-      <Button variant="outline" colorScheme="blackAlpha" spinnerPlacement="start" loadingText="Loading" isLoading>
+      <Button
+        variant="outline"
+        colorScheme="blackAlpha"
+        loadingText="Loading"
+        isLoading
+      >
         Loading
       </Button>
-      <Button variant="outline" colorScheme="blackAlpha" spinnerPlacement="end" loadingText="Loading" isLoading>
+      <Button
+        variant="outline"
+        colorScheme="blackAlpha"
+        spinnerPlacement="start"
+        loadingText="Loading"
+        isLoading
+      >
         Loading
       </Button>
-      <Button variant="outline" colorScheme="blackAlpha" spinner={<BeatLoader size={8} color="gray" />} isLoading>
+      <Button
+        variant="outline"
+        colorScheme="blackAlpha"
+        spinnerPlacement="end"
+        loadingText="Loading"
+        isLoading
+      >
+        Loading
+      </Button>
+      <Button
+        variant="outline"
+        colorScheme="blackAlpha"
+        spinner={<BeatLoader size={8} color="gray" />}
+        isLoading
+      >
         Loading
       </Button>
     </HStack>
     <HStack justifyContent="space-between">
-      <Button variant="ghost" colorScheme="blackAlpha" isLoading>Loading</Button>
-      <Button variant="ghost" colorScheme="blackAlpha" loadingText="Loading" isLoading>
+      <Button variant="ghost" colorScheme="blackAlpha" isLoading>
         Loading
       </Button>
-      <Button variant="ghost" colorScheme="blackAlpha" spinnerPlacement="start" loadingText="Loading" isLoading>
+      <Button
+        variant="ghost"
+        colorScheme="blackAlpha"
+        loadingText="Loading"
+        isLoading
+      >
         Loading
       </Button>
-      <Button variant="ghost" colorScheme="blackAlpha" spinnerPlacement="end" loadingText="Loading" isLoading>
+      <Button
+        variant="ghost"
+        colorScheme="blackAlpha"
+        spinnerPlacement="start"
+        loadingText="Loading"
+        isLoading
+      >
         Loading
       </Button>
-      <Button variant="ghost" colorScheme="blackAlpha" spinner={<BeatLoader size={8} color="gray" />} isLoading>
+      <Button
+        variant="ghost"
+        colorScheme="blackAlpha"
+        spinnerPlacement="end"
+        loadingText="Loading"
+        isLoading
+      >
+        Loading
+      </Button>
+      <Button
+        variant="ghost"
+        colorScheme="blackAlpha"
+        spinner={<BeatLoader size={8} color="gray" />}
+        isLoading
+      >
         Loading
       </Button>
     </HStack>
@@ -492,14 +548,14 @@ export const iconButton = () => (
       />
     </HStack>
   </VStack>
-);
+)
 
 export const buttonGroup = () => (
   <ButtonGroup variant="outline">
     <Button colorScheme="blue">Save</Button>
     <Button>Cancel</Button>
   </ButtonGroup>
-);
+)
 
 export const attachedButtons = () => (
   <Stack direction="row" spacing="6">
@@ -511,7 +567,7 @@ export const attachedButtons = () => (
         icon={<ChevronDownIcon />}
       />
     </ButtonGroup>
-    <ButtonGroup isAttached colorScheme="brand">
+    <ButtonGroup isAttached colorScheme="primary">
       <Button marginEnd="-px">Save</Button>
       <IconButton
         fontSize="2xl"
@@ -522,7 +578,7 @@ export const attachedButtons = () => (
       />
     </ButtonGroup>
   </Stack>
-);
+)
 
 // const motionConfig = {
 //   initial: false,

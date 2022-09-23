@@ -1,17 +1,21 @@
 import { Box, Container } from "@chakra-ui/react"
-import { Story, Meta } from "@storybook/react"
-import FocusLock from "react-focus-lock"
 import { faker } from "@faker-js/faker"
-import { useState } from "react"
-import { addDays, addHours } from "date-fns"
+import { Meta, Story } from "@storybook/react"
+import addDays from "date-fns/addDays"
+import addHours from "date-fns/addHours"
 import { nanoid } from "nanoid"
-import { append, curry, range, times } from "ramda"
+import append from "ramda/es/append"
+import curry from "ramda/es/curry"
+import range from "ramda/es/range"
+import times from "ramda/es/times"
+import { useState } from "react"
+import FocusLock from "react-focus-lock"
 import { later } from "../../util/async.util"
 import {
-  EventPickerProps,
+  EventOption,
   EventOptionId,
   EventPicker,
-  EventOption,
+  EventPickerProps,
 } from "./event-picker"
 
 const createEvent = curry((date: Date, offset: number): EventOption => {

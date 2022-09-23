@@ -1,10 +1,3 @@
-import { Steps, Step } from "chakra-ui-steps"
-import { Page, util } from "@ui"
-import { times } from "ramda"
-import { useMemo } from "react"
-import { useParams } from "react-router-dom"
-import { BiMessageDetail, BiSend } from "react-icons/bi"
-import { FiPaperclip } from "react-icons/fi"
 import {
   Avatar,
   Badge,
@@ -42,6 +35,13 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react"
+import { Page, util } from "@ui/lib"
+import { Step, Steps } from "chakra-ui-steps"
+import times from "ramda/es/times"
+import { useMemo } from "react"
+import { BiMessageDetail, BiSend } from "react-icons/bi"
+import { FiPaperclip } from "react-icons/fi"
+import { useParams } from "react-router-dom"
 
 const createCommunication = (n: number) => ({
   id: util.data.createSequence("???######").toUpperCase(),
@@ -64,7 +64,7 @@ export const ServicePage = () => {
       <Flex justify="center" w="100%" mb={8}>
         <Steps
           labelOrientation="vertical"
-          colorScheme="brand"
+          colorScheme="primary"
           maxWidth="1200px"
           activeStep={2}
         >
@@ -345,7 +345,7 @@ export const ServicePage = () => {
               <VStack w="100%" align="flex-start" spacing={6} pb={8}>
                 <Flex>
                   <Flex gap={3}>
-                    <Avatar name="City Fibre" bgColor="brand.500" />
+                    <Avatar name="City Fibre" bgColor="primary.500" />
                     <Box>
                       <Text
                         fontWeight={600}
@@ -357,7 +357,7 @@ export const ServicePage = () => {
                         Cityfibre 12:31 PM
                       </Text>
                       <Text
-                        bgColor="brand.500"
+                        bgColor="primary.500"
                         color="white"
                         fontSize="sm"
                         maxW="375px"
@@ -402,7 +402,7 @@ export const ServicePage = () => {
                 </Flex>
                 <Flex>
                   <Flex gap={3}>
-                    <Avatar name="City Fibre" bgColor="brand.500" />
+                    <Avatar name="City Fibre" bgColor="primary.500" />
                     <Box>
                       <Text
                         fontWeight={600}
@@ -414,7 +414,7 @@ export const ServicePage = () => {
                         Cityfibre 12:37 PM
                       </Text>
                       <Text
-                        bgColor="brand.500"
+                        bgColor="primary.500"
                         color="white"
                         fontSize="sm"
                         maxW="375px"

@@ -1,5 +1,5 @@
 import { Button, Input, BoxProps, Divider } from "@chakra-ui/react"
-import { createForm, FormFieldsProps, FormItem } from "@ui"
+import { createForm, FormFieldsProps, FormItem } from "@ui/lib"
 
 export type BankDetailsFieldsProps = BoxProps & FormFieldsProps
 
@@ -52,8 +52,8 @@ const BankDetailsFields = ({
       spinnerPlacement="end"
       loadingText="Saving Changes"
       isLoading={isLoading}
-      colorScheme="brand"
-      variant="solid"
+      colorScheme="primary"
+      variant="primary"
       type="submit"
     >
       Save Changes

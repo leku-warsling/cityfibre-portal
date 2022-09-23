@@ -1,12 +1,9 @@
-import {
-  SimpleGrid,
-  SimpleGridProps,
-  useRadioGroup,
-  UseRadioGroupProps,
-} from "@chakra-ui/react"
-import { omit, pick } from "ramda"
+import { SimpleGrid, SimpleGridProps } from "@chakra-ui/layout"
+import { useRadioGroup, UseRadioGroupProps } from "@chakra-ui/radio"
+import omit from "ramda/es/omit"
+import pick from "ramda/es/pick"
+import { cloneElement, ReactElement } from "react"
 import { RadioButtonProps } from "./radio-button"
-import { ReactElement, cloneElement } from "react"
 
 export type RadioButtonGroupOwnProps = {
   children: ReactElement<RadioButtonProps>[]

@@ -1,11 +1,11 @@
-import { Button, Box, Spacer } from "@chakra-ui/react"
+import { AddIcon } from "@chakra-ui/icons"
+import { Box, Button, Spacer } from "@chakra-ui/react"
+import { CrudTouchTemplate } from "@ui/lib"
+import take from "ramda/es/take"
 import { Link } from "react-router-dom"
 import { FieldSearch } from "../../../../components/field-search/field-search"
 import { SelectFilter } from "../../../../components/filters/select-filter"
-import { CrudTouchTemplate } from "@ui"
 import { INCIDENT_DATA } from "../data"
-import { AddIcon } from "@chakra-ui/icons"
-import { take } from "ramda"
 
 const keys = [
   {

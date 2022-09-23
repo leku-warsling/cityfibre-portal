@@ -1,28 +1,26 @@
-import { chakra } from "@chakra-ui/react"
-import { forwardRef, KeyboardEvent, useRef } from "react"
-import { useState } from "react"
-import { isArrowKey } from "./util"
+import { chakra } from "@chakra-ui/system"
+import addDays from "date-fns/fp/addDays"
+import isSameMonth from "date-fns/fp/isSameMonth"
+import subDays from "date-fns/fp/subDays"
+import startOfMonth from "date-fns/startOfMonth"
+import { flow } from "fp-ts/lib/function"
+import { lengthGt, notEqual } from "ramda-adjunct"
+import cond from "ramda/es/cond"
+import dec from "ramda/es/dec"
+import inc from "ramda/es/inc"
+import lensIndex from "ramda/es/lensIndex"
+import over from "ramda/es/over"
+import path from "ramda/es/path"
+import repeat from "ramda/es/repeat"
+import set from "ramda/es/set"
+import view from "ramda/es/view"
+import when from "ramda/es/when"
+import { forwardRef, KeyboardEvent, useRef, useState } from "react"
+import { select } from "../../../util/dom.util"
 import MonthList from "./month-list"
 import MonthPicker from "./month-picker"
+import { isArrowKey } from "./util"
 import YearPicker from "./year-picker"
-import { startOfMonth } from "date-fns"
-import { addDays, subDays, isSameMonth } from "date-fns/fp"
-import { lengthGt, notEqual } from "ramda-adjunct"
-import { flow } from "fp-ts/lib/function"
-import { select } from "../../../util/dom.util"
-import {
-  cond,
-  dec,
-  inc,
-  lensIndex,
-  over,
-  path,
-  repeat,
-  set,
-  view,
-  when,
-  __,
-} from "ramda"
 
 export type ArrowKey = "ArrowUp" | "ArrowDown" | "ArrowLeft" | "ArrowRight"
 

@@ -1,23 +1,18 @@
+import { NotAuthorizedPage, NotFoundPage, ServerErrorPage } from "@ui/lib/pages"
 import { PartnerSuiteBanner } from "./components/banners/partner-suite-banner"
 import RequireAuth from "./components/route/require-auth"
 import { DashboardPage } from "./pages/dashboard"
 import { Routes, Route } from "react-router-dom"
 import { AnimatePresence } from "framer-motion"
 import MainLayout from "./layouts/main.layout"
+import { AuthLayout } from "@ui/lib/templates"
 import {
-  OrderAltPage,
   OrderEthernetPage,
   OrderFTTPPage,
   OrderPage,
   OrdersPage,
   ProductsPage,
 } from "./pages/ordering"
-import {
-  AuthLayout,
-  NotAuthorizedPage,
-  NotFoundPage,
-  ServerErrorPage,
-} from "@ui"
 import {
   AccountSettingsPage,
   UserManagementPage,
@@ -180,14 +175,6 @@ export function App() {
               element={
                 <RequireAuth>
                   <OrderFTTPPage />
-                </RequireAuth>
-              }
-            />
-            <Route
-              path="alt"
-              element={
-                <RequireAuth>
-                  <OrderAltPage />
                 </RequireAuth>
               }
             />

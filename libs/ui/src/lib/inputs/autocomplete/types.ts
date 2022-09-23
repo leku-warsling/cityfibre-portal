@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { ListProps, ListItemProps } from "@chakra-ui/react"
+import { ListProps, ListItemProps } from "@chakra-ui/layout"
 export interface Option {
   value?: number | string
   label: string

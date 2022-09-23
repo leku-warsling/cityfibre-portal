@@ -1,20 +1,19 @@
 import { flow } from "fp-ts/lib/function"
-import { isNaN, isNil } from "lodash-es"
-import {
-  anyPass,
-  both,
-  either,
-  equals,
-  filter,
-  find,
-  has,
-  is,
-  pathEq,
-  test,
-  toLower,
-  where,
-} from "ramda"
+import isNaN from "lodash-es/isNaN"
+import isNil from "lodash-es/isNil"
 import { isFalsy, isNotNaN } from "ramda-adjunct"
+import anyPass from "ramda/es/anyPass"
+import both from "ramda/es/both"
+import either from "ramda/es/either"
+import equals from "ramda/es/equals"
+import filter from "ramda/es/filter"
+import find from "ramda/es/find"
+import has from "ramda/es/has"
+import is from "ramda/es/is"
+import pathEq from "ramda/es/pathEq"
+import test from "ramda/es/test"
+import toLower from "ramda/es/toLower"
+import where from "ramda/es/where"
 import { useCallback, useEffect, useRef } from "react"
 import { select, selectAll } from "../util/dom.util"
 

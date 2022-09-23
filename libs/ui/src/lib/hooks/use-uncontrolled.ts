@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react"
-import { propEq } from "ramda"
 import { isFunction } from "ramda-adjunct"
+import propEq from "ramda/es/propEq"
+import { useEffect, useRef, useState } from "react"
 
 export type UncontrolledMode = "initial" | "controlled" | "uncontrolled"
 

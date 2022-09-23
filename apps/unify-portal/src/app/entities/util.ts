@@ -1,4 +1,4 @@
-import { util } from "@ui"
+import { date } from "@ui/lib/util"
 import { z } from "zod"
 
 export const addressSchema = z.object({
@@ -22,8 +22,8 @@ export const customerSchema = z.object({
 export const appointmentSchema = z
   .object({
     status: z.enum(["Pending", "Confirmed"] as const),
-    start: z.string().transform(util.date.toDate),
-    end: z.string().transform(util.date.toDate),
+    start: z.string().transform(date.toDate),
+    end: z.string().transform(date.toDate),
     reservation_key: z.string(),
   })
   .optional()

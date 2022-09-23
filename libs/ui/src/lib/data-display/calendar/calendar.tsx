@@ -1,10 +1,5 @@
-import {
-  Box,
-  BoxProps,
-  ButtonProps,
-  Flex,
-  IconButtonProps,
-} from "@chakra-ui/react"
+import { ButtonProps, IconButtonProps } from "@chakra-ui/button"
+import { Box, BoxProps, Flex } from "@chakra-ui/layout"
 import { FC } from "react"
 
 export type Participant = {

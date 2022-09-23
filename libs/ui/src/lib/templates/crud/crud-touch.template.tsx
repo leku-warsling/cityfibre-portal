@@ -1,23 +1,23 @@
-import { Pagination } from "../../navigation/pagination"
-import { ChangeEvent, FC, ReactElement, ReactNode } from "react"
-import { isFunction, isString } from "ramda-adjunct"
-import { path } from "ramda"
 import {
-  AccordionButton,
-  AccordionPanel,
-  AccordionItem,
-  AccordionIcon,
   Accordion,
-  WrapItem,
-  Heading,
-  Divider,
-  Select,
-  HStack,
-  Wrap,
-  Text,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
   Box,
   ButtonGroup,
+  Divider,
+  Heading,
+  HStack,
+  Select,
+  Text,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react"
+import { isFunction, isString } from "ramda-adjunct"
+import path from "ramda/es/path"
+import { ChangeEvent, FC, ReactElement, ReactNode } from "react"
+import { Pagination } from "../../navigation/pagination"
 
 export type Stat = {
   value: number | string
@@ -95,7 +95,7 @@ export const CrudTouchTemplate = ({
 }: CrudTouchTemplateProps) => {
   const statsPanel = stats && (
     <HStack
-      divider={<Divider orientation="vertical" height="30px" />}
+      divider={<Divider orientation="vertical" height="35px" />}
       justifyContent="center"
       boxShadow="base"
       bgColor="white"
@@ -107,9 +107,18 @@ export const CrudTouchTemplate = ({
     >
       {stats.map((stat) => (
         <Box flex={1}>
-          <Text fontWeight={800}>{stat.value}</Text>
-          <Text fontSize="xs" color="gray.600">
+          <Text
+            fontSize="11px"
+            color="gray.600"
+            fontWeight={800}
+            textTransform="uppercase"
+            letterSpacing="wider"
+            lineHeight={1}
+          >
             {stat.label}
+          </Text>
+          <Text fontWeight={800} fontSize="xl">
+            {stat.value}
           </Text>
         </Box>
       ))}
@@ -151,7 +160,7 @@ export const CrudTouchTemplate = ({
         ))}
       </Accordion>
       <HStack justify="space-between" align="center">
-        <Pagination page={1} total={5} onChange={console.log} />
+        <Pagination current={1} total={5} onChange={console.log} />
         <Select
           onChange={(evt: ChangeEvent<HTMLSelectElement>) =>
             isFunction(onPaginate) &&

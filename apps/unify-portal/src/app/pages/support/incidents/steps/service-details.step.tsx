@@ -1,28 +1,33 @@
-import { FormItem, util } from "@ui"
 import {
-  SimpleGrid,
-  Divider,
-  VStack,
-  Text,
-  Input,
-  Select,
-  Stack,
-  useBreakpointValue,
   Box,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  Heading,
-  AlertDescription,
+  Divider,
   Flex,
-  Spinner,
+  Heading,
+  SimpleGrid,
+  Stack,
+  Text,
+  VStack,
+} from "@chakra-ui/layout"
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
   AlertProps,
-  Tooltip,
-} from "@chakra-ui/react"
-import { FC, ReactNode, useEffect, useState } from "react"
+  AlertTitle,
+} from "@chakra-ui/alert"
+import { Input } from "@chakra-ui/input"
+import { Select } from "@chakra-ui/select"
+import { Tooltip } from "@chakra-ui/tooltip"
+import { Spinner } from "@chakra-ui/spinner"
+import { useBreakpointValue } from "@chakra-ui/media-query"
+import { FormItem, util } from "@ui/lib"
 import { ServiceRefLookup } from "@unify/components"
+import isNil from "ramda/es/isNil"
+import propOr from "ramda/es/propOr"
+import startsWith from "ramda/es/startsWith"
+import test from "ramda/es/test"
+import { FC, ReactNode, useEffect, useState } from "react"
 import { useFormContext } from "react-hook-form"
-import { isNil, propOr, startsWith, test } from "ramda"
 
 export type ServiceDetailsFormProps = {
   size: "sm" | "md" | "lg"

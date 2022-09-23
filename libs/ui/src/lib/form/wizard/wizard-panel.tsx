@@ -2,15 +2,8 @@ import { useWizard, WizardContextState } from "./wizard.provider"
 import { FC, ReactNode } from "react"
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons"
 import { Title } from "../../data-display/title"
-import {
-  ButtonGroup,
-  StackProps,
-  Divider,
-  Button,
-  HStack,
-  VStack,
-  Box,
-} from "@chakra-ui/react"
+import { StackProps, Divider, HStack, VStack, Box } from "@chakra-ui/layout"
+import { ButtonGroup, Button } from "@chakra-ui/button"
 
 type WizardState = Omit<WizardContextState, "Step">
 
@@ -67,8 +60,8 @@ const defaultFooter = (ws: WizardState) => (
           rightIcon={<ArrowForwardIcon />}
           px={{ base: 4, lg: 10 }}
           onClick={ws.onNext}
-          colorScheme="brand"
-          variant="solid"
+          colorScheme="primary"
+          variant="primary"
           size={ws.size}
         >
           Next

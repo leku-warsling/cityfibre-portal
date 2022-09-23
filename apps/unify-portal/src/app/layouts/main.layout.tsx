@@ -5,36 +5,24 @@ import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai"
 import { SearchIcon } from "@chakra-ui/icons"
 import { useAuth } from "../providers/auth.provider"
 import { useState } from "react"
+import { AppShell, Sidebar, AppBar } from "@ui/lib/layout"
+import { PartnersIcon, Logo } from "@ui/lib/assets"
+import { Nav } from "@ui/lib/navigation"
+import { IconButton } from "@chakra-ui/button"
+import { Text, Divider, Badge, Box, Flex } from "@chakra-ui/layout"
 import {
-  PartnersIcon,
-  IconButton,
-  AppShell,
-  Sidebar,
-  AppBar,
-  Logo,
-  Text,
-  Nav,
-} from "@ui"
-import {
-  InputLeftElement,
-  useDisclosure,
   MenuDivider,
   MenuButton,
-  InputGroup,
   MenuList,
   MenuItem,
-  Divider,
-  Avatar,
-  Badge,
-  Box,
   Menu,
-  Flex,
-  Icon,
-  Input,
-  Portal,
-  Hide,
-  Show,
-} from "@chakra-ui/react"
+} from "@chakra-ui/menu"
+import { InputLeftElement, InputGroup, Input } from "@chakra-ui/input"
+import { Avatar } from "@chakra-ui/avatar"
+import { Icon } from "@chakra-ui/icon"
+import { Portal } from "@chakra-ui/portal"
+import { useDisclosure } from "@chakra-ui/hooks"
+import { Hide, Show } from "@chakra-ui/media-query"
 import {
   FiHelpCircle,
   FiSettings,
@@ -199,18 +187,13 @@ const MainLayout = () => {
   )
 
   const brand = (
-    <Box bgColor="brand.500" rounded={5} p={3}>
-      <PartnersIcon
-        height="20"
-        style={{
-          filter: "drop-shadow(0px 5px 2px rgb(0 0 0 / 0.1)",
-        }}
-      />
+    <Box bgColor="secondary.500" rounded={5} p={3}>
+      <PartnersIcon height="20" color="black" />
     </Box>
   )
 
   const footer = (
-    <Sidebar.Section fontWeight="semibold" color="brand.500" gap={1}>
+    <Sidebar.Section fontWeight="semibold" color="secondary.500" gap={1}>
       {({ isCollapsed }) => (
         <Flex
           hidden={isCollapsed}
@@ -236,7 +219,8 @@ const MainLayout = () => {
             <span>Inbox</span>
             <Badge
               variant="solid"
-              colorScheme="brand"
+              color="black"
+              colorScheme="secondary"
               fontSize="14px"
               px="10px"
               py="4px"
@@ -245,7 +229,7 @@ const MainLayout = () => {
               3
             </Badge>
           </Nav.Item>
-          <Divider borderColor="brand.500" my="1" />
+          <Divider borderColor="white" my="1" />
           <Nav.Item as={Link} to="/" icon={RiDashboard3Line}>
             Dashboard
           </Nav.Item>
@@ -291,7 +275,7 @@ const MainLayout = () => {
           <Nav.Item as={Link} to="/" icon={BiBookReader}>
             ISP Hub
           </Nav.Item>
-          <Divider borderColor="brand.500" my={2} />
+          <Divider borderColor="white" my={2} />
           <Nav.SubMenu icon={FiUsers} label="User Management">
             <Nav.Item as={Link} to="/users">
               Users

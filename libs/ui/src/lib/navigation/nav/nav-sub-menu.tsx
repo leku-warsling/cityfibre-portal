@@ -1,25 +1,25 @@
-import { cloneElement, FC, ReactElement, useContext, useState } from "react"
 import {
-  chakra,
-  useStyles,
-  Icon,
-  HTMLChakraProps,
-  BoxProps,
-  Collapse,
-  HStack,
-  Tooltip,
   Popover,
-  PopoverTrigger,
-  PopoverContent,
-  Portal,
   PopoverArrow,
   PopoverBody,
-  StylesProvider,
+  PopoverContent,
   PopoverHeader,
-} from "@chakra-ui/react"
-import { FiChevronDown, FiChevronUp } from "react-icons/fi"
-import { IconType } from "react-icons"
+  PopoverTrigger,
+} from "@chakra-ui/popover"
+import {
+  chakra,
+  HTMLChakraProps,
+  StylesProvider,
+  useStyles,
+} from "@chakra-ui/system"
+import { Portal } from "@chakra-ui/portal"
+import { Icon } from "@chakra-ui/icon"
+import { HStack } from "@chakra-ui/layout"
+import { Collapse } from "@chakra-ui/transition"
 import not from "ramda/es/not"
+import { cloneElement, FC, ReactElement, useContext, useState } from "react"
+import { IconType } from "react-icons"
+import { FiChevronDown, FiChevronUp } from "react-icons/fi"
 import { NavContext } from "./nav"
 
 export type NavSubMenuOwnProps = {
@@ -66,7 +66,7 @@ const NavSubMenu: FC<NavSubMenuProps> = ({
           <chakra.div
             __css={styles["nav"]}
             p={3}
-            bg="whiteAlpha.100"
+            bg="blackAlpha.50"
             rounded={5}
           >
             {children.map((child, i) =>
@@ -88,12 +88,21 @@ const NavSubMenu: FC<NavSubMenuProps> = ({
     <Popover trigger="hover" placement="right">
       <PopoverTrigger>{trigger}</PopoverTrigger>
       <Portal>
-        <PopoverContent ml={4} bg="brand.800" borderColor="brand.800">
-          <PopoverArrow bg="brand.800" borderColor="brand.800" color="white" />
+        <PopoverContent
+          ml={4}
+          bg="primary.500"
+          borderColor="primary.500"
+          boxShadow="lg"
+        >
+          <PopoverArrow
+            bg="primary.500"
+            borderColor="primary.500"
+            color="white"
+          />
           <PopoverHeader
             textTransform="uppercase"
             letterSpacing="widest"
-            color="whiteAlpha.700"
+            color="secondary.500"
             fontWeight={800}
             fontSize="xs"
             border="none"

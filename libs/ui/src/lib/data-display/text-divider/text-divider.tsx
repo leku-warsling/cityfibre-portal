@@ -1,4 +1,4 @@
-import { Divider, HStack, StackProps, Text } from "@chakra-ui/react"
+import { Divider, HStack, StackProps, Text } from "@chakra-ui/layout"
 import { FC } from "react"
 
 export const TextDivider: FC<StackProps> = ({

@@ -1,9 +1,9 @@
-import { Story, Meta } from "@storybook/react"
 import { Container } from "@chakra-ui/react"
-import { AutocompleteProps } from "./types"
-import { Autocomplete } from "./autocomplete"
+import { Meta, Story } from "@storybook/react"
 import axios from "axios"
-import { take } from "ramda"
+import take from "ramda/es/take"
+import { Autocomplete } from "./autocomplete"
+import { AutocompleteProps } from "./types"
 
 const getOptions = async () => {
   return axios

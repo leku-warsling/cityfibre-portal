@@ -1,5 +1,5 @@
-import { useBreakpointValue } from "@chakra-ui/react"
-import { AuthTemplate, ForgottenPasswordForm, Text } from "@ui"
+import { useBreakpointValue, Text } from "@chakra-ui/react"
+import { AuthTemplate, ForgottenPasswordForm } from "@ui/lib"
 
 export type PageProps = {
   strapline: string

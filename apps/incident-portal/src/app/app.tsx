@@ -1,7 +1,7 @@
 import { Box, ChakraProvider } from "@chakra-ui/react"
 import { theme } from "@ui"
 import { QueryClient, QueryClientProvider } from "react-query"
-import { Global, css } from "@emotion/core"
+import { Global, css } from "@emotion/react"
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 import { AnimatePresence } from "framer-motion"
 import { Suspense } from "react"

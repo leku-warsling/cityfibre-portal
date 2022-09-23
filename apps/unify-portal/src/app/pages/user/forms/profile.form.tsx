@@ -1,12 +1,7 @@
-import {
-  Button,
-  Input,
-  BoxProps,
-  ButtonGroup,
-  Text,
-  Checkbox,
-} from "@chakra-ui/react"
-import { createForm, FormFieldsProps, FormItem } from "@ui"
+import { Button, ButtonGroup } from "@chakra-ui/button"
+import { BoxProps } from "@chakra-ui/layout"
+import { Input } from "@chakra-ui/input"
+import { createForm, FormFieldsProps, FormItem } from "@ui/lib"
 
 export type ProfileFieldsProps = BoxProps & FormFieldsProps
 
@@ -101,8 +96,8 @@ const ProfileFields = ({
         spinnerPlacement="end"
         loadingText="Saving Changes"
         isLoading={isLoading}
-        colorScheme="brand"
-        variant="solid"
+        colorScheme="primary"
+        variant="primary"
         type="submit"
       >
         Save Changes

@@ -1,4 +1,4 @@
-import { Box, BoxProps } from "@chakra-ui/react"
+import { Box, BoxProps } from "@chakra-ui/layout"
 import { FC } from "react"
 
 export type CardSectionProps = {

@@ -1,25 +1,11 @@
-import {
-  Table as SimpleTable,
-  Thead,
-  Tbody,
-  Th,
-  TableCaption,
-  Td,
-  Tfoot,
-  TableContainer,
-  Tr,
-} from '@chakra-ui/react';
-import Table from "./table"
-
+export * from "./table"
 export {
-  Table,
-  SimpleTable,
-  Thead,
-  Tbody,
-  Th,
-  TableCaption,
-  Td,
-  Tfoot,
-  TableContainer,
-  Tr,
-}
+  TableStatisticProps,
+  ColumnVisibility,
+  TableStatistic,
+  ColumnFilter,
+  ColumnSorter,
+  ColumnFilterProps,
+  TableSearch,
+  TableAction,
+} from "./components"

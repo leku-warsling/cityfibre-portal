@@ -4,7 +4,7 @@ import {
   InputGroup,
   InputRightElement,
   InputProps,
-} from "@chakra-ui/react"
+} from "@chakra-ui/input"
 import { BsEye, BsEyeSlash } from "react-icons/bs"
 import not from "ramda/es/not"
 

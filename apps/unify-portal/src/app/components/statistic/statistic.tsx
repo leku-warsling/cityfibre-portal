@@ -36,6 +36,6 @@ export const Statistic = ({
       {label}
     </Text>
     <Spacer />
-    {icon && <Icon as={icon} color="brand.500" fontSize="3xl" />}
+    {icon && <Icon as={icon} color="primary.500" fontSize="3xl" />}
   </HStack>
 )

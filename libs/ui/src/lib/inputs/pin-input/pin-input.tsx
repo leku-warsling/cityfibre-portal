@@ -1,11 +1,10 @@
+import { HStack, StackProps } from "@chakra-ui/layout"
 import {
-  PinInputProps as ChakraPinInputProps,
   PinInput as ChakraPinInput,
   PinInputField,
-  HStack,
-  StackProps,
-} from "@chakra-ui/react"
-import { range } from "ramda"
+  PinInputProps as ChakraPinInputProps,
+} from "@chakra-ui/pin-input"
+import range from "ramda/es/range"
 
 export type PinInputOwnProps = {
   length: number

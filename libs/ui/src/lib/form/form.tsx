@@ -1,13 +1,14 @@
 // @ts-nocheck
-import { chakra, SystemProps } from "@chakra-ui/react"
+import { Box } from "@chakra-ui/layout"
+import { SystemProps } from "@chakra-ui/system"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ComponentType, ForwardedRef, forwardRef } from "react"
 import {
-  FormProvider,
-  FieldValues,
-  useForm,
-  SubmitHandler,
   DefaultValues,
+  FieldValues,
+  FormProvider,
+  SubmitHandler,
+  useForm,
 } from "react-hook-form"
 
 export type CreateFormProps<T extends FieldValues> = {
@@ -52,7 +53,7 @@ export const createForm = <P extends object>(Component: ComponentType<P>) => {
 
     return (
       <FormProvider {...methods}>
-        <chakra.form
+        <Box
           onSubmit={methods.handleSubmit(onSubmit)}
           justifyContent={justify}
           flexDir={direction}
@@ -62,9 +63,10 @@ export const createForm = <P extends object>(Component: ComponentType<P>) => {
           width={width}
           gap={spacing}
           ref={ref}
+          as="form"
         >
           <Component {...(props as P)} />
-        </chakra.form>
+        </Box>
       </FormProvider>
     )
   }

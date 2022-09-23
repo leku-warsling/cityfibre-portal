@@ -1,4 +1,5 @@
-import { Box, BoxProps, StyleProps } from "@chakra-ui/react"
+import { Box, BoxProps } from "@chakra-ui/layout"
+import { StyleProps } from "@chakra-ui/system"
 import { FC } from "react"
 
 type Position = "top" | "middle" | "bottom"

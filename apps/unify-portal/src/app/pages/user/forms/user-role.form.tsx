@@ -1,13 +1,8 @@
-import {
-  Button,
-  Input,
-  BoxProps,
-  ButtonGroup,
-  Text,
-  Checkbox,
-  Spacer,
-} from "@chakra-ui/react"
-import { createForm, FormFieldsProps, FormItem } from "@ui"
+import { Button, ButtonGroup } from "@chakra-ui/button"
+import { BoxProps, Text, Spacer } from "@chakra-ui/layout"
+import { Checkbox } from "@chakra-ui/checkbox"
+import { Input } from "@chakra-ui/input"
+import { createForm, FormFieldsProps, FormItem } from "@ui/lib"
 
 export type UserRoleFieldsProps = BoxProps &
   FormFieldsProps & {
@@ -125,8 +120,8 @@ const UserRoleFields = ({
         spinnerPlacement="end"
         loadingText="Saving Changes"
         isLoading={isLoading}
-        colorScheme="brand"
-        variant="solid"
+        colorScheme="primary"
+        variant="primary"
         type="submit"
       >
         {mode === "edit" ? "Update" : "Create"}

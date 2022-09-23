@@ -1,4 +1,4 @@
-import { curry } from "ramda"
+import curry from "ramda/es/curry"
 
 const select = curry(<T extends HTMLElement>(q: string, el: T) => {
   return el.querySelector(q)

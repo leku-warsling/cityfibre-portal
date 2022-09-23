@@ -1,10 +1,10 @@
-import { util } from "@ui"
+import { date } from "@ui/lib/util"
 import { z } from "zod"
 
 const userSchema = z.object({
   email_verified_at: z.string(),
-  created_at: z.string().transform(util.date.toDate),
-  updated_at: z.string().transform(util.date.toDate),
+  created_at: z.string().transform(date.toDate),
+  updated_at: z.string().transform(date.toDate),
   password: z.string(),
   avatar: z.string(),
   email: z.string(),
@@ -13,8 +13,8 @@ const userSchema = z.object({
 })
 
 const commentSchema = z.object({
-  updated_at: z.string().transform(util.date.toDate),
-  created_at: z.string().transform(util.date.toDate),
+  updated_at: z.string().transform(date.toDate),
+  created_at: z.string().transform(date.toDate),
   content: z.string(),
   author: userSchema,
   id: z.number(),
@@ -29,32 +29,32 @@ const addressSchema = z.object({
 })
 
 export const incidentSchema = z.object({
+  updated_at: z.string().transform(date.toDate),
+  created_at: z.string().transform(date.toDate),
   comments: z.array(commentSchema),
   customer_reference: z.string(),
   service_reference: z.string(),
   description: z.string(),
   address: addressSchema,
-  updated_at: z.string().transform(util.date.toDate),
-  created_at: z.string().transform(util.date.toDate),
   priority: z.string(),
-  email: z.string(),
   status: z.string(),
-  ref: z.string(),
+  email: z.string(),
   user: userSchema,
+  ref: z.string(),
   id: z.number(),
 })
 
 export const incidentMetaSchema = z.object({
-  records: z.number(),
-  pages: z.number(),
-  on_hold: z.number(),
-  submitted: z.number(),
-  closed: z.number(),
-  new: z.number(),
-  resolved: z.number(),
-  cancelled: z.number(),
   in_progress: z.number(),
+  submitted: z.number(),
+  cancelled: z.number(),
+  resolved: z.number(),
+  records: z.number(),
+  on_hold: z.number(),
+  closed: z.number(),
+  pages: z.number(),
   count: z.number(),
+  new: z.number(),
 })
 
 export type Incident = z.infer<typeof incidentSchema>

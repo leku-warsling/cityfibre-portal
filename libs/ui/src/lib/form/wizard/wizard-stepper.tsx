@@ -1,6 +1,6 @@
 import { Steps, StepsProps, Step } from "chakra-ui-steps"
 import { useWizard } from "./wizard.provider"
-import { Box, BoxProps } from "@chakra-ui/react"
+import { Box, BoxProps } from "@chakra-ui/layout"
 import { FC } from "react"
 
 export type WizardStepperProps = BoxProps &

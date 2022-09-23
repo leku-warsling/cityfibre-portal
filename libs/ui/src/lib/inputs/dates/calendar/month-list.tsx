@@ -1,12 +1,14 @@
+import { Divider, HStack } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
+import { chakra } from "@chakra-ui/system"
+import addMonths from "date-fns/addMonths"
+import subMonths from "date-fns/subMonths"
+import range from "ramda/es/range"
 import { forwardRef, KeyboardEvent, ReactNode, RefObject } from "react"
-import { inRange, isZero } from "./util"
-import Month from "./month"
-import CalendarControls from "./calendar-controls"
-import { chakra, HStack, Divider, Button } from "@chakra-ui/react"
-import { addMonths, subMonths } from "date-fns"
-import { range } from "ramda"
-import { format } from "date-fns/fp"
 import { BiCaretDown } from "react-icons/bi"
+import CalendarControls from "./calendar-controls"
+import Month from "./month"
+import { inRange, isZero } from "./util"
 
 export type MonthListProps = {
   daysRefs: RefObject<HTMLButtonElement[][][]>
@@ -72,7 +74,10 @@ const MonthList = forwardRef<HTMLDivElement, MonthListProps>(
               variant="ghost"
               size={size}
             >
-              {format("MMM yyyy", monthDate)}
+              {monthDate.toLocaleDateString("en-GB", {
+                month: "short",
+                year: "numeric",
+              })}
             </Button>
           </CalendarControls>
           <Divider mb={1.5} />

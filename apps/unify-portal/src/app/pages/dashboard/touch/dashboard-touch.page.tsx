@@ -57,7 +57,7 @@ const OrderProducts = () => {
             display="flex"
             pt={5}
           >
-            <Icon as={FTTPIcon} fontSize="80px" color="brand.500" />
+            <Icon as={FTTPIcon} fontSize="80px" color="primary.500" />
           </Card.Section>
           <VStack spacing={5}>
             <Text fontSize="lg" fontWeight={700}>
@@ -68,7 +68,7 @@ const OrderProducts = () => {
               <ListItem>Unlimited</ListItem>
               <ListItem>Able to support multiple line profiles</ListItem>
             </UnorderedList>
-            <Button rightIcon={<ArrowForwardIcon />} isFullWidth>
+            <Button rightIcon={<ArrowForwardIcon />} w="full">
               Check Availability
             </Button>
           </VStack>
@@ -81,7 +81,7 @@ const OrderProducts = () => {
             mb={2}
             pt={8}
           >
-            <Icon as={EthernetIcon} fontSize="48px" color="brand.500" />
+            <Icon as={EthernetIcon} fontSize="48px" color="primary.500" />
           </Card.Section>
           <VStack spacing={4}>
             <Text fontSize="lg" fontWeight={700}>
@@ -92,7 +92,7 @@ const OrderProducts = () => {
               <ListItem>Unlimited</ListItem>
               <ListItem>Able to support multiple line profiles</ListItem>
             </UnorderedList>
-            <Button rightIcon={<ArrowForwardIcon />} isFullWidth>
+            <Button rightIcon={<ArrowForwardIcon />} w="full">
               Check Availability
             </Button>
           </VStack>
@@ -112,7 +112,7 @@ const LatestIssues = () => {
         <Button size="sm" variant="link" as={Link} to="/incidents/create">
           Raise an Incident{" "}
           <Box
-            bgColor="brand.500"
+            bgColor="primary.500"
             textAlign="center"
             rounded="full"
             color="white"

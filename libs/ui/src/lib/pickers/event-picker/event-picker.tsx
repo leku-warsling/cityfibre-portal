@@ -1,8 +1,3 @@
-import { ReactNode, useEffect, useState } from "react"
-import { isFunction } from "ramda-adjunct"
-import { flow } from "fp-ts/lib/function"
-import { format } from "date-fns/fp"
-import { get } from "lodash-es"
 import {
   Alert,
   Box,
@@ -12,7 +7,17 @@ import {
   Spinner,
   VStack,
 } from "@chakra-ui/react"
-import { equals, groupBy, includes, isEmpty, juxt, prop, __ } from "ramda"
+import { flow } from "fp-ts/lib/function"
+import get from "lodash-es/get"
+import { isFunction } from "ramda-adjunct"
+import equals from "ramda/es/equals"
+import groupBy from "ramda/es/groupBy"
+import includes from "ramda/es/includes"
+import isEmpty from "ramda/es/isEmpty"
+import join from "ramda/es/join"
+import juxt from "ramda/es/juxt"
+import prop from "ramda/es/prop"
+import { ReactNode, useEffect, useState } from "react"
 import { Calendar } from "../../inputs/dates/calendar"
 
 export type EventOptionId = string | number
@@ -46,8 +51,11 @@ export type EventPickerProps = {
   maxDate?: Date
 }
 
-const time = format("h:mm aaa")
-const key = format("dd/MM/yyyy")
+const getDayPeriod = (date: Date) => (date.getHours() >= 12 ? "PM" : "AM")
+const toTimeString = (date: Date) =>
+  date.toLocaleTimeString("en-GB", { timeStyle: "short" })
+const time = flow(juxt([toTimeString, getDayPeriod]), join(" "))
+const key = (date: Date) => date.toLocaleDateString("en-GB")
 const genKey = flow(prop<"startAt", Date>("startAt"), key)
 const groupByDay = groupBy<EventOption, string>(genKey)
 const startAtComparator = (a: EventOption, b: EventOption) => {
@@ -66,7 +74,8 @@ export const EventPicker = ({
   maxDate,
   value,
 }: EventPickerProps) => {
-  const isSelected = Array.isArray(value) ? includes(__, value) : equals(value)
+  const isSelected = (a: any) =>
+    Array.isArray(value) ? includes(a, value) : equals(value, a)
   const [isLoading, setLoading] = useState<boolean>(false)
   const [date, setDate] = useState(initialDate)
   const [items, setItems] = useState(groupByDay(options))
@@ -104,7 +113,7 @@ export const EventPicker = ({
             onClick={() => isFunction(onSelect) && onSelect(item.id)}
             isActive={isSelected(item.id)}
             variant="outline"
-            isFullWidth
+            w="full"
           >
             {`${item.title} - ${time(item.startAt)}`}
           </Button>
@@ -125,7 +134,7 @@ export const EventPicker = ({
       />
       <Box flexGrow={1}>
         <Heading mt={3} mb={4} size="md" px={2}>
-          {format("EEEE do MMMM yyyy", date)}
+          {date.toLocaleDateString("en-GB", { dateStyle: "full" })}
         </Heading>
         <Box
           p={2}

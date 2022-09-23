@@ -12,7 +12,7 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react"
-import { random } from "lodash-es"
+import random from "lodash-es/random"
 import { BiMessageError, BiUpArrowAlt, BiWrench } from "react-icons/bi"
 
 export const GroupStats = () => {
@@ -22,7 +22,7 @@ export const GroupStats = () => {
       rounded={6}
       px={8}
       py={6}
-      bgColor="brand.800"
+      bgColor="primary.500"
       color="white"
     >
       <HStack width="100%" justifyContent="space-between">
@@ -60,7 +60,7 @@ export const GroupStats = () => {
                 pb={6}
               >
                 <Flex
-                  bgColor="#9D8DFF"
+                  bgColor="secondary.500"
                   w="50px"
                   h="50px"
                   position="absolute"
@@ -72,7 +72,7 @@ export const GroupStats = () => {
                   align="center"
                   boxShadow="base"
                 >
-                  <Icon as={BiMessageError} color="white" fontSize="3xl" />
+                  <Icon as={BiMessageError} color="black" fontSize="3xl" />
                 </Flex>
                 <Flex flexDir="column" gap={2}>
                   <Text
@@ -111,7 +111,7 @@ export const GroupStats = () => {
                 pb={6}
               >
                 <Flex
-                  bgColor="#9D8DFF"
+                  bgColor="secondary.500"
                   w="50px"
                   h="50px"
                   position="absolute"
@@ -123,7 +123,7 @@ export const GroupStats = () => {
                   align="center"
                   boxShadow="base"
                 >
-                  <Icon as={BiWrench} color="white" fontSize="3xl" />
+                  <Icon as={BiWrench} color="black" fontSize="3xl" />
                 </Flex>
                 <Flex flexDir="column" gap={2}>
                   <Text
@@ -162,7 +162,7 @@ export const GroupStats = () => {
                 pb={6}
               >
                 <Flex
-                  bgColor="#9D8DFF"
+                  bgColor="secondary.500"
                   w="50px"
                   h="50px"
                   position="absolute"
@@ -174,7 +174,7 @@ export const GroupStats = () => {
                   align="center"
                   boxShadow="base"
                 >
-                  <Icon as={BiMessageError} color="white" fontSize="3xl" />
+                  <Icon as={BiMessageError} color="black" fontSize="3xl" />
                 </Flex>
                 <Flex flexDir="column" gap={2}>
                   <Text
@@ -213,7 +213,7 @@ export const GroupStats = () => {
                 pb={6}
               >
                 <Flex
-                  bgColor="#9D8DFF"
+                  bgColor="secondary.500"
                   w="50px"
                   h="50px"
                   position="absolute"
@@ -225,7 +225,7 @@ export const GroupStats = () => {
                   align="center"
                   boxShadow="base"
                 >
-                  <Icon as={BiMessageError} color="white" fontSize="3xl" />
+                  <Icon as={BiMessageError} color="black" fontSize="3xl" />
                 </Flex>
                 <Flex flexDir="column" gap={2}>
                   <Text

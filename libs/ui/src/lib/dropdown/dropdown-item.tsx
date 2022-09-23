@@ -1,4 +1,4 @@
-import { ListItem, ListItemProps } from "@chakra-ui/react"
+import { ListItem, ListItemProps } from "@chakra-ui/layout"
 import { forwardRef } from "react"
 
 export interface DropdownItemProps extends ListItemProps {

@@ -21,7 +21,7 @@ Primary.args = {
   colorScheme: "blue",
   variant: "ghost",
   total: 100,
+  current: 1,
   spacing: 1,
   size: "md",
-  page: 1,
 }

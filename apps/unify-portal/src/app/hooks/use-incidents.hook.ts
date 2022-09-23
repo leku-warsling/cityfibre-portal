@@ -1,7 +1,7 @@
-import { map } from "ramda"
-import { useQuery } from "react-query"
-import { api } from "../api"
 import { incidentSchema, incidentMetaSchema } from "../entities"
+import { useQuery } from "react-query"
+import map from "ramda/es/map"
+import { api } from "../api"
 
 const options = {
   keepPreviousData: true,

@@ -1,4 +1,4 @@
-import { WizardPanel, WizardProvider, WizardStepper } from "@ui"
+import { WizardPanel, WizardProvider, WizardStepper } from "@ui/lib"
 import YourDetailsStep from "./steps/your-details.step"
 import CompleteStep from "./steps/complete.step"
 import IncidentDetailsStep from "./steps/incident-details.step"

@@ -1,8 +1,8 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios"
 import identity from "ramda/es/identity"
 import pathEq from "ramda/es/pathEq"
+import { url } from "@ui/lib/util"
 import set from "lodash-es/set"
-import { util } from "@ui"
 import store from "store"
 
 const { NX_API_URI, NX_BASE_REQUEST_TIMEOUT = 15000 } = process.env
@@ -34,7 +34,7 @@ const errorResponseHandler = (err: AxiosError) => {
   }
 
   if (isUnauthorized(err)) {
-    return util.url.redirect("/auth")
+    return url.redirect("/auth")
   }
 
   return Promise.reject(err)

@@ -1,4 +1,4 @@
-import { InputProps } from "@chakra-ui/react"
+import { InputProps } from "@chakra-ui/input"
 
 export type DatePickerOwnProps = {
   format?: string

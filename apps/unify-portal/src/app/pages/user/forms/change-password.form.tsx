@@ -1,12 +1,6 @@
-import {
-  Button,
-  Input,
-  BoxProps,
-  ButtonGroup,
-  Text,
-  Checkbox,
-} from "@chakra-ui/react"
-import { createForm, FormFieldsProps, FormItem, PasswordInput } from "@ui"
+import { BoxProps } from "@chakra-ui/layout"
+import { Button, ButtonGroup } from "@chakra-ui/button"
+import { createForm, FormFieldsProps, FormItem, PasswordInput } from "@ui/lib"
 
 export type ChangePasswordFieldsProps = BoxProps & FormFieldsProps
 
@@ -52,8 +46,8 @@ const ChangePasswordFields = ({
         spinnerPlacement="end"
         loadingText="Saving Changes"
         isLoading={isLoading}
-        colorScheme="brand"
-        variant="solid"
+        colorScheme="primary"
+        variant="primary"
         type="submit"
       >
         Save Changes

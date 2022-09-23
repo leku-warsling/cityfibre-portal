@@ -1,15 +1,13 @@
 import { forwardRef, useRef } from "react"
 import {
-  Input,
-  InputGroup,
-  useDisclosure,
   Popover,
   PopoverTrigger,
   PopoverContent,
   PopoverBody,
-  InputRightElement,
-  IconButton,
-} from "@chakra-ui/react"
+} from "@chakra-ui/popover"
+import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
+import { IconButton } from "@chakra-ui/button"
+import { useDisclosure } from "@chakra-ui/hooks"
 import useCalendar from "./use-calendar"
 import DatePanel from "./panels/date-panel"
 import { DatePickerProps } from "./types"

@@ -1,5 +1,6 @@
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi"
-import { Heading, HStack, IconButton } from "@chakra-ui/react"
+import { Heading, HStack } from "@chakra-ui/layout"
+import { IconButton } from "@chakra-ui/button"
 import { FC } from "react"
 
 export type CalendarControlsProps = {

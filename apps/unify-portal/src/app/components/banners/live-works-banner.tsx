@@ -1,5 +1,6 @@
-import { Figure, Heading, Text, Logo } from "@ui"
 import liveWorksBgImg from "../../../assets/images/live-works-bg.jpg"
+import { Text, Heading } from "@chakra-ui/react"
+import { Figure, Logo } from "@ui/lib"
 
 export const LiveWorksBanner = () => (
   <Figure
@@ -17,7 +18,7 @@ export const LiveWorksBanner = () => (
       />
     </Figure.Header>
     <Figure.Caption
-      bg="brand.500"
+      bg="primary.500"
       boxShadow="lg"
       rounded={4}
       maxW="500px"

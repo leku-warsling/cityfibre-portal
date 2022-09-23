@@ -1,5 +1,5 @@
 import { Flex, Text } from "@chakra-ui/react"
-import { Title } from "@ui"
+import { Title } from "@ui/lib"
 import { LiveWorksBanner } from "../../components/banners/live-works-banner"
 import { LiveWorksForm } from "./forms/live-works.form"
 

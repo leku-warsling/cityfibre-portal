@@ -1,5 +1,5 @@
 import { AddIcon } from "@chakra-ui/icons"
-import { FieldArray, FormItem } from "@ui"
+import { FieldArray, FormItem } from "@ui/lib"
 import {
   IconButton,
   SimpleGrid,
@@ -108,7 +108,7 @@ const AddTeamMembersStep = () => {
                   onClick={() => append(defaultProps)}
                   aria-label="Add team members"
                   icon={<AddIcon />}
-                  color="brand.500"
+                  color="primary.500"
                   variant="outline"
                 />
                 <span>Add another team member</span>

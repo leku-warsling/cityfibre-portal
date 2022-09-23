@@ -1,6 +1,6 @@
-import { util } from "@ui"
-import { z } from "zod"
 import { appointmentSchema, customerSchema, productSchema } from "./util"
+import { date } from "@ui/lib/util"
+import { z } from "zod"
 
 export const ORDER_STATUSES = [
   "Acknowledged",
@@ -35,15 +35,15 @@ const siteInfoSchema = z
     is_listed_building: z.boolean().default(false),
     has_route_approver: z.boolean().default(false),
     has_floor_plans: z.boolean().default(false),
+    hazards: z.string().optional().nullable(),
     ppe_required: z.boolean().default(false),
     has_parking: z.boolean().default(false),
-    hazards: z.string().optional().nullable(),
   })
   .optional()
 
 export const orderSchema = z.object({
-  updated_at: z.string().transform(util.date.toDate),
-  created_at: z.string().transform(util.date.toDate),
+  updated_at: z.string().transform(date.toDate),
+  created_at: z.string().transform(date.toDate),
   site_information: siteInfoSchema,
   appointment: appointmentSchema,
   status: z.enum(ORDER_STATUSES),

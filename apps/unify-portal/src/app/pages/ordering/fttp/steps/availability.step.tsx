@@ -1,5 +1,5 @@
-import { FormItem, SearchInput } from "@ui"
-import { VStack } from "@chakra-ui/react"
+import { VStack } from "@chakra-ui/layout"
+import { FormItem, SearchInput } from "@ui/lib"
 
 const defaultValues = {}
 

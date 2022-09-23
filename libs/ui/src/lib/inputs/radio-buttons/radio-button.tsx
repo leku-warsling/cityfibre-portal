@@ -1,5 +1,7 @@
-import { Box, BoxProps, useRadio, UseRadioProps } from "@chakra-ui/react"
-import { omit, pick } from "ramda"
+import { Box, BoxProps } from "@chakra-ui/layout"
+import { useRadio, UseRadioProps } from "@chakra-ui/radio"
+import omit from "ramda/es/omit"
+import pick from "ramda/es/pick"
 import { FC } from "react"
 
 export type RadioButtonOwnProps = {}

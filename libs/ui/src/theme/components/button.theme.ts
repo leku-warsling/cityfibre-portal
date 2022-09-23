@@ -14,13 +14,15 @@ const Button = {
   },
   variants: {
     primary: {
-      bg: "brand.500",
+      bg: "black",
       color: "#fff",
       _hover: {
-        bg: "brand.900",
+        bg: "secondary.500",
+        color: "black",
       },
       _active: {
-        bg: "brand.800",
+        bg: "secondary.500",
+        color: "black",
       },
       _disabled: {
         bg: "#DBDBDB",
@@ -38,8 +40,7 @@ const Button = {
     },
   },
   defaultProps: {
-    variant: "solid",
-    colorScheme: "brand",
+    variant: "primary",
   },
 }
 

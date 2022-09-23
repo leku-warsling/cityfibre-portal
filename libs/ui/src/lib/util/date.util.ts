@@ -1,11 +1,16 @@
-import { always, subtract, when, splitEvery, times, constructN } from "ramda"
+import add from "date-fns/fp/add"
+import format from "date-fns/fp/format"
+import sub from "date-fns/fp/sub"
+import getDay from "date-fns/getDay"
 import startOfMonth from "date-fns/startOfMonth"
 import { flow } from "fp-ts/lib/function"
-import format from "date-fns/fp/format"
+import always from "ramda/es/always"
+import constructN from "ramda/es/constructN"
+import splitEvery from "ramda/es/splitEvery"
+import subtract from "ramda/es/subtract"
+import times from "ramda/es/times"
+import when from "ramda/es/when"
 import { isZero } from "./number.util"
-import getDay from "date-fns/getDay"
-import sub from "date-fns/fp/sub"
-import add from "date-fns/fp/add"
 
 const MONTH_NAMES = [
   "January",

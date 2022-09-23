@@ -1,34 +1,39 @@
-import { AddIcon } from "@chakra-ui/icons"
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+} from "@chakra-ui/accordion"
+import { Alert, AlertIcon, AlertTitle } from "@chakra-ui/alert"
+import {
+  Badge,
+  Box,
+  Divider,
+  Flex,
+  Spacer,
+  Text,
+  VStack,
+} from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
+import { Icon } from "@chakra-ui/icon"
+import { Page } from "@ui/lib"
+import { usePage } from "@unify/hooks/use-page.hook"
+import { flow } from "fp-ts/lib/function"
+import join from "ramda/es/join"
+import juxt from "ramda/es/juxt"
+import repeat from "ramda/es/repeat"
 import { useEffect, useMemo, useState } from "react"
 import { BiBellPlus, BiError } from "react-icons/bi"
-import format from "date-fns/fp/format"
 import { Link } from "react-router-dom"
-import { Page } from "@ui"
-import { repeat } from "ramda"
-import {
-  Button,
-  Spacer,
-  Badge,
-  Flex,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  Box,
-  AccordionIcon,
-  AccordionPanel,
-  Text,
-  Icon,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  VStack,
-  Divider,
-} from "@chakra-ui/react"
-import { usePage } from "../../../hooks/use-page.hook"
 
-export const NetworksPage = () => {
+const toDateString = (date: Date) => date.toLocaleDateString("en-GB")
+const toTimeString = (date: Date) => date.toLocaleTimeString("en-GB")
+const toDatetimeString = flow(juxt([toDateString, toTimeString]), join(", "))
+
+const NetworksPage = () => {
   usePage({ title: "Support" })
-  const [isLoading, setLoading] = useState(true)
+  const [, setLoading] = useState(true)
   const data = useMemo(
     () =>
       repeat(
@@ -108,7 +113,7 @@ export const NetworksPage = () => {
                   </Text>{" "}
                   -
                   <Text fontWeight={600} color="gray.600">
-                    {format("dd/MM/yyyy HH:mm a", item.contract_start)}
+                    {toDatetimeString(item.contract_start)}
                   </Text>
                   <Spacer />
                   <Badge py={1.5} px={2} colorScheme="red" mr={4}>
@@ -129,7 +134,7 @@ export const NetworksPage = () => {
                 divider={
                   <Divider
                     orientation="vertical"
-                    borderColor="brand.500"
+                    borderColor="primary.500"
                     borderWidth="2px"
                     height="40px"
                     borderTop="none"
@@ -142,7 +147,7 @@ export const NetworksPage = () => {
                   <Flex
                     bgColor="white"
                     border="3px solid"
-                    borderColor="brand.500"
+                    borderColor="primary.500"
                     justify="center"
                     rounded="full"
                     align="center"
@@ -154,7 +159,7 @@ export const NetworksPage = () => {
                   </Flex>
                   <Box flex={1} maxW="700px" position="relative">
                     <Text
-                      bgColor="brand.500"
+                      bgColor="primary.500"
                       color="white"
                       fontWeight={600}
                       fontSize="sm"
@@ -173,7 +178,7 @@ export const NetworksPage = () => {
                       top="calc(100% + 4px)"
                       right="0"
                     >
-                      {format("dd/MM/yyyy HH:mm a", item.contract_start)}
+                      {toDatetimeString(item.contract_start)}
                     </Text>
                   </Box>
                 </Flex>
@@ -181,7 +186,7 @@ export const NetworksPage = () => {
                   <Flex
                     bgColor="white"
                     border="3px solid"
-                    borderColor="brand.500"
+                    borderColor="primary.500"
                     justify="center"
                     rounded="full"
                     align="center"
@@ -193,7 +198,7 @@ export const NetworksPage = () => {
                   </Flex>
                   <Box flex={1} maxW="700px" position="relative">
                     <Text
-                      bgColor="brand.500"
+                      bgColor="primary.500"
                       color="white"
                       fontWeight={600}
                       fontSize="sm"
@@ -212,7 +217,7 @@ export const NetworksPage = () => {
                       top="calc(100% + 4px)"
                       right="0"
                     >
-                      {format("dd/MM/yyyy HH:mm a", item.contract_start)}
+                      {toDatetimeString(item.contract_start)}
                     </Text>
                   </Box>
                 </Flex>
@@ -220,7 +225,7 @@ export const NetworksPage = () => {
                   <Flex
                     bgColor="white"
                     border="3px solid"
-                    borderColor="brand.500"
+                    borderColor="primary.500"
                     justify="center"
                     rounded="full"
                     align="center"
@@ -232,7 +237,7 @@ export const NetworksPage = () => {
                   </Flex>
                   <Box flex={1} maxW="700px" position="relative">
                     <Text
-                      bgColor="brand.500"
+                      bgColor="primary.500"
                       color="white"
                       fontWeight={600}
                       fontSize="sm"
@@ -251,7 +256,7 @@ export const NetworksPage = () => {
                       top="calc(100% + 4px)"
                       right="0"
                     >
-                      {format("dd/MM/yyyy HH:mm a", item.contract_start)}
+                      {toDatetimeString(item.contract_start)}
                     </Text>
                   </Box>
                 </Flex>
@@ -263,3 +268,5 @@ export const NetworksPage = () => {
     </Page>
   )
 }
+
+export default NetworksPage

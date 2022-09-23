@@ -1,6 +1,6 @@
 import { flow } from "fp-ts/lib/function"
-import { prop } from "ramda"
-import { util } from "@ui"
+import prop from "ramda/es/prop"
+import { util } from "@ui/lib"
 import { Badge, Button } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 

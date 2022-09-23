@@ -1,4 +1,4 @@
-import { WizardPanel, WizardProvider, WizardStepper } from "@ui"
+import { WizardPanel, WizardProvider, WizardStepper } from "@ui/lib"
 import ContactDetailStep from "./steps/contact-details.step"
 import LocationDetailStep from "./steps/location-details.step"
 import WorkDetailStep from "./steps/work-details.step"
@@ -10,7 +10,7 @@ export const AccessControlPage = () => {
   const aside = (
     <VStack
       bgImage={registerBg}
-      bgColor="brand.500"
+      bgColor="primary.500"
       justify="start"
       height="100vh"
       bgSize="cover"

@@ -1,9 +1,4 @@
-import { Card, CardProps } from "./card"
-import { ReactNode } from "react"
 import {
-  Button,
-  ButtonGroup,
-  Spacer,
   Tab,
   TabList,
   TabPanel,
@@ -11,8 +6,11 @@ import {
   TabProps,
   Tabs,
   TabsProps,
-} from "@chakra-ui/react"
-import { omit, pick } from "ramda"
+} from "@chakra-ui/tabs"
+import omit from "ramda/es/omit"
+import pick from "ramda/es/pick"
+import { ReactNode } from "react"
+import { Card, CardProps } from "./card"
 
 export type TabListProps = TabProps & {
   content: ReactNode

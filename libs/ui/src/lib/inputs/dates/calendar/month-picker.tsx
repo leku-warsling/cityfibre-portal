@@ -1,10 +1,14 @@
-import { Button, chakra, SimpleGrid } from "@chakra-ui/react"
-import { addYears, setMonth, subYears } from "date-fns"
-import CalendarControls from "./calendar-controls"
-import { inRange, MONTH_NAMES } from "./util"
-import { equals } from "ramda"
+import { SimpleGrid } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
+import { chakra } from "@chakra-ui/system"
+import addYears from "date-fns/addYears"
+import setMonth from "date-fns/setMonth"
+import subYears from "date-fns/subYears"
+import equals from "ramda/es/equals"
 import { FC } from "react"
 import { BiCaretDown } from "react-icons/bi"
+import CalendarControls from "./calendar-controls"
+import { inRange, MONTH_NAMES } from "./util"
 
 export type MonthPickerProps = {
   date: Date

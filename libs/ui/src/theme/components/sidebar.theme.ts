@@ -4,7 +4,7 @@ const Sidebar: ComponentMultiStyleConfig = {
   parts: ["root", "header", "section"],
   baseStyle: ({ colorScheme }) => ({
     root: {
-      bg: `${colorScheme}.800`,
+      bg: `${colorScheme}.500`,
       alignItems: "flex-start",
       flexDirection: "column",
       maxWidth: "320px",
@@ -38,7 +38,7 @@ const Sidebar: ComponentMultiStyleConfig = {
     },
   },
   defaultProps: {
-    colorScheme: "brand",
+    colorScheme: "primary",
   },
 }
 

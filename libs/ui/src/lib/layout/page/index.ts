@@ -1,1 +1,2 @@
-export { default as default } from "./page"
+export { PageHeaderProps } from "./page-header"
+export * from "./page"

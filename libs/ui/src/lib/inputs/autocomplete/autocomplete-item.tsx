@@ -1,5 +1,5 @@
 import { forwardRef, memo } from "react"
-import { ListItem } from "@chakra-ui/react"
+import { ListItem } from "@chakra-ui/layout"
 import { AutocompleteItemProps } from "./types"
 
 const AutocompleteItem = forwardRef<HTMLLIElement, AutocompleteItemProps>(

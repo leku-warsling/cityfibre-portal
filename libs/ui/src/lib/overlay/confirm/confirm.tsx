@@ -1,17 +1,16 @@
-import { FC, useRef, cloneElement } from "react";
-import { ConfirmProps } from "./types";
+import { FC, useRef, cloneElement } from "react"
+import { ConfirmProps } from "./types"
 import {
-  Divider,
-  Button,
-  useDisclosure,
   AlertDialog,
   AlertDialogBody,
   AlertDialogOverlay,
   AlertDialogContent,
   AlertDialogHeader,
   AlertDialogFooter,
-  ButtonGroup,
-} from "@chakra-ui/react";
+} from "@chakra-ui/modal"
+import { Button, ButtonGroup } from "@chakra-ui/button"
+import { Divider } from "@chakra-ui/layout"
+import { useDisclosure } from "@chakra-ui/hooks"
 
 const Confirm: FC<ConfirmProps> = ({
   onConfirm,
@@ -22,8 +21,8 @@ const Confirm: FC<ConfirmProps> = ({
   onCancel,
   children,
 }) => {
-  const { isOpen, onClose, onOpen } = useDisclosure({ defaultIsOpen });
-  const cancelRef = useRef<HTMLButtonElement>(null);
+  const { isOpen, onClose, onOpen } = useDisclosure({ defaultIsOpen })
+  const cancelRef = useRef<HTMLButtonElement>(null)
 
   return (
     <>
@@ -35,10 +34,7 @@ const Confirm: FC<ConfirmProps> = ({
         onClose={onClose}
       >
         <AlertDialogOverlay>
-          <AlertDialogContent
-            rounded={4}
-            boxShadow="lg"
-          >
+          <AlertDialogContent rounded={4} boxShadow="lg">
             <AlertDialogHeader fontSize="xl">
               {title}
               <Divider borderColor="gray.200" mt={2} />
@@ -49,14 +45,14 @@ const Confirm: FC<ConfirmProps> = ({
             <AlertDialogFooter>
               <ButtonGroup>
                 <Button
-                  variant="solid"
+                  variant="primary"
                   colorScheme="gray"
                   ref={cancelRef}
                   onClick={onCancel ?? onClose}
                 >
                   Cancel
                 </Button>
-                <Button variant="solid" colorScheme="red" onClick={onConfirm}>
+                <Button variant="primary" colorScheme="red" onClick={onConfirm}>
                   {confirmButtonText}
                 </Button>
               </ButtonGroup>
@@ -65,7 +61,7 @@ const Confirm: FC<ConfirmProps> = ({
         </AlertDialogOverlay>
       </AlertDialog>
     </>
-  );
-};
+  )
+}
 
-export default Confirm;
+export default Confirm

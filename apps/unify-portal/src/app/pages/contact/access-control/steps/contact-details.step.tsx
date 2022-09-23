@@ -1,4 +1,4 @@
-import { FormItem } from "@ui"
+import { FormItem } from "@ui/lib"
 import { SimpleGrid, VStack, Input } from "@chakra-ui/react"
 
 const defaultValues = {

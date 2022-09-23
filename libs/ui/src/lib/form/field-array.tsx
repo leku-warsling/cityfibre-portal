@@ -1,10 +1,10 @@
+import partial from "ramda/es/partial"
 import {
-  useFormContext,
-  useFieldArray,
   FieldValues,
+  useFieldArray,
   UseFieldArrayReturn,
+  useFormContext,
 } from "react-hook-form"
-import { partial } from "ramda"
 
 export type FieldArrayRenderProps = UseFieldArrayReturn<
   FieldValues,

@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react"
+import { Box, Text, Wrap, WrapItem } from "@chakra-ui/layout"
 import {
   Accordion,
   AccordionButton,
@@ -6,13 +6,10 @@ import {
   AccordionItem,
   AccordionPanel,
   AccordionProps,
-  Box,
-  Text,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react"
+} from "@chakra-ui/accordion"
 import { isString } from "ramda-adjunct"
-import { path } from "ramda"
+import path from "ramda/es/path"
+import { FC, ReactNode } from "react"
 
 export type DataListItemProps = {
   label: ReactNode

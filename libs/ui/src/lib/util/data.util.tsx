@@ -1,4 +1,4 @@
-import { random } from "lodash-es"
+import random from "lodash-es/random"
 
 export const randomChar = () => {
   const chars = "ABCDEFGHIJKLMOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"

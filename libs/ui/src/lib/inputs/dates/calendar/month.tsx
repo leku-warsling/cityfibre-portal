@@ -1,8 +1,13 @@
-import { chakra } from "@chakra-ui/react"
-import { isDate, isFirstDayOfMonth, isToday, isWeekend } from "date-fns"
-import { isFunction, isNil } from "lodash-es"
-import { both, or } from "ramda"
+import { chakra } from "@chakra-ui/system"
+import isDate from "date-fns/isDate"
+import isFirstDayOfMonth from "date-fns/isFirstDayOfMonth"
+import isToday from "date-fns/isToday"
+import isWeekend from "date-fns/isWeekend"
+import isFunction from "lodash-es/isFunction"
+import isNil from "lodash-es/isNil"
 import { isArray } from "ramda-adjunct"
+import both from "ramda/es/both"
+import or from "ramda/es/or"
 import { forwardRef, KeyboardEvent, ReactNode } from "react"
 import Day from "./day"
 import {
@@ -36,7 +41,6 @@ const Month = forwardRef<HTMLTableElement, MonthProps>((props, ref) => {
     monthIndex = 0,
     onDayKeyDown,
     size = "sm",
-    renderDay,
     onChange,
     daysRefs,
     minDate,

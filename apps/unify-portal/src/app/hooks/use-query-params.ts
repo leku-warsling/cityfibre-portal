@@ -1,7 +1,10 @@
 import { flow } from "fp-ts/lib/function"
-import { debounce } from "lodash-es"
-import { dissoc, mergeLeft, when } from "ramda"
+import debounce from "lodash-es/debounce"
 import { renameKeys } from "ramda-adjunct"
+import curry from "ramda/es/curry"
+import dissoc from "ramda/es/dissoc"
+import mergeLeft from "ramda/es/mergeLeft"
+import when from "ramda/es/when"
 import { ChangeEvent, useMemo, useState } from "react"
 
 export type UseQueryParamsProps = {
@@ -27,11 +30,12 @@ export const useQueryParams = <T extends UseQueryParamsProps>(
     setParams(flow(when(has(key), dissoc(key)), parse))
   }
 
-  const setParam = (key: string, value: any) =>
+  const setParam = curry((key: string, value: any) =>
     setParams((props) => ({
       ...props,
       [key]: value,
     }))
+  )
 
   const searchHandler = useMemo(() => {
     return debounce((evt: ChangeEvent<HTMLInputElement>, field) => {

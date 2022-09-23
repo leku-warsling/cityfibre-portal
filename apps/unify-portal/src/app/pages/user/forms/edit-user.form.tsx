@@ -4,22 +4,13 @@ import {
   FieldArray,
   FormFieldsProps,
   FormItem,
-} from "@ui"
+} from "@ui/lib"
 import { USER_ROLES } from "../data"
-import {
-  ButtonGroup,
-  FormControl,
-  FormLabel,
-  BoxProps,
-  Button,
-  Input,
-  Wrap,
-  WrapItem,
-  Tag,
-  TagLabel,
-  TagCloseButton,
-} from "@chakra-ui/react"
-
+import { BoxProps, Wrap, WrapItem } from "@chakra-ui/layout"
+import { ButtonGroup, Button } from "@chakra-ui/button"
+import { FormControl, FormLabel } from "@chakra-ui/form-control"
+import { Tag, TagLabel, TagCloseButton } from "@chakra-ui/tag"
+import { Input } from "@chakra-ui/input"
 export type EditUserFieldsProps = BoxProps & FormFieldsProps
 
 export const defaultValues = {
@@ -58,7 +49,7 @@ const EditUserFields = ({
         const tokens = (
           <Wrap spacing={2} mb={4}>
             <WrapItem>
-              <Tag size="lg" colorScheme="brand">
+              <Tag size="lg" colorScheme="primary">
                 <TagLabel>Admin</TagLabel>
                 <TagCloseButton
                   onClick={() =>
@@ -69,7 +60,7 @@ const EditUserFields = ({
             </WrapItem>
             {fields.map((item: any, idx) => (
               <WrapItem key={item.id}>
-                <Tag size="lg" colorScheme="brand">
+                <Tag size="lg" colorScheme="primary">
                   <TagLabel>{item?.value}</TagLabel>
                   <TagCloseButton onClick={() => remove(idx)} />
                 </Tag>
@@ -118,7 +109,7 @@ const EditUserFields = ({
         spinnerPlacement="end"
         loadingText="Reset Password"
         isLoading={isLoading}
-        colorScheme="brand"
+        colorScheme="primary"
         variant="ghost"
         type="submit"
       >
@@ -128,8 +119,8 @@ const EditUserFields = ({
         spinnerPlacement="end"
         loadingText="Saving Changes"
         isLoading={isLoading}
-        colorScheme="brand"
-        variant="solid"
+        colorScheme="primary"
+        variant="primary"
         type="submit"
       >
         Save Changes

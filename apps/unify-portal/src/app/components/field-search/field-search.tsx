@@ -69,7 +69,7 @@ export const FieldSearch = ({
           <InputRightElement as={Flex} width="auto" gap={0} pr={1}>
             <IconButton
               aria-label="Select search field"
-              _hover={{ color: "brand.600" }}
+              _hover={{ color: "primary.600" }}
               colorScheme="gray"
               color="gray.400"
               icon={<BiX />}
@@ -82,7 +82,7 @@ export const FieldSearch = ({
             <PopoverTrigger>
               <IconButton
                 aria-label="Select search field"
-                _hover={{ color: "brand.600" }}
+                _hover={{ color: "primary.600" }}
                 colorScheme="gray"
                 color="gray.400"
                 icon={<BiCog />}

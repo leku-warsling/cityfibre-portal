@@ -1,502 +1,55 @@
+import { ArrowForwardIcon, TriangleUpIcon } from "@chakra-ui/icons"
+import {
+  Badge,
+  Box,
+  Button,
+  CircularProgress,
+  CircularProgressLabel,
+  Flex,
+  Heading,
+  Icon,
+  List,
+  ListItem,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Progress,
+  Select,
+  SimpleGrid,
+  Text,
+  useDisclosure,
+  VStack,
+} from "@chakra-ui/react"
+import { Page } from "@ui/lib"
+import random from "lodash-es/random"
+import times from "ramda/es/times"
+import { BiBookReader } from "react-icons/bi"
 import { ReactComponent as EthernetIcon } from "../../../../assets/svg/ethernet-icon.svg"
 import { ReactComponent as FTTPIcon } from "../../../../assets/svg/fttp-icon.svg"
-import { ReactComponent as TeamSVG } from "../../../../assets/svg/team.svg"
 import { ReactComponent as ISPHubSVG } from "../../../../assets/svg/isp-hub.svg"
-import { AddIcon, ArrowForwardIcon, TriangleUpIcon } from "@chakra-ui/icons"
-import { ReactNode, useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import { Page, Table } from "@ui"
+import { ReactComponent as TeamSVG } from "../../../../assets/svg/team.svg"
+import { GroupStats } from "../../../components/statistic/group-stats"
 import {
   INCIDENT_COLUMNS,
   INCIDENT_DATA,
   INVOICE_COLUMNS,
   INVOICE_DATA,
 } from "../data"
-import {
-  useDisclosure,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ListItem,
-  Button,
-  VStack,
-  Modal,
-  Flex,
-  Icon,
-  Text,
-  Box,
-  List,
-  Heading,
-  Badge,
-  Select,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-  SimpleGrid,
-  Progress,
-  CircularProgress,
-  CircularProgressLabel,
-} from "@chakra-ui/react"
-import {
-  LabelList,
-  AreaChart,
-  BarChart,
-  PieChart,
-  Legend,
-  XAxis,
-  Label,
-  YAxis,
-  Bar,
-  Pie,
-  Cell,
-  Area,
-} from "recharts"
-import { GroupStats } from "../../../components/statistic/group-stats"
-import { prop, sum, times } from "ramda"
-import { random } from "lodash-es"
-import { BiBookReader } from "react-icons/bi"
-
-const data = times((n) => {
-  const h = n * 3
-  return {
-    time: `${h < 10 ? "0" : ""}${h.toFixed(2)} ${h > 12 ? "PM" : "AM"}`,
-    outages: random(5, 60),
-  }
-}, 8)
-
-const BandwidthUsage = () => {
-  const data = times(
-    (n) => ({
-      name: n + 1,
-      usage: random(3000, 5000),
-    }),
-    31
-  )
-
-  return (
-    <AreaChart
-      width={700}
-      height={330}
-      data={data}
-      margin={{
-        top: 16,
-        right: 16,
-        left: 0,
-        bottom: 16,
-      }}
-    >
-      <XAxis
-        dataKey="name"
-        axisLine={false}
-        tickLine={false}
-        fontWeight={600}
-        tickCount={12}
-        interval={2}
-      />
-      <YAxis axisLine={false} tickLine={false} fontWeight={600} />
-      <Area
-        type="monotone"
-        fillOpacity={1}
-        dataKey="usage"
-        stroke="#00397b"
-        fill="#00397b"
-      />
-    </AreaChart>
-  )
-}
-
-const NetworkOutages = () => {
-  return (
-    <Box
-      maxWidth="570px"
-      minH="400px"
-      flex={1}
-      height="100%"
-      rounded={4}
-      boxShadow="base"
-      bgColor="white"
-      px={8}
-      py={6}
-    >
-      <Flex justify="space-between" mb={4} align="center">
-        <Heading fontSize="lg" fontWeight={600}>
-          Network Outages
-        </Heading>
-        <Select variant="outline" maxW="150px" defaultValue="1">
-          <option value="">All</option>
-          <option value="1">24 Hours</option>
-          <option value="2">Week</option>
-          <option value="3">Month</option>
-          <option value="4">Quarter</option>
-          <option value="5">Year</option>
-        </Select>
-      </Flex>
-      <BarChart
-        width={500}
-        height={300}
-        data={data}
-        barCategoryGap={2}
-        margin={{
-          top: 32,
-          right: 0,
-          left: 0,
-          bottom: 0,
-        }}
-      >
-        <XAxis
-          dataKey="time"
-          // tickFormatter={tickFormatter}
-          interval="preserveStartEnd"
-          axisLine={false}
-          tickLine={false}
-          fontSize={12}
-          stroke="#4a5568"
-          color="#4a5568"
-          fontWeight={600}
-          dy={5}
-        />
-        <Bar dataKey="outages" fill="#00397b">
-          <LabelList
-            dy={-8}
-            position="top"
-            fill="#00397b"
-            fontSize={14}
-            fontWeight={800}
-          />
-        </Bar>
-      </BarChart>
-    </Box>
-  )
-}
-
-const StatCallToAction = (props: { value: ReactNode; label: ReactNode }) => {
-  return (
-    <Flex
-      bgColor="brand.800"
-      boxShadow="base"
-      color="#fff"
-      p={4}
-      rounded={4}
-      gap={4}
-      align="center"
-    >
-      <Flex
-        fontWeight={800}
-        bgColor="#9D8DFF"
-        w={10}
-        h={10}
-        align="center"
-        justify="center"
-        rounded={4}
-        fontSize="lg"
-      >
-        {props.value}
-      </Flex>
-      <Text flex={1} fontWeight={600}>
-        {props.label}
-      </Text>
-      <Icon as={ArrowForwardIcon} fontSize="lg" mr={2} />
-    </Flex>
-  )
-}
-
-const DonutChart = () => {
-  const data = [
-    { name: "New", value: random(50, 100), fill: "#00397b" },
-    { name: "In Progress", value: random(50, 100), fill: "#9D8DFF" },
-    { name: "Submitted", value: random(50, 100), fill: "#015DCB" },
-    { name: "Closed", value: random(50, 100), fill: "#0094C8" },
-    { name: "Resolved", value: random(50, 100), fill: " #6F5DFF" },
-    { name: "Cancelled", value: random(50, 100), fill: "#00BADE" },
-  ]
-  const total = sum(data.map(prop("value")))
-
-  return (
-    <Box
-      maxWidth="570px"
-      boxShadow="base"
-      bgColor="white"
-      height="100%"
-      minH="400px"
-      flex={1}
-      rounded={4}
-      px={8}
-      py={6}
-    >
-      <Flex justify="space-between" mb={4} align="center">
-        <Heading fontSize="lg" fontWeight={600}>
-          Incidents Breakdown
-        </Heading>
-        <Select variant="outline" maxW="150px">
-          <option value="">All</option>
-          <option value="1">24 Hours</option>
-          <option value="2">Week</option>
-          <option value="3">Month</option>
-          <option value="4">Quarter</option>
-          <option value="5">Year</option>
-        </Select>
-      </Flex>
-      <PieChart width={800} height={300}>
-        <Legend
-          iconType="circle"
-          layout="vertical"
-          verticalAlign="middle"
-          iconSize={10}
-          // formatter={renderColorfulLegendText}
-        />
-        <Pie
-          data={data}
-          cx={150}
-          cy={150}
-          innerRadius={60}
-          outerRadius={85}
-          fill="#8884d8"
-          paddingAngle={1}
-          dataKey="value"
-        >
-          <Label width={30} position="center" fontWeight={600}>
-            {`${total} Incidents`}
-          </Label>
-        </Pie>
-      </PieChart>
-    </Box>
-  )
-}
-
-const BillingGauge = () => {
-  const data = [{ value: 527.65 }, { value: 602.35 }]
-  return (
-    <Box
-      maxWidth="570px"
-      boxShadow="base"
-      bgColor="brand.800"
-      minH="400px"
-      rounded={4}
-      px={8}
-      py={6}
-    >
-      <Flex justify="space-between" mb={4} align="center">
-        <Heading fontSize="lg" fontWeight={800} color="white">
-          Revenue
-        </Heading>
-        <Select variant="outline" maxW="150px" color="white">
-          <option value="">All</option>
-          <option value="1">24 Hours</option>
-          <option value="2">Week</option>
-          <option value="3">Month</option>
-          <option value="4">Quarter</option>
-          <option value="5">Year</option>
-        </Select>
-      </Flex>
-      <PieChart height={240} width={320}>
-        <Pie
-          startAngle={180}
-          endAngle={0}
-          innerRadius="55%"
-          data={data}
-          dataKey="value"
-          labelLine={false}
-          blendStroke
-          isAnimationActive={false}
-          cy="65%"
-        >
-          <Cell fill="#9D8DFF" />
-          <Cell fill="#fff" />
-          <Label
-            dy={-10}
-            width={30}
-            position="center"
-            fontWeight={600}
-            fill="#fff"
-            fontSize="24px"
-          >
-            43%
-          </Label>
-        </Pie>
-      </PieChart>
-      <Flex justify="space-between">
-        <Flex flexDir="column" color="white" fontWeight={600}>
-          <Text
-            textTransform="uppercase"
-            letterSpacing="wider"
-            fontSize="sm"
-            lineHeight={1}
-          >
-            Total Income
-          </Text>
-          <Text fontSize="2xl">
-            {random(100000, 999999).toLocaleString("en-GB", {
-              style: "currency",
-              currency: "GBP",
-            })}
-          </Text>
-        </Flex>
-        <Flex flexDir="column" color="white" fontWeight={600}>
-          <Text
-            textTransform="uppercase"
-            letterSpacing="wider"
-            fontSize="sm"
-            lineHeight={1}
-          >
-            Total Due
-          </Text>
-          <Text fontSize="2xl">
-            {random(100000, 999999).toLocaleString("en-GB", {
-              style: "currency",
-              currency: "GBP",
-            })}
-          </Text>
-        </Flex>
-      </Flex>
-    </Box>
-  )
-}
-
-const TabbedCard = () => {
-  return (
-    <Box boxShadow="base" bgColor="white" flex={1} rounded={4} px={8} py={6}>
-      <Flex justify="space-between" mb={2} align="center">
-        <Heading fontSize="lg" fontWeight={600}>
-          Support
-        </Heading>
-        <Select variant="outline" maxW="200px">
-          <option value="">Incidents</option>
-          <option value="1">Services</option>
-          <option value="2">Networks</option>
-        </Select>
-      </Flex>
-      <Tabs variant="unstyled">
-        <TabList>
-          <Tab
-            _selected={{ borderBottom: "2px solid", borderColor: "brand.500" }}
-          >
-            Recent
-          </Tab>
-          <Tab>Delayed</Tab>
-          <Tab>Resolved</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel px={0} pb={0}>
-            <Table columns={INCIDENT_COLUMNS} data={INCIDENT_DATA} size="md" />
-            <Flex justify="flex-end" pt={4}>
-              <Button
-                variant="ghost"
-                colorScheme="gray"
-                rightIcon={<ArrowForwardIcon />}
-              >
-                View all issues
-              </Button>
-            </Flex>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-    </Box>
-  )
-}
-
-const TableCard = () => {
-  return (
-    <Box boxShadow="base" bgColor="white" flex={1} rounded={4} pt={6} pb={3}>
-      <Flex justify="space-between" px={6} mb={4} align="center">
-        <Heading fontSize="lg" fontWeight={600}>
-          Incidents
-        </Heading>
-        <Select variant="outline" maxW="200px">
-          <option value="">Latest</option>
-          <option value="1">Delayed</option>
-          <option value="2">Resolved</option>
-        </Select>
-      </Flex>
-      <Box
-        sx={{
-          "& thead th": {
-            bgColor: "gray.100",
-          },
-        }}
-      >
-        <Table columns={INCIDENT_COLUMNS} data={INCIDENT_DATA} size="md" />
-      </Box>
-      <Button
-        float="right"
-        variant="ghost"
-        colorScheme="gray"
-        mt={3}
-        mr={4}
-        rightIcon={<ArrowForwardIcon />}
-      >
-        View all issues
-      </Button>
-    </Box>
-  )
-}
-
-const TableCard2 = () => {
-  return (
-    <Box boxShadow="base" bgColor="white" flex={1} rounded={4} pt={6} pb={3}>
-      <Flex justify="space-between" px={6} mb={4} align="center">
-        <Heading fontSize="lg" fontWeight={600}>
-          Invoices
-        </Heading>
-        <Select variant="outline" maxW="200px">
-          <option value="">Latest</option>
-          <option value="1">Due</option>
-          <option value="1">Past Due</option>
-          <option value="2">Closed</option>
-        </Select>
-      </Flex>
-      <Box
-        sx={{
-          "& thead th": {
-            bgColor: "gray.100",
-          },
-        }}
-      >
-        <Table columns={INVOICE_COLUMNS} data={INVOICE_DATA} size="md" />
-      </Box>
-      <Button
-        float="right"
-        variant="ghost"
-        colorScheme="gray"
-        mt={3}
-        mr={4}
-        rightIcon={<ArrowForwardIcon />}
-      >
-        View all invoices
-      </Button>
-    </Box>
-  )
-}
+import BandwidthUsage from "./components/bandwidth-usage"
+import BillingGauge from "./components/billing-gauge"
+import DonutChart from "./components/donut-chart"
+import NetworkOutages from "./components/network-outages"
+import StatCallToAction from "./components/stat-cta"
+import TableCard from "./components/table-card"
 
 const DashboardDesktopPage = () => {
-  const [isLoading, setLoading] = useState(true)
   const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true })
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1000)
-  }, [])
-
-  const actions = [
-    <Button to="/incidents" variant="link" size="sm" as={Link} mr={6}>
-      View all issues
-    </Button>,
-    <Button
-      leftIcon={<AddIcon fontSize="12px" />}
-      to="/incidents/create"
-      as={Link}
-      size="sm"
-    >
-      Raise an incident
-    </Button>,
-  ]
 
   return (
     <Page maxH="93vh" overflowY="auto">
-      {/* <Page.Header pb={2} mb={6} actions={actions}>
-        Latest Issues
-      </Page.Header> */}
       <Flex gap={6} mb={6}>
         <GroupStats />
         <Box
@@ -521,7 +74,7 @@ const DashboardDesktopPage = () => {
             {times(
               () => (
                 <ListItem
-                  _hover={{ bgColor: "brand.800", color: "white" }}
+                  _hover={{ bgColor: "primary.500", color: "white" }}
                   justifyContent="space-between"
                   bgColor="gray.50"
                   display="flex"
@@ -561,7 +114,30 @@ const DashboardDesktopPage = () => {
         <DonutChart />
       </Flex>
       <Flex width="100%" minH="400px" mb={6} gap={6}>
-        <TableCard />
+        <TableCard
+          columns={INCIDENT_COLUMNS}
+          data={INCIDENT_DATA}
+          title="Incidents"
+          actions={
+            <Select variant="outline" maxW="200px">
+              <option value="">Latest</option>
+              <option value="1">Delayed</option>
+              <option value="2">Resolved</option>
+            </Select>
+          }
+          footer={
+            <Button
+              float="right"
+              variant="ghost"
+              colorScheme="gray"
+              mt={3}
+              mr={4}
+              rightIcon={<ArrowForwardIcon />}
+            >
+              View all issues
+            </Button>
+          }
+        />
         <Flex
           flexDir="column"
           flex={1}
@@ -577,7 +153,7 @@ const DashboardDesktopPage = () => {
       </Flex>
       <Flex
         mb={6}
-        bgColor="brand.800"
+        bgColor="primary.500"
         rounded={4}
         boxShadow="base"
         py={6}
@@ -587,16 +163,6 @@ const DashboardDesktopPage = () => {
         justifyContent="space-between"
         gap={6}
       >
-        {/* <Flex
-          bgColor="#9D8DFF"
-          w={12}
-          h={12}
-          align="center"
-          justify="center"
-          rounded={4}
-        >
-          <Icon as={BiDollar} fontSize="2xl" />
-        </Flex> */}
         <Box>
           <Text
             fontWeight={800}
@@ -610,7 +176,7 @@ const DashboardDesktopPage = () => {
           <Text
             fontWeight={800}
             fontSize="3xl"
-            color="#9D8DFF"
+            color="secondary.500"
             lineHeight={1.3}
           >
             400
@@ -629,7 +195,7 @@ const DashboardDesktopPage = () => {
           <Text
             fontWeight={800}
             fontSize="3xl"
-            color="#9D8DFF"
+            color="secondary.500"
             lineHeight={1.3}
           >
             {random(100000, 999999).toLocaleString("en-GB", {
@@ -651,7 +217,7 @@ const DashboardDesktopPage = () => {
           <Text
             fontWeight={800}
             fontSize="3xl"
-            color="#9D8DFF"
+            color="secondary.500"
             lineHeight={1.3}
           >
             {random(100000, 999999).toLocaleString("en-GB", {
@@ -673,7 +239,7 @@ const DashboardDesktopPage = () => {
           <Text
             fontWeight={800}
             fontSize="3xl"
-            color="#9D8DFF"
+            color="secondary.500"
             lineHeight={1.3}
           >
             400
@@ -692,7 +258,7 @@ const DashboardDesktopPage = () => {
           <Text
             fontWeight={800}
             fontSize="3xl"
-            color="#9D8DFF"
+            color="secondary.500"
             lineHeight={1.3}
           >
             40
@@ -711,16 +277,17 @@ const DashboardDesktopPage = () => {
           <Text
             fontWeight={800}
             fontSize="3xl"
-            color="#9D8DFF"
+            color="secondary.500"
             lineHeight={1.3}
           >
             400GB
           </Text>
         </Box>
         <Flex
-          bgColor="#9D8DFF"
+          bgColor="secondary.500"
           w={12}
           h={12}
+          color="black"
           align="center"
           justify="center"
           rounded={4}
@@ -839,12 +406,36 @@ const DashboardDesktopPage = () => {
             </Text>
           </Flex>
         </SimpleGrid>
-        <TableCard2 />
+        <TableCard
+          title="Invoices"
+          columns={INVOICE_COLUMNS}
+          data={INVOICE_DATA}
+          actions={
+            <Select variant="outline" maxW="200px">
+              <option value="">Latest</option>
+              <option value="1">Due</option>
+              <option value="1">Past Due</option>
+              <option value="2">Closed</option>
+            </Select>
+          }
+          footer={
+            <Button
+              float="right"
+              variant="ghost"
+              colorScheme="gray"
+              mt={3}
+              mr={4}
+              rightIcon={<ArrowForwardIcon />}
+            >
+              View all invoices
+            </Button>
+          }
+        />
       </Flex>
       <Flex gap={6}>
         <Flex
           mb={6}
-          bgColor="brand.800"
+          bgColor="primary.500"
           rounded={4}
           boxShadow="base"
           py={4}
@@ -861,13 +452,18 @@ const DashboardDesktopPage = () => {
               Ethernet Services
             </Text>
           </Flex>
-          <Button bgColor="#9D8DFF" size="lg" rightIcon={<ArrowForwardIcon />}>
+          <Button
+            bgColor="secondary.500"
+            color="black"
+            size="lg"
+            rightIcon={<ArrowForwardIcon />}
+          >
             Check Availability
           </Button>
         </Flex>
         <Flex
           mb={6}
-          bgColor="brand.800"
+          bgColor="primary.500"
           rounded={4}
           boxShadow="base"
           py={4}
@@ -884,75 +480,16 @@ const DashboardDesktopPage = () => {
               FTTP Services
             </Text>
           </Flex>
-          <Button bgColor="#9D8DFF" size="lg" rightIcon={<ArrowForwardIcon />}>
+          <Button
+            bgColor="secondary.500"
+            color="black"
+            size="lg"
+            rightIcon={<ArrowForwardIcon />}
+          >
             Check Availability
           </Button>
         </Flex>
       </Flex>
-      {/* <Flex gap={6} mb={6}>
-        <Table
-          columns={INCIDENT_COLUMNS}
-          isLoading={isLoading}
-          data={INCIDENT_DATA}
-          boxShadow="base"
-          bgColor="white"
-          rounded={5}
-          size="md"
-        />
-        <VStack flexGrow={1} spacing={6}>
-          <HStack
-            bgColor="white"
-            boxShadow="base"
-            width="100%"
-            rounded={4}
-            py={6}
-            px={8}
-          >
-            <Text fontSize="2xl" fontWeight={800} mr={2}>
-              169
-            </Text>
-            <Text fontWeight={600} color="gray.500">
-              Total Incidents
-            </Text>
-            <Spacer />
-            <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-          </HStack>
-          <HStack
-            bgColor="white"
-            boxShadow="base"
-            width="100%"
-            rounded={4}
-            py={6}
-            px={8}
-          >
-            <Text fontSize="2xl" fontWeight={800} mr={2}>
-              58
-            </Text>
-            <Text fontWeight={600} color="gray.500">
-              Total Services
-            </Text>
-            <Spacer />
-            <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-          </HStack>
-          <HStack
-            bgColor="white"
-            boxShadow="base"
-            width="100%"
-            rounded={4}
-            py={6}
-            px={8}
-          >
-            <Text fontSize="2xl" fontWeight={800} mr={2}>
-              32
-            </Text>
-            <Text fontWeight={600} color="gray.500">
-              Ongoing Incidents
-            </Text>
-            <Spacer />
-            <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
-          </HStack>
-        </VStack>
-      </Flex> */}
       <Box
         flex={1}
         mb={6}
@@ -986,7 +523,7 @@ const DashboardDesktopPage = () => {
               Total
             </Text>
             <Flex
-              bgColor="brand.800"
+              bgColor="primary.500"
               h="108px"
               w="108px"
               rounded="full"
@@ -1001,7 +538,7 @@ const DashboardDesktopPage = () => {
               align="center"
               gap={1.5}
               fontWeight={800}
-              color="brand.800"
+              color="primary.500"
               fontSize="sm"
             >
               <TriangleUpIcon />
@@ -1017,7 +554,7 @@ const DashboardDesktopPage = () => {
             >
               New
             </Text>
-            <CircularProgress value={20} color="brand.800" size={28}>
+            <CircularProgress value={20} color="primary.500" size={28}>
               <CircularProgressLabel fontSize="2xl" fontWeight={800}>
                 30
               </CircularProgressLabel>
@@ -1026,7 +563,7 @@ const DashboardDesktopPage = () => {
               align="center"
               gap={1.5}
               fontWeight={800}
-              color="brand.800"
+              color="primary.500"
               fontSize="sm"
             >
               <TriangleUpIcon />
@@ -1042,7 +579,7 @@ const DashboardDesktopPage = () => {
             >
               In Progress
             </Text>
-            <CircularProgress value={30} color="brand.800" size={28}>
+            <CircularProgress value={30} color="primary.500" size={28}>
               <CircularProgressLabel fontSize="2xl" fontWeight={800}>
                 52
               </CircularProgressLabel>
@@ -1051,7 +588,7 @@ const DashboardDesktopPage = () => {
               align="center"
               gap={1.5}
               fontWeight={800}
-              color="brand.800"
+              color="primary.500"
               fontSize="sm"
             >
               <TriangleUpIcon />
@@ -1067,7 +604,7 @@ const DashboardDesktopPage = () => {
             >
               Submitted
             </Text>
-            <CircularProgress value={65} color="brand.800" size={28}>
+            <CircularProgress value={65} color="primary.500" size={28}>
               <CircularProgressLabel fontSize="2xl" fontWeight={800}>
                 200
               </CircularProgressLabel>
@@ -1076,7 +613,7 @@ const DashboardDesktopPage = () => {
               align="center"
               gap={1.5}
               fontWeight={800}
-              color="brand.800"
+              color="primary.500"
               fontSize="sm"
             >
               <TriangleUpIcon />
@@ -1092,7 +629,7 @@ const DashboardDesktopPage = () => {
             >
               Closed
             </Text>
-            <CircularProgress value={80} color="brand.800" size={28}>
+            <CircularProgress value={80} color="primary.500" size={28}>
               <CircularProgressLabel fontSize="2xl" fontWeight={800}>
                 300
               </CircularProgressLabel>
@@ -1101,7 +638,7 @@ const DashboardDesktopPage = () => {
               align="center"
               gap={1.5}
               fontWeight={800}
-              color="brand.800"
+              color="primary.500"
               fontSize="sm"
             >
               <TriangleUpIcon />
@@ -1163,7 +700,7 @@ const DashboardDesktopPage = () => {
           <Button
             variant="link"
             colorScheme="gray"
-            color="brand.800"
+            color="primary.500"
             mt={3}
             mr={4}
             rightIcon={<ArrowForwardIcon />}
@@ -1210,32 +747,32 @@ const DashboardDesktopPage = () => {
               <Text fontWeight={600}>Course #2</Text>
               <Text fontWeight={800}>80%</Text>
             </Flex>
-            <Progress colorScheme="brand" rounded="full" value={80} />
+            <Progress colorScheme="primary" rounded="full" value={80} />
           </Box>
           <Box>
             <Flex mb={1.5} justify="space-between">
               <Text fontWeight={600}>Course #3</Text>
               <Text fontWeight={800}>30%</Text>
             </Flex>
-            <Progress colorScheme="brand" rounded="full" value={30} />
+            <Progress colorScheme="primary" rounded="full" value={30} />
           </Box>
           <Box>
             <Flex mb={1.5} justify="space-between">
               <Text fontWeight={600}>Course #4</Text>
               <Text fontWeight={800}>40%</Text>
             </Flex>
-            <Progress colorScheme="brand" rounded="full" value={40} />
+            <Progress colorScheme="primary" rounded="full" value={40} />
           </Box>
           <Box>
             <Flex mb={1.5} justify="space-between">
               <Text fontWeight={600}>Course #5</Text>
               <Text fontWeight={800}>60%</Text>
             </Flex>
-            <Progress colorScheme="brand" rounded="full" value={60} />
+            <Progress colorScheme="primary" rounded="full" value={60} />
           </Box>
         </Flex>
         <Flex
-          bgColor="brand.800"
+          bgColor="primary.500"
           rounded="base"
           boxShadow="base"
           flex={1}
@@ -1247,7 +784,7 @@ const DashboardDesktopPage = () => {
           justify="flex-end"
         >
           <Box
-            bgColor="#9D8DFF"
+            bgColor="secondary.500"
             w="350px"
             h="350px"
             rounded="full"
@@ -1256,7 +793,7 @@ const DashboardDesktopPage = () => {
             bottom="-25%"
           ></Box>
           <Flex
-            bgColor="#9D8DFF"
+            bgColor="secondary.500"
             w="250px"
             h="250px"
             rounded="full"
@@ -1269,7 +806,7 @@ const DashboardDesktopPage = () => {
           </Flex>
           <Flex
             fontSize="4xl"
-            color="white"
+            color="black"
             zIndex={10}
             fontWeight={800}
             mb={2}
@@ -1279,7 +816,7 @@ const DashboardDesktopPage = () => {
             <Icon as={BiBookReader} />
             <Text>ISP Hub</Text>
           </Flex>
-          <Text zIndex={10} color="white" fontWeight={600} w="250px">
+          <Text zIndex={10} color="black" fontWeight={600} w="250px">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
             porta turpis est
           </Text>
@@ -1309,92 +846,6 @@ const DashboardDesktopPage = () => {
           <BandwidthUsage />
         </Box>
       </Flex>
-      {/* <Flex w="100%" gap={6}>
-        <Box flex={3}>
-          <Page.Header
-            pb={2}
-            mb={6}
-            actions={[
-              <Button size="sm" to="/products" variant="link" as={Link}>
-                <span>View all products</span>
-              </Button>,
-            ]}
-          >
-            Order Products
-          </Page.Header>
-          <Flex gap={6}>
-            <Card rounded={4} boxShadow="base">
-              <Card.Section mb={4}>
-                <Image
-                  src={FTTPServicesImg}
-                  objectFit="cover"
-                  height="160px"
-                  width="100%"
-                />
-              </Card.Section>
-              <VStack align="flex-start" spacing={4}>
-                <Text fontSize="lg" fontWeight={600}>
-                  FTTP Services
-                </Text>
-                <UnorderedList fontSize="sm" listStylePos="inside">
-                  <ListItem>1000Mb/s symmetric bandwidth</ListItem>
-                  <ListItem>Unlimited</ListItem>
-                  <ListItem>Able to support multiple line profiles</ListItem>
-                </UnorderedList>
-                <Button rightIcon={<ArrowForwardIcon />} isFullWidth>
-                  Check Availability
-                </Button>
-              </VStack>
-            </Card>
-            <Card rounded={4} boxShadow="base">
-              <Card.Section mb={4}>
-                <Image
-                  src={FTTPServicesImg}
-                  objectFit="cover"
-                  height="160px"
-                  width="100%"
-                />
-              </Card.Section>
-              <VStack align="flex-start" spacing={4}>
-                <Text fontSize="lg" fontWeight={600}>
-                  FTTP Services
-                </Text>
-                <UnorderedList fontSize="sm" listStylePos="inside">
-                  <ListItem>1000Mb/s symmetric bandwidth</ListItem>
-                  <ListItem>Unlimited</ListItem>
-                  <ListItem>Able to support multiple line profiles</ListItem>
-                </UnorderedList>
-                <Button rightIcon={<ArrowForwardIcon />} isFullWidth>
-                  Check Availability
-                </Button>
-              </VStack>
-            </Card>
-          </Flex>
-        </Box>
-        <Box flex={2}>
-          <Page.Header
-            pb={2}
-            mb={6}
-            actions={[
-              <Button size="sm" to="/products" variant="link" as={Link}>
-                <span>View all invoices</span>
-              </Button>,
-            ]}
-          >
-            Invoices
-          </Page.Header>
-          <Table
-            columns={INVOICE_COLUMNS}
-            isLoading={isLoading}
-            data={INVOICE_DATA}
-            boxShadow="base"
-            overflowY="auto"
-            bgColor="white"
-            rounded={5}
-            maxH="80vh"
-          />
-        </Box>
-      </Flex> */}
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent>
@@ -1403,7 +854,7 @@ const DashboardDesktopPage = () => {
           </ModalHeader>
           <ModalBody px={14}>
             <VStack spacing={6} width="100%">
-              <Box bgColor="#C2B8FF" px={8} pt={8} rounded={4} width="100%">
+              <Box bgColor="primary.500" px={8} pt={8} rounded={4} width="100%">
                 <TeamSVG width="100%" />
               </Box>
               <Box textAlign="center" maxW="450px">

@@ -1,17 +1,13 @@
-import * as React from 'react';
-import {
-  Stack,
-  Container,
-  VStack,
-} from '@chakra-ui/layout';
-import { Radio, RadioGroup } from '..';
-import { get } from 'lodash-es';
-import { Button } from '@chakra-ui/react';
+import * as React from "react"
+import { Stack, Container, VStack } from "@chakra-ui/layout"
+import { Radio, RadioGroup } from ".."
+import { get } from "lodash-es"
+import { Button } from "@chakra-ui/react"
 
 export default {
-  title: 'Components / Forms / Radio',
+  title: "Components / Forms / Radio",
   decorators: [(story: Function) => <Container mt="40px">{story()}</Container>],
-};
+}
 
 export const States = () => (
   <VStack alignItems="flex-start" spacing={6}>
@@ -24,19 +20,19 @@ export const States = () => (
     <Radio size="lg" isDisabled>
       Disabled
     </Radio>
-    <Radio isChecked isReadOnly size="lg" colorScheme="brand">
+    <Radio isChecked isReadOnly size="lg" colorScheme="primary">
       Readonly
     </Radio>
   </VStack>
 )
 
 export const sizes = () => {
-  const sizes = ['sm', 'md', 'lg'];
+  const sizes = ["sm", "md", "lg"]
   const sizeNames = {
-    sm: 'Small',
-    md: 'Medium',
-    lg: 'Large',
-  };
+    sm: "Small",
+    md: "Medium",
+    lg: "Large",
+  }
 
   return (
     <>
@@ -52,11 +48,11 @@ export const sizes = () => {
         </Radio>
       ))}
     </>
-  );
-};
+  )
+}
 
 export const _RadioGroup = () => {
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = React.useState("")
   return (
     <>
       <RadioGroup value={value} onChange={setValue} mb="6">
@@ -66,7 +62,7 @@ export const _RadioGroup = () => {
           <Radio value="Option 3">Option 3</Radio>
         </Stack>
       </RadioGroup>
-      <Button onClick={() => setValue('')}>Clear</Button>
+      <Button onClick={() => setValue("")}>Clear</Button>
     </>
-  );
-};
+  )
+}

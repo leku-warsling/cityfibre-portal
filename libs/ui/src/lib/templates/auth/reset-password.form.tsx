@@ -1,11 +1,12 @@
-import { createForm, FormItem, FormFieldsProps } from "../../form"
-import { PasswordInput } from "../../inputs"
 import { Button, List, ListIcon, ListItem } from "@chakra-ui/react"
-import { z } from "zod"
+import { lengthGte } from "ramda-adjunct"
+import applySpec from "ramda/es/applySpec"
+import test from "ramda/es/test"
 import { useFormContext } from "react-hook-form"
 import { BiCheckCircle } from "react-icons/bi"
-import { applySpec, test } from "ramda"
-import { lengthGte } from "ramda-adjunct"
+import { z } from "zod"
+import { createForm, FormFieldsProps, FormItem } from "../../form"
+import { PasswordInput } from "../../inputs"
 
 const applyPasswordSpec = applySpec({
   containsLowerCaseChar: test(/^(?=.*[a-z])/),
@@ -112,9 +113,9 @@ export const ResetPasswordFields = ({
       spinnerPlacement="end"
       loadingText="Send Reset Link"
       isLoading={isLoading}
-      colorScheme="brand"
+      colorScheme="primary"
       alignSelf="center"
-      variant="solid"
+      variant="primary"
       type="submit"
       size={size}
       px={12}

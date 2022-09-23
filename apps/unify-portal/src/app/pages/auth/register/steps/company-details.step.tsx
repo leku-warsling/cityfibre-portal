@@ -1,6 +1,6 @@
 import { Input, SimpleGrid, useBreakpointValue, VStack } from "@chakra-ui/react"
 import { AddressInput } from "../../../../components/inputs/address-input"
-import { FormItem } from "@ui"
+import { FormItem } from "@ui/lib"
 
 const defaultValues = {
   company: {

@@ -4,9 +4,9 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
-  IconButton,
   InputProps,
-} from "@chakra-ui/react"
+} from "@chakra-ui/input"
+import { IconButton } from "@chakra-ui/button"
 import { ChangeEventHandler, FC, useMemo, useRef } from "react"
 
 export type SearchInputProps = InputProps & {

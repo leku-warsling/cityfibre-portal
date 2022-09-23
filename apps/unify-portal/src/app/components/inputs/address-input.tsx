@@ -1,7 +1,8 @@
 import { useFormContext, UseFormRegisterReturn } from "react-hook-form"
-import { FormItem, SearchInput, util } from "@ui"
+import { FormItem, SearchInput, util } from "@ui/lib"
+import times from "ramda/es/times"
+import pick from "ramda/es/pick"
 import { useState } from "react"
-import { pick, times } from "ramda"
 import {
   FormControl,
   SimpleGrid,

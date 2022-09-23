@@ -1,14 +1,9 @@
-import { Fieldset, FormItem } from "@ui"
-import {
-  Divider,
-  VStack,
-  Input,
-  RadioGroup,
-  Radio,
-  GridItem,
-  Textarea,
-  Select,
-} from "@chakra-ui/react"
+import { Input } from "@chakra-ui/input"
+import { Divider, GridItem, VStack } from "@chakra-ui/layout"
+import { Radio, RadioGroup } from "@chakra-ui/radio"
+import { Select } from "@chakra-ui/select"
+import { Textarea } from "@chakra-ui/textarea"
+import { Fieldset, FormItem } from "@ui/lib"
 
 const defaultValues = {}
 

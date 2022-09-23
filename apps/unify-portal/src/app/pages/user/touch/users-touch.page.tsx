@@ -1,23 +1,21 @@
-import { AddIcon } from "@chakra-ui/icons"
 import {
-  Button,
-  HStack,
-  Text,
-  Divider,
   Accordion,
-  AccordionItem,
   AccordionButton,
-  Box,
   AccordionIcon,
+  AccordionItem,
   AccordionPanel,
-  Icon,
-  WrapItem,
-  Wrap,
   Avatar,
-  Spacer,
   Badge,
-  Select,
+  Box,
+  Button,
+  Divider,
   Heading,
+  HStack,
+  Select,
+  Spacer,
+  Text,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react"
 import { FC } from "react"
 import { Link } from "react-router-dom"
@@ -51,7 +49,7 @@ const UsersTouchPage = () => {
         {/* <Button size="sm" variant="link" as={Link} to="/incidents/create">
           Add User{" "}
           <Box
-            bgColor="brand.500"
+            bgColor="primary.500"
             textAlign="center"
             rounded="full"
             color="white"

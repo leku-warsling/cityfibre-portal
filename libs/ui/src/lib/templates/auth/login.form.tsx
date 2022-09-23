@@ -20,7 +20,7 @@ const LoginFields = ({
   isLoading,
   ...props
 }: LoginFieldsProps) => {
-  const isFullWidth = useBreakpointValue({ base: true, lg: false })
+  const width = useBreakpointValue({ base: "full", lg: "auto" })
 
   return (
     <>
@@ -52,16 +52,16 @@ const LoginFields = ({
       )}
       <Button
         rightIcon={<FiArrowRight />}
-        isFullWidth={isFullWidth}
         spinnerPlacement="end"
         loadingText="Signing in..."
         isLoading={isLoading}
-        colorScheme="brand"
+        colorScheme="primary"
         alignSelf="center"
-        variant="solid"
+        px={{ lg: 24 }}
+        variant="primary"
         type="submit"
         size={size}
-        px={{ lg: 24 }}
+        w={width}
       >
         Sign in
       </Button>

@@ -1,4 +1,4 @@
-import { FormItem } from "@ui"
+import { FormItem } from "@ui/lib"
 import { VStack, Textarea } from "@chakra-ui/react"
 
 const defaultValues = {

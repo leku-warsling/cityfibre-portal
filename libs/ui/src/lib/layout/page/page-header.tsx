@@ -1,11 +1,5 @@
-import {
-  Box,
-  BoxProps,
-  ButtonGroup,
-  Heading,
-  HStack,
-  IconButton,
-} from "@chakra-ui/react"
+import { Box, BoxProps, Heading, HStack } from "@chakra-ui/layout"
+import { ButtonGroup, IconButton } from "@chakra-ui/button"
 import pipe from "ramda/es/pipe"
 import head from "ramda/es/head"
 import { propNotEq } from "ramda-adjunct"
@@ -68,7 +62,7 @@ const PageHeader: FC<PageHeaderProps> = ({
         <Heading fontSize={fontSize} fontWeight={600} flexGrow={1}>
           {children}
         </Heading>
-        <ButtonGroup ml="auto" spacing={0.5}>
+        <ButtonGroup ml="auto" spacing={1}>
           {actions}
         </ButtonGroup>
       </HStack>
@@ -78,8 +72,8 @@ const PageHeader: FC<PageHeaderProps> = ({
 
 PageHeader.defaultProps = {
   fontSize: ["md", "lg", "xl"],
-  borderBottom: "1px solid",
-  borderColor: "gray.300",
+  // borderBottom: "1px solid",
+  // borderColor: "gray.300",
 }
 
 export default PageHeader

@@ -1,33 +1,33 @@
-import { Story, Meta } from "@storybook/react"
 import {
   Badge,
   Box,
+  chakra,
   Container,
   Divider,
   Flex,
-  chakra,
   IconButton,
+  StyleProps,
   Text,
   useDisclosure,
-  StyleProps,
 } from "@chakra-ui/react"
-import Sidebar, { SidebarProps } from "./sidebar"
-import Nav from "../../navigation/nav"
-import { BiHome, BiDollarCircle, BiBasket } from "react-icons/bi"
-import { RiDashboard3Line } from "react-icons/ri"
-import { ReactComponent as PartnersIcon } from "../../../assets/svg/partners.svg"
-import { ReactComponent as Logo } from "../../../assets/svg/logo.svg"
-import { IframeHTMLAttributes, useEffect, useState, FC } from "react"
+import { Meta, Story } from "@storybook/react"
+import prop from "ramda/es/prop"
+import { FC, IframeHTMLAttributes, useEffect, useState } from "react"
 import { createPortal } from "react-dom"
-import { prop } from "ramda"
+import { BiBasket, BiDollarCircle, BiHome } from "react-icons/bi"
 import {
+  FiHelpCircle,
+  FiInbox,
+  FiMenu,
+  FiPhone,
   FiSettings,
   FiUsers,
-  FiInbox,
-  FiPhone,
-  FiHelpCircle,
-  FiMenu,
 } from "react-icons/fi"
+import { RiDashboard3Line } from "react-icons/ri"
+import { ReactComponent as Logo } from "../../assets/svg/logo.svg"
+import { ReactComponent as PartnersIcon } from "../../assets/svg/partners.svg"
+import Nav from "../../navigation/nav"
+import Sidebar, { SidebarProps } from "./sidebar"
 
 export default {
   title: "Components / Layout / Sidebar",
@@ -166,8 +166,8 @@ const Template: Story<SidebarProps> = (args) => {
           <Nav.Item icon={FiInbox}>
             <span>Inbox</span>
             <Badge
-              variant="solid"
-              colorScheme="brand"
+              variant="primary"
+              colorScheme="primary"
               fontSize="14px"
               px="10px"
               py="4px"

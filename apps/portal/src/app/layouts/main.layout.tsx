@@ -7,23 +7,18 @@ import {
   Nav,
   PartnersIcon,
   Logo,
-  Text,
-} from "@ui"
+} from "@ui/lib"
+import { Badge, Text, Box, Divider, Flex } from "@chakra-ui/layout"
 import {
-  Badge,
-  VStack,
-  Box,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  Avatar,
-  Divider,
   MenuDivider,
-  useDisclosure,
-  Flex,
-  Icon,
-} from "@chakra-ui/react"
+} from "@chakra-ui/menu"
+import { Avatar } from "@chakra-ui/avatar"
+import { Icon } from "@chakra-ui/icon"
+import { useDisclosure } from "@chakra-ui/hooks"
 import {
   FiSettings,
   FiUsers,
@@ -122,7 +117,7 @@ const MainLayout = () => {
             <span>Inbox</span>
             <Badge
               variant="solid"
-              colorScheme="brand"
+              colorScheme="secondary"
               fontSize="14px"
               px="10px"
               py="4px"

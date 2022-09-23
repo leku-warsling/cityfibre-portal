@@ -1,4 +1,4 @@
-import { repeat } from "ramda"
+import repeat from "ramda/es/repeat"
 
 export const INCIDENT_DATA = repeat(
   {

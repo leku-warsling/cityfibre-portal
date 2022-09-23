@@ -1,4 +1,4 @@
-import { Box, BoxProps, Container, Flex } from "@chakra-ui/react"
+import { Box, BoxProps, Container, Flex } from "@chakra-ui/layout"
 import { FC, ReactNode, useMemo, useRef } from "react"
 import useObserver from "../../hooks/useResizeObserver"
 
@@ -7,7 +7,7 @@ export type AppShellProps = BoxProps & {
   sidebar?: ReactNode
 }
 
-const AppShell: FC<AppShellProps> = ({
+export const AppShell: FC<AppShellProps> = ({
   sidebar,
   header,
   children,
@@ -38,5 +38,3 @@ AppShell.defaultProps = {
   height: "100vh",
   width: "100vw",
 }
-
-export default AppShell

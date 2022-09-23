@@ -1,24 +1,24 @@
-import { usePage } from "../../hooks/use-page.hook"
-import { useEffect, useState } from "react"
-import { Logo, Page } from "@ui"
 import {
-  VStack,
-  HStack,
-  Text,
-  SimpleGrid,
-  Divider,
   Box,
+  Divider,
+  HStack,
+  SimpleGrid,
   Table,
-  Thead,
-  Tr,
-  Th,
   Tbody,
   Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+  VStack,
 } from "@chakra-ui/react"
+import { Logo, Page } from "@ui/lib"
+import { useEffect, useState } from "react"
+import { usePage } from "../../hooks/use-page.hook"
 
 export const InvoicePage = () => {
   usePage({ title: "Billing" })
-  const [isLoading, setLoading] = useState(true)
+  const [, setLoading] = useState(true)
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000)
@@ -40,7 +40,7 @@ export const InvoicePage = () => {
         pb={20}
         px={12}
       >
-        <HStack w="100%" justifyContent="space-between" color="brand.500">
+        <HStack w="100%" justifyContent="space-between" color="primary.500">
           <Logo height="50px" />
           <Text fontSize="xl">
             Invoice <strong>#CFL0006007</strong>
@@ -80,7 +80,7 @@ export const InvoicePage = () => {
             </Text>
             <SimpleGrid columns={2} spacingY={0.5} spacingX={0}>
               <Text>Total Due:</Text>
-              <Text fontWeight={600} color="brand.500">
+              <Text fontWeight={600} color="primary.500">
                 £4000.00
               </Text>
               <Text>Bank name:</Text>

@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react"
-import { Page } from "@ui"
 import {
   Button,
   ButtonGroup,
@@ -16,13 +14,15 @@ import {
   Tr,
   VStack,
 } from "@chakra-ui/react"
+import { Page } from "@ui/lib"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { usePage } from "../../../hooks/use-page.hook"
 
 export const ServiceAltPage = () => {
   usePage({ title: "Support" })
   const { id } = useParams()
-  const [isLoading, setLoading] = useState(true)
+  const [, setLoading] = useState(true)
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000)

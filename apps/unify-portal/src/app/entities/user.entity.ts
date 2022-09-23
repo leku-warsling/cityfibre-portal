@@ -1,4 +1,4 @@
-import { util } from "@ui"
+import { date } from "@ui/lib/util"
 import { z } from "zod"
 
 export const USER_STATUSES = ["Active", "Awaiting Activation"] as const
@@ -25,9 +25,9 @@ export const USER_ROLES = [
 ] as const
 
 export const userSchema = z.object({
-  email_verified_at: z.string().transform(util.date.toDate),
-  updated_at: z.string().transform(util.date.toDate),
-  created_at: z.string().transform(util.date.toDate),
+  email_verified_at: z.string().transform(date.toDate),
+  updated_at: z.string().transform(date.toDate),
+  created_at: z.string().transform(date.toDate),
   // roles: z.enum(USER_ROLES).array(),
   roles: z.enum(USER_ROLES),
   status: z.enum(USER_STATUSES),

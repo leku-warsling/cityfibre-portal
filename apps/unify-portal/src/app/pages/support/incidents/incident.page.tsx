@@ -1,53 +1,44 @@
-import { usePage } from "../../../hooks/use-page.hook"
-import { Link, useParams } from "react-router-dom"
-import { FiPaperclip } from "react-icons/fi"
-import { useEffect, useState } from "react"
-import { BiSortUp } from "react-icons/bi"
-import { Page } from "@ui"
+import {
+  Badge,
+  Box,
+  Divider,
+  Flex,
+  HStack,
+  SimpleGrid,
+  Text,
+  VStack,
+  Wrap,
+  WrapItem,
+} from "@chakra-ui/layout"
+import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
+import { Button, IconButton } from "@chakra-ui/button"
+import { Avatar } from "@chakra-ui/avatar"
+import { Icon } from "@chakra-ui/icon"
+import { Page } from "@ui/lib"
 import {
   AiOutlineFileExcel,
   AiOutlineFileJpg,
   AiOutlineFilePdf,
   AiOutlineFileWord,
 } from "react-icons/ai"
-import {
-  Avatar,
-  Badge,
-  Box,
-  Button,
-  Divider,
-  Flex,
-  HStack,
-  Icon,
-  IconButton,
-  Input,
-  InputGroup,
-  InputRightElement,
-  SimpleGrid,
-  Text,
-  VStack,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react"
+import { BiSortUp } from "react-icons/bi"
+import { FiPaperclip } from "react-icons/fi"
+import { Link, useParams } from "react-router-dom"
+import { usePage } from "../../../hooks/use-page.hook"
 
-export const IncidentPage = () => {
+const PAGE_ACTIONS = [
+  <Button to="/incidents" variant="link" as={Link}>
+    View all incidents
+  </Button>,
+]
+
+const IncidentPage = () => {
   usePage({ title: "Support" })
-  const [isLoading, setLoading] = useState(true)
   const { id } = useParams()
-
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1000)
-  }, [])
-
-  const actions = [
-    <Button to="/incidents" variant="link" as={Link}>
-      View all incidents
-    </Button>,
-  ]
 
   return (
     <Page maxH="93vh" overflowY="auto">
-      <Page.Header mb={8} pb={2} actions={actions}>
+      <Page.Header mb={8} pb={2} actions={PAGE_ACTIONS}>
         Incident: {id}
       </Page.Header>
       <Flex gap={8}>
@@ -352,3 +343,5 @@ export const IncidentPage = () => {
     </Page>
   )
 }
+
+export default IncidentPage

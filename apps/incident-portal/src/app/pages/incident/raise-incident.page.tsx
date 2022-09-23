@@ -1,26 +1,7 @@
 // @ts-nocheck
-import { Page, Step, Steps } from "@ui"
-import { __ } from "ramda"
 import { StateMachineProvider, createStore } from "little-state-machine"
 import { Outlet } from "react-router-dom"
-
-const steps = [
-  {
-    label: "Service Details",
-  },
-  {
-    label: "Incident Details",
-  },
-  {
-    label: "Submit Incident",
-  },
-]
-
-const SERVICE_REFS = {
-  S12345: "active",
-  S75659: "down",
-  S143015: "power",
-}
+import { Page } from "@ui"
 
 createStore({
   data: {},

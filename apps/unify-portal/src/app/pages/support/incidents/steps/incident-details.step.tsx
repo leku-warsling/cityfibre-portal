@@ -1,18 +1,12 @@
 import WirelessRouterImg from "../../../../../assets/images/wireless-router.png"
-import { FormItem, RadioButton, RadioButtonGroup } from "@ui"
+import { FormItem, RadioButton, RadioButtonGroup } from "@ui/lib"
 import { FiPower } from "react-icons/fi"
-import {
-  VStack,
-  Text,
-  Input,
-  Flex,
-  Button,
-  Icon,
-  Image,
-  Box,
-  Divider,
-  useBreakpointValue,
-} from "@chakra-ui/react"
+import { VStack, Text, Flex, Box, Divider } from "@chakra-ui/layout"
+import { Image } from "@chakra-ui/image"
+import { Input } from "@chakra-ui/input"
+import { Icon } from "@chakra-ui/icon"
+import { Button } from "@chakra-ui/button"
+import { useBreakpointValue } from "@chakra-ui/media-query"
 
 export type IncidentDetailsFormProps = {
   size: "sm" | "md" | "lg"
@@ -48,9 +42,9 @@ const IncidentDetailsStep = () => {
       >
         <VStack flexGrow={1} spacing={4} py={10}>
           <Flex
-            borderColor="brand.500"
+            borderColor="primary.500"
             border="2px solid"
-            color="brand.500"
+            color="primary.500"
             justify="center"
             rounded="full"
             align="center"
@@ -76,9 +70,9 @@ const IncidentDetailsStep = () => {
         />
         <VStack flexGrow={1} spacing={4} py={10}>
           <Flex
-            borderColor="brand.500"
+            borderColor="primary.500"
             border="2px solid"
-            color="brand.500"
+            color="primary.500"
             justify="center"
             rounded="full"
             align="center"

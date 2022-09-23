@@ -1,6 +1,6 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons"
 import { Button, Input, BoxProps, SimpleGrid } from "@chakra-ui/react"
-import { createForm, FormFieldsProps, FormItem } from "@ui"
+import { createForm, FormFieldsProps, FormItem } from "@ui/lib"
 import { UseFormRegisterReturn } from "react-hook-form"
 
 export type LiveWorksFieldsProps = BoxProps & FormFieldsProps
@@ -75,9 +75,9 @@ const LiveWorksFields = ({
         loadingText="Submitting..."
         rightIcon={<ArrowForwardIcon />}
         isLoading={isLoading}
-        colorScheme="brand"
+        colorScheme="primary"
         alignSelf="center"
-        variant="solid"
+        variant="primary"
         type="submit"
         size={size}
         width="100%"

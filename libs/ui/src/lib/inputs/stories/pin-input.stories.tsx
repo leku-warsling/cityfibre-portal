@@ -1,6 +1,5 @@
 import { Container, HStack, PinInputProps } from "@chakra-ui/react"
-import { ComponentStory, ComponentMeta } from "@storybook/react"
-import { repeat } from "ramda"
+import { ComponentMeta, ComponentStory } from "@storybook/react"
 import { FC } from "react"
 import { PinInput } from ".."
 

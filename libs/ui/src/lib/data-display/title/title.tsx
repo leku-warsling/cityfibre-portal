@@ -1,10 +1,5 @@
-import {
-  VStack,
-  Text,
-  Heading,
-  SystemProps,
-  StackProps,
-} from "@chakra-ui/react"
+import { VStack, Text, Heading, StackProps } from "@chakra-ui/layout"
+import { SystemProps } from "@chakra-ui/system"
 import { FC, ReactNode } from "react"
 
 export type TitleProps = {

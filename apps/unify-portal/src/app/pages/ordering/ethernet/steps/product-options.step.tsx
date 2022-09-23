@@ -1,23 +1,18 @@
-import { FormItem } from "@ui"
+import { Badge, Box, Flex, Text, VStack } from "@chakra-ui/layout"
+import { Radio, RadioGroup } from "@chakra-ui/radio"
+import { Select } from "@chakra-ui/select"
 import {
-  VStack,
-  RadioGroup,
-  Radio,
-  Flex,
-  Box,
-  Select,
   Table,
-  Thead,
-  Tr,
-  Th,
+  TableCaption,
+  TableContainer,
   Tbody,
   Td,
-  Badge,
-  TableContainer,
-  TableCaption,
-  Text,
-  Tooltip,
-} from "@chakra-ui/react"
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/table"
+import { Tooltip } from "@chakra-ui/tooltip"
+import { FormItem } from "@ui/lib"
 
 const defaultValues = {}
 

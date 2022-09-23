@@ -1,4 +1,4 @@
-import { util } from "@ui"
+import { date } from "@ui/lib/util"
 import { z } from "zod"
 import {
   addressSchema,
@@ -19,8 +19,8 @@ export const SERVICE_STATUSES = [
 ] as const
 
 export const serviceSchema = z.object({
-  updated_at: z.string().transform(util.date.toDate),
-  created_at: z.string().transform(util.date.toDate),
+  updated_at: z.string().transform(date.toDate),
+  created_at: z.string().transform(date.toDate),
   status: z.enum(SERVICE_STATUSES),
   appointment: appointmentSchema,
   customer_reference: z.string(),
@@ -32,8 +32,8 @@ export const serviceSchema = z.object({
   id: z.number(),
   contract: z
     .object({
-      start: z.string().transform(util.date.toDate),
-      end: z.string().transform(util.date.toDate),
+      start: z.string().transform(date.toDate),
+      end: z.string().transform(date.toDate),
     })
     .optional(),
 })

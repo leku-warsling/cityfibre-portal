@@ -1,9 +1,14 @@
-import { Button, chakra, SimpleGrid, Text } from "@chakra-ui/react"
-import { add, equals, range, subtract } from "ramda"
-import CalendarControls from "./calendar-controls"
+import { SimpleGrid, Text } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
+import { chakra } from "@chakra-ui/system"
+import setYear from "date-fns/setYear"
 import { inRange } from "ramda-adjunct"
+import add from "ramda/es/add"
+import equals from "ramda/es/equals"
+import range from "ramda/es/range"
+import subtract from "ramda/es/subtract"
 import { FC, useState } from "react"
-import { setYear } from "date-fns"
+import CalendarControls from "./calendar-controls"
 
 export type YearPickerProps = {
   previousYearSetLabel?: string

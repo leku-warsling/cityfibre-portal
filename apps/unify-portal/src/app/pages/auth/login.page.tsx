@@ -1,5 +1,5 @@
 import { Button, Text, useBreakpointValue, VStack } from "@chakra-ui/react"
-import { AuthTemplate, LoginForm, TextDivider } from "@ui"
+import { AuthTemplate, LoginForm, TextDivider } from "@ui/lib"
 import { Link } from "react-router-dom"
 import { useAuth } from "../../providers/auth.provider"
 
@@ -37,7 +37,7 @@ export const LoginPage = ({
   const forgottenPassword = showForgottenPassword && (
     <Button
       to="/auth/forgotten-password"
-      color="brand.500"
+      color="primary.500"
       variant="link"
       as={Link}
     >

@@ -1,3 +1,24 @@
+import { CalendarIcon } from "@chakra-ui/icons"
+import {
+  Input,
+  InputGroup,
+  InputProps,
+  InputRightElement,
+} from "@chakra-ui/input"
+import {
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
+} from "@chakra-ui/popover"
+import { IconButton } from "@chakra-ui/button"
+import { useDisclosure } from "@chakra-ui/hooks"
+import isAfter from "date-fns/isAfter"
+import isDate from "date-fns/isDate"
+import isValid from "date-fns/isValid"
+import isNil from "lodash-es/isNil"
+import { isFunction, isString } from "ramda-adjunct"
+import either from "ramda/es/either"
 import {
   ChangeEvent,
   FocusEvent,
@@ -7,28 +28,10 @@ import {
   useRef,
   useState,
 } from "react"
-import {
-  Input,
-  InputGroup,
-  useDisclosure,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  InputRightElement,
-  IconButton,
-} from "@chakra-ui/react"
-import { Calendar } from "../calendar"
-import { CalendarIcon } from "@chakra-ui/icons"
-import format from "date-fns/fp/format"
-import { mergeRefs } from "../../../util/react.util"
-import { InputProps } from "@chakra-ui/react"
-import { either } from "ramda"
-import { isFunction, isString } from "ramda-adjunct"
-import { isAfter, isDate, isValid } from "date-fns"
-import { isNil } from "lodash-es"
 import useFocusTrap from "../../../hooks/use-focus-trap"
 import { useUncontrolled } from "../../../hooks/use-uncontrolled"
+import { mergeRefs } from "../../../util/react.util"
+import { Calendar } from "../calendar"
 
 export type DatePickerOwnProps = {
   onChange: (value: Date) => void
@@ -72,8 +75,8 @@ const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
     const inputRef = useRef<HTMLInputElement>(null!)
     const focusTrapRef = useFocusTrap(isOpen)
 
-    const formatter = (val: any) => {
-      return isDate(val) ? format(formatString ?? "dd/MM/yyyy")(val) : ""
+    const formatter = (date: any) => {
+      return isDate(date) ? date.toLocaleDateSttring("en-GB") : ""
     }
 
     const [_value, setValue] = useUncontrolled<Date>({

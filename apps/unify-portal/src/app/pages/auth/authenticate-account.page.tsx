@@ -1,5 +1,5 @@
-import { useBreakpointValue } from "@chakra-ui/react"
-import { AuthenticateAccountForm, AuthTemplate, Text, Button } from "@ui"
+import { useBreakpointValue, Text, Button } from "@chakra-ui/react"
+import { AuthenticateAccountForm, AuthTemplate } from "@ui/lib"
 
 type PageProps = {
   strapline: string
@@ -28,7 +28,7 @@ export const AuthenticateAccountPage = ({ strapline, title }: PageProps) => {
       />
       <Text>
         Didn’t receive a code?{" "}
-        <Button variant="link" colorScheme="brand">
+        <Button variant="link" colorScheme="black">
           Send it again
         </Button>
       </Text>

@@ -1,11 +1,6 @@
-import {
-  Button,
-  chakra,
-  Divider,
-  Heading,
-  HStack,
-  IconButton,
-} from "@chakra-ui/react"
+import { Divider, Heading, HStack } from "@chakra-ui/layout"
+import { Button, IconButton } from "@chakra-ui/button"
+import { chakra } from "@chakra-ui/system"
 import { FC } from "react"
 import {
   BiChevronLeft,

@@ -1,16 +1,22 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Container, Stack, VStack, Checkbox, CheckboxGroup } from '@chakra-ui/react';
-import { get } from 'lodash-es';
-import * as React from 'react';
+import { ComponentStory, ComponentMeta } from "@storybook/react"
+import {
+  Container,
+  Stack,
+  VStack,
+  Checkbox,
+  CheckboxGroup,
+} from "@chakra-ui/react"
+import { get } from "lodash-es"
+import * as React from "react"
 
 export default {
-  title: 'Components / Forms / Checkbox',
+  title: "Components / Forms / Checkbox",
   component: Checkbox,
   argTypes: {
-    colorScheme: { 
-      control: { type: "select"},
+    colorScheme: {
+      control: { type: "select" },
       options: [
-        "brand",
+        "primary",
         "green",
         "blue",
         "red",
@@ -29,26 +35,22 @@ export default {
         "messenger",
         "whatsapp",
         "twitter",
-        "telegram"
+        "telegram",
       ],
       table: {
-        defaultValue: "brand"
-      }
+        defaultValue: "primary",
+      },
     },
     size: {
       control: { type: "select" },
-      options: [
-        "sm",
-        "md",
-        "lg",
-      ],
+      options: ["sm", "md", "lg"],
       table: {
-        defaultValue: "md"
-      }
+        defaultValue: "md",
+      },
     },
   },
   decorators: [(story: Function) => <Container mt="40px">{story()}</Container>],
-} as ComponentMeta<typeof Checkbox>;
+} as ComponentMeta<typeof Checkbox>
 
 const Template: ComponentStory<typeof Checkbox> = (args) => (
   <Checkbox {...args} />
@@ -60,30 +62,30 @@ Primary.args = {
   isChecked: false,
   isInvalid: false,
   isDisabled: false,
-  colorScheme: "brand",
+  colorScheme: "primary",
   size: "md",
-  children: "Checkbox"
+  children: "Checkbox",
 }
 
 export const states = () => (
   <VStack alignItems="flex-start" spacing={6}>
-    <Checkbox colorScheme="brand">Idle</Checkbox>
-    <Checkbox colorScheme="brand" isChecked>
+    <Checkbox colorScheme="primary">Idle</Checkbox>
+    <Checkbox colorScheme="primary" isChecked>
       Checked
     </Checkbox>
-    <Checkbox colorScheme="brand" isIndeterminate>
+    <Checkbox colorScheme="primary" isIndeterminate>
       Indeterminate
     </Checkbox>
     <Checkbox isDisabled>Disabled</Checkbox>
     <Checkbox isReadOnly>Readonly</Checkbox>
     <Checkbox isInvalid>Invalid</Checkbox>
   </VStack>
-);
+)
 
 export const colorSchemes = () => {
   return (
     <VStack alignItems="flex-start" spacing={6}>
-      <Checkbox colorScheme="brand" isChecked>
+      <Checkbox colorScheme="primary" isChecked>
         Brand
       </Checkbox>
       <Checkbox colorScheme="blue" isChecked>
@@ -99,16 +101,16 @@ export const colorSchemes = () => {
         Teal
       </Checkbox>
     </VStack>
-  );
-};
+  )
+}
 
 export const Sizes = () => {
-  const sizes = ['sm', 'md', 'lg'];
+  const sizes = ["sm", "md", "lg"]
   const sizeNames = {
-    sm: 'Small',
-    md: 'Medium',
-    lg: 'Large',
-  };
+    sm: "Small",
+    md: "Medium",
+    lg: "Large",
+  }
 
   return (
     <Stack direction="row" spacing={6}>
@@ -118,14 +120,14 @@ export const Sizes = () => {
         </Checkbox>
       ))}
     </Stack>
-  );
-};
+  )
+}
 
 export const Indeterminate = () => {
-  const [checkedItems, setCheckedItems] = React.useState([false, false]);
+  const [checkedItems, setCheckedItems] = React.useState([false, false])
 
-  const allChecked = checkedItems.every(Boolean);
-  const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+  const allChecked = checkedItems.every(Boolean)
+  const isIndeterminate = checkedItems.some(Boolean) && !allChecked
 
   return (
     <>
@@ -151,17 +153,17 @@ export const Indeterminate = () => {
         </Checkbox>
       </Stack>
     </>
-  );
-};
+  )
+}
 
 export const CheckboxGroupExample = () => {
   return (
-    <CheckboxGroup defaultValue={['one', 'two']} onChange={console.log}>
-      <Stack align="start" direction={['column', 'row']} spacing={[2, 4, 6]}>
+    <CheckboxGroup defaultValue={["one", "two"]} onChange={console.log}>
+      <Stack align="start" direction={["column", "row"]} spacing={[2, 4, 6]}>
         <Checkbox value="one">One</Checkbox>
         <Checkbox value="two">Two</Checkbox>
         <Checkbox value="three">Three</Checkbox>
       </Stack>
     </CheckboxGroup>
-  );
-};
+  )
+}

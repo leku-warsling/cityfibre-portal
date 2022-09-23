@@ -1,3 +1,7 @@
-export * from "./create-incident.page"
-export * from "./incidents.page"
-export * from "./incident.page"
+import loadable from "@loadable/component"
+
+export const CreateIncidentPage = loadable(
+  () => import("./create-incident.page")
+)
+export const IncidentsPage = loadable(() => import("./incidents.page"))
+export const IncidentPage = loadable(() => import("./incident.page"))

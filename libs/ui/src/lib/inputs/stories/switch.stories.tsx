@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { ComponentStory, ComponentMeta } from "@storybook/react"
 import { Container, HStack } from "@chakra-ui/react"
 import { Switch } from ".."
 
@@ -8,19 +8,15 @@ export default {
   argTypes: {
     size: {
       control: { type: "select" },
-      options: [
-        "sm",
-        "md",
-        "lg",
-      ],
+      options: ["sm", "md", "lg"],
       table: {
-        defaultValue: 'md',
-      }
+        defaultValue: "md",
+      },
     },
-    colorScheme: { 
-      control: { type: "select"},
+    colorScheme: {
+      control: { type: "select" },
       options: [
-        "brand",
+        "primary",
         "green",
         "blue",
         "red",
@@ -39,11 +35,11 @@ export default {
         "messenger",
         "whatsapp",
         "twitter",
-        "telegram"
+        "telegram",
       ],
       table: {
-        defaultValue: 'brand',
-      }
+        defaultValue: "brand",
+      },
     },
   },
   decorators: [
@@ -55,9 +51,7 @@ export default {
   ],
 } as ComponentMeta<typeof Switch>
 
-const Template: ComponentStory<typeof Switch> = (args) => (
-  <Switch {...args} />
-)
+const Template: ComponentStory<typeof Switch> = (args) => <Switch {...args} />
 
 export const Primary = Template.bind({})
 Primary.args = {
@@ -65,24 +59,23 @@ Primary.args = {
   isDisabled: false,
   isReadOnly: false,
   isInvalid: false,
-  colorScheme: "brand",
+  colorScheme: "primary",
   size: "md",
 }
 
 export const States = () => (
   <HStack spacing={6}>
-    <Switch isInvalid size="md" colorScheme="brand" />
-    <Switch isChecked size="md" colorScheme="brand" />
-    <Switch isDisabled size="md" colorScheme="brand" />
-    <Switch isReadOnly size="md" colorScheme="brand" />
+    <Switch isInvalid size="md" colorScheme="primary" />
+    <Switch isChecked size="md" colorScheme="primary" />
+    <Switch isDisabled size="md" colorScheme="primary" />
+    <Switch isReadOnly size="md" colorScheme="primary" />
   </HStack>
 )
 
 export const Sizes = () => (
   <HStack spacing={6}>
-    <Switch size="sm" colorScheme="brand" />
-    <Switch size="md" colorScheme="brand" />
-    <Switch size="lg" colorScheme="brand" />
+    <Switch size="sm" colorScheme="primary" />
+    <Switch size="md" colorScheme="primary" />
+    <Switch size="lg" colorScheme="primary" />
   </HStack>
 )
-

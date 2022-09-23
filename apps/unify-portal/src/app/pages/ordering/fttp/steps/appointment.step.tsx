@@ -1,8 +1,11 @@
-import { EventOption, EventPicker, FormItem } from "@ui"
-import { VStack } from "@chakra-ui/react"
-import { curry, range, times } from "ramda"
-import { addDays, addHours } from "date-fns"
+import { VStack } from "@chakra-ui/layout"
+import { EventOption, EventPicker, FormItem } from "@ui/lib"
+import addDays from "date-fns/addDays"
+import addHours from "date-fns/addHours"
 import { nanoid } from "nanoid"
+import curry from "ramda/es/curry"
+import range from "ramda/es/range"
+import times from "ramda/es/times"
 
 const defaultValues = {}
 

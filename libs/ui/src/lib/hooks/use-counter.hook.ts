@@ -1,5 +1,6 @@
+import dec from "ramda/es/dec"
+import inc from "ramda/es/inc"
 import { useState } from "react"
-import { dec, inc } from "ramda"
 
 export function useCounter(initialValue = 0) {
   const [count, setCount] = useState(initialValue)

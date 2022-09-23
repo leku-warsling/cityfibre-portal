@@ -1,5 +1,7 @@
-import { Page, WizardPanel, WizardProvider, WizardStepper } from "@ui"
-import { Button, Heading, Hide, VStack } from "@chakra-ui/react"
+import { Page, WizardPanel, WizardProvider, WizardStepper } from "@ui/lib"
+import { Heading, VStack } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
+import { Hide } from "@chakra-ui/media-query"
 import IncidentDetailsStep from "./steps/incident-details.step"
 import ServiceDetailsStep from "./steps/service-details.step"
 import SubmitIncidentStep from "./steps/submit-incident.step"
@@ -11,7 +13,9 @@ const PAGE_ACTIONS = [
   </Button>,
 ]
 
-export const CreateIncidentPage = () => {
+const FORM_STEPS = [ServiceDetailsStep, IncidentDetailsStep, SubmitIncidentStep]
+
+const CreateIncidentPage = () => {
   const [params] = useSearchParams()
   const service_reference = params.get("service_reference") ?? ""
 
@@ -26,13 +30,13 @@ export const CreateIncidentPage = () => {
         Raise an Incident
       </Page.Header>
       <WizardProvider
-        steps={[ServiceDetailsStep, IncidentDetailsStep, SubmitIncidentStep]}
+        steps={FORM_STEPS}
         formData={{ service_reference }}
         onComplete={console.log}
       >
         <VStack spacing={8} w="100%">
           <Hide below="lg">
-            <WizardStepper width="100%" maxW="960px" colorScheme="brand" />
+            <WizardStepper width="100%" maxW="960px" colorScheme="primary" />
           </Hide>
           <WizardPanel
             renderHeader={({ title }) => (
@@ -51,3 +55,5 @@ export const CreateIncidentPage = () => {
     </Page>
   )
 }
+
+export default CreateIncidentPage

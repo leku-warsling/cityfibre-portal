@@ -1,4 +1,4 @@
-import { FormItem } from "@ui"
+import { FormItem } from "@ui/lib"
 import { SimpleGrid, VStack, Input, Textarea, Select } from "@chakra-ui/react"
 import { z } from "zod"
 

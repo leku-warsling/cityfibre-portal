@@ -1,4 +1,4 @@
-import { Flex, FlexProps } from "@chakra-ui/react"
+import { Flex, FlexProps } from "@chakra-ui/layout"
 import { FC } from "react"
 import AppBarItem from "./AppBarItem"
 import AppBarSection from "./AppBarSection"
@@ -8,12 +8,12 @@ export type AppBarProps = FlexProps & {
   size?: string
 }
 
-type AppBarComponent = FC<AppBarProps> & {
+export type AppBarComponent = FC<AppBarProps> & {
   Section: typeof AppBarSection
   Item: typeof AppBarItem
 }
 
-const AppBar: AppBarComponent = ({ children, ...props }) => (
+export const AppBar: AppBarComponent = ({ children, ...props }) => (
   <Flex as="header" gap={4} {...props}>
     {children}
   </Flex>
@@ -21,5 +21,3 @@ const AppBar: AppBarComponent = ({ children, ...props }) => (
 
 AppBar.Section = AppBarSection
 AppBar.Item = AppBarItem
-
-export default AppBar

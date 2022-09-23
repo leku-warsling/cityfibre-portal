@@ -1,4 +1,4 @@
-import { InputProps } from "@chakra-ui/react"
+import { InputProps } from "@chakra-ui/input"
 import { Dispatch, HTMLAttributes, SetStateAction } from "react"
 
 export type CalendarDay = {
@@ -8,13 +8,13 @@ export type CalendarDay = {
 }
 
 export type Calendar = {
-  weeks: Date[][],
-  year: number,
-  month: number,
-  inRange: (d: Date) => boolean,
-  setDate: Dispatch<SetStateAction<Date>>,
-  onSelect: (value: Date) => void,
-  date: Date,
+  weeks: Date[][]
+  year: number
+  month: number
+  inRange: (d: Date) => boolean
+  setDate: Dispatch<SetStateAction<Date>>
+  onSelect: (value: Date) => void
+  date: Date
 }
 
 export type NavigationOptions = {
@@ -22,21 +22,21 @@ export type NavigationOptions = {
   calendar: Calendar
 }
 
-export type NavigationButtonProps = HTMLAttributes<HTMLButtonElement> & { 
-  offset?: number,
-  onClick?: (value: any) => void 
+export type NavigationButtonProps = HTMLAttributes<HTMLButtonElement> & {
+  offset?: number
+  onClick?: (value: any) => void
 }
 
-export type DateButtonProps = HTMLAttributes<HTMLButtonElement> & { 
+export type DateButtonProps = HTMLAttributes<HTMLButtonElement> & {
   onClick?: (value: any) => void
 }
 
 export type UseCalendarState = {
   initialDate?: Date
-  format?: string,
+  format?: string
   selected?: Date | Date[]
-  min?: Date,
-  max?: Date,
+  min?: Date
+  max?: Date
   onSelect: (value: string) => void
 }
 

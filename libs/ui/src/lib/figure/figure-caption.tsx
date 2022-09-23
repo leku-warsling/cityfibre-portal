@@ -1,12 +1,10 @@
-import { Flex, FlexProps } from "@chakra-ui/react"
+import { Flex, FlexProps } from "@chakra-ui/layout"
 import { FC } from "react"
 
 export type FigureCaptionProps = FlexProps & {}
 
 const FigureCaption: FC<FigureCaptionProps> = ({ children, ...props }) => (
-  <Flex {...props}>
-    {children}
-  </Flex>
+  <Flex {...props}>{children}</Flex>
 )
 
 FigureCaption.defaultProps = {

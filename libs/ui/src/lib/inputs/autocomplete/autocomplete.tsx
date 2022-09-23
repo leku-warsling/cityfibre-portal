@@ -1,23 +1,19 @@
-import { AutocompleteProps, Option } from "./types"
-import AutocompleteList from "./autocomplete-list"
 import { ChevronDownIcon } from "@chakra-ui/icons"
-import AutocompleteItem from "./autocomplete-item"
-import { FC, useState, useMemo } from "react"
-import { matchSorter } from "match-sorter"
-import debounce from "lodash-es/debounce"
-import { flow } from "fp-ts/lib/function"
+import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
+import { Spinner } from "@chakra-ui/spinner"
+import { Flex } from "@chakra-ui/layout"
 import { useCombobox } from "downshift"
 import memoize from "fast-memoize"
-import pick from "ramda/es/pick"
+import { flow } from "fp-ts/lib/function"
+import debounce from "lodash-es/debounce"
+import { matchSorter } from "match-sorter"
+import equals from "ramda/es/equals"
 import omit from "ramda/es/omit"
-import { equals } from "ramda"
-import {
-  InputRightElement,
-  InputGroup,
-  Spinner,
-  Input,
-  Flex,
-} from "@chakra-ui/react"
+import pick from "ramda/es/pick"
+import { FC, useMemo, useState } from "react"
+import AutocompleteItem from "./autocomplete-item"
+import AutocompleteList from "./autocomplete-list"
+import { AutocompleteProps, Option } from "./types"
 
 const filterOptions = memoize((opts: Option[], str: string) =>
   matchSorter(opts, str, { keys: ["label"] })

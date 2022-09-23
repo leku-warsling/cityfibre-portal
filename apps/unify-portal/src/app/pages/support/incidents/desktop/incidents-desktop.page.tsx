@@ -1,19 +1,13 @@
-import { Button, Badge, Flex, Spacer } from "@chakra-ui/react"
-import { useIncidents, useQueryParams } from "@unify/hooks"
-import { difference, pathOr, prop } from "ramda"
 import { AddIcon } from "@chakra-ui/icons"
+import { Badge, Button } from "@chakra-ui/react"
+import { ListingTemplate, util } from "@ui/lib"
+import { DataExport } from "@unify/components"
+import { useIncidents, useQueryParams } from "@unify/hooks"
 import { flow } from "fp-ts/lib/function"
+import pathOr from "ramda/es/pathOr"
+import prop from "ramda/es/prop"
 import { Link } from "react-router-dom"
-import { Page, Table, util } from "@ui"
-import { useState } from "react"
 import { z } from "zod"
-import {
-  ColumnVisibility,
-  SelectFilter,
-  FieldSearch,
-  DataExport,
-  Statistic,
-} from "@unify/components"
 
 const DEFAULT_QUERY = {
   _page: 1,
@@ -135,8 +129,6 @@ const COLUMN_MAP = TABLE_COLUMNS.reduce<Record<string, string>>((m, item) => {
   return m
 }, {})
 
-const COLUMN_KEYS = Object.keys(COLUMN_MAP)
-
 const PAGE_ACTIONS = [
   <Button
     leftIcon={<AddIcon fontSize="12px" />}
@@ -154,7 +146,6 @@ const IncidentsDesktopPage = () => {
   const { params, mergeParams, renameParam, searchHandler, setParam } =
     useQueryParams<IncidentQuery>(DEFAULT_QUERY, incidentQuerySchema.parse)
   const { data = defaultValues, isLoading, isFetching } = useIncidents(params)
-  const [visibleColumns, setVisibleColumns] = useState(Object.keys(COLUMN_MAP))
   const { totals, items } = data
 
   const _onSort = ({
@@ -170,22 +161,10 @@ const IncidentsDesktopPage = () => {
     })
   }
 
-  const _onPaginate = ({
-    pageIndex,
-    pageSize,
-  }: {
-    pageIndex: number
-    pageSize: number
-  }) => {
-    mergeParams({
-      _page: pageIndex,
-      _limit: pageSize,
-    })
-  }
+  const _onPaginate = setParam("_page")
+  const _onSizeChange = setParam("_limit")
 
   const initialState = {
-    pageIndex: params._page,
-    pageSize: params._limit,
     sortBy: [
       {
         id: "created_at",
@@ -195,27 +174,17 @@ const IncidentsDesktopPage = () => {
   }
 
   return (
-    <Page maxH="93vh" overflowY="auto">
-      <Page.Header mb={6} pb={2} actions={PAGE_ACTIONS}>
-        Incidents
-      </Page.Header>
-      <Flex gap={6} width="100%" mb={6}>
-        <Statistic label="Total incidents" value={totals.records} />
-        <Statistic label="Open incidents" value={totals.open} />
-        <Statistic label="Resolved incidents" value={totals.resolved} />
-        <Statistic label="Closed incidents" value={totals.closed} />
-      </Flex>
-      <Flex align="center" gap={6} mb={6}>
-        <ColumnVisibility
-          onChange={setVisibleColumns}
-          value={visibleColumns}
-          options={Object.entries(COLUMN_MAP)}
-        />
-        <SelectFilter
-          onSelect={(value) =>
-            setParam("status", value as IncidentQuery["status"])
-          }
-          options={[
+    <ListingTemplate
+      page={{
+        actions: PAGE_ACTIONS,
+        title: "Incidents",
+      }}
+      filters={[
+        {
+          label: `Status ${params?.status ?? "All"}`,
+          onSelect: (value: IncidentQuery["status"]) =>
+            setParam("status", value),
+          options: [
             { label: "All", value: undefined },
             { label: "New", value: "New" },
             { label: "In Progress", value: "In Progress" },
@@ -223,47 +192,118 @@ const IncidentsDesktopPage = () => {
             { label: "Closed", value: "Closed" },
             { label: "Resolved", value: "Resolved" },
             { label: "Cancelled", value: "Cancelled" },
-          ]}
-        >
-          Status {params?.status ?? "All"}
-        </SelectFilter>
-        <Spacer />
-        <FieldSearch
-          onFieldChange={renameParam}
-          onChange={searchHandler}
-          placeholder="Search incidents..."
-          defaultField="q"
-          bgColor="white"
-          maxWidth="400px"
-          fields={[
-            { value: "q", label: "All" },
-            { value: "ref_like", label: "Incident Reference" },
-            { value: "service_ref_like", label: "Service Reference" },
-            { value: "user.email_like", label: "Raised By" },
-          ]}
-        />
-      </Flex>
-      <Table
-        hiddenColumns={difference(COLUMN_KEYS, visibleColumns)}
-        initialState={initialState}
-        onPaginate={_onPaginate}
-        pageCount={totals.pages}
-        isFetching={isFetching}
-        columns={TABLE_COLUMNS}
-        isLoading={isLoading}
-        onSort={_onSort}
-        manualPagination
-        boxShadow="base"
-        overflowY="auto"
-        bgColor="white"
-        data={items}
-        isPaginated
-        isSticky
-        rounded={5}
-        maxH="80vh"
-        size="md"
-      />
-    </Page>
+          ],
+        },
+      ]}
+      stats={[
+        { label: "Total incidents", value: totals.records },
+        { label: "Open incidents", value: totals.open },
+        { label: "Resolved incidents", value: totals.resolved },
+        { label: "Closed incidents", value: totals.closed },
+      ]}
+      search={{
+        onFieldChange: renameParam,
+        onSearch: searchHandler,
+        placeholder: "Search incidents...",
+        fields: [
+          { value: "q", label: "All" },
+          { value: "ref_like", label: "Incident Reference" },
+          { value: "service_ref_like", label: "Service Reference" },
+          { value: "user.email_like", label: "Raised By" },
+        ],
+      }}
+      initialState={initialState}
+      pagination={{
+        onSizeChange: (size) => {
+          console.log("size", size)
+          _onSizeChange(size)
+        },
+        pageSize: params._limit,
+        onChange: _onPaginate,
+        current: params._page,
+        total: totals.pages,
+      }}
+      isFetching={isFetching}
+      columns={TABLE_COLUMNS}
+      isLoading={isLoading}
+      onSort={_onSort}
+      data={items}
+    />
+    // <Page maxH="93vh" overflowY="auto">
+    //   <Page.Header mb={6} pb={2} actions={PAGE_ACTIONS}>
+    //     Incidents
+    //   </Page.Header>
+    //   <Flex gap={6} width="100%" mb={6}>
+    //     <Statistic label="Total incidents" value={totals.records} />
+    //     <Statistic label="Open incidents" value={totals.open} />
+    //     <Statistic label="Resolved incidents" value={totals.resolved} />
+    //     <Statistic label="Closed incidents" value={totals.closed} />
+    //   </Flex>
+    //   <Flex align="center" gap={6} mb={6}>
+    //     <ColumnVisibility
+    //       onChange={setVisibleColumns}
+    //       value={visibleColumns}
+    //       options={Object.entries(COLUMN_MAP)}
+    //     />
+    //     <SelectFilter
+    //       onSelect={(value) =>
+    //         setParam("status", value as IncidentQuery["status"])
+    //       }
+    //       options={[
+    //         { label: "All", value: undefined },
+    //         { label: "New", value: "New" },
+    //         { label: "In Progress", value: "In Progress" },
+    //         { label: "Submitted", value: "Submitted" },
+    //         { label: "Closed", value: "Closed" },
+    //         { label: "Resolved", value: "Resolved" },
+    //         { label: "Cancelled", value: "Cancelled" },
+    //       ]}
+    //     >
+    //       Status {params?.status ?? "All"}
+    //     </SelectFilter>
+    //     <Spacer />
+    //     <FieldSearch
+    //       onFieldChange={renameParam}
+    //       onChange={searchHandler}
+    //       placeholder="Search incidents..."
+    //       defaultField="q"
+    //       bgColor="white"
+    //       maxWidth="400px"
+    //       fields={[
+    //         { value: "q", label: "All" },
+    //         { value: "ref_like", label: "Incident Reference" },
+    //         { value: "service_ref_like", label: "Service Reference" },
+    //         { value: "user.email_like", label: "Raised By" },
+    //       ]}
+    //     />
+    //   </Flex>
+    //   <Table
+    //     hiddenColumns={difference(COLUMN_KEYS, visibleColumns)}
+    //     initialState={initialState}
+    //     pagination={{
+    //       onSizeChange: (size) => {
+    //         console.log("size", size)
+    //         _onSizeChange(size)
+    //       },
+    //       pageSize: params._limit,
+    //       onChange: _onPaginate,
+    //       current: params._page,
+    //       total: totals.pages,
+    //     }}
+    //     isFetching={isFetching}
+    //     columns={TABLE_COLUMNS}
+    //     isLoading={isLoading}
+    //     onSort={_onSort}
+    //     boxShadow="base"
+    //     overflowY="auto"
+    //     bgColor="white"
+    //     data={items}
+    //     isSticky
+    //     rounded={5}
+    //     maxH="80vh"
+    //     size="md"
+    //   />
+    // </Page>
   )
 }
 

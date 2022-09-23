@@ -1,4 +1,9 @@
-import { DependentField, FormItem, RadioButton, RadioButtonGroup } from "@ui"
+import {
+  DependentField,
+  FormItem,
+  RadioButton,
+  RadioButtonGroup,
+} from "@ui/lib"
 import { SimpleGrid, VStack, Input } from "@chakra-ui/react"
 import { z } from "zod"
 

@@ -1,9 +1,9 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react"
 import { Container } from "@chakra-ui/react"
+import { ComponentMeta, ComponentStory } from "@storybook/react"
+import is from "ramda/es/is"
+import { useState } from "react"
 import { RadioButton } from "./radio-button"
 import { RadioButtonGroup } from "./radio-button-group"
-import { useState } from "react"
-import { is } from "ramda"
 
 export default {
   title: "Components / Forms / Radio Buttons",

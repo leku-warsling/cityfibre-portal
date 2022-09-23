@@ -1,4 +1,5 @@
-import { chakra, ButtonProps, useStyleConfig } from "@chakra-ui/react"
+import { chakra, useStyleConfig } from "@chakra-ui/system"
+import { ButtonProps } from "@chakra-ui/button"
 import { Indicator } from "../../../data-display"
 import { forwardRef } from "react"
 

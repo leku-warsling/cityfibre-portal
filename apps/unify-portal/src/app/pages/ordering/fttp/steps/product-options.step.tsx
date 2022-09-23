@@ -1,5 +1,7 @@
-import { VStack, Select, Checkbox } from "@chakra-ui/react"
-import { FormItem } from "@ui"
+import { Checkbox } from "@chakra-ui/checkbox"
+import { VStack } from "@chakra-ui/layout"
+import { Select } from "@chakra-ui/select"
+import { FormItem } from "@ui/lib"
 
 const defaultValues = {}
 

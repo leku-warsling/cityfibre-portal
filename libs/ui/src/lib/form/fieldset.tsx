@@ -1,11 +1,11 @@
 import {
-  SimpleGridProps,
-  SimpleGrid,
-  BoxProps,
-  Text,
   Box,
+  BoxProps,
   Flex,
-} from "@chakra-ui/react"
+  SimpleGrid,
+  SimpleGridProps,
+  Text,
+} from "@chakra-ui/layout"
 import { FC, ReactNode } from "react"
 
 export type FieldsetOwnProps = {
@@ -30,28 +30,26 @@ export const Fieldset: FC<FieldsetProps> = ({
   legend,
   children,
   ...props
-}) => {
-  return (
-    <Box as="fieldset" {...props} width={width}>
-      <Flex flexDir="column" gap={2} align="flex-start" w="100%" mb={6}>
-        <Text fontWeight={600} fontSize="lg">
-          {legend}
+}) => (
+  <Box as="fieldset" {...props} width={width}>
+    <Flex flexDir="column" gap={2} align="flex-start" w="100%" mb={6}>
+      <Text fontWeight={600} fontSize="lg">
+        {legend}
+      </Text>
+      {description && (
+        <Text color="gray.600" maxW="500px">
+          {description}
         </Text>
-        {description && (
-          <Text color="gray.600" maxW="500px">
-            {description}
-          </Text>
-        )}
-      </Flex>
-      <SimpleGrid
-        spacingX={spacingX}
-        spacingY={spacingY}
-        columns={columns}
-        spacing={spacing}
-        w="100%"
-      >
-        {children}
-      </SimpleGrid>
-    </Box>
-  )
-}
+      )}
+    </Flex>
+    <SimpleGrid
+      spacingX={spacingX}
+      spacingY={spacingY}
+      columns={columns}
+      spacing={spacing}
+      w="100%"
+    >
+      {children}
+    </SimpleGrid>
+  </Box>
+)

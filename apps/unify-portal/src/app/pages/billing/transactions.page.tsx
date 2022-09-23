@@ -2,11 +2,12 @@ import { RiBarChartGroupedLine } from "react-icons/ri"
 import { useEffect, useMemo, useState } from "react"
 import { usePage } from "../../hooks/use-page.hook"
 import { SearchIcon } from "@chakra-ui/icons"
+import { Page, Table, util } from "@ui/lib"
 import { BiFilter } from "react-icons/bi"
 import { flow } from "fp-ts/lib/function"
 import { Link } from "react-router-dom"
-import { Page, Table, util } from "@ui"
-import { prop, repeat } from "ramda"
+import repeat from "ramda/es/repeat"
+import prop from "ramda/es/prop"
 import {
   InputRightElement,
   InputGroup,
@@ -120,7 +121,7 @@ export const TransactionsPage = () => {
             Total Orders
           </Text>
           <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
+          <Icon as={RiBarChartGroupedLine} color="primary.500" fontSize="3xl" />
         </HStack>
         <HStack
           bgColor="white"
@@ -137,7 +138,7 @@ export const TransactionsPage = () => {
             In Progress Orders
           </Text>
           <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
+          <Icon as={RiBarChartGroupedLine} color="primary.500" fontSize="3xl" />
         </HStack>
         <HStack
           bgColor="white"
@@ -154,7 +155,7 @@ export const TransactionsPage = () => {
             Completed Orders
           </Text>
           <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
+          <Icon as={RiBarChartGroupedLine} color="primary.500" fontSize="3xl" />
         </HStack>
         <HStack
           bgColor="white"
@@ -171,7 +172,7 @@ export const TransactionsPage = () => {
             Cancelled Orders
           </Text>
           <Spacer />
-          <Icon as={RiBarChartGroupedLine} color="brand.500" fontSize="3xl" />
+          <Icon as={RiBarChartGroupedLine} color="primary.500" fontSize="3xl" />
         </HStack>
       </Flex>
       <Flex justify="space-between" mb={6}>

@@ -3,13 +3,9 @@ import { dataAttr } from "@chakra-ui/utils"
 import { IconType } from "react-icons"
 import { useContext } from "react"
 import { NavContext } from "./nav"
-import {
-  ChakraComponent,
-  useStyles,
-  Tooltip,
-  chakra,
-  Icon,
-} from "@chakra-ui/react"
+import { ChakraComponent, useStyles, chakra } from "@chakra-ui/system"
+import { Tooltip } from "@chakra-ui/tooltip"
+import { Icon } from "@chakra-ui/icon"
 
 export type NavItemProps = {
   size?: "sm" | "md" | "lg"
@@ -49,7 +45,7 @@ const NavItem: NavItemComponent = ({
       wrapper={(content) => (
         <Tooltip
           fontWeight="semibold"
-          bgColor="brand.800"
+          bgColor="primary.500"
           shouldWrapChildren
           placement="right"
           label={label}

@@ -1,13 +1,9 @@
 import { Dropdown } from "../../dropdown"
 import { FC, ReactElement, ReactNode, useRef, useState } from "react"
-import {
-  InputRightElement,
-  useDisclosure,
-  InputGroup,
-  StyleProps,
-  Button,
-  Input,
-} from "@chakra-ui/react"
+import { InputRightElement, InputGroup, Input } from "@chakra-ui/input"
+import { useDisclosure } from "@chakra-ui/hooks"
+import { Button } from "@chakra-ui/button"
+import { StyleProps } from "@chakra-ui/system"
 import { isFunction } from "ramda-adjunct"
 
 export type SearchOption = {
@@ -85,7 +81,7 @@ export const SearchInput: FC<SearchInputProps & StyleProps> = ({
         <InputRightElement width="auto" right={offset[size]}>
           <Button
             isLoading={isLoading}
-            colorScheme="brand"
+            colorScheme="primary"
             onClick={_onSearch}
             size="sm"
           >

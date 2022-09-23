@@ -1,26 +1,17 @@
-import { BiCommentDetail, BiCommentError, BiInfoCircle } from "react-icons/bi"
 import { ArrowForwardIcon, SearchIcon } from "@chakra-ui/icons"
-import { useEffect, useMemo, useState } from "react"
+import { Badge, Flex, Spacer, Text, VStack } from "@chakra-ui/layout"
+import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
+import { Icon } from "@chakra-ui/icon"
+import { Button } from "@chakra-ui/button"
+import { Page, Table, util } from "@ui/lib"
 import { flow } from "fp-ts/lib/function"
+import prop from "ramda/es/prop"
+import repeat from "ramda/es/repeat"
+import { useMemo } from "react"
+import { BiCommentDetail, BiCommentError, BiInfoCircle } from "react-icons/bi"
 import { Link } from "react-router-dom"
-import { Page, Table, util } from "@ui"
-import { prop, repeat } from "ramda"
-import {
-  Badge,
-  Button,
-  Flex,
-  Icon,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Spacer,
-  Text,
-  VStack,
-} from "@chakra-ui/react"
 
-export const HelpPage = () => {
-  const [isLoading, setLoading] = useState(true)
-
+const HelpPage = () => {
   const data = useMemo(
     () =>
       repeat(
@@ -97,10 +88,6 @@ export const HelpPage = () => {
     []
   )
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1000)
-  }, [])
-
   return (
     <Page maxH="93vh" overflowY="auto">
       <Page.Header mb={8} pb={2}>
@@ -108,7 +95,7 @@ export const HelpPage = () => {
       </Page.Header>
       <Flex gap={8} width="100%" mb={8}>
         <VStack
-          bgColor="brand.500"
+          bgColor="primary.500"
           align="flex-start"
           boxShadow="lg"
           color="white"
@@ -134,14 +121,14 @@ export const HelpPage = () => {
           <Button
             rightIcon={<ArrowForwardIcon />}
             bgColor="brand.700"
-            isFullWidth
+            w="full"
             size="lg"
           >
             Give feedback
           </Button>
         </VStack>
         <VStack
-          bgColor="brand.500"
+          bgColor="primary.500"
           align="flex-start"
           boxShadow="base"
           color="white"
@@ -167,14 +154,14 @@ export const HelpPage = () => {
           <Button
             rightIcon={<ArrowForwardIcon />}
             bgColor="brand.700"
-            isFullWidth
+            w="full"
             size="lg"
           >
             Continue
           </Button>
         </VStack>
         <VStack
-          bgColor="brand.500"
+          bgColor="primary.500"
           align="flex-start"
           boxShadow="base"
           color="white"
@@ -200,7 +187,7 @@ export const HelpPage = () => {
           <Button
             rightIcon={<ArrowForwardIcon />}
             bgColor="brand.700"
-            isFullWidth
+            w="full"
             size="lg"
           >
             Continue
@@ -220,7 +207,6 @@ export const HelpPage = () => {
         </InputGroup>
       </Flex>
       <Table
-        isLoading={isLoading}
         columns={columns}
         boxShadow="base"
         overflowY="auto"
@@ -234,3 +220,5 @@ export const HelpPage = () => {
     </Page>
   )
 }
+
+export default HelpPage

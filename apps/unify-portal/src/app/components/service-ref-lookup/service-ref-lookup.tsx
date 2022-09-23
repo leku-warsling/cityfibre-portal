@@ -1,14 +1,14 @@
-import {
-  Flex,
-  FormControl,
-  FormControlProps,
-  FormLabel,
-} from "@chakra-ui/react"
-import { SearchInput, SearchInputProps, SearchOption, util } from "@ui"
-import { random } from "lodash-es"
-import { times } from "ramda"
-import { ReactNode } from "react"
 import { FieldValues, useFormContext, UseFormSetValue } from "react-hook-form"
+import { SearchInput, SearchInputProps, SearchOption, util } from "@ui/lib"
+import random from "lodash-es/random"
+import times from "ramda/es/times"
+import { ReactNode } from "react"
+import {
+  FormControlProps,
+  FormControl,
+  FormLabel,
+  Flex,
+} from "@chakra-ui/react"
 
 export type ServiceRefLookupOwnProps = {
   onSelect: (setValue: UseFormSetValue<FieldValues>, item: SearchOption) => void
@@ -40,6 +40,19 @@ export const ServiceRefLookup = ({
     onSelect(setValue, item)
   }
 
+  const _onSearch = (postcode: string) => {
+    return util.async.later(
+      1500,
+      times(
+        (n) => ({
+          label: `${n + 1} Ormeau Avenue, Belfast, ${postcode}`,
+          value: `S${random(100000, 999999)}`,
+        }),
+        10
+      )
+    )
+  }
+
   return (
     <FormControl
       isDisabled={isDisabled}
@@ -57,18 +70,7 @@ export const ServiceRefLookup = ({
           label={buttonLabel}
           onSelect={_onSelect}
           placeholder={placeholder}
-          onSearch={(postcode: string) => {
-            return util.async.later(
-              1500,
-              times(
-                (n) => ({
-                  label: `${n + 1} Ormeau Avenue, Belfast, ${postcode}`,
-                  value: `S${random(100000, 999999)}`,
-                }),
-                10
-              )
-            )
-          }}
+          onSearch={_onSearch}
           {...props}
         />
       </Flex>

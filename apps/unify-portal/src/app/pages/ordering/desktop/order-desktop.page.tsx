@@ -1,24 +1,18 @@
-import { Steps, Step } from "chakra-ui-steps"
-import { Page, util } from "@ui"
-import { times } from "ramda"
-import { useMemo } from "react"
-import { Link, useParams } from "react-router-dom"
-import { BiMessageDetail, BiSend } from "react-icons/bi"
-import { FiPaperclip } from "react-icons/fi"
+import { AddIcon } from "@chakra-ui/icons"
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs"
+import { Icon } from "@chakra-ui/icon"
+import { useDisclosure } from "@chakra-ui/hooks"
+import { Avatar } from "@chakra-ui/avatar"
 import {
-  Avatar,
+  Divider,
+  VStack,
   Badge,
   Box,
-  Button,
-  ButtonGroup,
-  Divider,
+  Text,
   Flex,
-  Icon,
-  IconButton,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
+  SimpleGrid,
+} from "@chakra-ui/layout"
+import {
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -26,23 +20,22 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  SimpleGrid,
-  Tab,
-  Table,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tr,
-  useDisclosure,
-  VStack,
-} from "@chakra-ui/react"
-import { AddIcon } from "@chakra-ui/icons"
+} from "@chakra-ui/modal"
+import { Button, ButtonGroup, IconButton } from "@chakra-ui/button"
+import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table"
+import {
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+} from "@chakra-ui/input"
+import { Page, util } from "@ui/lib"
+import { Step, Steps } from "chakra-ui-steps"
+import times from "ramda/es/times"
+import { useMemo } from "react"
+import { BiMessageDetail, BiSend } from "react-icons/bi"
+import { FiPaperclip } from "react-icons/fi"
+import { Link, useParams } from "react-router-dom"
 
 const createCommunication = (n: number) => ({
   id: util.data.createSequence("???######").toUpperCase(),
@@ -76,7 +69,7 @@ const OrderPage = () => {
       <Flex justify="center" w="100%" mb={8}>
         <Steps
           labelOrientation="vertical"
-          colorScheme="brand"
+          colorScheme="primary"
           maxWidth="860px"
           activeStep={2}
         >
@@ -354,7 +347,7 @@ const OrderPage = () => {
               <VStack w="100%" align="flex-start" spacing={6} pb={8}>
                 <Flex>
                   <Flex gap={3}>
-                    <Avatar name="City Fibre" bgColor="brand.500" />
+                    <Avatar name="City Fibre" bgColor="primary.500" />
                     <Box>
                       <Text
                         fontWeight={600}
@@ -366,7 +359,7 @@ const OrderPage = () => {
                         Cityfibre 12:31 PM
                       </Text>
                       <Text
-                        bgColor="brand.500"
+                        bgColor="primary.500"
                         color="white"
                         fontSize="sm"
                         maxW="375px"
@@ -411,7 +404,7 @@ const OrderPage = () => {
                 </Flex>
                 <Flex>
                   <Flex gap={3}>
-                    <Avatar name="City Fibre" bgColor="brand.500" />
+                    <Avatar name="City Fibre" bgColor="primary.500" />
                     <Box>
                       <Text
                         fontWeight={600}
@@ -423,7 +416,7 @@ const OrderPage = () => {
                         Cityfibre 12:37 PM
                       </Text>
                       <Text
-                        bgColor="brand.500"
+                        bgColor="primary.500"
                         color="white"
                         fontSize="sm"
                         maxW="375px"

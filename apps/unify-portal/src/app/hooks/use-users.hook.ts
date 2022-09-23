@@ -1,7 +1,7 @@
 import { userSchema, userMetaSchema } from "@unify/entities"
 import { useQuery } from "react-query"
+import map from "ramda/es/map"
 import { api } from "../api"
-import { map } from "ramda"
 
 const options = {
   keepPreviousData: true,

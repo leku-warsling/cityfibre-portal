@@ -1,14 +1,13 @@
 import { FC, ReactElement, RefObject } from "react"
+import { ListProps, List } from "@chakra-ui/layout"
+import { SystemProps } from "@chakra-ui/system"
+import { Portal } from "@chakra-ui/portal"
 import {
   PopoverAnchor,
   PopoverContent,
   PopoverBody,
-  SystemProps,
   Popover,
-  Portal,
-  ListProps,
-  List,
-} from "@chakra-ui/react"
+} from "@chakra-ui/popover"
 import { DropdownItem } from "./dropdown-item"
 
 export type DropdownProps = {

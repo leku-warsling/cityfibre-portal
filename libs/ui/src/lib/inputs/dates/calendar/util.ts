@@ -1,22 +1,23 @@
+import addDays from "date-fns/addDays"
 import getDay from "date-fns/getDay"
-import { flow } from "fp-ts/lib/function"
-import {
-  always,
-  subtract,
-  when,
-  curry,
-  both,
-  splitEvery,
-  times,
-  equals,
-  constructN,
-  gte,
-  lte,
-  __,
-} from "ramda"
+import isValid from "date-fns/isValid"
 import startOfMonth from "date-fns/startOfMonth"
-import { addDays, isValid, subDays } from "date-fns"
-import { inRange as _inRange, isArray } from "ramda-adjunct"
+import subDays from "date-fns/subDays"
+import { flow } from "fp-ts/lib/function"
+import { isArray } from "ramda-adjunct"
+import always from "ramda/es/always"
+import both from "ramda/es/both"
+import constructN from "ramda/es/constructN"
+import curry from "ramda/es/curry"
+import equals from "ramda/es/equals"
+import gte from "ramda/es/gte"
+import lte from "ramda/es/lte"
+import splitEvery from "ramda/es/splitEvery"
+import subtract from "ramda/es/subtract"
+import times from "ramda/es/times"
+import when from "ramda/es/when"
+//@ts-ignore
+import __ from "ramda/es/__"
 
 const MONTH_NAMES = [
   "January",
@@ -53,7 +54,6 @@ const weekdaysBefore = flow(
 )
 
 const toDate = constructN(1, Date)
-const getFullYear = (date: Date) => date.getFullYear()
 const getMonthName = (date: Date) => MONTH_NAMES[date.getMonth()]
 
 const fromDateString = (dt: any, defaultValue?: Date) => {

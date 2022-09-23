@@ -3,8 +3,9 @@ import { SearchIcon } from "@chakra-ui/icons"
 import { BiFilter } from "react-icons/bi"
 import { flow } from "fp-ts/lib/function"
 import { Link } from "react-router-dom"
-import { Page, Table, util } from "@ui"
-import { prop, repeat } from "ramda"
+import { Page, Table, util } from "@ui/lib"
+import repeat from "ramda/es/repeat"
+import prop from "ramda/es/prop"
 import {
   InputRightElement,
   InputGroup,

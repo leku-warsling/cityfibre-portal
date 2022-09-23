@@ -1,1 +1,3 @@
-export { default as DashboardPage } from "./dashboard.page"
+import loadable from "@loadable/component"
+
+export const DashboardPage = loadable(() => import("./dashboard.page"))

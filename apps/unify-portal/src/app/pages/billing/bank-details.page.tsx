@@ -1,12 +1,12 @@
-import { BankDetailsForm } from "./forms/bank-details.form"
-import { Text, VStack, Heading } from "@chakra-ui/react"
-import { usePage } from "../../hooks/use-page.hook"
+import { Heading, Text, VStack } from "@chakra-ui/react"
+import { Page } from "@ui/lib"
 import { useEffect, useState } from "react"
-import { Page } from "@ui"
+import { usePage } from "../../hooks/use-page.hook"
+import { BankDetailsForm } from "./forms/bank-details.form"
 
 export const BankDetailsPage = () => {
   usePage({ title: "Billing" })
-  const [isLoading, setLoading] = useState(true)
+  const [, setLoading] = useState(true)
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000)

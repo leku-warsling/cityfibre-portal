@@ -1,12 +1,10 @@
-import { Box, BoxProps } from "@chakra-ui/react"
+import { Box, BoxProps } from "@chakra-ui/layout"
 import { FC } from "react"
 
 export type FigureHeaderProps = BoxProps & {}
 
 const FigureHeader: FC<FigureHeaderProps> = ({ children, ...props }) => (
-  <Box {...props}>
-    {children}
-  </Box>
+  <Box {...props}>{children}</Box>
 )
 
 FigureHeader.defaultProps = {

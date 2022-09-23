@@ -1,10 +1,10 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons"
-import { VStack, Button, Text, useBreakpointValue } from "@chakra-ui/react"
+import { Button, Text, useBreakpointValue, VStack } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 
 const CompleteStep = () => {
   const size = useBreakpointValue({ base: "md", lg: "lg" } as const)
-  const isFullWidth = useBreakpointValue({ base: true, lg: false } as const)
+  const width = useBreakpointValue({ base: "full", lg: "auto" } as const)
 
   return (
     <VStack align="start" spacing={14}>
@@ -14,12 +14,12 @@ const CompleteStep = () => {
       </Text>
       <Button
         rightIcon={<ArrowForwardIcon />}
-        isFullWidth={isFullWidth}
-        colorScheme="brand"
+        colorScheme="black"
         size={size}
         to="/auth"
         as={Link}
         px={10}
+        w={width}
       >
         Sign in to Partner Suite
       </Button>

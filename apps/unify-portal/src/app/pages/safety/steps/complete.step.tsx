@@ -1,7 +1,6 @@
-import { VStack, Icon, Heading, Text, Button } from "@chakra-ui/react"
-import { BsCheckCircle } from "react-icons/bs"
 import { ArrowForwardIcon } from "@chakra-ui/icons"
-import { Link } from "react-router-dom"
+import { Button, Heading, Icon, Text, VStack } from "@chakra-ui/react"
+import { BsCheckCircle } from "react-icons/bs"
 
 const defaultValues = {
   visit_reason: "",

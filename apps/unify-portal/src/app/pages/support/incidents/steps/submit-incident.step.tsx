@@ -1,4 +1,6 @@
-import { VStack, Text, Button, Icon, Heading } from "@chakra-ui/react"
+import { VStack, Text, Heading } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
+import { Icon } from "@chakra-ui/icon"
 import { ArrowForwardIcon } from "@chakra-ui/icons"
 import { BsCheckCircle } from "react-icons/bs"
 import { Link } from "react-router-dom"

@@ -1,7 +1,10 @@
-import { Children, cloneElement, FC, ReactChild, ReactElement } from "react"
-import { Box, BoxProps } from "@chakra-ui/react"
-import { allPass, has, is, propEq } from "ramda"
+import { Box, BoxProps } from "@chakra-ui/layout"
 import { pipe } from "fp-ts/lib/function"
+import allPass from "ramda/es/allPass"
+import has from "ramda/es/has"
+import is from "ramda/es/is"
+import propEq from "ramda/es/propEq"
+import { Children, cloneElement, FC, ReactChild, ReactElement } from "react"
 import CardSection from "./card-section"
 
 export interface CardProps extends BoxProps {

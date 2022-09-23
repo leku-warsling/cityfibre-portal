@@ -1,4 +1,4 @@
-import { WizardPanel, WizardProvider, WizardStepper } from "@ui"
+import { WizardPanel, WizardProvider, WizardStepper } from "@ui/lib"
 import AddTeamMembersStep from "./steps/add-team-members.step"
 import CompanyDetailsStep from "./steps/company-details.step"
 import CompleteStep from "./steps/complete.step"
@@ -20,7 +20,7 @@ export const RegistrationPage = () => {
     <VStack
       height={{ base: "auto", lg: "100vh" }}
       bgImage={registerBg}
-      bgColor="brand.500"
+      bgColor="primary.500"
       justify="start"
       bgSize="cover"
       align="start"

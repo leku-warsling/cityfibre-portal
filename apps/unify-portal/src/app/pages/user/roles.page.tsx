@@ -1,43 +1,32 @@
-import { usePage } from "../../hooks/use-page.hook"
-import { useEffect, useState } from "react"
 import { AddIcon } from "@chakra-ui/icons"
+import { Divider, VStack } from "@chakra-ui/layout"
+import { Button, ButtonGroup, IconButton } from "@chakra-ui/button"
+import { Page } from "@ui/lib"
 import { BiTrash } from "react-icons/bi"
 import { Link } from "react-router-dom"
+import { usePage } from "../../hooks/use-page.hook"
 import { USER_ROLES } from "./data"
-import { Page } from "@ui"
-import {
-  ButtonGroup,
-  IconButton,
-  Divider,
-  Button,
-  VStack,
-} from "@chakra-ui/react"
 
-export const RolesPage = () => {
+const PAGE_ACTIONS = [
+  <Button to="/users" variant="link" size="sm" as={Link} mr={6}>
+    User Management
+  </Button>,
+  <Button
+    leftIcon={<AddIcon fontSize="12px" />}
+    to="/roles/create"
+    as={Link}
+    size="sm"
+  >
+    Create Role
+  </Button>,
+]
+
+const RolesPage = () => {
   usePage({ title: "User Management" })
-  const [isLoading, setLoading] = useState(true)
-
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1000)
-  }, [])
-
-  const actions = [
-    <Button to="/users" variant="link" size="sm" as={Link} mr={6}>
-      User Management
-    </Button>,
-    <Button
-      leftIcon={<AddIcon fontSize="12px" />}
-      to="/roles/create"
-      as={Link}
-      size="sm"
-    >
-      Create Role
-    </Button>,
-  ]
 
   return (
     <Page maxH="93vh" overflowY="auto">
-      <Page.Header pb={2} mb={6} actions={actions}>
+      <Page.Header pb={2} mb={6} actions={PAGE_ACTIONS}>
         User Roles
       </Page.Header>
       <VStack
@@ -72,3 +61,5 @@ export const RolesPage = () => {
     </Page>
   )
 }
+
+export default RolesPage

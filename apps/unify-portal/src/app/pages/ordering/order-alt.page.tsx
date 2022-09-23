@@ -1,5 +1,5 @@
 import { usePage } from "../../hooks/use-page.hook"
-import { Page } from "@ui"
+import { Page } from "@ui/lib"
 import {
   Button,
   ButtonGroup,

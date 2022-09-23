@@ -1,10 +1,10 @@
-import { Button, Box, Spacer } from "@chakra-ui/react"
+import { Box, Button, Spacer } from "@chakra-ui/react"
+import { CrudTouchTemplate } from "@ui/lib"
+import repeat from "ramda/es/repeat"
+import { useMemo } from "react"
 import { Link } from "react-router-dom"
 import { FieldSearch } from "../../../../components/field-search/field-search"
 import { SelectFilter } from "../../../../components/filters/select-filter"
-import { CrudTouchTemplate } from "@ui"
-import { repeat } from "ramda"
-import { useMemo } from "react"
 
 const keys = [
   {

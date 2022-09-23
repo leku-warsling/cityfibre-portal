@@ -1,48 +1,47 @@
-import { Link } from "react-router-dom"
+import { Icon } from "@chakra-ui/icon"
+import { useDisclosure } from "@chakra-ui/hooks"
+import { Avatar } from "@chakra-ui/avatar"
 import {
-  Button,
-  HStack,
-  Text,
   Accordion,
-  AccordionItem,
   AccordionButton,
-  Box,
   AccordionIcon,
+  AccordionItem,
   AccordionPanel,
-  Heading,
-  SimpleGrid,
-  ButtonGroup,
+} from "@chakra-ui/accordion"
+import {
   Divider,
-  Badge,
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  Icon,
-  ModalCloseButton,
-  ModalBody,
   VStack,
+  Badge,
+  Box,
+  Heading,
+  Text,
   Flex,
-  Avatar,
-  InputRightElement,
-  IconButton,
-  InputLeftElement,
-  InputGroup,
-  Input,
+  HStack,
+  SimpleGrid,
+} from "@chakra-ui/layout"
+import {
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
   ModalFooter,
-} from "@chakra-ui/react"
+  ModalHeader,
+  ModalOverlay,
+} from "@chakra-ui/modal"
+import { Button, ButtonGroup, IconButton } from "@chakra-ui/button"
+import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table"
+import {
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+} from "@chakra-ui/input"
+import { util } from "@ui/lib"
+import times from "ramda/es/times"
 import { useMemo } from "react"
-import { times } from "ramda"
-import { util } from "@ui"
-import { FiPaperclip } from "react-icons/fi"
 import { BiMessageDetail, BiSend } from "react-icons/bi"
+import { FiPaperclip } from "react-icons/fi"
+import { Link } from "react-router-dom"
 
 const createCommunication = (n: number) => ({
   id: util.data.createSequence("???######").toUpperCase(),
@@ -161,7 +160,7 @@ const OrderTouchPage = () => {
               <Text>01952 343434</Text>
             </SimpleGrid>
             <Divider borderColor="gray.300" mb={6} />
-            <Button size="sm" isFullWidth>
+            <Button size="sm" w="full">
               Amend
             </Button>
           </AccordionPanel>
@@ -191,7 +190,7 @@ const OrderTouchPage = () => {
               </Text>
             </SimpleGrid>
             <Divider borderColor="gray.300" mb={6} />
-            <Button size="sm" isFullWidth>
+            <Button size="sm" w="full">
               Amend Appointment
             </Button>
           </AccordionPanel>
@@ -219,7 +218,7 @@ const OrderTouchPage = () => {
               <Text>PPPoE</Text>
             </SimpleGrid>
             <Divider borderColor="gray.300" mb={6} />
-            <Button size="sm" isFullWidth>
+            <Button size="sm" w="full">
               Amend
             </Button>
           </AccordionPanel>
@@ -352,7 +351,7 @@ const OrderTouchPage = () => {
               <VStack w="100%" align="flex-start" spacing={6} pb={8}>
                 <Flex>
                   <Flex gap={3}>
-                    <Avatar name="City Fibre" bgColor="brand.500" />
+                    <Avatar name="City Fibre" bgColor="primary.500" />
                     <Box>
                       <Text
                         fontWeight={600}
@@ -364,7 +363,7 @@ const OrderTouchPage = () => {
                         Cityfibre 12:31 PM
                       </Text>
                       <Text
-                        bgColor="brand.500"
+                        bgColor="primary.500"
                         color="white"
                         fontSize="sm"
                         maxW="375px"
@@ -409,7 +408,7 @@ const OrderTouchPage = () => {
                 </Flex>
                 <Flex>
                   <Flex gap={3}>
-                    <Avatar name="City Fibre" bgColor="brand.500" />
+                    <Avatar name="City Fibre" bgColor="primary.500" />
                     <Box>
                       <Text
                         fontWeight={600}
@@ -421,7 +420,7 @@ const OrderTouchPage = () => {
                         Cityfibre 12:37 PM
                       </Text>
                       <Text
-                        bgColor="brand.500"
+                        bgColor="primary.500"
                         color="white"
                         fontSize="sm"
                         maxW="375px"

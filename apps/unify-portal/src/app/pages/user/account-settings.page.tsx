@@ -1,17 +1,9 @@
-import {
-  FormControl,
-  FormLabel,
-  Heading,
-  Icon,
-  Switch,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-  VStack,
-} from "@chakra-ui/react"
+import { Text, VStack } from "@chakra-ui/layout"
+import { FormControl, FormLabel } from "@chakra-ui/form-control"
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs"
+import { Icon } from "@chakra-ui/icon"
+import { Switch } from "@chakra-ui/switch"
+import { Page } from "@ui/lib"
 import {
   BiBell,
   BiCreditCard,
@@ -19,13 +11,13 @@ import {
   BiLockAlt,
   BiUser,
 } from "react-icons/bi"
-import { Page } from "@ui"
-import { ProfileForm } from "./forms/profile.form"
-import { ChangePasswordForm } from "./forms/change-password.form"
 import { usePage } from "../../hooks/use-page.hook"
+import { ChangePasswordForm } from "./forms/change-password.form"
+import { ProfileForm } from "./forms/profile.form"
 
-export const AccountSettingsPage = () => {
+const AccountSettingsPage = () => {
   usePage({ title: "Settings" })
+
   return (
     <Page>
       <Page.Header pb={4} mb={8}>
@@ -34,7 +26,7 @@ export const AccountSettingsPage = () => {
       <Tabs
         orientation="vertical"
         variant="solid-rounded"
-        colorScheme="brand"
+        colorScheme="primary"
         width="100%"
       >
         <TabList minWidth="320px">
@@ -128,3 +120,5 @@ export const AccountSettingsPage = () => {
     </Page>
   )
 }
+
+export default AccountSettingsPage

@@ -1,7 +1,7 @@
 import { FieldSearch } from "../../../components/field-search/field-search"
 import { SelectFilter } from "../../../components/filters/select-filter"
-import { CrudTouchTemplate } from "@ui"
-import { repeat } from "ramda"
+import { CrudTouchTemplate } from "@ui/lib"
+import repeat from "ramda/es/repeat"
 import { useMemo } from "react"
 
 const keys = [

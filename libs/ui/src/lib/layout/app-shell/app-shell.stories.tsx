@@ -32,8 +32,8 @@ import {
 } from "react-icons/fi"
 import { BiHome, BiDollarCircle, BiBasket } from "react-icons/bi"
 import { RiDashboard3Line } from "react-icons/ri"
-import { ReactComponent as PartnersIcon } from "../../../assets/svg/partners.svg"
-import { ReactComponent as Logo } from "../../../assets/svg/logo.svg"
+import { ReactComponent as PartnersIcon } from "../../assets/svg/partners.svg"
+import { ReactComponent as Logo } from "../../assets/svg/logo.svg"
 
 export default {
   title: "Components / Layout / AppShell",
@@ -121,8 +121,8 @@ const ExampleSidebar = () => {
         <Nav.Item icon={FiInbox}>
           <span>Inbox</span>
           <Badge
-            variant="solid"
-            colorScheme="brand"
+            variant="primary"
+            colorScheme="primary"
             fontSize="14px"
             px="10px"
             py="4px"
