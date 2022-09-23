@@ -270,7 +270,7 @@ const OrdersPage = () => {
   return (
     <Listing
       page={{
-        title: "Incidents",
+        title: "Orders",
         actions: PAGE_ACTIONS,
       }}
       filters={filters}
