@@ -1,47 +1,14 @@
-import axios, { AxiosError, AxiosRequestConfig } from "axios"
-import identity from "ramda/es/identity"
-import pathEq from "ramda/es/pathEq"
-import { url } from "@ui/lib/util"
-import set from "lodash-es/set"
-import store from "store"
+import { http } from "@ui/lib/util"
 
 const { NX_API_URI, NX_BASE_REQUEST_TIMEOUT = 15000 } = process.env
 
-export const api = axios.create({
+export const api = http.createClient({
   timeout: Number(NX_BASE_REQUEST_TIMEOUT),
   baseURL: String(NX_API_URI),
+  headers: {
+    "Content-Type": "application/json",
+  },
 })
-
-const setAuth = (req: AxiosRequestConfig, token: string) => {
-  return set(req, "headers.Authorization", `Bearer ${token}`)
-}
-
-const isUnauthorized = pathEq(["response", "status"], 401)
-
-const requestHandler = async (config: AxiosRequestConfig) => {
-  const token = store.get("access_token")
-  return token ? setAuth(config, token) : config
-}
-
-const errorResponseHandler = (err: AxiosError) => {
-  if (err.response) {
-    console.error(`
-      message: ${err.response.data.message}
-      status: ${err.response.status}
-      method: ${err.config.method}
-      url: ${err.config.url}
-    `)
-  }
-
-  if (isUnauthorized(err)) {
-    return url.redirect("/auth")
-  }
-
-  return Promise.reject(err)
-}
-
-api.interceptors.request.use(requestHandler)
-api.interceptors.response.use(identity, errorResponseHandler)
 
 export type AuthCredentials = {
   username: string
