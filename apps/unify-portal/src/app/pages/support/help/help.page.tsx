@@ -11,6 +11,8 @@ import { useMemo } from "react"
 import { BiCommentDetail, BiCommentError, BiInfoCircle } from "react-icons/bi"
 import { Link } from "react-router-dom"
 
+const DateCell = flow(prop<"value", Date>("value"), util.date.toDateString)
+
 const HelpPage = () => {
   const data = useMemo(
     () =>
@@ -61,20 +63,14 @@ const HelpPage = () => {
         {
           Header: "Created",
           accessor: "created_at",
-          Cell: flow(
-            prop<"value", string>("value"),
-            util.date.formatDateString("dd/MM/yyyy")
-          ),
+          Cell: DateCell,
           disableFilters: true,
           disableSortBy: true,
         },
         {
           Header: "Last Updated",
           accessor: "updated_at",
-          Cell: flow(
-            prop<"value", string>("value"),
-            util.date.formatDateString("dd/MM/yyyy")
-          ),
+          Cell: DateCell,
           disableFilters: true,
           disableSortBy: true,
         },

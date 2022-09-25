@@ -15,6 +15,11 @@ import prop from "ramda/es/prop"
 import { Link } from "react-router-dom"
 import { z } from "zod"
 
+const DatetimeCell = flow(
+  prop<"value", Date>("value"),
+  util.date.toDatetimeString
+)
+
 const DEFAULT_QUERY = {
   _page: 1,
   _limit: 10,
@@ -107,19 +112,13 @@ const TABLE_COLUMNS = [
   {
     Header: "Date Raised",
     accessor: "created_at",
-    Cell: flow(
-      prop<"value", string>("value"),
-      util.date.formatDateString("dd/MM/yyyy, HH:mm")
-    ),
+    Cell: DatetimeCell,
     disableFilters: true,
   },
   {
     Header: "Last Updated",
     accessor: "updated_at",
-    Cell: flow(
-      prop<"value", string>("value"),
-      util.date.formatDateString("dd/MM/yyyy")
-    ),
+    Cell: DatetimeCell,
     disableFilters: true,
   },
   {

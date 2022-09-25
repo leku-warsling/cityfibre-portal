@@ -1,12 +1,14 @@
-import { useBreakpointValue, Text, Button } from "@chakra-ui/react"
-import { AuthenticateAccountForm, AuthTemplate } from "@ui/lib"
+import { useBreakpointValue } from "@chakra-ui/media-query"
+import { Button } from "@chakra-ui/button"
+import { Text } from "@chakra-ui/layout"
+import { AuthenticateAccountForm, AuthTemplate } from "@ui/lib/templates/auth"
 
 type PageProps = {
   strapline: string
   title: string
 }
 
-export const AuthenticateAccountPage = ({ strapline, title }: PageProps) => {
+const AuthenticateAccountPage = ({ strapline, title }: PageProps) => {
   const size = useBreakpointValue({ base: "md", lg: "lg" } as const)
   return (
     <AuthTemplate
@@ -35,3 +37,5 @@ export const AuthenticateAccountPage = ({ strapline, title }: PageProps) => {
     </AuthTemplate>
   )
 }
+
+export default AuthenticateAccountPage

@@ -1,20 +1,21 @@
-import { Box, Wrap, WrapItem, Select } from '@chakra-ui/react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FC, ReactNode, useMemo, useState } from 'react';
-import prop from 'ramda/es/prop';
-import uniq from 'ramda/es/uniq';
-import includes from 'ramda/es/includes';
-import { get } from 'lodash-es';
+import { Box, Wrap, WrapItem } from "@chakra-ui/layout"
+import { Select } from "@chakra-ui/select"
+import { motion, AnimatePresence } from "framer-motion"
+import { FC, ReactNode, useMemo, useState } from "react"
+import prop from "ramda/es/prop"
+import uniq from "ramda/es/uniq"
+import includes from "ramda/es/includes"
+import { get } from "lodash-es"
 
-type Item = Record<string, any>;
+type Item = Record<string, any>
 
 type FilterableListProps = {
-  items: Item[];
-  renderItem: (item: Item) => ReactNode;
-  filterBy: string[];
-};
+  items: Item[]
+  renderItem: (item: Item) => ReactNode
+  filterBy: string[]
+}
 
-const MotionBox = motion(Box);
+const MotionBox = motion(Box)
 const animationConfig = {
   initial: {
     opacity: 0,
@@ -31,15 +32,15 @@ const animationConfig = {
     opacity: 0,
     scale: 0,
   },
-};
+}
 
 const SearchableList: FC<FilterableListProps> = ({
   items,
   renderItem,
   filterBy,
 }) => {
-  const [keyword, setKeyword] = useState('');
-  const options = useMemo(() => uniq(items.flatMap(prop<any>(filterBy))), []);
+  const [keyword, setKeyword] = useState("")
+  const options = useMemo(() => uniq(items.flatMap(prop<any>(filterBy))), [])
 
   const content = items
     .filter((i) => includes(keyword, get(i, filterBy)))
@@ -47,7 +48,7 @@ const SearchableList: FC<FilterableListProps> = ({
       <WrapItem key={`list-item-${idx}`}>
         <MotionBox {...animationConfig}>{renderItem(item)}</MotionBox>
       </WrapItem>
-    ));
+    ))
 
   return (
     <Box my={6}>
@@ -66,7 +67,7 @@ const SearchableList: FC<FilterableListProps> = ({
         <AnimatePresence>{content}</AnimatePresence>
       </Wrap>
     </Box>
-  );
-};
+  )
+}
 
-export default SearchableList;
+export default SearchableList

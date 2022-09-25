@@ -1,4 +1,4 @@
-import { Flex, FlexProps } from "@chakra-ui/react"
+import { Flex, FlexProps } from "@chakra-ui/layout"
 import { Title, TitleProps } from "../../data-display/title"
 import { motion } from "framer-motion"
 import { FC } from "react"

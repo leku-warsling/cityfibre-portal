@@ -1,8 +1,14 @@
 import { flow } from "fp-ts/lib/function"
 import prop from "ramda/es/prop"
 import { util } from "@ui/lib"
-import { Badge, Button } from "@chakra-ui/react"
+import { Badge } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
 import { Link } from "react-router-dom"
+
+const DateCell = flow(
+  prop<"value", Date>("value"),
+  util.date.toDateString
+)
 
 export const INCIDENT_DATA = [
   {
@@ -79,20 +85,14 @@ export const INCIDENT_COLUMNS = [
   {
     Header: "Date Raised",
     accessor: "raised_at",
-    Cell: flow(
-      prop<"value", string>("value"),
-      util.date.formatDateString("dd/MM/yyyy")
-    ),
+    Cell: DateCell,
     disableFilters: true,
     disableSortBy: true,
   },
   {
     Header: "Last Updated",
     accessor: "updated_at",
-    Cell: flow(
-      prop<"value", string>("value"),
-      util.date.formatDateString("dd/MM/yyyy")
-    ),
+    Cell: DateCell,
     disableFilters: true,
     disableSortBy: true,
   },
@@ -168,20 +168,14 @@ export const INVOICE_COLUMNS = [
   {
     Header: "Date",
     accessor: "created_at",
-    Cell: flow(
-      prop<"value", string>("value"),
-      util.date.formatDateString("dd/MM/yyyy")
-    ),
+    Cell: DateCell,
     disableFilters: true,
     disableSortBy: true,
   },
   {
     Header: "Due",
     accessor: "expires_at",
-    Cell: flow(
-      prop<"value", string>("value"),
-      util.date.formatDateString("dd/MM/yyyy")
-    ),
+    Cell: DateCell,
     disableFilters: true,
     disableSortBy: true,
   },

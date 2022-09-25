@@ -1,56 +1,51 @@
-import { SmallCloseIcon, SearchIcon } from '@chakra-ui/icons';
+import { SmallCloseIcon, SearchIcon } from "@chakra-ui/icons"
+import { Box, Wrap, WrapItem, Text } from "@chakra-ui/layout"
 import {
-  Box,
-  Wrap,
-  WrapItem,
-  Text,
-  ComponentWithAs,
-  IconProps,
-  Icon,
   Input,
   InputGroup,
   InputLeftElement,
-  Alert,
-  AlertIcon,
-  AlertTitle,
   InputRightElement,
-  IconButton,
-  useToast,
-} from '@chakra-ui/react';
-import { matchSorter } from 'match-sorter';
-import debounce from 'lodash-es/debounce';
-import memoize from 'fast-memoize';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FC, useMemo, useRef, useState } from 'react';
-import { IconType } from 'react-icons';
-import { toKeyValueCollection } from '../util';
+} from "@chakra-ui/input"
+import { Alert, AlertIcon, AlertTitle } from "@chakra-ui/alert"
+import { useToast } from "@chakra-ui/toast"
+import { IconButton } from "@chakra-ui/button"
+import { IconProps, Icon } from "@chakra-ui/icon"
+import { ComponentWithAs } from "@chakra-ui/system"
+
+import { matchSorter } from "match-sorter"
+import debounce from "lodash-es/debounce"
+import memoize from "fast-memoize"
+import { motion, AnimatePresence } from "framer-motion"
+import { FC, useMemo, useRef, useState } from "react"
+import { IconType } from "react-icons"
+import { toKeyValueCollection } from "../util"
 
 type IconLibraryProps = {
-  dict: Record<string, IconType | ComponentWithAs<'svg', IconProps>>;
-};
+  dict: Record<string, IconType | ComponentWithAs<"svg", IconProps>>
+}
 
 type IconLibraryItemProps = {
-  icon: IconType | ComponentWithAs<'svg', IconProps>;
-  children: string;
-};
+  icon: IconType | ComponentWithAs<"svg", IconProps>
+  children: string
+}
 
-const MotionBox = motion(Box);
+const MotionBox = motion(Box)
 
 const IconLibraryItem: FC<IconLibraryItemProps> = ({ icon, children }) => {
-  const toast = useToast();
+  const toast = useToast()
   const onCopy = useMemo(() => {
     return () => {
       navigator.clipboard.writeText(children).then(() => {
         toast({
-          title: 'Copied',
+          title: "Copied",
           description: `${children} added to clipboard`,
-          status: 'success',
+          status: "success",
           duration: 9000,
           isClosable: true,
-        });
+        })
       })
     }
-  }, [children]);
+  }, [children])
 
   return (
     <MotionBox
@@ -65,7 +60,7 @@ const IconLibraryItem: FC<IconLibraryItemProps> = ({ icon, children }) => {
       onClick={onCopy}
       p={4}
       _hover={{
-        boxShadow: 'outline',
+        boxShadow: "outline",
         cursor: "pointer",
       }}
       initial={{ opacity: 0, scale: 0 }}
@@ -80,35 +75,35 @@ const IconLibraryItem: FC<IconLibraryItemProps> = ({ icon, children }) => {
         {children}
       </Text>
     </MotionBox>
-  );
-};
+  )
+}
 
 const IconLibrary: FC<IconLibraryProps> = ({ dict }) => {
-  const searchRef = useRef<HTMLInputElement>(null);
-  const [searchText, setSearchText] = useState('');
-  const iconSet = useMemo(() => toKeyValueCollection(dict), []);
+  const searchRef = useRef<HTMLInputElement>(null)
+  const [searchText, setSearchText] = useState("")
+  const iconSet = useMemo(() => toKeyValueCollection(dict), [])
   const filterOptions = memoize((opts: any[], str: string) => {
-    return matchSorter(opts, str, { keys: ['key'] });
-  });
+    return matchSorter(opts, str, { keys: ["key"] })
+  })
   const searchHandler = useMemo(() => {
-    return debounce((val: string) => setSearchText(val), 300);
-  }, []);
+    return debounce((val: string) => setSearchText(val), 300)
+  }, [])
 
   const onClear = useMemo(() => {
     return () => {
-      const { current } = searchRef;
-      if (!current) return;
-      current.value = '';
-      setSearchText('');
-      current.focus();
-    };
-  }, []);
+      const { current } = searchRef
+      if (!current) return
+      current.value = ""
+      setSearchText("")
+      current.focus()
+    }
+  }, [])
 
   const icons = filterOptions(iconSet, searchText).map(({ key, value }) => (
     <WrapItem key={key}>
       <IconLibraryItem icon={value}>{key}</IconLibraryItem>
     </WrapItem>
-  ));
+  ))
 
   return (
     <Box my={6}>
@@ -144,7 +139,7 @@ const IconLibrary: FC<IconLibraryProps> = ({ dict }) => {
         <AnimatePresence>{icons}</AnimatePresence>
       </Wrap>
     </Box>
-  );
-};
+  )
+}
 
-export default IconLibrary;
+export default IconLibrary

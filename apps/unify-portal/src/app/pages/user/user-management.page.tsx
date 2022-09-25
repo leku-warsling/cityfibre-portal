@@ -20,6 +20,8 @@ import {
   ListingTouchTemplate,
 } from "@ui/lib/templates/listing"
 
+const DateCell = flow(prop<"value", Date>("value"), util.date.toDateString)
+
 const DEFAULT_QUERY = {
   _order: "asc",
   _limit: 10,
@@ -141,19 +143,13 @@ const UserManagementPage = () => {
     {
       Header: "Created Date",
       accessor: "created_at",
-      Cell: flow(
-        prop<"value", string>("value"),
-        util.date.formatDateString("dd/MM/yyyy")
-      ),
+      Cell: DateCell,
       disableFilters: true,
     },
     {
       Header: "Last Updated",
       accessor: "updated_at",
-      Cell: flow(
-        prop<"value", string>("value"),
-        util.date.formatDateString("dd/MM/yyyy")
-      ),
+      Cell: DateCell,
       disableFilters: true,
     },
   ] as const

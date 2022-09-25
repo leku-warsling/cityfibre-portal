@@ -4,15 +4,17 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
+} from "@chakra-ui/accordion"
+import {
   Box,
-  ButtonGroup,
   Divider,
   Heading,
   HStack,
   Text,
   Wrap,
   WrapItem,
-} from "@chakra-ui/react"
+} from "@chakra-ui/layout"
+import { ButtonGroup } from "@chakra-ui/button"
 import get from "lodash-es/get"
 import isNil from "lodash-es/isNil"
 import { isFunction } from "ramda-adjunct"

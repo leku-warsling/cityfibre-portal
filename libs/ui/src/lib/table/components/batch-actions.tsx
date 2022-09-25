@@ -1,4 +1,5 @@
-import { Button, ButtonGroup, HStack, Text } from "@chakra-ui/react"
+import { HStack, Text } from "@chakra-ui/layout"
+import { Button, ButtonGroup } from "@chakra-ui/button"
 import { Row } from "react-table"
 import { TableAction } from "./overflow-menu"
 

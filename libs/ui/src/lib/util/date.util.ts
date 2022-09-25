@@ -1,5 +1,4 @@
 import add from "date-fns/fp/add"
-import format from "date-fns/fp/format"
 import sub from "date-fns/fp/sub"
 import getDay from "date-fns/getDay"
 import startOfMonth from "date-fns/startOfMonth"
@@ -10,6 +9,8 @@ import splitEvery from "ramda/es/splitEvery"
 import subtract from "ramda/es/subtract"
 import times from "ramda/es/times"
 import when from "ramda/es/when"
+import juxt from "ramda/es/juxt"
+import join from "ramda/es/join"
 import { isZero } from "./number.util"
 
 const MONTH_NAMES = [
@@ -45,7 +46,10 @@ const weekdaysBefore = flow(
 )
 
 const toDate = constructN(1, Date)
-const formatDateString = (formatStr: string) => flow(toDate, format(formatStr))
+
+const toDateString = (date: Date) => date.toLocaleDateString("en-GB")
+const toTimeString = (date: Date) => date.toLocaleTimeString("en-GB")
+const toDatetimeString = flow(juxt([toDateString, toTimeString]), join(", "))
 
 const getCalendarMonth = (dt: number | Date) => {
   const SOM = startOfMonth(dt)
@@ -55,8 +59,10 @@ const getCalendarMonth = (dt: number | Date) => {
 }
 
 export {
+  toDateString,
+  toTimeString,
+  toDatetimeString,
   getCalendarMonth,
-  formatDateString,
   weekdaysBefore,
   MONTH_NAMES,
   DAY_NAMES,

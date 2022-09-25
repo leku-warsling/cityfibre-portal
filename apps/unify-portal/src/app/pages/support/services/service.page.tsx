@@ -1,17 +1,5 @@
+import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table"
 import {
-  Avatar,
-  Badge,
-  Box,
-  Button,
-  ButtonGroup,
-  Divider,
-  Flex,
-  Icon,
-  IconButton,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -19,22 +7,27 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+} from "@chakra-ui/modal"
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs"
+import {
+  Badge,
+  Box,
+  Divider,
+  Flex,
   SimpleGrid,
-  Tab,
-  Table,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Tbody,
-  Td,
   Text,
-  Th,
-  Thead,
-  Tr,
-  useDisclosure,
   VStack,
-} from "@chakra-ui/react"
+} from "@chakra-ui/layout"
+import {
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+} from "@chakra-ui/input"
+import { Button, ButtonGroup, IconButton } from "@chakra-ui/button"
+import { useDisclosure } from "@chakra-ui/hooks"
+import { Icon } from "@chakra-ui/icon"
+import { Avatar } from "@chakra-ui/avatar"
 import { Page, util } from "@ui/lib"
 import { Step, Steps } from "chakra-ui-steps"
 import times from "ramda/es/times"
@@ -51,7 +44,7 @@ const createCommunication = (n: number) => ({
   updated_at: new Date().toLocaleDateString(),
 })
 
-export const ServicePage = () => {
+const ServicePage = () => {
   const { id } = useParams()
   const communications = useMemo(() => times(createCommunication, 5), [])
   const { isOpen, onClose, onOpen } = useDisclosure()
@@ -456,3 +449,5 @@ export const ServicePage = () => {
     </Page>
   )
 }
+
+export default ServicePage

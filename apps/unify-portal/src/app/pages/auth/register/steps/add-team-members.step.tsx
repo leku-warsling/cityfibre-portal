@@ -1,17 +1,17 @@
 import { AddIcon } from "@chakra-ui/icons"
 import { FieldArray, FormItem } from "@ui/lib"
 import {
-  IconButton,
   SimpleGrid,
   ListItem,
   Divider,
   VStack,
   HStack,
   Text,
-  Input,
   List,
-  useBreakpointValue,
-} from "@chakra-ui/react"
+} from "@chakra-ui/layout"
+import { useBreakpointValue } from "@chakra-ui/media-query"
+import { Input } from "@chakra-ui/input"
+import { IconButton } from "@chakra-ui/button"
 
 export type AddTeamMembersFormProps = {
   size: "sm" | "md" | "lg"

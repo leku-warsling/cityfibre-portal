@@ -1,4 +1,5 @@
-import { Icon, Stack } from "@chakra-ui/react"
+import { Stack } from "@chakra-ui/layout"
+import { Icon } from "@chakra-ui/icon"
 import pick from "ramda/es/pick"
 import whereEq from "ramda/es/whereEq"
 import { BiCaretDown, BiCaretUp } from "react-icons/bi"

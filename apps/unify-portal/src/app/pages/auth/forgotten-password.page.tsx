@@ -1,4 +1,5 @@
-import { useBreakpointValue, Text } from "@chakra-ui/react"
+import { useBreakpointValue } from "@chakra-ui/media-query"
+import { Text } from "@chakra-ui/layout"
 import { AuthTemplate, ForgottenPasswordForm } from "@ui/lib"
 
 export type PageProps = {
@@ -6,7 +7,7 @@ export type PageProps = {
   title: string
 }
 
-export const ForgottenPasswordPage = ({ strapline, title }: PageProps) => {
+const ForgottenPasswordPage = ({ strapline, title }: PageProps) => {
   const size = useBreakpointValue({ base: "md", lg: "lg" } as const)
   return (
     <AuthTemplate
@@ -28,3 +29,5 @@ export const ForgottenPasswordPage = ({ strapline, title }: PageProps) => {
     </AuthTemplate>
   )
 }
+
+export default ForgottenPasswordPage

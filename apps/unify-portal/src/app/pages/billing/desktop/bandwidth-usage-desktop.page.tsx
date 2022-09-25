@@ -1,20 +1,62 @@
-import { useEffect, useMemo, useState } from "react"
+import { useMemo } from "react"
 import { SearchIcon } from "@chakra-ui/icons"
 import { BiFilter } from "react-icons/bi"
 import { flow } from "fp-ts/lib/function"
 import { Page, Table, util } from "@ui/lib"
 import repeat from "ramda/es/repeat"
 import prop from "ramda/es/prop"
-import {
-  InputRightElement,
-  InputGroup,
-  Button,
-  Input,
-  Flex,
-} from "@chakra-ui/react"
+import { Flex } from "@chakra-ui/layout"
+import { InputRightElement, InputGroup, Input } from "@chakra-ui/input"
+import { Button } from "@chakra-ui/button"
+
+const DateCell = flow(prop<"value", Date>("value"), util.date.toDateString)
+
+const DataMetricCell = ({ value }: any) => `${value} GB`
+
+const TABLE_COLUMNS = [
+  {
+    Header: "Account",
+    accessor: "account",
+    disableFilters: true,
+    disableSortBy: true,
+  },
+  {
+    Header: "Product",
+    accessor: "product",
+    disableSortBy: true,
+    disableFilters: true,
+  },
+  {
+    Header: "Allowance",
+    accessor: "allowance",
+    disableSortBy: true,
+    disableFilters: true,
+    Cell: DataMetricCell,
+  },
+  {
+    Header: "Remaining",
+    accessor: "remaining",
+    disableSortBy: true,
+    disableFilters: true,
+    Cell: DataMetricCell,
+  },
+  {
+    Header: "Next Bill Date",
+    accessor: "billed_at",
+    Cell: DateCell,
+    disableFilters: true,
+    disableSortBy: true,
+  },
+  {
+    Header: "Last Updated",
+    accessor: "updated_at",
+    Cell: DateCell,
+    disableFilters: true,
+    disableSortBy: true,
+  },
+] as const
 
 const BandwidthUsageDesktopPage = () => {
-  const [isLoading, setLoading] = useState(true)
   const data = useMemo(
     () =>
       repeat(
@@ -30,63 +72,6 @@ const BandwidthUsageDesktopPage = () => {
       ),
     []
   )
-
-  const columns = useMemo(
-    () =>
-      [
-        {
-          Header: "Account",
-          accessor: "account",
-          disableFilters: true,
-          disableSortBy: true,
-        },
-        {
-          Header: "Product",
-          accessor: "product",
-          disableSortBy: true,
-          disableFilters: true,
-        },
-        {
-          Header: "Allowance",
-          accessor: "allowance",
-          disableSortBy: true,
-          disableFilters: true,
-          Cell: ({ value }: any) => `${value} GB`,
-        },
-        {
-          Header: "Remaining",
-          accessor: "remaining",
-          disableSortBy: true,
-          disableFilters: true,
-          Cell: ({ value }: any) => `${value} GB`,
-        },
-        {
-          Header: "Next Bill Date",
-          accessor: "billed_at",
-          Cell: flow(
-            prop<"value", string>("value"),
-            util.date.formatDateString("dd/MM/yyyy")
-          ),
-          disableFilters: true,
-          disableSortBy: true,
-        },
-        {
-          Header: "Last Updated",
-          accessor: "updated_at",
-          Cell: flow(
-            prop<"value", string>("value"),
-            util.date.formatDateString("dd/MM/yyyy")
-          ),
-          disableFilters: true,
-          disableSortBy: true,
-        },
-      ] as const,
-    []
-  )
-
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1000)
-  }, [])
 
   return (
     <Page maxH="93vh" overflowY="auto">
@@ -104,8 +89,7 @@ const BandwidthUsageDesktopPage = () => {
         </InputGroup>
       </Flex>
       <Table
-        isLoading={isLoading}
-        columns={columns}
+        columns={TABLE_COLUMNS}
         boxShadow="base"
         overflowY="auto"
         bgColor="white"

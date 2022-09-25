@@ -1,5 +1,6 @@
 import { AddIcon } from "@chakra-ui/icons"
-import { Box, Button, Spacer } from "@chakra-ui/react"
+import { Box, Spacer } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
 import { CrudTouchTemplate } from "@ui/lib"
 import take from "ramda/es/take"
 import { Link } from "react-router-dom"

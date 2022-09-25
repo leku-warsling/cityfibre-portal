@@ -1,4 +1,6 @@
-import { Flex, Box, Heading, Select, useToken } from "@chakra-ui/react"
+import { Flex, Box, Heading } from "@chakra-ui/layout"
+import { useToken } from "@chakra-ui/system"
+import { Select } from "@chakra-ui/select"
 import { LabelList, BarChart, XAxis, Bar } from "recharts"
 import random from "lodash-es/random"
 import times from "ramda/es/times"

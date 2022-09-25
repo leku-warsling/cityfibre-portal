@@ -1,21 +1,15 @@
 import { usePage } from "../../hooks/use-page.hook"
-import { Page } from "@ui/lib"
+import { Page } from "@ui/lib/layout"
+import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table"
 import {
-  Button,
-  ButtonGroup,
   Divider,
   Heading,
   SimpleGrid,
   Spacer,
-  Table,
-  Tbody,
-  Td,
   Text,
-  Th,
-  Thead,
-  Tr,
   VStack,
-} from "@chakra-ui/react"
+} from "@chakra-ui/layout"
+import { Button, ButtonGroup } from "@chakra-ui/button"
 
 export const OrderAltPage = () => {
   usePage({ title: "Orders" })

@@ -1,10 +1,5 @@
-import {
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-} from "@chakra-ui/react"
+import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu"
+import { IconButton } from "@chakra-ui/button"
 import { isNilOrEmpty } from "ramda-adjunct"
 import append from "ramda/es/append"
 import identity from "ramda/es/identity"

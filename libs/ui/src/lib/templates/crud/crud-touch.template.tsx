@@ -4,16 +4,19 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
+} from "@chakra-ui/accordion"
+import {
   Box,
-  ButtonGroup,
   Divider,
   Heading,
   HStack,
-  Select,
   Text,
   Wrap,
   WrapItem,
-} from "@chakra-ui/react"
+} from "@chakra-ui/layout"
+import { Select } from "@chakra-ui/select"
+import { ButtonGroup } from "@chakra-ui/button"
+
 import { isFunction, isString } from "ramda-adjunct"
 import path from "ramda/es/path"
 import { ChangeEvent, FC, ReactElement, ReactNode } from "react"

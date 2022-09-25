@@ -1,29 +1,27 @@
 import { ReactComponent as EthernetIcon } from "../../../../assets/svg/ethernet-icon.svg"
 import { ReactComponent as FTTPIcon } from "../../../../assets/svg/fttp-icon.svg"
 import { AddIcon, ArrowForwardIcon } from "@chakra-ui/icons"
+import { TabPanels, TabPanel, TabList, Tab, Tabs } from "@chakra-ui/tabs"
 import {
-  TabPanels,
-  TabPanel,
-  TabList,
-  Button,
   HStack,
-  Tab,
-  Tabs,
   Text,
   Divider,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
   Box,
-  AccordionIcon,
-  AccordionPanel,
-  Icon,
   WrapItem,
   Wrap,
   VStack,
   UnorderedList,
   ListItem,
-} from "@chakra-ui/react"
+} from "@chakra-ui/layout"
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
+} from "@chakra-ui/accordion"
+import { Button } from "@chakra-ui/button"
+import { Icon } from "@chakra-ui/icon"
 import { FC } from "react"
 import { Link } from "react-router-dom"
 import { Card } from "../../../components/card"

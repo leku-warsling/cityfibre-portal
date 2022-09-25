@@ -1,9 +1,9 @@
-import { Flex, Text } from "@chakra-ui/react"
-import { Title } from "@ui/lib"
+import { Flex, Text } from "@chakra-ui/layout"
+import { Title } from "@ui/lib/data-display/title"
 import { LiveWorksBanner } from "../../components/banners/live-works-banner"
 import { LiveWorksForm } from "./forms/live-works.form"
 
-export const LiveWorksPage = () => {
+const LiveWorksPage = () => {
   return (
     <Flex h="100vh" maxW="100vw">
       <LiveWorksBanner />
@@ -27,3 +27,5 @@ export const LiveWorksPage = () => {
     </Flex>
   )
 }
+
+export default LiveWorksPage

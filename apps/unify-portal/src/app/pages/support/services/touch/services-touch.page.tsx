@@ -1,4 +1,5 @@
-import { Box, Button, Spacer } from "@chakra-ui/react"
+import { Box, Spacer } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
 import { CrudTouchTemplate } from "@ui/lib"
 import repeat from "ramda/es/repeat"
 import { useMemo } from "react"

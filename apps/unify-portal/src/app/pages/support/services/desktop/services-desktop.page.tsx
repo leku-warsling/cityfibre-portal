@@ -1,5 +1,6 @@
 import { AddIcon } from "@chakra-ui/icons"
-import { Badge, Button, Flex, Spacer } from "@chakra-ui/react"
+import { Badge, Flex, Spacer } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
 import { Page, Table, util } from "@ui/lib"
 import {
   ColumnVisibility,
@@ -59,8 +60,8 @@ const serviceQuerySchema = querySchema.extend({
 type ServiceQuery = z.infer<typeof serviceQuerySchema>
 
 const renderCellDate = flow(
-  prop<"value", string>("value"),
-  ifElse(isDate, util.date.formatDateString("dd/MM/yyyy"), always("N/A"))
+  prop<"value", Date>("value"),
+  ifElse(isDate, util.date.toDateString, always("N/A"))
 )
 
 const TABLE_COLUMNS = [

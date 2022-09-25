@@ -6,14 +6,14 @@ import { Link } from "react-router-dom"
 import { Page, Table, util } from "@ui/lib"
 import repeat from "ramda/es/repeat"
 import prop from "ramda/es/prop"
-import {
-  InputRightElement,
-  InputGroup,
-  Button,
-  Badge,
-  Input,
-  Flex,
-} from "@chakra-ui/react"
+import { InputRightElement, InputGroup, Input } from "@chakra-ui/input"
+import { Badge, Flex } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
+
+const DateCell = flow(
+  prop<"value", Date>("value"),
+  util.date.toDateString
+)
 
 const InvoicesDesktopPage = () => {
   const [isLoading, setLoading] = useState(true)
@@ -65,20 +65,14 @@ const InvoicesDesktopPage = () => {
         {
           Header: "Date",
           accessor: "created_at",
-          Cell: flow(
-            prop<"value", string>("value"),
-            util.date.formatDateString("dd/MM/yyyy")
-          ),
+          Cell: DateCell,
           disableFilters: true,
           disableSortBy: true,
         },
         {
           Header: "Due",
           accessor: "due",
-          Cell: flow(
-            prop<"value", string>("value"),
-            util.date.formatDateString("dd/MM/yyyy")
-          ),
+          Cell: DateCell,
           disableFilters: true,
           disableSortBy: true,
         },

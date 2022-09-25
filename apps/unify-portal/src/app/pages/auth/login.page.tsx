@@ -1,4 +1,6 @@
-import { Button, Text, useBreakpointValue, VStack } from "@chakra-ui/react"
+import { useBreakpointValue } from "@chakra-ui/media-query"
+import { Button } from "@chakra-ui/button"
+import { Text, VStack } from "@chakra-ui/layout"
 import { AuthTemplate, LoginForm, TextDivider } from "@ui/lib"
 import { Link } from "react-router-dom"
 import { useAuth } from "../../providers/auth.provider"
@@ -10,7 +12,7 @@ export type LoginPageProps = {
   title?: string
 }
 
-export const LoginPage = ({
+const LoginPage = ({
   showForgottenPassword = true,
   showRegister = true,
   strapline,
@@ -69,3 +71,5 @@ export const LoginPage = ({
     </AuthTemplate>
   )
 }
+
+export default LoginPage

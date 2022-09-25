@@ -2,7 +2,7 @@ import React from "react"
 import { Device } from "../../components/device"
 import { usePage } from "../../hooks/use-page.hook"
 
-export const InvoicesPage = () => {
+const InvoicesPage = () => {
   usePage({ title: "Billing" })
 
   return (
@@ -12,3 +12,5 @@ export const InvoicesPage = () => {
     />
   )
 }
+
+export default InvoicesPage

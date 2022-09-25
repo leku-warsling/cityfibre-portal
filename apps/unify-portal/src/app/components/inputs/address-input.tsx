@@ -1,16 +1,13 @@
 import { useFormContext, UseFormRegisterReturn } from "react-hook-form"
-import { FormItem, SearchInput, util } from "@ui/lib"
+import { FormItem } from "@ui/lib/form"
+import { SearchInput } from "@ui/lib/inputs"
+import { async } from "@ui/lib/util"
 import times from "ramda/es/times"
 import pick from "ramda/es/pick"
 import { useState } from "react"
-import {
-  FormControl,
-  SimpleGrid,
-  FormLabel,
-  Spacer,
-  Input,
-  SimpleGridProps,
-} from "@chakra-ui/react"
+import { Input } from "@chakra-ui/input"
+import { SimpleGrid, Spacer, SimpleGridProps } from "@chakra-ui/layout"
+import { FormControl, FormLabel } from "@chakra-ui/form-control"
 
 export type AddressInputProps = SimpleGridProps & {
   size?: "sm" | "md" | "lg"
@@ -35,7 +32,7 @@ const findAddressByPostcode = async (postcode: string) => {
     }
   }
 
-  return util.async.later(3000, times(createAddress, 10))
+  return async.later(3000, times(createAddress, 10))
 }
 
 const getAddress = pick(["house", "city", "county", "postcode", "street"])

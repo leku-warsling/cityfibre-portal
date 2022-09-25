@@ -1,10 +1,10 @@
-import { Heading, Text, VStack } from "@chakra-ui/react"
-import { Page } from "@ui/lib"
+import { Heading, Text, VStack } from "@chakra-ui/layout"
+import { Page } from "@ui/lib/layout"
 import { useEffect, useState } from "react"
 import { usePage } from "../../hooks/use-page.hook"
 import { BankDetailsForm } from "./forms/bank-details.form"
 
-export const BankDetailsPage = () => {
+const BankDetailsPage = () => {
   usePage({ title: "Billing" })
   const [, setLoading] = useState(true)
 
@@ -30,3 +30,5 @@ export const BankDetailsPage = () => {
     </Page>
   )
 }
+
+export default BankDetailsPage

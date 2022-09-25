@@ -1,5 +1,5 @@
 import { ComponentType, LazyExoticComponent, Suspense } from "react"
-import { useMediaQuery } from "@chakra-ui/react"
+import { useMediaQuery } from "@chakra-ui/media-query"
 import { Fallback } from "../fallback/falback"
 
 export type DeviceProps = {

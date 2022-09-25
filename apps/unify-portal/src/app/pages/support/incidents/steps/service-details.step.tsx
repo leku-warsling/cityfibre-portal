@@ -43,8 +43,6 @@ const defaultValues = {
   team_members: [],
 }
 
-const displayDate = util.date.formatDateString("dd/MM/yyyy HH:mm")
-
 const SERVICE_TYPES = [
   "Broadband",
   "Colocation",
@@ -173,7 +171,7 @@ const LineCheckerAlert = () => {
               service again before logging an incident"
         >
           <Heading mb={2} fontSize="sm">
-            Last Updated: {displayDate(new Date())}
+            Last Updated: {util.date.toDatetimeString(new Date())}
           </Heading>
         </AlertBox>
       )
@@ -193,7 +191,7 @@ const LineCheckerAlert = () => {
           description="we can see the line is down so please continue to raise an incident and provide as much of the requested information as possible"
         >
           <Heading mb={2} fontSize="sm">
-            Last Updated: {displayDate(new Date())}
+            Last Updated: {util.date.toDatetimeString(new Date())}
           </Heading>
         </AlertBox>
       )
@@ -205,7 +203,7 @@ const LineCheckerAlert = () => {
           description="Please check the power to your device before logging an incident"
         >
           <Heading mb={2} fontSize="sm">
-            Last Updated: {displayDate(new Date())}
+            Last Updated: {util.date.toDatetimeString(new Date())}
           </Heading>
         </AlertBox>
       )

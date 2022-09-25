@@ -1,20 +1,14 @@
+import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table"
 import {
-  Button,
-  ButtonGroup,
   Divider,
   Heading,
   SimpleGrid,
   Spacer,
-  Table,
-  Tbody,
-  Td,
   Text,
-  Th,
-  Thead,
-  Tr,
   VStack,
-} from "@chakra-ui/react"
-import { Page } from "@ui/lib"
+} from "@chakra-ui/layout"
+import { Button, ButtonGroup } from "@chakra-ui/button"
+import { Page } from "@ui/lib/layout"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { usePage } from "../../../hooks/use-page.hook"

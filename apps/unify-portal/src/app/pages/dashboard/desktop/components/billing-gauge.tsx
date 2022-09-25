@@ -1,4 +1,6 @@
-import { Flex, Text, Box, Heading, Select, useToken } from "@chakra-ui/react"
+import { Flex, Text, Box, Heading } from "@chakra-ui/layout"
+import { useToken } from "@chakra-ui/system"
+import { Select } from "@chakra-ui/select"
 import random from "lodash-es/random"
 import { Cell, Label, Pie, PieChart } from "recharts"
 

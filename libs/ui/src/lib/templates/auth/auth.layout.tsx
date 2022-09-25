@@ -1,6 +1,8 @@
 import { position } from "../../util/component.util"
 import { ArrowBackIcon } from "@chakra-ui/icons"
-import { Button, Flex, Hide } from "@chakra-ui/react"
+import { Flex } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
+import { Hide } from "@chakra-ui/media-query"
 import { Outlet } from "react-router-dom"
 import { FC, ReactNode } from "react"
 

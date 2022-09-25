@@ -1,4 +1,5 @@
-import { Button, Box, Spacer } from "@chakra-ui/react"
+import { Box, Spacer } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
 import { Link } from "react-router-dom"
 import { FieldSearch } from "../../../components/field-search/field-search"
 import { SelectFilter } from "../../../components/filters/select-filter"

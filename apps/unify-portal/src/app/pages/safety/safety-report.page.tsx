@@ -1,12 +1,12 @@
-import { WizardPanel, WizardProvider, WizardStepper } from "@ui/lib"
+import { WizardPanel, WizardProvider, WizardStepper } from "@ui/lib/form"
 import YourDetailsStep from "./steps/your-details.step"
 import CompleteStep from "./steps/complete.step"
 import IncidentDetailsStep from "./steps/incident-details.step"
-import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/react"
+import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/layout"
 import safetyBgImage from "../../../assets/images/safety-bg-2.jpg"
 import { ReactComponent as Logo } from "../../../assets/svg/logo.svg"
 
-export const SafetyReportPage = () => {
+const SafetyReportPage = () => {
   const aside = (
     <VStack
       bgImage={safetyBgImage}
@@ -65,3 +65,5 @@ export const SafetyReportPage = () => {
     </WizardProvider>
   )
 }
+
+export default SafetyReportPage

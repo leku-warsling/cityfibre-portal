@@ -1,4 +1,5 @@
-import { Button, List, ListIcon, ListItem } from "@chakra-ui/react"
+import { List, ListIcon, ListItem } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
 import { lengthGte } from "ramda-adjunct"
 import applySpec from "ramda/es/applySpec"
 import test from "ramda/es/test"

@@ -8,20 +8,12 @@ import { flow } from "fp-ts/lib/function"
 import { Link } from "react-router-dom"
 import repeat from "ramda/es/repeat"
 import prop from "ramda/es/prop"
-import {
-  InputRightElement,
-  InputGroup,
-  Button,
-  Spacer,
-  HStack,
-  Badge,
-  Input,
-  Flex,
-  Icon,
-  Text,
-} from "@chakra-ui/react"
+import { Spacer, HStack, Badge, Flex, Text } from "@chakra-ui/layout"
+import { InputRightElement, InputGroup, Input } from "@chakra-ui/input"
+import { Icon } from "@chakra-ui/icon"
+import { Button } from "@chakra-ui/button"
 
-export const TransactionsPage = () => {
+const TransactionsPage = () => {
   usePage({ title: "Billing" })
   const [isLoading, setLoading] = useState(true)
   const data = useMemo(
@@ -78,10 +70,7 @@ export const TransactionsPage = () => {
         {
           Header: "Due",
           accessor: "due",
-          Cell: flow(
-            prop<"value", string>("value"),
-            util.date.formatDateString("dd/MM/yyyy")
-          ),
+          Cell: flow(prop<"value", Date>("value"), util.date.toDateString),
           disableFilters: true,
           disableSortBy: true,
         },
@@ -200,3 +189,5 @@ export const TransactionsPage = () => {
     </Page>
   )
 }
+
+export default TransactionsPage

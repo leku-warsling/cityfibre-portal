@@ -4,20 +4,20 @@ import { BiCog, BiX } from "react-icons/bi"
 import {
   InputRightElement,
   InputLeftElement,
+  InputGroup,
+  InputProps,
+  Input,
+} from "@chakra-ui/input"
+import { Flex } from "@chakra-ui/layout"
+import {
   PopoverContent,
   PopoverTrigger,
-  InputGroup,
-  IconButton,
-  InputProps,
-  RadioGroup,
   Popover,
-  Input,
-  Radio,
-  Flex,
-  Portal,
   PopoverAnchor,
-} from "@chakra-ui/react"
-
+} from "@chakra-ui/popover"
+import { IconButton } from "@chakra-ui/button"
+import { RadioGroup, Radio } from "@chakra-ui/radio"
+import { Portal } from "@chakra-ui/portal"
 export type FieldSearchOwnProps = {
   onFieldChange: (value: string, previous: string) => void
   onChange: (event: ChangeEvent<HTMLInputElement>, field: string) => void

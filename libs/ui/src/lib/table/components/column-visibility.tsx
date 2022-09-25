@@ -3,14 +3,13 @@ import { BsEye } from "react-icons/bs"
 import {
   PopoverContent,
   PopoverTrigger,
-  CheckboxGroup,
   PopoverBody,
-  Checkbox,
   Popover,
-  Button,
-  Portal,
-  VStack,
-} from "@chakra-ui/react"
+} from "@chakra-ui/popover"
+import { CheckboxGroup, Checkbox } from "@chakra-ui/checkbox"
+import { VStack } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
+import { Portal } from "@chakra-ui/portal"
 
 export type ColumnVisibilityProps = {
   onChange: (value: string[]) => void

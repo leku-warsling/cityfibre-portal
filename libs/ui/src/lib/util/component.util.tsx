@@ -1,5 +1,6 @@
 // @ts-nocheck
-import { BoxProps, StyleProps } from "@chakra-ui/react"
+import { BoxProps } from "@chakra-ui/layout"
+import { StyleProps } from "@chakra-ui/system"
 import { ComponentType } from "react"
 
 type Vertical = "top" | "middle" | "bottom"

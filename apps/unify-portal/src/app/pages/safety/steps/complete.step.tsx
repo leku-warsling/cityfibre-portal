@@ -1,5 +1,7 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons"
-import { Button, Heading, Icon, Text, VStack } from "@chakra-ui/react"
+import { Heading, Text, VStack } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
+import { Icon } from "@chakra-ui/icon"
 import { BsCheckCircle } from "react-icons/bs"
 
 const defaultValues = {

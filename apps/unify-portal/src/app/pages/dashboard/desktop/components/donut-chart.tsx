@@ -1,8 +1,13 @@
-import { Box, Flex, Heading, Select } from "@chakra-ui/react"
+import { Box, Flex, Heading } from "@chakra-ui/layout"
+import { Select } from "@chakra-ui/select"
+import { flow } from "fp-ts/lib/function"
 import random from "lodash-es/random"
+import map from "ramda/es/map"
 import prop from "ramda/es/prop"
 import sum from "ramda/es/sum"
 import { Label, Legend, Pie, PieChart } from "recharts"
+
+const calcTotal = flow(map(prop("value")), sum)
 
 const DonutChart = () => {
   const data = [
@@ -13,7 +18,7 @@ const DonutChart = () => {
     { name: "Resolved", value: random(50, 100), fill: " #6F5DFF" },
     { name: "Cancelled", value: random(50, 100), fill: "#00BADE" },
   ]
-  const total = sum(data.map(prop("value")))
+  const total = calcTotal(data)
 
   return (
     <Box

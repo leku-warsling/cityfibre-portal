@@ -1,5 +1,5 @@
 import { AreaChart, XAxis, YAxis, Area } from "recharts"
-import { useToken } from "@chakra-ui/react"
+import { useToken } from "@chakra-ui/system"
 import random from "lodash-es/random"
 import times from "ramda/es/times"
 

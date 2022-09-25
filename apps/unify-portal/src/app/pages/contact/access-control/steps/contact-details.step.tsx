@@ -1,5 +1,6 @@
-import { FormItem } from "@ui/lib"
-import { SimpleGrid, VStack, Input } from "@chakra-ui/react"
+import { FormItem } from "@ui/lib/form"
+import { SimpleGrid, VStack } from "@chakra-ui/layout"
+import { Input } from "@chakra-ui/input"
 
 const defaultValues = {
   engineer: {

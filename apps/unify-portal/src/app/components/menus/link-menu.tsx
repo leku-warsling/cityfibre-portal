@@ -1,13 +1,7 @@
 import { Link } from "react-router-dom"
 import { FC } from "react"
-import {
-  ButtonProps,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Button,
-  Menu,
-} from "@chakra-ui/react"
+import { MenuButton, MenuItem, MenuList, Menu } from "@chakra-ui/menu"
+import { ButtonProps, Button } from "@chakra-ui/button"
 
 export type LinkMenuOwnProps = {
   items: {

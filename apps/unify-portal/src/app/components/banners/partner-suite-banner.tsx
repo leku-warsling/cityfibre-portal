@@ -1,4 +1,5 @@
-import { Figure, Logo, CirclesBackdrop } from "@ui/lib"
+import { Logo, CirclesBackdrop } from "@ui/lib/assets"
+import { Figure } from "@ui/lib/figure"
 import { Heading, Text } from "@chakra-ui/layout"
 import { useToken } from "@chakra-ui/system"
 

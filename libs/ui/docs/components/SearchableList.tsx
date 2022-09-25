@@ -5,23 +5,23 @@ import {
   Alert,
   AlertIcon,
   AlertTitle,
-} from '@chakra-ui/react';
-import { matchSorter } from 'match-sorter';
-import debounce from 'lodash-es/debounce';
-import memoize from 'fast-memoize';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FC, ReactNode, useMemo, useState } from 'react';
-import SearchInput from './SearchInput';
+} from "@chakra-ui/react"
+import { matchSorter } from "match-sorter"
+import debounce from "lodash-es/debounce"
+import memoize from "fast-memoize"
+import { motion, AnimatePresence } from "framer-motion"
+import { FC, ReactNode, useMemo, useState } from "react"
+import { SearchInput } from "./SearchInput"
 
-type Item = Record<string, any>;
+type Item = Record<string, any>
 
 type SearchableListProps = {
-  items: Item[];
-  renderItem: (item: Item) => ReactNode;
-  filterBy: string;
-};
+  items: Item[]
+  renderItem: (item: Item) => ReactNode
+  filterBy: string
+}
 
-const MotionBox = motion(Box);
+const MotionBox = motion(Box)
 const animationConfig = {
   initial: {
     opacity: 0,
@@ -38,26 +38,26 @@ const animationConfig = {
     opacity: 0,
     scale: 0,
   },
-};
+}
 
-const match = memoize(matchSorter);
+const match = memoize(matchSorter)
 
 const SearchableList: FC<SearchableListProps> = ({
   items,
   renderItem,
   filterBy,
 }) => {
-  const [searchText, setSearchText] = useState('');
-  const onSearch = useMemo(() => debounce(setSearchText, 300), []);
+  const [searchText, setSearchText] = useState("")
+  const onSearch = useMemo(() => debounce(setSearchText, 300), [])
   const filterOpts = {
     keys: [filterBy],
-  };
+  }
 
   const content = match(items, searchText, filterOpts).map((item, idx) => (
     <WrapItem key={`list-item-${idx}`}>
       <MotionBox {...animationConfig}>{renderItem(item)}</MotionBox>
     </WrapItem>
-  ));
+  ))
 
   return (
     <Box my={6}>
@@ -72,7 +72,7 @@ const SearchableList: FC<SearchableListProps> = ({
         <AnimatePresence>{content}</AnimatePresence>
       </Wrap>
     </Box>
-  );
-};
+  )
+}
 
-export default SearchableList;
+export default SearchableList

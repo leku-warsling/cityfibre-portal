@@ -1,5 +1,6 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons"
-import { Flex, Icon, Text } from "@chakra-ui/react"
+import { Flex, Text } from "@chakra-ui/layout"
+import { Icon } from "@chakra-ui/icon"
 import { ReactNode } from "react"
 
 const StatCallToAction = (props: { value: ReactNode; label: ReactNode }) => {

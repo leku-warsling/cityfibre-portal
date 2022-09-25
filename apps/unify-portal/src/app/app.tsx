@@ -25,7 +25,6 @@ import {
   IncidentPage,
   IncidentsPage,
   NetworksPage,
-  ServiceAltPage,
   ServicePage,
   ServicesPage,
 } from "./pages/support"
@@ -125,14 +124,6 @@ export function App() {
               element={
                 <RequireAuth>
                   <ServicesPage />
-                </RequireAuth>
-              }
-            />
-            <Route
-              path="alt"
-              element={
-                <RequireAuth>
-                  <ServiceAltPage />
                 </RequireAuth>
               }
             />

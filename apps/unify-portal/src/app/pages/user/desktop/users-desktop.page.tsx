@@ -1,18 +1,17 @@
 // @ts-nocheck
 import { AddIcon } from "@chakra-ui/icons"
 import {
-  Avatar,
   Badge,
   Box,
-  Button,
   Flex,
   HStack,
-  IconButton,
   Spacer,
   Text,
-  useDisclosure,
   VStack,
-} from "@chakra-ui/react"
+} from "@chakra-ui/layout"
+import { Button, IconButton } from "@chakra-ui/button"
+import { useDisclosure } from "@chakra-ui/hooks"
+import { Avatar } from "@chakra-ui/avatar"
 import { Page, Table, util } from "@ui/lib"
 import {
   ColumnVisibility,
@@ -32,6 +31,8 @@ import { Link } from "react-router-dom"
 import { z } from "zod"
 import { EditUserForm } from "../forms/edit-user.form"
 import { EditUserModal } from "../modals/edit-user.modal"
+
+const DateCell = flow(prop<"value", Date>("value"), util.date.toDateString)
 
 const DEFAULT_QUERY = {
   _order: "asc",
@@ -143,19 +144,13 @@ const UsersDesktopPage = () => {
       {
         Header: "Created Date",
         accessor: "created_at",
-        Cell: flow(
-          prop<"value", string>("value"),
-          util.date.formatDateString("dd/MM/yyyy")
-        ),
+        Cell: DateCell,
         disableFilters: true,
       },
       {
         Header: "Last Updated",
         accessor: "updated_at",
-        Cell: flow(
-          prop<"value", string>("value"),
-          util.date.formatDateString("dd/MM/yyyy")
-        ),
+        Cell: DateCell,
         disableFilters: true,
       },
     ],

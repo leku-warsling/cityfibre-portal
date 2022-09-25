@@ -2,28 +2,32 @@ import { ArrowForwardIcon, TriangleUpIcon } from "@chakra-ui/icons"
 import {
   Badge,
   Box,
-  Button,
-  CircularProgress,
-  CircularProgressLabel,
   Flex,
   Heading,
-  Icon,
   List,
   ListItem,
+  SimpleGrid,
+  Text,
+  VStack,
+} from "@chakra-ui/layout"
+import {
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+} from "@chakra-ui/modal"
+import {
+  CircularProgress,
+  CircularProgressLabel,
   Progress,
-  Select,
-  SimpleGrid,
-  Text,
-  useDisclosure,
-  VStack,
-} from "@chakra-ui/react"
-import { Page } from "@ui/lib"
+} from "@chakra-ui/progress"
+import { useDisclosure } from "@chakra-ui/hooks"
+import { Select } from "@chakra-ui/select"
+import { Icon } from "@chakra-ui/icon"
+import { Button } from "@chakra-ui/button"
+import { Page } from "@ui/lib/layout"
 import random from "lodash-es/random"
 import times from "ramda/es/times"
 import { BiBookReader } from "react-icons/bi"
@@ -829,7 +833,7 @@ const DashboardDesktopPage = () => {
             right={8}
           />
         </Flex>
-        <Box flex={1} boxShadow="base" bgColor="white" rounded={4} p={6}>
+        <Box boxShadow="base" bgColor="white" rounded={4} p={6}>
           <Flex justify="space-between" mb={4} align="center">
             <Heading fontSize="lg" fontWeight={600}>
               Bandwidth Usage

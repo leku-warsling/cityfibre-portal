@@ -7,7 +7,7 @@ import {
   ModalProps,
   ModalBody,
   Modal,
-} from "@chakra-ui/react"
+} from "@chakra-ui/modal"
 
 export interface EditUserModalProps extends ModalProps {
   header?: ReactNode

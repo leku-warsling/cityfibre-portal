@@ -1,10 +1,8 @@
-import {
-  Button,
-  Checkbox,
-  Input,
-  BoxProps,
-  useBreakpointValue,
-} from "@chakra-ui/react"
+import { useBreakpointValue } from "@chakra-ui/media-query"
+import { BoxProps } from "@chakra-ui/layout"
+import { Input } from "@chakra-ui/input"
+import { Button } from "@chakra-ui/button"
+import { Checkbox } from "@chakra-ui/checkbox"
 import { createForm, FormFieldsProps, FormItem } from "../../form"
 import { FiArrowRight } from "react-icons/fi"
 import { PasswordInput } from "../../inputs"

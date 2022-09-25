@@ -17,6 +17,8 @@ import prop from "ramda/es/prop"
 import { Link } from "react-router-dom"
 import { z } from "zod"
 
+const DateCell = flow(prop<"value", Date>("value"), util.date.toDateString)
+
 const DEFAULT_QUERY = {
   _page: 1,
   _limit: 10,
@@ -125,10 +127,7 @@ const TABLE_COLUMNS = [
     Header: "Appointment Date",
     accessor: path(["appointment", "start"]),
     disableFilters: true,
-    Cell: flow(
-      prop<"value", string>("value"),
-      util.date.formatDateString("dd/MM/yyyy")
-    ),
+    Cell: DateCell,
   },
   {
     Header: "Status",
@@ -144,19 +143,13 @@ const TABLE_COLUMNS = [
   {
     Header: "Ordered On",
     accessor: "created_at",
-    Cell: flow(
-      prop<"value", string>("value"),
-      util.date.formatDateString("dd/MM/yyyy, HH:mm")
-    ),
+    Cell: flow(prop<"value", Date>("value"), util.date.toDatetimeString),
     disableFilters: true,
   },
   {
     Header: "Last Updated",
     accessor: "updated_at",
-    Cell: flow(
-      prop<"value", string>("value"),
-      util.date.formatDateString("dd/MM/yyyy, HH:mm")
-    ),
+    Cell: flow(prop<"value", Date>("value"), util.date.toDatetimeString),
     disableFilters: true,
   },
   {

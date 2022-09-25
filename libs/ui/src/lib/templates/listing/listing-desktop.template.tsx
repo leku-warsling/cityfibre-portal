@@ -1,4 +1,4 @@
-import { Flex, Spacer } from "@chakra-ui/react"
+import { Flex, Spacer } from "@chakra-ui/layout"
 import assoc from "ramda/es/assoc"
 import difference from "ramda/es/difference"
 import { useMemo, useState } from "react"

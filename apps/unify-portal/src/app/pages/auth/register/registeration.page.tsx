@@ -2,19 +2,12 @@ import { WizardPanel, WizardProvider, WizardStepper } from "@ui/lib"
 import AddTeamMembersStep from "./steps/add-team-members.step"
 import CompanyDetailsStep from "./steps/company-details.step"
 import CompleteStep from "./steps/complete.step"
-import {
-  Box,
-  Flex,
-  Heading,
-  Hide,
-  Text,
-  useBreakpointValue,
-  VStack,
-} from "@chakra-ui/react"
+import { useBreakpointValue, Hide } from "@chakra-ui/media-query"
+import { Text, Box, Flex, Heading, VStack } from "@chakra-ui/layout"
 import registerBg from "../../../../assets/images/register-bg.jpg"
 import { ReactComponent as Logo } from "../../../../assets/svg/logo.svg"
 
-export const RegistrationPage = () => {
+const RegistrationPage = () => {
   const size = useBreakpointValue({ base: "md", lg: "lg" } as const)
   const aside = (
     <VStack
@@ -67,3 +60,5 @@ export const RegistrationPage = () => {
     </WizardProvider>
   )
 }
+
+export default RegistrationPage

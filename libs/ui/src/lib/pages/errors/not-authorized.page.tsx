@@ -4,7 +4,7 @@ import { ReactComponent as AccessSVG } from "../../assets/svg/access.svg"
 import { ArrowForwardIcon } from "@chakra-ui/icons"
 import { Link } from "react-router-dom"
 
-export const NotAuthorizedPage = () => (
+const NotAuthorizedPage = () => (
   <Flex bgColor="white" width="100vw" height="100vh" align="center">
     <HStack justify="center" align="flex-start" width="100%" spacing={4}>
       <VStack spacing={8}>
@@ -40,3 +40,5 @@ export const NotAuthorizedPage = () => (
     </HStack>
   </Flex>
 )
+
+export default NotAuthorizedPage

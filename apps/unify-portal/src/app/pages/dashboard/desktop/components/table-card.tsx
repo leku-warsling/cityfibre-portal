@@ -1,7 +1,7 @@
-import { Flex, Box, Heading } from "@chakra-ui/react"
+import { Flex, Box, Heading } from "@chakra-ui/layout"
 import { Column } from "react-table"
 import { ReactNode } from "react"
-import { Table } from "@ui/lib"
+import { Table } from "@ui/lib/table"
 
 export type TableCardProps<D extends object> = {
   columns: ReadonlyArray<Column<D>>

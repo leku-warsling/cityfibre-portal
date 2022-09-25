@@ -4,7 +4,7 @@ import { Button } from "@chakra-ui/button"
 import { Link } from "react-router-dom"
 import { ReactComponent as ServerErrorSVG } from "../../assets/svg/server-error.svg"
 
-export const ServerErrorPage = () => (
+const ServerErrorPage = () => (
   <Flex bgColor="white" width="100vw" height="100vh" align="center">
     <HStack justify="center" align="flex-start" width="100%">
       <VStack spacing={10}>
@@ -33,3 +33,5 @@ export const ServerErrorPage = () => (
     </HStack>
   </Flex>
 )
+
+export default ServerErrorPage

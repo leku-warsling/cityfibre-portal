@@ -4,19 +4,21 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Avatar,
+} from "@chakra-ui/accordion"
+import {
   Badge,
   Box,
-  Button,
   Divider,
   Heading,
   HStack,
-  Select,
   Spacer,
   Text,
   Wrap,
   WrapItem,
-} from "@chakra-ui/react"
+} from "@chakra-ui/layout"
+import { Select } from "@chakra-ui/select"
+import { Avatar } from "@chakra-ui/avatar"
+import { Button } from "@chakra-ui/button"
 import { FC } from "react"
 import { Link } from "react-router-dom"
 import { USER_ROLES } from "../data"

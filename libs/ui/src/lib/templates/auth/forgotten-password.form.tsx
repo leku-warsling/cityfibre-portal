@@ -1,4 +1,5 @@
-import { Button, Input } from "@chakra-ui/react"
+import { Input } from "@chakra-ui/input"
+import { Button } from "@chakra-ui/button"
 import { createForm, FormItem, FormFieldsProps } from "../../form"
 
 export const ForgottenPasswordFields = ({

@@ -1,4 +1,5 @@
-import { HStack, Icon, Spacer, StackProps, Text } from "@chakra-ui/react"
+import { HStack, Spacer, StackProps, Text } from "@chakra-ui/layout"
+import { Icon } from "@chakra-ui/icon"
 import { RiBarChartGroupedLine } from "react-icons/ri"
 import { ReactNode } from "react"
 

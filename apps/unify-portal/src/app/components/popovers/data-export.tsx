@@ -3,14 +3,13 @@ import { BiDownload } from "react-icons/bi"
 import {
   PopoverContent,
   PopoverTrigger,
-  CheckboxGroup,
   PopoverBody,
-  Checkbox,
   Popover,
-  Button,
-  Portal,
-  VStack,
-} from "@chakra-ui/react"
+} from "@chakra-ui/popover"
+import { CheckboxGroup, Checkbox } from "@chakra-ui/checkbox"
+import { Button } from "@chakra-ui/button"
+import { Portal } from "@chakra-ui/portal"
+import { VStack } from "@chakra-ui/layout"
 
 export type DataExportProps = {
   label?: string

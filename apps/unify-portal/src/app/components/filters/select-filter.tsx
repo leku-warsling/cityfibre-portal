@@ -1,14 +1,8 @@
 import { ChevronDownIcon } from "@chakra-ui/icons"
 import { FC } from "react"
-import {
-  ButtonProps,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Button,
-  Portal,
-  Menu,
-} from "@chakra-ui/react"
+import { MenuButton, MenuItem, MenuList, Menu } from "@chakra-ui/menu"
+import { ButtonProps, Button } from "@chakra-ui/button"
+import { Portal } from "@chakra-ui/portal"
 
 export type SelectFilterOption = { label: string; value?: string }
 

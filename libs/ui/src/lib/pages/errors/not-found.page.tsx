@@ -4,7 +4,7 @@ import { ReactComponent as VoidSVG } from "../../assets/svg/void.svg"
 import { ArrowForwardIcon } from "@chakra-ui/icons"
 import { Link } from "react-router-dom"
 
-export const NotFoundPage = () => (
+const NotFoundPage = () => (
   <Flex bgColor="white" width="100vw" height="100vh" align="center">
     <HStack justify="center" align="flex-start" width="100%">
       <VStack spacing={10}>
@@ -40,3 +40,5 @@ export const NotFoundPage = () => (
     </HStack>
   </Flex>
 )
+
+export default NotFoundPage

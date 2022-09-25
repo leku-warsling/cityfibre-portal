@@ -1,4 +1,4 @@
-import { Checkbox } from "@chakra-ui/react"
+import { Checkbox } from "@chakra-ui/checkbox"
 import { isNilOrEmpty } from "ramda-adjunct"
 import identity from "ramda/es/identity"
 import prepend from "ramda/es/prepend"

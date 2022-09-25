@@ -1,5 +1,8 @@
 import { FormItem } from "@ui/lib"
-import { SimpleGrid, VStack, Input, Textarea, Select } from "@chakra-ui/react"
+import { SimpleGrid, VStack } from "@chakra-ui/layout"
+import { Input } from "@chakra-ui/input"
+import { Select } from "@chakra-ui/select"
+import { Textarea } from "@chakra-ui/textarea"
 import { z } from "zod"
 
 const cities = [

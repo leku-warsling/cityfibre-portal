@@ -4,19 +4,20 @@ import { BiCog, BiX } from "react-icons/bi"
 import {
   InputRightElement,
   InputLeftElement,
+  InputGroup,
+  InputProps,
+  Input,
+} from "@chakra-ui/input"
+import {
   PopoverContent,
   PopoverTrigger,
   PopoverAnchor,
-  InputGroup,
-  IconButton,
-  InputProps,
-  RadioGroup,
   Popover,
-  Portal,
-  Input,
-  Radio,
-  Flex,
-} from "@chakra-ui/react"
+} from "@chakra-ui/popover"
+import { RadioGroup, Radio } from "@chakra-ui/radio"
+import { IconButton } from "@chakra-ui/button"
+import { Portal } from "@chakra-ui/portal"
+import { Flex } from "@chakra-ui/layout"
 
 export type TableSearchOwnProps = {
   onChange: (event: ChangeEvent<HTMLInputElement>, field: string) => void

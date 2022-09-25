@@ -4,7 +4,8 @@ import {
   RadioButton,
   RadioButtonGroup,
 } from "@ui/lib"
-import { SimpleGrid, VStack, Input } from "@chakra-ui/react"
+import { SimpleGrid, VStack } from "@chakra-ui/layout"
+import { Input } from "@chakra-ui/input"
 import { z } from "zod"
 
 const defaultValues = {

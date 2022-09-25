@@ -1,17 +1,7 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  HStack,
-  Icon,
-  Select,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-} from "@chakra-ui/react"
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs"
+import { Box, Flex, Heading, HStack, Text } from "@chakra-ui/layout"
+import { Select } from "@chakra-ui/select"
+import { Icon } from "@chakra-ui/icon"
 import random from "lodash-es/random"
 import { BiMessageError, BiUpArrowAlt, BiWrench } from "react-icons/bi"
 

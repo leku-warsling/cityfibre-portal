@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react"
+import { Button } from "@chakra-ui/button"
 import { createForm, FormItem, FormFieldsProps } from "../../form"
 import { PinInput } from "../../inputs"
 

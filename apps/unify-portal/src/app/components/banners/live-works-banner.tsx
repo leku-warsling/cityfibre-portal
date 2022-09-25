@@ -1,6 +1,7 @@
 import liveWorksBgImg from "../../../assets/images/live-works-bg.jpg"
-import { Text, Heading } from "@chakra-ui/react"
-import { Figure, Logo } from "@ui/lib"
+import { Text, Heading } from "@chakra-ui/layout"
+import { Figure } from "@ui/lib/figure"
+import { Logo } from "@ui/lib/assets"
 
 export const LiveWorksBanner = () => (
   <Figure

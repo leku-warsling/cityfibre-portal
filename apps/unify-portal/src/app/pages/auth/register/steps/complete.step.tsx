@@ -1,5 +1,7 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons"
-import { Button, Text, useBreakpointValue, VStack } from "@chakra-ui/react"
+import { Text, VStack } from "@chakra-ui/layout"
+import { useBreakpointValue } from "@chakra-ui/media-query"
+import { Button } from "@chakra-ui/button"
 import { Link } from "react-router-dom"
 
 const CompleteStep = () => {

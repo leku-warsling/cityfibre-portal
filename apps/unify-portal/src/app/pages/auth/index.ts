@@ -1,5 +1,11 @@
-export * from "./authenticate-account.page"
-export * from "./forgotten-password.page"
-export * from "./reset-password.page"
-export * from "./login.page"
+import loadable from "@loadable/component"
+
+export const AuthenticateAccountPage = loadable(
+  () => import("./authenticate-account.page")
+)
+export const ForgottenPasswordPage = loadable(
+  () => import("./forgotten-password.page")
+)
+export const ResetPasswordPage = loadable(() => import("./reset-password.page"))
+export const LoginPage = loadable(() => import("./login.page"))
 export * from "./register"

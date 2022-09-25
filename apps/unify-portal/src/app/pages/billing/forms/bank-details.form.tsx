@@ -1,5 +1,7 @@
-import { Button, Input, BoxProps, Divider } from "@chakra-ui/react"
-import { createForm, FormFieldsProps, FormItem } from "@ui/lib"
+import { BoxProps, Divider } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
+import { Input } from "@chakra-ui/input"
+import { createForm, FormFieldsProps, FormItem } from "@ui/lib/form"
 
 export type BankDetailsFieldsProps = BoxProps & FormFieldsProps
 

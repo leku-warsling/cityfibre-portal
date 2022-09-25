@@ -1,12 +1,7 @@
-import {
-  Alert,
-  Box,
-  Button,
-  Heading,
-  HStack,
-  Spinner,
-  VStack,
-} from "@chakra-ui/react"
+import { Box, Heading, HStack, VStack } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
+import { Alert } from "@chakra-ui/alert"
+import { Spinner } from "@chakra-ui/spinner"
 import { flow } from "fp-ts/lib/function"
 import get from "lodash-es/get"
 import { isFunction } from "ramda-adjunct"

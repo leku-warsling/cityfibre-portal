@@ -1,16 +1,15 @@
 import { ChevronDownIcon } from "@chakra-ui/icons"
 import { BsEye } from "react-icons/bs"
 import {
-  Button,
-  Checkbox,
-  CheckboxGroup,
   Popover,
   PopoverBody,
   PopoverContent,
   PopoverTrigger,
-  Portal,
-  VStack,
-} from "@chakra-ui/react"
+} from "@chakra-ui/popover"
+import { VStack } from "@chakra-ui/layout"
+import { Portal } from "@chakra-ui/portal"
+import { Checkbox, CheckboxGroup } from "@chakra-ui/checkbox"
+import { Button } from "@chakra-ui/button"
 
 export type ColumnVisibilityProps = {
   onChange: (value: string[]) => void

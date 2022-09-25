@@ -1,4 +1,6 @@
-import { Flex, Portal, Spinner } from "@chakra-ui/react"
+import { Flex } from "@chakra-ui/layout"
+import { Spinner } from "@chakra-ui/spinner"
+import { Portal } from "@chakra-ui/portal"
 
 export const Fallback = () => (
   <Portal>

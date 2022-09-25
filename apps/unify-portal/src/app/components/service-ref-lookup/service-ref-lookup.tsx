@@ -7,8 +7,8 @@ import {
   FormControlProps,
   FormControl,
   FormLabel,
-  Flex,
-} from "@chakra-ui/react"
+} from "@chakra-ui/form-control"
+import { Flex } from "@chakra-ui/layout"
 
 export type ServiceRefLookupOwnProps = {
   onSelect: (setValue: UseFormSetValue<FieldValues>, item: SearchOption) => void

@@ -1,5 +1,6 @@
 import { AddIcon } from "@chakra-ui/icons"
-import { Badge, Button } from "@chakra-ui/react"
+import { Badge } from "@chakra-ui/layout"
+import { Button } from "@chakra-ui/button"
 import { ListingTemplate, util } from "@ui/lib"
 import { DataExport } from "@unify/components"
 import { useIncidents, useQueryParams } from "@unify/hooks"
@@ -8,6 +9,11 @@ import pathOr from "ramda/es/pathOr"
 import prop from "ramda/es/prop"
 import { Link } from "react-router-dom"
 import { z } from "zod"
+
+const DatetimeCell = flow(
+  prop<"value", Date>("value"),
+  util.date.toDatetimeString
+)
 
 const DEFAULT_QUERY = {
   _page: 1,
@@ -99,19 +105,13 @@ const TABLE_COLUMNS = [
   {
     Header: "Date Raised",
     accessor: "created_at",
-    Cell: flow(
-      prop<"value", string>("value"),
-      util.date.formatDateString("dd/MM/yyyy, HH:mm")
-    ),
+    Cell: DatetimeCell,
     disableFilters: true,
   },
   {
     Header: "Last Updated",
     accessor: "updated_at",
-    Cell: flow(
-      prop<"value", string>("value"),
-      util.date.formatDateString("dd/MM/yyyy")
-    ),
+    Cell: flow(prop<"value", Date>("value"), util.date.toDateString),
     disableFilters: true,
   },
   {

@@ -1,5 +1,6 @@
-import { FormItem } from "@ui/lib"
-import { VStack, Textarea } from "@chakra-ui/react"
+import { FormItem } from "@ui/lib/form"
+import { VStack } from "@chakra-ui/layout"
+import { Textarea } from "@chakra-ui/textarea"
 
 const defaultValues = {
   visit_reason: "",

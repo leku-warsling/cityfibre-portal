@@ -1,22 +1,17 @@
+import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table"
 import {
   Box,
   Divider,
   HStack,
   SimpleGrid,
-  Table,
-  Tbody,
-  Td,
   Text,
-  Th,
-  Thead,
-  Tr,
   VStack,
-} from "@chakra-ui/react"
+} from "@chakra-ui/layout"
 import { Logo, Page } from "@ui/lib"
 import { useEffect, useState } from "react"
 import { usePage } from "../../hooks/use-page.hook"
 
-export const InvoicePage = () => {
+const InvoicePage = () => {
   usePage({ title: "Billing" })
   const [, setLoading] = useState(true)
 
@@ -133,3 +128,5 @@ export const InvoicePage = () => {
     </Page>
   )
 }
+
+export default InvoicePage

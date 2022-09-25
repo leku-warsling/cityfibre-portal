@@ -1,12 +1,12 @@
-import { WizardPanel, WizardProvider, WizardStepper } from "@ui/lib"
+import { WizardPanel, WizardProvider, WizardStepper } from "@ui/lib/form"
 import ContactDetailStep from "./steps/contact-details.step"
 import LocationDetailStep from "./steps/location-details.step"
 import WorkDetailStep from "./steps/work-details.step"
-import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/react"
+import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/layout"
 import registerBg from "../../../../assets/images/register-bg.jpg"
 import { ReactComponent as Logo } from "../../../../assets/svg/logo.svg"
 
-export const AccessControlPage = () => {
+const AccessControlPage = () => {
   const aside = (
     <VStack
       bgImage={registerBg}
@@ -56,3 +56,5 @@ export const AccessControlPage = () => {
     </WizardProvider>
   )
 }
+
+export default AccessControlPage

@@ -1,11 +1,5 @@
 // @ts-nocheck
 import {
-  Box,
-  chakra,
-  Flex,
-  Skeleton,
-  Spinner,
-  StyleProps,
   Table as ChakraTable,
   TableProps as _TableProps,
   Tbody,
@@ -13,7 +7,11 @@ import {
   Th,
   Thead,
   Tr,
-} from "@chakra-ui/react"
+} from "@chakra-ui/table"
+import { chakra, StyleProps } from "@chakra-ui/system"
+import { Box, Flex } from "@chakra-ui/layout"
+import { Spinner } from "@chakra-ui/spinner"
+import { Skeleton } from "@chakra-ui/skeleton"
 import { flow } from "fp-ts/lib/function"
 import { isNotNilOrEmpty } from "ramda-adjunct"
 import repeat from "ramda/es/repeat"

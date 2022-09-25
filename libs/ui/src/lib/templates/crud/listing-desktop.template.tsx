@@ -1,4 +1,4 @@
-import { Flex, Spacer } from "@chakra-ui/react"
+import { Flex, Spacer } from "@chakra-ui/layout"
 import set from "lodash-es/set"
 import difference from "ramda/es/difference"
 import { ChangeEvent, useMemo, useState } from "react"

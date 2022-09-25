@@ -1,6 +1,8 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons"
-import { Button, Input, BoxProps, SimpleGrid } from "@chakra-ui/react"
-import { createForm, FormFieldsProps, FormItem } from "@ui/lib"
+import { BoxProps, SimpleGrid } from "@chakra-ui/layout"
+import { Input } from "@chakra-ui/input"
+import { Button } from "@chakra-ui/button"
+import { createForm, FormFieldsProps, FormItem } from "@ui/lib/form"
 import { UseFormRegisterReturn } from "react-hook-form"
 
 export type LiveWorksFieldsProps = BoxProps & FormFieldsProps
