@@ -40,6 +40,7 @@ const Card = ({ children, size = "md", ...props }: CardProps) => {
       pt: index === 0 ? py : 0,
       px,
     }
+    console.log(child)
     if (child?.type?.name?.startsWith("Card")) {
       return cloneElement(child, { ...styleProps, ...child.props })
     }
@@ -60,6 +61,7 @@ Card.defaultProps = {
   bgColor: "white",
   flexDir: "column",
   rounded: 4,
+  size: "md",
 }
 
 export default Card
