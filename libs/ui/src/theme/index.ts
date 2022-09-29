@@ -45,3 +45,46 @@ export const theme = extendTheme({
     ...components,
   },
 })
+
+export const rebrand = extendTheme({
+  styles: {
+    global: ({ colorMode }: any) => ({
+      body: {
+        bg: colorMode === "dark" ? "black" : "gray.100",
+      },
+    }),
+  },
+  fonts: {
+    heading: "'Manrope', sans-serif",
+    body: "'Manrope', sans-serif",
+  },
+  colors: {
+    secondary: {
+      50: "#fff3e9",
+      100: "#ffe1c9",
+      200: "#ffcda5",
+      300: "#ffb981",
+      400: "#ffaa66",
+      500: "#ff9b4b",
+      600: "#ff9344",
+      700: "#ff893b",
+      800: "#ff7f33",
+      900: "#ff6d23",
+    },
+    primary: {
+      50: "#ffe9f9",
+      100: "#fec8f1",
+      200: "#fda3e8",
+      300: "#fc7ede",
+      400: "#fc63d7",
+      500: "#fb47d0",
+      600: "#fa40cb",
+      700: "#fa37c4",
+      800: "#f92fbe",
+      900: "#f820b3",
+    },
+  },
+  components: {
+    ...components,
+  },
+})

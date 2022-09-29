@@ -1,65 +1,26 @@
-import { ChakraProvider } from "@chakra-ui/provider"
-import { css, Global } from "@emotion/react"
-import { theme } from "@ui/theme"
+import { asyncWithLDProvider } from "launchdarkly-react-client-sdk"
 import { StrictMode } from "react"
-import * as ReactDOM from "react-dom"
-import { QueryClient, QueryClientProvider } from "react-query"
-import { BrowserRouter } from "react-router-dom"
+import { render } from "react-dom"
 import App from "./app/app"
-import { AuthProvider } from "./app/providers/auth.provider"
-
-const GlobalStyles = css`
-  *:not(input):focus {
-    outline: none !important;
-    box-shadow: none !important;
-  }
-
-  #registration .chakra-steps > li > div {
-    div:first-of-type span {
-      color: #1582ff;
-      font-weight: 600;
-    }
-
-    div:last-of-type span {
-      font-weight: 600;
-      color: white !important;
-      font-size: 20px;
-      padding-left: 8px;
-    }
-  }
-
-  #registration .chakra-steps > li[aria-disabled="true"] > div {
-    div:first-of-type {
-      background: none;
-      span {
-        color: white;
-      }
-    }
-  }
-`
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: false,
-      staleTime: 30000,
+;(async () => {
+  const LDProvider = await asyncWithLDProvider({
+    clientSideID: "6335b0d9f2de6410b7e46ea8",
+    // user: {
+    //   key: "aa0ceb",
+    //   name: "Grace Hopper",
+    //   email: "gracehopper@example.com",
+    // },
+    options: {
+      /* ... */
     },
-  },
-})
+  })
 
-ReactDOM.render(
-  <StrictMode>
-    <ChakraProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <AuthProvider>
-            <Global styles={GlobalStyles} />
-            <App />
-          </AuthProvider>
-        </BrowserRouter>
-      </QueryClientProvider>
-    </ChakraProvider>
-  </StrictMode>,
-  document.getElementById("root")
-)
+  render(
+    <StrictMode>
+      <LDProvider>
+        <App />
+      </LDProvider>
+    </StrictMode>,
+    document.getElementById("root")
+  )
+})()

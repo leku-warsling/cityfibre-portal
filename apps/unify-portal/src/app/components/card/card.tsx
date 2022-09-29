@@ -36,8 +36,8 @@ const Card = ({ children, size = "md", ...props }: CardProps) => {
   const _children = Children.toArray(children)
   const content = _children.map((child, index) => {
     const styleProps = {
-      pt: index === 0 ? py : 0,
       pb: index === _children.length - 1 ? py : 0,
+      pt: index === 0 ? py : 0,
       px,
     }
     if (child?.type?.name?.startsWith("Card")) {
