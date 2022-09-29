@@ -5,10 +5,7 @@ import { Badge } from "@chakra-ui/layout"
 import { Button } from "@chakra-ui/button"
 import { Link } from "react-router-dom"
 
-const DateCell = flow(
-  prop<"value", Date>("value"),
-  util.date.toDateString
-)
+const DateCell = flow(prop<"value", Date>("value"), util.date.toDateString)
 
 export const INCIDENT_DATA = [
   {
@@ -184,6 +181,6 @@ export const INVOICE_COLUMNS = [
     accessor: "total",
     disableFilters: true,
     disableSortBy: true,
-    Cell: ({ value }: any) => util.currency.pounds(value),
+    Cell: ({ value }: any) => util.currency.toPounds(value),
   },
 ] as const

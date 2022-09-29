@@ -3,14 +3,16 @@ import { SearchIcon } from "@chakra-ui/icons"
 import { BiFilter } from "react-icons/bi"
 import { flow } from "fp-ts/lib/function"
 import { Link } from "react-router-dom"
-import { Page, Table, util } from "@ui/lib"
+import { Page } from "@ui/lib/layout"
+import { Table } from "@ui/lib/table"
+import { currency, date } from "@ui/lib/util"
 import repeat from "ramda/es/repeat"
 import prop from "ramda/es/prop"
 import { InputRightElement, InputGroup, Input } from "@chakra-ui/input"
 import { Badge, Flex } from "@chakra-ui/layout"
 import { Button } from "@chakra-ui/button"
 
-const DateCell = flow(prop<"value", Date>("value"), util.date.toDateString)
+const DateCell = flow(prop<"value", Date>("value"), date.toDateString)
 
 const CreditNotesDesktopPage = () => {
   const [isLoading, setLoading] = useState(true)
@@ -70,7 +72,7 @@ const CreditNotesDesktopPage = () => {
           accessor: "total",
           disableFilters: true,
           disableSortBy: true,
-          Cell: ({ value }: any) => util.currency.pounds(value),
+          Cell: ({ value }: any) => currency.toPounds(value),
         },
       ] as const,
     []

@@ -1,6 +1,3 @@
-export { ReactComponent as PartnersIcon } from "./lib/assets/svg/partners.svg"
-export { default as loginBackdrop } from "./lib/assets/img/login-bg.jpg"
-export { ReactComponent as Logo } from "./lib/assets/svg/logo.svg"
 export * as util from "./lib/util"
 export * from "./lib/data-display"
 export * from "./lib/navigation"

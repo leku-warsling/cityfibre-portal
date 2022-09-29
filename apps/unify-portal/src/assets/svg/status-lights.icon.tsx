@@ -1,0 +1,204 @@
+import { Icon, IconProps } from "@chakra-ui/icon"
+
+const StatusLightsIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <g filter="url(#filter0_dd_266_1596)">
+      <path
+        d="M34 20.28C34 18.1529 34 17.0894 34.3942 16.2685C34.7878 15.4489 35.4489 14.7878 36.2685 14.3942C37.0894 14 38.1529 14 40.28 14H330V70H40.28C38.1529 70 37.0894 70 36.2685 69.6058C35.4489 69.2122 34.7878 68.5511 34.3942 67.7315C34 66.9106 34 65.8471 34 63.72V20.28Z"
+        fill="#2D2828"
+      />
+    </g>
+    <g filter="url(#filter1_d_266_1596)">
+      <circle cx="96.5" cy="42.5" r="3.5" fill="#5CD648" />
+    </g>
+    <g filter="url(#filter2_d_266_1596)">
+      <circle cx="116.5" cy="42.5" r="3.5" fill="#F7DD54" />
+    </g>
+    <g filter="url(#filter3_d_266_1596)">
+      <circle cx="136.5" cy="42.5" r="3.5" fill="#F14242" />
+    </g>
+    <defs>
+      <filter
+        id="filter0_dd_266_1596"
+        x="0.577911"
+        y="14"
+        width="362.844"
+        height="131.2"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
+        />
+        <feOffset dy="22.3363" />
+        <feGaussianBlur stdDeviation="8.93452" />
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0417275 0"
+        />
+        <feBlend
+          mode="normal"
+          in2="BackgroundImageFix"
+          result="effect1_dropShadow_266_1596"
+        />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
+        />
+        <feOffset dy="41.7776" />
+        <feGaussianBlur stdDeviation="16.711" />
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0503198 0"
+        />
+        <feBlend
+          mode="normal"
+          in2="effect1_dropShadow_266_1596"
+          result="effect2_dropShadow_266_1596"
+        />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="effect2_dropShadow_266_1596"
+          result="shape"
+        />
+      </filter>
+      <filter
+        id="filter1_d_266_1596"
+        x="83"
+        y="29"
+        width="27"
+        height="27"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
+        />
+        <feMorphology
+          radius="3"
+          operator="dilate"
+          in="SourceAlpha"
+          result="effect1_dropShadow_266_1596"
+        />
+        <feOffset />
+        <feGaussianBlur stdDeviation="3.5" />
+        <feComposite in2="hardAlpha" operator="out" />
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0.360784 0 0 0 0 0.839216 0 0 0 0 0.282353 0 0 0 0.84 0"
+        />
+        <feBlend
+          mode="normal"
+          in2="BackgroundImageFix"
+          result="effect1_dropShadow_266_1596"
+        />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="effect1_dropShadow_266_1596"
+          result="shape"
+        />
+      </filter>
+      <filter
+        id="filter2_d_266_1596"
+        x="103"
+        y="29"
+        width="27"
+        height="27"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
+        />
+        <feMorphology
+          radius="3"
+          operator="dilate"
+          in="SourceAlpha"
+          result="effect1_dropShadow_266_1596"
+        />
+        <feOffset />
+        <feGaussianBlur stdDeviation="3.5" />
+        <feComposite in2="hardAlpha" operator="out" />
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0.964706 0 0 0 0 0.866667 0 0 0 0 0.329412 0 0 0 0.84 0"
+        />
+        <feBlend
+          mode="normal"
+          in2="BackgroundImageFix"
+          result="effect1_dropShadow_266_1596"
+        />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="effect1_dropShadow_266_1596"
+          result="shape"
+        />
+      </filter>
+      <filter
+        id="filter3_d_266_1596"
+        x="123"
+        y="29"
+        width="27"
+        height="27"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
+        />
+        <feMorphology
+          radius="3"
+          operator="dilate"
+          in="SourceAlpha"
+          result="effect1_dropShadow_266_1596"
+        />
+        <feOffset />
+        <feGaussianBlur stdDeviation="3.5" />
+        <feComposite in2="hardAlpha" operator="out" />
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0.945098 0 0 0 0 0.258824 0 0 0 0 0.258824 0 0 0 0.84 0"
+        />
+        <feBlend
+          mode="normal"
+          in2="BackgroundImageFix"
+          result="effect1_dropShadow_266_1596"
+        />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="effect1_dropShadow_266_1596"
+          result="shape"
+        />
+      </filter>
+    </defs>
+  </Icon>
+)
+
+StatusLightsIcon.defaultProps = {
+  viewBox: "0 0 364 116",
+  fill: "none",
+}
+
+export default StatusLightsIcon

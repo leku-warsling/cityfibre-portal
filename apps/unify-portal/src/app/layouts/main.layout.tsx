@@ -6,7 +6,7 @@ import { SearchIcon } from "@chakra-ui/icons"
 import { useAuth } from "../providers/auth.provider"
 import { useState } from "react"
 import { AppShell, Sidebar, AppBar } from "@ui/lib/layout"
-import { PartnersIcon, Logo } from "@ui/lib/assets"
+import { PartnersIcon, LogoIcon } from "@ui/lib/assets"
 import { Nav } from "@ui/lib/navigation"
 import { IconButton } from "@chakra-ui/button"
 import { Text, Divider, Badge, Box, Flex } from "@chakra-ui/layout"
@@ -34,17 +34,43 @@ import {
   BiBasket,
   BiBell,
   BiBookReader,
+  BiCommentDetail,
   BiDollar,
   BiErrorCircle,
   BiPhoneCall,
   BiSupport,
 } from "react-icons/bi"
+import { TutorialModal } from "./components"
 
+const UserMenu = () => {
+  const { logout } = useAuth()
+  const { isOpen, onClose, onOpen } = useDisclosure()
+  return (
+    <>
+      <Menu>
+        <MenuButton>
+          <Avatar bg="gray.200" size="sm" name="Luke Rawlings" />
+        </MenuButton>
+        <MenuList zIndex={100}>
+          <MenuItem as={Link} to="account/settings" icon={<FiSettings />}>
+            Settings
+          </MenuItem>
+          <MenuItem onClick={onOpen} icon={<BiCommentDetail />}>
+            Tutorials
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem icon={<FiLogOut />} onClick={logout}>
+            Logout
+          </MenuItem>
+        </MenuList>
+      </Menu>
+      {isOpen && <TutorialModal isOpen={isOpen} onClose={onClose} />}
+    </>
+  )
+}
 const MainLayout = () => {
   const { isOpen, onToggle, onClose } = useDisclosure()
   const [page, setPage] = useState<PageState>({})
-  const { logout } = useAuth()
-
   const header = (
     <AppBar
       bgColor="white"
@@ -167,28 +193,15 @@ const MainLayout = () => {
           </Menu>
         </AppBar.Item>
         <AppBar.Item ml={2}>
-          <Menu>
-            <MenuButton>
-              <Avatar bg="gray.200" size="sm" name="Luke Rawlings" />
-            </MenuButton>
-            <MenuList zIndex={100}>
-              <MenuItem as={Link} to="account/settings" icon={<FiSettings />}>
-                Settings
-              </MenuItem>
-              <MenuDivider />
-              <MenuItem icon={<FiLogOut />} onClick={logout}>
-                Logout
-              </MenuItem>
-            </MenuList>
-          </Menu>
+          <UserMenu />
         </AppBar.Item>
       </AppBar.Section>
     </AppBar>
   )
 
   const brand = (
-    <Box bgColor="secondary.500" rounded={5} p={3}>
-      <PartnersIcon height="20" color="black" />
+    <Box bgColor="secondary.500" rounded={5} px={3} py={2}>
+      <PartnersIcon fontSize="xl" color="black" />
     </Box>
   )
 
@@ -205,7 +218,7 @@ const MainLayout = () => {
           gap={2}
         >
           <Text fontWeight={600}>Powered by</Text>
-          <Logo height="40" />
+          <LogoIcon fontSize="40px" />
         </Flex>
       )}
     </Sidebar.Section>
@@ -229,7 +242,7 @@ const MainLayout = () => {
               3
             </Badge>
           </Nav.Item>
-          <Divider borderColor="white" my="1" />
+          <Divider borderColor="black" my="1" />
           <Nav.Item as={Link} to="/" icon={RiDashboard3Line}>
             Dashboard
           </Nav.Item>
@@ -275,7 +288,7 @@ const MainLayout = () => {
           <Nav.Item as={Link} to="/" icon={BiBookReader}>
             ISP Hub
           </Nav.Item>
-          <Divider borderColor="white" my={2} />
+          <Divider borderColor="black" my={2} />
           <Nav.SubMenu icon={FiUsers} label="User Management">
             <Nav.Item as={Link} to="/users">
               Users

@@ -7,7 +7,8 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/layout"
-import { Logo, Page } from "@ui/lib"
+import { Page } from "@ui/lib/layout"
+import { LogoIcon } from "@ui/lib/assets"
 import { useEffect, useState } from "react"
 import { usePage } from "../../hooks/use-page.hook"
 
@@ -36,7 +37,7 @@ const InvoicePage = () => {
         px={12}
       >
         <HStack w="100%" justifyContent="space-between" color="primary.500">
-          <Logo height="50px" />
+          <LogoIcon height="50px" />
           <Text fontSize="xl">
             Invoice <strong>#CFL0006007</strong>
           </Text>

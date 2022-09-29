@@ -4,7 +4,7 @@ import CompleteStep from "./steps/complete.step"
 import IncidentDetailsStep from "./steps/incident-details.step"
 import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/layout"
 import safetyBgImage from "../../../assets/images/safety-bg-2.jpg"
-import { ReactComponent as Logo } from "../../../assets/svg/logo.svg"
+// import { ReactComponent as Logo } from "../../../assets/svg/logo.svg"
 
 const SafetyReportPage = () => {
   const aside = (
@@ -23,7 +23,7 @@ const SafetyReportPage = () => {
       px={24}
     >
       <Box width="100%" mb={14}>
-        <Logo height="48px" fill="#FFFFFF" />
+        {/* <Logo height="48px" fill="#FFFFFF" /> */}
       </Box>
       <Box>
         <Heading

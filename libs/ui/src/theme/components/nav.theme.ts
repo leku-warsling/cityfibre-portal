@@ -16,7 +16,7 @@ const Nav: ComponentStyleConfig = {
         width: isCollapsed ? "fit-content" : "100%",
         gap: isCollapsed ? 0 : 2,
         lineHeight: "normal",
-        color: "white",
+        color: "black",
         fontSize: "1rem",
         fontWeight: 600,
         px: isCollapsed ? 2.5 : 4,

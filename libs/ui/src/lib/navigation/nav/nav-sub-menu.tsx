@@ -65,9 +65,9 @@ const NavSubMenu: FC<NavSubMenuProps> = ({
         <Collapse in={show}>
           <chakra.div
             __css={styles["nav"]}
-            p={3}
-            bg="blackAlpha.50"
+            bg="whiteAlpha.300"
             rounded={5}
+            p={3}
           >
             {children.map((child, i) =>
               cloneElement(child, {
@@ -95,8 +95,8 @@ const NavSubMenu: FC<NavSubMenuProps> = ({
           boxShadow="lg"
         >
           <PopoverArrow
-            bg="primary.500"
             borderColor="primary.500"
+            bg="primary.500"
             color="white"
           />
           <PopoverHeader
@@ -104,7 +104,7 @@ const NavSubMenu: FC<NavSubMenuProps> = ({
             letterSpacing="widest"
             color="secondary.500"
             fontWeight={800}
-            fontSize="xs"
+            fontSize="sm"
             border="none"
             pt={5}
             pl={6}

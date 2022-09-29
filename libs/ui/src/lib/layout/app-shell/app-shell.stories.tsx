@@ -32,8 +32,7 @@ import {
 } from "react-icons/fi"
 import { BiHome, BiDollarCircle, BiBasket } from "react-icons/bi"
 import { RiDashboard3Line } from "react-icons/ri"
-import { ReactComponent as PartnersIcon } from "../../assets/svg/partners.svg"
-import { ReactComponent as Logo } from "../../assets/svg/logo.svg"
+import { PartnersIcon, LogoIcon } from "../../assets"
 
 export default {
   title: "Components / Layout / AppShell",
@@ -109,7 +108,7 @@ const ExampleSidebar = () => {
           alignSelf="flex-end"
         >
           <Text fontWeight={600}>Powered by</Text>
-          <Logo height="32" />
+          <LogoIcon height="32" />
         </Flex>
       )}
     </Sidebar.Section>

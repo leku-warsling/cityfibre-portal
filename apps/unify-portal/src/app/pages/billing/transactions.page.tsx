@@ -2,7 +2,9 @@ import { RiBarChartGroupedLine } from "react-icons/ri"
 import { useEffect, useMemo, useState } from "react"
 import { usePage } from "../../hooks/use-page.hook"
 import { SearchIcon } from "@chakra-ui/icons"
-import { Page, Table, util } from "@ui/lib"
+import { Page } from "@ui/lib/layout"
+import { Table } from "@ui/lib/table"
+import { currency, date } from "@ui/lib/util"
 import { BiFilter } from "react-icons/bi"
 import { flow } from "fp-ts/lib/function"
 import { Link } from "react-router-dom"
@@ -70,7 +72,7 @@ const TransactionsPage = () => {
         {
           Header: "Due",
           accessor: "due",
-          Cell: flow(prop<"value", Date>("value"), util.date.toDateString),
+          Cell: flow(prop<"value", Date>("value"), date.toDateString),
           disableFilters: true,
           disableSortBy: true,
         },
@@ -79,7 +81,7 @@ const TransactionsPage = () => {
           accessor: "total",
           disableFilters: true,
           disableSortBy: true,
-          Cell: ({ value }: any) => util.currency.pounds(value),
+          Cell: ({ value }: any) => currency.toPounds(value),
         },
       ] as const,
     []

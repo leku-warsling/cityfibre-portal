@@ -14,7 +14,7 @@ const keys = [
   },
   {
     label: "Total",
-    accessor: (data: any) => util.currency.pounds(data.total),
+    accessor: (data: any) => util.currency.toPounds(data.total),
   },
 ]
 

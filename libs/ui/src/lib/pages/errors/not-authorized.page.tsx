@@ -1,6 +1,6 @@
 import { Flex, Heading, HStack, Text, VStack } from "@chakra-ui/layout"
 import { Button } from "@chakra-ui/button"
-import { ReactComponent as AccessSVG } from "../../assets/svg/access.svg"
+import AccessSVG from "../../assets/icons/access.icon"
 import { ArrowForwardIcon } from "@chakra-ui/icons"
 import { Link } from "react-router-dom"
 

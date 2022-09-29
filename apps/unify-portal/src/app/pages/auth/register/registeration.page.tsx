@@ -5,7 +5,7 @@ import CompleteStep from "./steps/complete.step"
 import { useBreakpointValue, Hide } from "@chakra-ui/media-query"
 import { Text, Box, Flex, Heading, VStack } from "@chakra-ui/layout"
 import registerBg from "../../../../assets/images/register-bg.jpg"
-import { ReactComponent as Logo } from "../../../../assets/svg/logo.svg"
+import { LogoIcon } from "@ui/lib/assets"
 
 const RegistrationPage = () => {
   const size = useBreakpointValue({ base: "md", lg: "lg" } as const)
@@ -23,7 +23,7 @@ const RegistrationPage = () => {
       px={24}
     >
       <Box width="100%" mb={14}>
-        <Logo height="48px" fill="#FFFFFF" />
+        <LogoIcon height="48px" fill="#FFFFFF" />
       </Box>
       <Box>
         <Heading fontWeight={600} fontSize="32px" color="white" mb={4}>

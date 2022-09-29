@@ -2,7 +2,7 @@ import { Story, Meta } from "@storybook/react"
 import { Container, Heading, Text } from "@chakra-ui/react"
 import { Figure, FigureProps } from "./figure"
 import loginBgImage from "../assets/img/login-bg.jpg"
-import { ReactComponent as Logo } from "../assets/svg/logo.svg"
+import Logo from "../assets/icons/logo.icon"
 
 export default {
   title: "Components / Media / Figure",

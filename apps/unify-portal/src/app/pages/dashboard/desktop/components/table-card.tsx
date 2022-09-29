@@ -1,31 +1,30 @@
-import { Flex, Box, Heading } from "@chakra-ui/layout"
 import { Column } from "react-table"
-import { ReactNode } from "react"
+import { ReactElement, ReactNode } from "react"
 import { Table } from "@ui/lib/table"
+import { Card, CardBody, CardHeader, CardFooter } from "@unify/components/card"
+import { FlexProps } from "@chakra-ui/react"
 
-export type TableCardProps<D extends object> = {
+export type TableCardProps<D extends object> = Omit<FlexProps, "children"> & {
   columns: ReadonlyArray<Column<D>>
-  actions?: ReactNode
+  size?: "sm" | "md" | "lg"
+  actions?: ReactElement[]
   footer?: ReactNode
   title: string
   data: D[]
 }
 
 const TableCard = <D extends object>({
+  actions = [],
   columns,
-  actions,
   footer,
   title,
   data,
+  ...props
 }: TableCardProps<D>) => (
-  <Box boxShadow="base" bgColor="white" flex={1} rounded={4} pt={6} pb={3}>
-    <Flex justify="space-between" px={6} mb={4} align="center">
-      <Heading fontSize="lg" fontWeight={600}>
-        {title}
-      </Heading>
-      {actions}
-    </Flex>
-    <Box
+  <Card {...props}>
+    <CardHeader actions={actions}>{title}</CardHeader>
+    <CardBody
+      px={0}
       sx={{
         "& thead th": {
           bgColor: "gray.100",
@@ -33,9 +32,11 @@ const TableCard = <D extends object>({
       }}
     >
       <Table columns={columns} data={data} size="md" />
-    </Box>
-    {footer}
-  </Box>
+    </CardBody>
+    <CardFooter justifyContent="flex-end">{footer}</CardFooter>
+  </Card>
 )
+
+TableCard.defaultProps = {}
 
 export default TableCard

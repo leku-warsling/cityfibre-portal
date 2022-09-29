@@ -46,6 +46,7 @@ const NavItem: NavItemComponent = ({
         <Tooltip
           fontWeight="semibold"
           bgColor="primary.500"
+          color="black"
           shouldWrapChildren
           placement="right"
           label={label}

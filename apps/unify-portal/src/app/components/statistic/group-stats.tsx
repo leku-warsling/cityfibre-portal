@@ -13,13 +13,13 @@ export const GroupStats = () => {
       px={8}
       py={6}
       bgColor="primary.500"
-      color="white"
+      color="black"
     >
       <HStack width="100%" justifyContent="space-between">
         <Heading fontSize="lg" fontWeight={800}>
           Overview
         </Heading>
-        <Select variant="outline" maxW="150px">
+        <Select variant="outline" borderColor="black" maxW="150px">
           <option>All</option>
           <option>Week</option>
           <option>Month</option>
@@ -29,7 +29,7 @@ export const GroupStats = () => {
       </HStack>
       <Tabs variant="unstyled">
         <TabList>
-          <Tab _selected={{ borderBottom: "2px solid", borderColor: "white" }}>
+          <Tab _selected={{ borderBottom: "2px solid", borderColor: "black" }}>
             Support
           </Tab>
           <Tab>Billing</Tab>

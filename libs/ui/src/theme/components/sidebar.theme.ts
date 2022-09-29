@@ -10,7 +10,7 @@ const Sidebar: ComponentMultiStyleConfig = {
       maxWidth: "320px",
       display: "flex",
       height: "100vh",
-      color: "white",
+      color: "black",
       gap: 6,
     },
     section: {

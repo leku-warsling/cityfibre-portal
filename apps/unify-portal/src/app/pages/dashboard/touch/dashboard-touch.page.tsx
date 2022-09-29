@@ -1,5 +1,4 @@
-import { ReactComponent as EthernetIcon } from "../../../../assets/svg/ethernet-icon.svg"
-import { ReactComponent as FTTPIcon } from "../../../../assets/svg/fttp-icon.svg"
+import { FTTPIcon, EthernetIcon } from "../../../../assets"
 import { AddIcon, ArrowForwardIcon } from "@chakra-ui/icons"
 import { TabPanels, TabPanel, TabList, Tab, Tabs } from "@chakra-ui/tabs"
 import {
@@ -24,7 +23,7 @@ import { Button } from "@chakra-ui/button"
 import { Icon } from "@chakra-ui/icon"
 import { FC } from "react"
 import { Link } from "react-router-dom"
-import { Card } from "../../../components/card"
+import { Card, CardBody } from "../../../components/card"
 
 const DataTag: FC<{ label: string }> = ({ label, children }) => (
   <Box>
@@ -48,16 +47,9 @@ const OrderProducts = () => {
         View all products
       </Button>
       <VStack width="100%" spacing={6}>
-        <Card rounded={4} boxShadow="base" w="100%">
-          <Card.Section
-            justifyContent="center"
-            alignItems="center"
-            display="flex"
-            pt={5}
-          >
-            <Icon as={FTTPIcon} fontSize="80px" color="primary.500" />
-          </Card.Section>
-          <VStack spacing={5}>
+        <Card flex={1}>
+          <CardBody gap={4} align="center">
+            <FTTPIcon fontSize="80px" color="primary.500" />
             <Text fontSize="lg" fontWeight={700}>
               FTTP Services
             </Text>
@@ -69,19 +61,11 @@ const OrderProducts = () => {
             <Button rightIcon={<ArrowForwardIcon />} w="full">
               Check Availability
             </Button>
-          </VStack>
+          </CardBody>
         </Card>
-        <Card rounded={4} boxShadow="base" w="100%">
-          <Card.Section
-            justifyContent="center"
-            alignItems="center"
-            display="flex"
-            mb={2}
-            pt={8}
-          >
-            <Icon as={EthernetIcon} fontSize="48px" color="primary.500" />
-          </Card.Section>
-          <VStack spacing={4}>
+        <Card flex={1}>
+          <CardBody gap={4} align="center">
+            <EthernetIcon fontSize="48px" color="primary.500" mt={3} />
             <Text fontSize="lg" fontWeight={700}>
               Ethernet Services
             </Text>
@@ -93,7 +77,7 @@ const OrderProducts = () => {
             <Button rightIcon={<ArrowForwardIcon />} w="full">
               Check Availability
             </Button>
-          </VStack>
+          </CardBody>
         </Card>
       </VStack>
     </Box>

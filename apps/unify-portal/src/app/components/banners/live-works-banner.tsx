@@ -1,7 +1,7 @@
 import liveWorksBgImg from "../../../assets/images/live-works-bg.jpg"
 import { Text, Heading } from "@chakra-ui/layout"
 import { Figure } from "@ui/lib/figure"
-import { Logo } from "@ui/lib/assets"
+import { LogoIcon } from "@ui/lib/assets"
 
 export const LiveWorksBanner = () => (
   <Figure
@@ -13,7 +13,7 @@ export const LiveWorksBanner = () => (
     w="48%"
   >
     <Figure.Header pt={20} pl={14}>
-      <Logo
+      <LogoIcon
         style={{ filter: "drop-shadow(3px 5px 2px rgb(0 0 0 / 0.22))" }}
         height="48"
       />

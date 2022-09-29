@@ -24,10 +24,10 @@ import {
   FiUsers,
 } from "react-icons/fi"
 import { RiDashboard3Line } from "react-icons/ri"
-import { ReactComponent as Logo } from "../../assets/svg/logo.svg"
-import { ReactComponent as PartnersIcon } from "../../assets/svg/partners.svg"
+import Logo from "../../assets/icons/logo.icon"
+import PartnersIcon from "../../assets/icons/partners.icon"
 import Nav from "../../navigation/nav"
-import Sidebar, { SidebarProps } from "./sidebar"
+import { Sidebar, SidebarProps } from "./sidebar"
 
 export default {
   title: "Components / Layout / Sidebar",

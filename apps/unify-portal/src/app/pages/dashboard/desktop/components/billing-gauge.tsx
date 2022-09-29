@@ -1,64 +1,57 @@
-import { Flex, Text, Box, Heading } from "@chakra-ui/layout"
-import { useToken } from "@chakra-ui/system"
+import { Flex, Text } from "@chakra-ui/layout"
 import { Select } from "@chakra-ui/select"
 import random from "lodash-es/random"
-import { Cell, Label, Pie, PieChart } from "recharts"
+import { Label } from "recharts"
+import { currency } from "@ui/lib/util"
+import GaugeChart from "@unify/components/charts/gauge.chart"
+import { Card, CardBody, CardFooter, CardHeader } from "@unify/components/card"
 
 const BillingGauge = () => {
   const data = [{ value: 527.65 }, { value: 602.35 }]
-  const secondaryColor = useToken("colors", "secondary.500")
+  const totalIncome = random(100000, 999999)
+  const totalDue = random(100000, 999999)
+
+  const actions = [
+    <Select variant="outline" maxW="150px" color="black" borderColor="black">
+      <option value="">All</option>
+      <option value="1">24 Hours</option>
+      <option value="2">Week</option>
+      <option value="3">Month</option>
+      <option value="4">Quarter</option>
+      <option value="5">Year</option>
+    </Select>,
+  ]
 
   return (
-    <Box
-      maxWidth="570px"
-      boxShadow="base"
+    <Card
       bgColor="primary.500"
-      minH="400px"
-      rounded={4}
-      px={8}
-      py={6}
+      maxWidth="400px"
+      flex={1}
+      size="lg"
+      color="black"
     >
-      <Flex justify="space-between" mb={4} align="center">
-        <Heading fontSize="lg" fontWeight={800} color="white">
-          Revenue
-        </Heading>
-        <Select variant="outline" maxW="150px" color="white">
-          <option value="">All</option>
-          <option value="1">24 Hours</option>
-          <option value="2">Week</option>
-          <option value="3">Month</option>
-          <option value="4">Quarter</option>
-          <option value="5">Year</option>
-        </Select>
-      </Flex>
-      <PieChart height={240} width={320}>
-        <Pie
-          startAngle={180}
-          endAngle={0}
-          innerRadius="55%"
-          data={data}
+      <CardHeader actions={actions}>Revenue</CardHeader>
+      <CardBody>
+        <GaugeChart
+          valueColor="secondary.500"
+          trackColor="white"
           dataKey="value"
-          labelLine={false}
-          blendStroke
-          isAnimationActive={false}
-          cy="65%"
+          data={data}
         >
-          <Cell fill={secondaryColor} />
-          <Cell fill="#fff" />
           <Label
             dy={-10}
             width={30}
             position="center"
             fontWeight={600}
-            fill="#fff"
+            fill="#000"
             fontSize="24px"
           >
             43%
           </Label>
-        </Pie>
-      </PieChart>
-      <Flex justify="space-between">
-        <Flex flexDir="column" color="white" fontWeight={600}>
+        </GaugeChart>
+      </CardBody>
+      <CardFooter justify="space-between">
+        <Flex flexDir="column" fontWeight={600}>
           <Text
             textTransform="uppercase"
             letterSpacing="wider"
@@ -67,14 +60,9 @@ const BillingGauge = () => {
           >
             Total Income
           </Text>
-          <Text fontSize="2xl">
-            {random(100000, 999999).toLocaleString("en-GB", {
-              style: "currency",
-              currency: "GBP",
-            })}
-          </Text>
+          <Text fontSize="2xl">{currency.toPounds(totalIncome)}</Text>
         </Flex>
-        <Flex flexDir="column" color="white" fontWeight={600}>
+        <Flex flexDir="column" fontWeight={600}>
           <Text
             textTransform="uppercase"
             letterSpacing="wider"
@@ -83,15 +71,10 @@ const BillingGauge = () => {
           >
             Total Due
           </Text>
-          <Text fontSize="2xl">
-            {random(100000, 999999).toLocaleString("en-GB", {
-              style: "currency",
-              currency: "GBP",
-            })}
-          </Text>
+          <Text fontSize="2xl">{currency.toPounds(totalDue)}</Text>
         </Flex>
-      </Flex>
-    </Box>
+      </CardFooter>
+    </Card>
   )
 }
 

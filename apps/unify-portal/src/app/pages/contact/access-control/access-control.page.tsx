@@ -4,7 +4,7 @@ import LocationDetailStep from "./steps/location-details.step"
 import WorkDetailStep from "./steps/work-details.step"
 import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/layout"
 import registerBg from "../../../../assets/images/register-bg.jpg"
-import { ReactComponent as Logo } from "../../../../assets/svg/logo.svg"
+import { LogoIcon } from "@ui/lib/assets"
 
 const AccessControlPage = () => {
   const aside = (
@@ -21,7 +21,7 @@ const AccessControlPage = () => {
       px={24}
     >
       <Box width="100%" mb={14}>
-        <Logo height="48px" fill="#FFFFFF" />
+        <LogoIcon fontSize="48px" fill="#FFFFFF" />
       </Box>
       <Box>
         <Heading fontWeight={600} fontSize="32px" color="white" mb={4}>

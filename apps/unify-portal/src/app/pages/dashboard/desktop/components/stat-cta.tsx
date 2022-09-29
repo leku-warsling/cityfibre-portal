@@ -8,22 +8,22 @@ const StatCallToAction = (props: { value: ReactNode; label: ReactNode }) => {
     <Flex
       bgColor="primary.500"
       boxShadow="base"
-      color="#fff"
+      color="#000"
       p={4}
       rounded={4}
       gap={4}
       align="center"
     >
       <Flex
-        fontWeight={800}
         bgColor="secondary.500"
+        fontWeight={800}
+        justify="center"
+        align="center"
+        fontSize="lg"
         color="black"
+        rounded={4}
         w={10}
         h={10}
-        align="center"
-        justify="center"
-        rounded={4}
-        fontSize="lg"
       >
         {props.value}
       </Flex>

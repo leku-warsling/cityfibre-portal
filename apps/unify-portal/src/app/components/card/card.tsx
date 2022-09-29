@@ -1,51 +1,65 @@
-import { Box, BoxProps } from "@chakra-ui/layout"
-import { pipe } from "fp-ts/lib/function"
-import allPass from "ramda/es/allPass"
-import has from "ramda/es/has"
-import is from "ramda/es/is"
-import propEq from "ramda/es/propEq"
-import { Children, cloneElement, FC, ReactChild, ReactElement } from "react"
-import CardSection from "./card-section"
+// @ts-nocheck
+import { Flex, FlexProps } from "@chakra-ui/layout"
+import { Children, cloneElement, ReactElement } from "react"
+// import { pipe } from "fp-ts/lib/function"
+// import startsWith from "ramda/es/startsWith"
+import prop from "ramda/es/prop"
+// import where from "ramda/es/where"
+// @ts-ignore
+import __ from "ramda/es/__"
 
-export interface CardProps extends BoxProps {
-  padding?: number
-  p?: number
+export type CardProps = Omit<FlexProps, "children"> & {
+  size?: "sm" | "md" | "lg"
+  children: ReactElement | ReactElement[]
 }
 
-export type CardComponent = FC<CardProps> & {
-  Section: typeof CardSection
-}
+const getSizeStyleProps = prop(__, {
+  sm: {
+    px: 4,
+    py: 2,
+    gap: 2,
+  },
+  md: {
+    px: 6,
+    py: 4,
+    gap: 4,
+  },
+  lg: {
+    px: 8,
+    py: 6,
+    gap: 6,
+  },
+})
 
-const isCardSection = (comp: ReactChild): comp is ReactElement =>
-  pipe(
-    comp,
-    allPass<any>([is(Object), has("type"), propEq("type", CardSection)])
-  )
-
-export const Card: CardComponent = ({ children, p, ...props }) => {
-  const _children = Children.toArray(children) as ReactChild[]
+const Card = ({ children, size = "md", ...props }: CardProps) => {
+  const { px, py, gap } = getSizeStyleProps(size)
+  const _children = Children.toArray(children)
   const content = _children.map((child, index) => {
-    if (isCardSection(child)) {
-      return cloneElement(child, {
-        isLast: index === _children.length - 1,
-        isFirst: index === 0,
-        padding: p,
-      })
+    const styleProps = {
+      pt: index === 0 ? py : 0,
+      pb: index === _children.length - 1 ? py : 0,
+      px,
+    }
+    if (child?.type?.name?.startsWith("Card")) {
+      return cloneElement(child, { ...styleProps, ...child.props })
     }
     return child
   })
 
   return (
-    <Box {...props} p={p}>
+    <Flex gap={gap} {...props}>
       {content}
-    </Box>
+    </Flex>
   )
 }
 
-Card.Section = CardSection
 Card.defaultProps = {
   position: "relative",
   overflow: "hidden",
+  boxShadow: "base",
   bgColor: "white",
-  p: 5,
+  flexDir: "column",
+  rounded: 4,
 }
+
+export default Card
