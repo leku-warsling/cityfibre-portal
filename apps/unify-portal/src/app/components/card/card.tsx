@@ -40,8 +40,7 @@ const Card = ({ children, size = "md", ...props }: CardProps) => {
       pt: index === 0 ? py : 0,
       px,
     }
-    console.log(child)
-    if (child?.type?.name?.startsWith("Card")) {
+    if (child?.type?.displayName?.startsWith("Card")) {
       return cloneElement(child, { ...styleProps, ...child.props })
     }
     return child
