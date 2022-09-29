@@ -5,7 +5,7 @@ const CardBody: FC<FlexProps> = ({ children, ...props }) => (
   <Flex {...props}>{children}</Flex>
 )
 
-CardBody.displayName = "Card Body"
+CardBody.displayName = "CardBody"
 
 CardBody.defaultProps = {
   flexDir: "column",

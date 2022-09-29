@@ -20,7 +20,7 @@ const CardHeader = ({ children, actions = [], ...props }: CardHeaderProps) => (
   </Flex>
 )
 
-CardHeader.displayName = "Card Header"
+CardHeader.displayName = "CardHeader"
 
 CardHeader.defaultProps = {
   justify: "space-between",
