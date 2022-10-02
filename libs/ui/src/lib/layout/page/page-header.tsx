@@ -59,7 +59,13 @@ const PageHeader: FC<PageHeaderProps> = ({
             ml={-2.5}
           />
         )}
-        <Heading fontSize={fontSize} fontWeight={600} flexGrow={1}>
+        <Heading
+          fontSize={fontSize}
+          fontWeight={800}
+          letterSpacing="wide"
+          textTransform="uppercase"
+          flexGrow={1}
+        >
           {children}
         </Heading>
         <ButtonGroup ml="auto" spacing={1}>
@@ -71,7 +77,7 @@ const PageHeader: FC<PageHeaderProps> = ({
 }
 
 PageHeader.defaultProps = {
-  fontSize: ["md", "lg", "xl"],
+  fontSize: ["lg", "xl", "2xl"],
   // borderBottom: "1px solid",
   // borderColor: "gray.300",
 }

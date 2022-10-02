@@ -17,15 +17,15 @@ const IncidentSummary = () => {
     </Select>,
   ]
   return (
-    <Card maxWidth="1600px" flex={1} size="lg" mb={6} gap={12}>
+    <Card maxWidth="1600px" flex={1} size="lg" mb={6} gap={10}>
       <CardHeader actions={actions}>Incident Summary</CardHeader>
       <CardBody flexDir="row" justify="space-between" px={14}>
         <Flex flexDir="column" align="center" gap={2}>
           <Text
             textTransform="uppercase"
+            letterSpacing="wide"
             fontWeight={800}
-            fontSize="xs"
-            letterSpacing="widest"
+            fontSize="lg"
           >
             Total
           </Text>
@@ -37,17 +37,11 @@ const IncidentSummary = () => {
             align="center"
             justify="center"
           >
-            <Text fontWeight={800} fontSize="2xl" color="white">
+            <Text fontWeight={800} fontSize="2xl" color="black">
               400
             </Text>
           </Flex>
-          <Flex
-            align="center"
-            gap={1.5}
-            fontWeight={800}
-            color="primary.500"
-            fontSize="sm"
-          >
+          <Flex align="center" gap={1.5} fontWeight={800} color="primary.500">
             <TriangleUpIcon />
             <Text>20%</Text>
           </Flex>
@@ -55,9 +49,9 @@ const IncidentSummary = () => {
         <Flex flexDir="column" align="center" gap={2}>
           <Text
             textTransform="uppercase"
+            letterSpacing="wide"
             fontWeight={800}
-            fontSize="xs"
-            letterSpacing="widest"
+            fontSize="lg"
           >
             New
           </Text>
@@ -66,13 +60,7 @@ const IncidentSummary = () => {
               30
             </CircularProgressLabel>
           </CircularProgress>
-          <Flex
-            align="center"
-            gap={1.5}
-            fontWeight={800}
-            color="primary.500"
-            fontSize="sm"
-          >
+          <Flex align="center" gap={1.5} fontWeight={800} color="primary.500">
             <TriangleUpIcon />
             <Text>20%</Text>
           </Flex>
@@ -80,9 +68,9 @@ const IncidentSummary = () => {
         <Flex flexDir="column" align="center" gap={2}>
           <Text
             textTransform="uppercase"
+            letterSpacing="wide"
             fontWeight={800}
-            fontSize="xs"
-            letterSpacing="widest"
+            fontSize="lg"
           >
             In Progress
           </Text>
@@ -91,13 +79,7 @@ const IncidentSummary = () => {
               52
             </CircularProgressLabel>
           </CircularProgress>
-          <Flex
-            align="center"
-            gap={1.5}
-            fontWeight={800}
-            color="primary.500"
-            fontSize="sm"
-          >
+          <Flex align="center" gap={1.5} fontWeight={800} color="primary.500">
             <TriangleUpIcon />
             <Text>20%</Text>
           </Flex>
@@ -105,9 +87,9 @@ const IncidentSummary = () => {
         <Flex flexDir="column" align="center" gap={2}>
           <Text
             textTransform="uppercase"
+            letterSpacing="wide"
             fontWeight={800}
-            fontSize="xs"
-            letterSpacing="widest"
+            fontSize="lg"
           >
             Submitted
           </Text>
@@ -116,13 +98,7 @@ const IncidentSummary = () => {
               200
             </CircularProgressLabel>
           </CircularProgress>
-          <Flex
-            align="center"
-            gap={1.5}
-            fontWeight={800}
-            color="primary.500"
-            fontSize="sm"
-          >
+          <Flex align="center" gap={1.5} fontWeight={800} color="primary.500">
             <TriangleUpIcon />
             <Text>20%</Text>
           </Flex>
@@ -130,9 +106,9 @@ const IncidentSummary = () => {
         <Flex flexDir="column" align="center" gap={2}>
           <Text
             textTransform="uppercase"
+            letterSpacing="wide"
             fontWeight={800}
-            fontSize="xs"
-            letterSpacing="widest"
+            fontSize="lg"
           >
             Closed
           </Text>
@@ -141,13 +117,7 @@ const IncidentSummary = () => {
               300
             </CircularProgressLabel>
           </CircularProgress>
-          <Flex
-            align="center"
-            gap={1.5}
-            fontWeight={800}
-            color="primary.500"
-            fontSize="sm"
-          >
+          <Flex align="center" gap={1.5} fontWeight={800} color="primary.500">
             <TriangleUpIcon />
             <Text>20%</Text>
           </Flex>
@@ -155,9 +125,9 @@ const IncidentSummary = () => {
         <Flex flexDir="column" align="center" gap={2}>
           <Text
             textTransform="uppercase"
+            letterSpacing="wide"
             fontWeight={800}
-            fontSize="xs"
-            letterSpacing="widest"
+            fontSize="lg"
           >
             Resolved
           </Text>
@@ -166,13 +136,7 @@ const IncidentSummary = () => {
               400
             </CircularProgressLabel>
           </CircularProgress>
-          <Flex
-            align="center"
-            gap={1.5}
-            fontWeight={800}
-            color="green.500"
-            fontSize="sm"
-          >
+          <Flex align="center" gap={1.5} fontWeight={800} color="green.500">
             <TriangleUpIcon />
             <Text>20%</Text>
           </Flex>
@@ -180,9 +144,9 @@ const IncidentSummary = () => {
         <Flex flexDir="column" align="center" gap={2}>
           <Text
             textTransform="uppercase"
+            letterSpacing="wide"
             fontWeight={800}
-            fontSize="xs"
-            letterSpacing="widest"
+            fontSize="lg"
           >
             Cancelled
           </Text>
@@ -191,13 +155,7 @@ const IncidentSummary = () => {
               50
             </CircularProgressLabel>
           </CircularProgress>
-          <Flex
-            align="center"
-            gap={1.5}
-            fontWeight={800}
-            color="red.600"
-            fontSize="sm"
-          >
+          <Flex align="center" gap={1.5} fontWeight={800} color="red.600">
             <TriangleUpIcon />
             <Text>20%</Text>
           </Flex>
@@ -206,9 +164,8 @@ const IncidentSummary = () => {
       <CardFooter justify="flex-end">
         <Button
           rightIcon={<ArrowForwardIcon />}
-          color="primary.500"
           colorScheme="gray"
-          variant="link"
+          variant="ghost"
         >
           View all issues
         </Button>

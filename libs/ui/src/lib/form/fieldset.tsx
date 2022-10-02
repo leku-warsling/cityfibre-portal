@@ -33,7 +33,12 @@ export const Fieldset: FC<FieldsetProps> = ({
 }) => (
   <Box as="fieldset" {...props} width={width}>
     <Flex flexDir="column" gap={2} align="flex-start" w="100%" mb={6}>
-      <Text fontWeight={600} fontSize="lg">
+      <Text
+        fontWeight={800}
+        fontSize="xl"
+        textTransform="uppercase"
+        letterSpacing="wide"
+      >
         {legend}
       </Text>
       {description && (

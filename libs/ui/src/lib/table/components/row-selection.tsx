@@ -22,7 +22,7 @@ export const RowSelection = forwardRef<HTMLInputElement, any>(
 )
 
 export const withRowSelection = (actions: TableAction[]) => {
-  if (isNilOrEmpty(actions) && !hasBatchableActions(actions)) {
+  if (isNilOrEmpty(actions) || !hasBatchableActions(actions)) {
     return identity
   }
   return prepend({

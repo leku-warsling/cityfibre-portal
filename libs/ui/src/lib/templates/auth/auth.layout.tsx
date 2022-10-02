@@ -26,12 +26,17 @@ export const AuthLayout: FC<AuthLayoutProps> = ({ aside }) => {
       >
         <AffixButton
           leftIcon={<ArrowBackIcon />}
-          align="top-start"
-          offset={6}
           colorScheme="gray"
+          align="top-start"
           variant="link"
+          fontWeight={800}
+          _hover={{
+            color: "black",
+            cursor: "pointer",
+          }}
+          offset={6}
+          size="lg"
           as="a"
-          size="sm"
         >
           <Hide below="lg">Back to CityFibre.com</Hide>
         </AffixButton>

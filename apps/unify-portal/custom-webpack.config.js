@@ -1,14 +1,30 @@
 const { merge } = require("webpack-merge")
 
-module.exports = (config, context) => {
+module.exports = (config) => {
   return merge(config, {
-    resolve: {
-      alias: {
-        react: "preact/compat",
-        "react-dom/test-utils": "preact/test-utils",
-        "react-dom": "preact/compat",
-        "react/jsx-runtime": "preact/jsx-runtime",
-      },
+    module: {
+      rules: [
+        {
+          test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          use: [
+            {
+              loader: "file-loader",
+              options: {
+                name: "[name].[ext]",
+                outputPath: "fonts/",
+              },
+            },
+          ],
+        },
+      ],
     },
+    // resolve: {
+    //       alias: {
+    //         react: "preact/compat",
+    //         "react-dom/test-utils": "preact/test-utils",
+    //         "react-dom": "preact/compat",
+    //         "react/jsx-runtime": "preact/jsx-runtime",
+    //       },
+    //     },
   })
 }

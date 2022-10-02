@@ -51,10 +51,26 @@ const OrderFTTPPage = () => {
             colorScheme="primary"
             width="100%"
             maxW="1024px"
+            sx={{
+              svg: {
+                color: "black",
+              },
+              span: {
+                fontWeight: 800,
+                fontSize: "lg",
+              },
+            }}
           />
           <WizardPanel
             renderHeader={({ title }) => (
-              <Heading fontSize="2xl">{title}</Heading>
+              <Heading
+                fontSize="2xl"
+                fontWeight={800}
+                letterSpacing="wide"
+                textTransform="uppercase"
+              >
+                {title}
+              </Heading>
             )}
             boxShadow="base"
             bgColor="white"

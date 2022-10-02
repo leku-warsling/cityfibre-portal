@@ -1,7 +1,23 @@
 import { extendTheme } from "@chakra-ui/react"
 // import darken from "polished/lib/color/darken"
 // import lighten from "polished/lib/color/lighten"
+import { StepsStyleConfig } from "chakra-ui-steps"
 import * as components from "./components"
+
+const Steps = {
+  ...StepsStyleConfig,
+  baseStyle: (props: any) => {
+    return {
+      ...StepsStyleConfig.baseStyle(props),
+      label: {
+        ...StepsStyleConfig.baseStyle(props).label,
+        fontWeight: 800,
+        textTransform: "uppercase",
+        letterSpacing: "wide",
+      },
+    }
+  },
+}
 
 export const theme = extendTheme({
   styles: {
@@ -12,8 +28,8 @@ export const theme = extendTheme({
     }),
   },
   fonts: {
-    heading: "'Manrope', sans-serif",
-    body: "'Manrope', sans-serif",
+    heading: "'Sohne', sans-serif",
+    body: "'Sohne', sans-serif",
   },
   colors: {
     primary: {
@@ -43,6 +59,7 @@ export const theme = extendTheme({
   },
   components: {
     ...components,
+    Steps,
   },
 })
 
@@ -55,8 +72,8 @@ export const rebrand = extendTheme({
     }),
   },
   fonts: {
-    heading: "'Manrope', sans-serif",
-    body: "'Manrope', sans-serif",
+    heading: "'Sohne', sans-serif",
+    body: "'Sohne', sans-serif",
   },
   colors: {
     secondary: {

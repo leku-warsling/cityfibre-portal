@@ -81,16 +81,22 @@ const IncidentPage = () => {
             pt={6}
             p={8}
           >
-            <Text fontSize="lg" fontWeight={600} mb={4}>
+            <Text
+              fontSize="xl"
+              fontWeight={800}
+              letterSpacing="wide"
+              textTransform="uppercase"
+              mb={4}
+            >
               Attachments
             </Text>
             <Wrap spacing={4}>
               <WrapItem>
                 <VStack
-                  bgColor="brand.100"
-                  color="brand.600"
+                  bgColor="primary.500"
+                  color="black"
                   _hover={{
-                    bgColor: "brand.600",
+                    bgColor: "black",
                     cursor: "pointer",
                     color: "white",
                   }}
@@ -107,10 +113,10 @@ const IncidentPage = () => {
               </WrapItem>
               <WrapItem>
                 <VStack
-                  bgColor="brand.100"
-                  color="brand.600"
+                  bgColor="primary.500"
+                  color="black"
                   _hover={{
-                    bgColor: "brand.600",
+                    bgColor: "black",
                     cursor: "pointer",
                     color: "white",
                   }}
@@ -127,10 +133,10 @@ const IncidentPage = () => {
               </WrapItem>
               <WrapItem>
                 <VStack
-                  bgColor="brand.100"
-                  color="brand.600"
+                  bgColor="primary.500"
+                  color="black"
                   _hover={{
-                    bgColor: "brand.600",
+                    bgColor: "black",
                     cursor: "pointer",
                     color: "white",
                   }}
@@ -147,10 +153,10 @@ const IncidentPage = () => {
               </WrapItem>
               <WrapItem>
                 <VStack
-                  bgColor="brand.100"
-                  color="brand.600"
+                  bgColor="primary.500"
+                  color="black"
                   _hover={{
-                    bgColor: "brand.600",
+                    bgColor: "black",
                     cursor: "pointer",
                     color: "white",
                   }}
@@ -167,10 +173,10 @@ const IncidentPage = () => {
               </WrapItem>
               <WrapItem>
                 <VStack
-                  bgColor="brand.100"
-                  color="brand.600"
+                  bgColor="primary.500"
+                  color="black"
                   _hover={{
-                    bgColor: "brand.600",
+                    bgColor: "black",
                     cursor: "pointer",
                     color: "white",
                   }}
@@ -198,14 +204,22 @@ const IncidentPage = () => {
           px={10}
         >
           <Flex justify="space-between" align="center" mb={4}>
-            <Text fontSize="lg" fontWeight={600}>
+            <Text
+              fontSize="xl"
+              fontWeight={800}
+              letterSpacing="wide"
+              textTransform="uppercase"
+            >
               10 Comments
             </Text>
             <Button
               leftIcon={<BiSortUp />}
               variant="ghost"
               colorScheme="gray"
-              fontSize="lg"
+              fontSize="xl"
+              fontWeight={800}
+              letterSpacing="wide"
+              textTransform="uppercase"
             >
               Sort By
             </Button>

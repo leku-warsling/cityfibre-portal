@@ -34,7 +34,7 @@ const NetworkOutages = () => {
             data={data}
             barCategoryGap={2}
             margin={{
-              top: 0,
+              top: 32,
               right: 0,
               left: 0,
               bottom: 0,
@@ -42,17 +42,17 @@ const NetworkOutages = () => {
           >
             <XAxis
               interval="preserveStartEnd"
-              color="#4a5568"
+              color="#000000"
               axisLine={false}
               tickLine={false}
-              fontWeight={600}
+              fontWeight={800}
               dataKey="time"
               fontSize={12}
               dy={5}
             />
             <Bar dataKey="outages" fill={primaryColor}>
               <LabelList
-                fill={primaryColor}
+                fill="#000000"
                 fontWeight={800}
                 position="top"
                 fontSize={14}

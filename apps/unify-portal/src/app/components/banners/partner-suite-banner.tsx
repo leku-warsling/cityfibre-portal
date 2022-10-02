@@ -1,33 +1,34 @@
 import { LogoIcon, circlesBackdrop } from "@ui/lib/assets"
-import { Figure } from "@ui/lib/figure"
 import { Heading, Text } from "@chakra-ui/layout"
-import { useToken } from "@chakra-ui/system"
+import { Figure } from "@ui/lib/figure"
 
-export const PartnerSuiteBanner = () => {
-  const primaryColor = useToken("colors", "primary.500")
-  return (
-    <Figure
-      bgColor="secondary.500"
-      bgImage={circlesBackdrop}
-      bgPos="center"
-      bgSize="cover"
-      maxW="750px"
-      h="100vh"
-      w="50%"
-    >
-      <Figure.Header pt={{ lg: 10, md: 8 }} pl={{ lg: 10, md: 8 }}>
-        <LogoIcon fontSize="48px" fill={primaryColor} />
-      </Figure.Header>
-      <Figure.Caption pl={{ lg: 10, md: 8 }} pb={12} gap={4} pr={{ md: 8 }}>
-        <Heading fontSize={{ lg: "3xl", md: "xl" }}>
-          CityFibre Partner Suite
-        </Heading>
-        <Text maxW="500px">
-          Serve your customers quickly and effectively from everything to
-          ordering products and services for businesses to managing and
-          resolving service issues
-        </Text>
-      </Figure.Caption>
-    </Figure>
-  )
-}
+export const PartnerSuiteBanner = () => (
+  <Figure
+    bgColor="secondary.500"
+    bgImage={circlesBackdrop}
+    bgPos="center"
+    bgSize="cover"
+    maxW="750px"
+    h="100vh"
+    w="50%"
+  >
+    <Figure.Header pt={{ lg: 10, md: 8 }} pl={{ lg: 10, md: 8 }}>
+      <LogoIcon fontSize="48px" fill="#000" />
+    </Figure.Header>
+    <Figure.Caption pl={{ lg: 10, md: 8 }} pb={12} gap={3} pr={{ md: 8 }}>
+      <Heading
+        fontSize={{ lg: "3xl", md: "xl" }}
+        textTransform="uppercase"
+        letterSpacing="wide"
+        fontWeight={800}
+      >
+        CityFibre Partner Suite
+      </Heading>
+      <Text maxW="500px">
+        Serve your customers quickly and effectively from everything to ordering
+        products and services for businesses to managing and resolving service
+        issues
+      </Text>
+    </Figure.Caption>
+  </Figure>
+)

@@ -54,12 +54,22 @@ const ServicePage = () => {
       <Page.Header mb={8} pb={2}>
         Service: #{id}
       </Page.Header>
-      <Flex justify="center" w="100%" mb={8}>
+      <Flex justify="center" w="100%" mb={14}>
         <Steps
           labelOrientation="vertical"
           colorScheme="primary"
           maxWidth="1200px"
           activeStep={2}
+          sx={{
+            svg: {
+              color: "black",
+            },
+            span: {
+              fontWeight: 800,
+              fontSize: "xl",
+              letterSpacing: "wide",
+            },
+          }}
         >
           <Step isCompletedStep label="Order Accepted" />
           <Step isCompletedStep label="Survey Complete" />
@@ -118,9 +128,9 @@ const ServicePage = () => {
             <Divider borderColor="gray.300" mb={8} />
             <ButtonGroup spacing={4}>
               <Button variant="outline" colorScheme="gray">
-                Cancel Order
+                Request Change
               </Button>
-              <Button>Change Order</Button>
+              <Button>Request Cease</Button>
             </ButtonGroup>
           </TabPanel>
           <TabPanel px={10} py={8}>

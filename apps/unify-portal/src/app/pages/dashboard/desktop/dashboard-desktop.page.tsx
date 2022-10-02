@@ -1,28 +1,16 @@
 import { ArrowForwardIcon, TriangleUpIcon } from "@chakra-ui/icons"
-import {
-  Badge,
-  Box,
-  Flex,
-  Heading,
-  List,
-  ListItem,
-  SimpleGrid,
-  Text,
-} from "@chakra-ui/layout"
+import { Flex, SimpleGrid, Text } from "@chakra-ui/layout"
 import { Select } from "@chakra-ui/select"
 import { Button } from "@chakra-ui/button"
 import { Page } from "@ui/lib/layout"
-import random from "lodash-es/random"
-import times from "ramda/es/times"
 import { EthernetIcon, FTTPIcon } from "../../../../assets"
-import { GroupStats } from "../../../components/statistic/group-stats"
 import {
   INCIDENT_COLUMNS,
   INCIDENT_DATA,
   INVOICE_COLUMNS,
   INVOICE_DATA,
+  STATS_BAR,
 } from "../data"
-import { currency } from "@ui/lib/util"
 import BandwidthUsage from "./components/bandwidth-usage"
 import BillingGauge from "./components/billing-gauge"
 import DonutChart from "./components/donut-chart"
@@ -33,30 +21,9 @@ import StatsBar from "./components/stats-bar"
 import ISPHubCallToAction from "./components/isp-hub-cta"
 import ISPHubOverview from "./components/isp-hub-overview"
 import IncidentSummary from "./components/incident-summary"
+import OverviewCard from "./components/overview-card"
+import NetworksCard from "./components/networks-card"
 import { useFlags } from "launchdarkly-react-client-sdk"
-
-const STATS_BAR = [
-  {
-    label: "Invoices",
-    value: 400,
-  },
-  {
-    label: "Credit Note",
-    value: currency.toPounds(random(100000, 999999)),
-  },
-  {
-    label: "Statements",
-    value: 400,
-  },
-  {
-    label: "Orders On Hold",
-    value: 40,
-  },
-  {
-    label: "Bandwidth Usage",
-    value: "400GB",
-  },
-]
 
 const DashboardDesktopPage = () => {
   const { dashboardAlt, showIspHub } = useFlags()
@@ -70,63 +37,8 @@ const DashboardDesktopPage = () => {
   return (
     <Page maxH="93vh" overflowY="auto" {...styleProps}>
       <Flex gap={6} mb={6}>
-        <GroupStats />
-        <Box
-          maxWidth="800px"
-          boxShadow="base"
-          bgColor="white"
-          rounded={4}
-          flex={1}
-          px={8}
-          pt={6}
-          pb={4}
-        >
-          <Flex justify="space-between" mb={4} align="center">
-            <Heading fontSize="lg" fontWeight={600}>
-              Networks
-            </Heading>
-            <Select variant="outline" maxW="150px" defaultValue="1">
-              <option value="">Status</option>
-              <option value="1">Changes</option>
-            </Select>
-          </Flex>
-          <List spacing={2} mb={3}>
-            {times(
-              () => (
-                <ListItem
-                  _hover={{ bgColor: "primary.500", color: "white" }}
-                  justifyContent="space-between"
-                  bgColor="gray.50"
-                  display="flex"
-                  rounded={4}
-                  px={4}
-                  py={2}
-                >
-                  <Text fontWeight={600} fontSize="sm">
-                    S123456
-                  </Text>
-                  <Text fontWeight={600} fontSize="sm">
-                    23/08/2022 13:14PM
-                  </Text>
-                  <Badge colorScheme="red" px={2} py={1}>
-                    Ongoing
-                  </Badge>
-                </ListItem>
-              ),
-              5
-            )}
-          </List>
-          <Flex justify="flex-end">
-            <Button
-              variant="ghost"
-              colorScheme="gray"
-              size="sm"
-              rightIcon={<ArrowForwardIcon />}
-            >
-              View all
-            </Button>
-          </Flex>
-        </Box>
+        <OverviewCard />
+        <NetworksCard />
       </Flex>
       <Flex width="100%" minH="400px" mb={6} gap={6}>
         <NetworkOutages />
@@ -179,7 +91,13 @@ const DashboardDesktopPage = () => {
             bgColor="white"
             p={6}
           >
-            <Text fontSize="xl" fontWeight={600} mb={2}>
+            <Text
+              fontSize="2xl"
+              fontWeight={800}
+              textTransform="uppercase"
+              letterSpacing="wide"
+              mb={2}
+            >
               Total Orders
             </Text>
             <Text fontSize="3xl" fontWeight={800} mb={2}>
@@ -189,11 +107,12 @@ const DashboardDesktopPage = () => {
               align="center"
               gap={1}
               fontWeight={800}
-              color="brand.600"
+              fontSize="lg"
+              color="primary.600"
               mb={2}
             >
               <TriangleUpIcon />
-              <Text fontSize="sm">30%</Text>
+              <Text>30%</Text>
             </Flex>
             <Text fontWeight={600} color="gray.500" fontSize="sm">
               Since last month
@@ -206,21 +125,28 @@ const DashboardDesktopPage = () => {
             bgColor="white"
             p={6}
           >
-            <Text fontSize="xl" fontWeight={600} mb={2}>
+            <Text
+              fontSize="2xl"
+              fontWeight={800}
+              textTransform="uppercase"
+              letterSpacing="wide"
+              mb={2}
+            >
               In Progress
             </Text>
-            <Text fontSize="3xl" fontWeight={800} mb={2}>
+            <Text fontSize="3xl" fontWeight={800} mb={1}>
               52
             </Text>
             <Flex
               align="center"
               gap={1}
               fontWeight={800}
-              color="brand.600"
+              color="primary.600"
+              fontSize="lg"
               mb={2}
             >
               <TriangleUpIcon />
-              <Text fontSize="sm">30%</Text>
+              <Text>30%</Text>
             </Flex>
             <Text fontWeight={600} color="gray.500" fontSize="sm">
               Since last month
@@ -233,21 +159,28 @@ const DashboardDesktopPage = () => {
             bgColor="white"
             p={6}
           >
-            <Text fontSize="xl" fontWeight={600} mb={2}>
+            <Text
+              fontSize="2xl"
+              fontWeight={800}
+              textTransform="uppercase"
+              letterSpacing="wide"
+              mb={2}
+            >
               Cancelled Orders
             </Text>
-            <Text fontSize="3xl" fontWeight={800} mb={2}>
+            <Text fontSize="3xl" fontWeight={800} mb={1}>
               15
             </Text>
             <Flex
               align="center"
               gap={1}
               fontWeight={800}
-              color="brand.600"
+              fontSize="lg"
+              color="primary.600"
               mb={2}
             >
               <TriangleUpIcon />
-              <Text fontSize="sm">30%</Text>
+              <Text>30%</Text>
             </Flex>
             <Text fontWeight={600} color="gray.500" fontSize="sm">
               Since last month
@@ -260,21 +193,28 @@ const DashboardDesktopPage = () => {
             bgColor="white"
             p={6}
           >
-            <Text fontSize="xl" fontWeight={600} mb={2}>
+            <Text
+              fontSize="2xl"
+              fontWeight={800}
+              textTransform="uppercase"
+              letterSpacing="wide"
+              mb={2}
+            >
               Completed Orders
             </Text>
-            <Text fontSize="3xl" fontWeight={800} mb={2}>
+            <Text fontSize="3xl" fontWeight={800} mb={1}>
               60
             </Text>
             <Flex
               align="center"
               gap={1}
               fontWeight={800}
-              color="brand.600"
+              fontSize="lg"
+              color="primary.600"
               mb={2}
             >
               <TriangleUpIcon />
-              <Text fontSize="sm">30%</Text>
+              <Text>30%</Text>
             </Flex>
             <Text fontWeight={600} color="gray.500" fontSize="sm">
               Since last month
@@ -321,7 +261,12 @@ const DashboardDesktopPage = () => {
         >
           <Flex align="center" justifyContent="space-between" gap={4}>
             <EthernetIcon fontSize="45px" />
-            <Text fontWeight={600} fontSize="xl">
+            <Text
+              fontWeight={800}
+              fontSize="2xl"
+              letterSpacing="wide"
+              textTransform="uppercase"
+            >
               Ethernet Services
             </Text>
           </Flex>
@@ -329,6 +274,7 @@ const DashboardDesktopPage = () => {
             bgColor="secondary.500"
             color="black"
             size="lg"
+            fontWeight={800}
             rightIcon={<ArrowForwardIcon />}
           >
             Check Availability
@@ -349,13 +295,19 @@ const DashboardDesktopPage = () => {
         >
           <Flex align="center" justifyContent="space-between" gap={4}>
             <FTTPIcon fontSize="60px" />
-            <Text fontWeight={600} fontSize="xl">
+            <Text
+              fontWeight={800}
+              fontSize="2xl"
+              letterSpacing="wide"
+              textTransform="uppercase"
+            >
               FTTP Services
             </Text>
           </Flex>
           <Button
             rightIcon={<ArrowForwardIcon />}
             bgColor="secondary.500"
+            fontWeight={800}
             color="black"
             size="lg"
           >

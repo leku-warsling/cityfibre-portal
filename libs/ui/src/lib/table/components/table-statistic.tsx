@@ -27,15 +27,15 @@ export const TableStatistic = ({
     boxShadow={boxShadow}
     flexGrow={flexGrow}
     rounded={rounded}
+    fontSize="2xl"
+    fontWeight={800}
+    textTransform="uppercase"
+    letterSpacing="wide"
     py={py}
     px={px}
   >
-    <Text fontSize="2xl" fontWeight={800} mr={2}>
-      {value}
-    </Text>
-    <Text fontWeight={600} color="gray.500">
-      {label}
-    </Text>
+    <Text>{value}</Text>
+    <Text>{label}</Text>
     <Spacer />
     {icon && <Icon as={icon} color="brand.500" fontSize="3xl" />}
   </HStack>

@@ -1,6 +1,9 @@
 const Button = {
   baseStyle: {
     borderRadius: "4px",
+    textTransform: "uppercase",
+    letterSpacing: "wide",
+    fontWeight: 700,
   },
   sizes: {
     md: {

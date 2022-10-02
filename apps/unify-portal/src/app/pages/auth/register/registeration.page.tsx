@@ -23,19 +23,25 @@ const RegistrationPage = () => {
       px={24}
     >
       <Box width="100%" mb={14}>
-        <LogoIcon height="48px" fill="#FFFFFF" />
+        <LogoIcon height="48px" fill="#000" />
       </Box>
-      <Box>
-        <Heading fontWeight={600} fontSize="32px" color="white" mb={4}>
-          Welcome to the CityFibre Partner Suite
+      <Box color="black">
+        <Heading
+          fontWeight={800}
+          fontSize="32px"
+          textTransform="uppercase"
+          letterSpacing="wide"
+          mb={4}
+        >
+          Welcome to the CityFibre <br /> Partner Suite
         </Heading>
-        <Text color="white">
+        <Text color="black" fontWeight={700}>
           Serve your customers quickly and effectively from everything to
           ordering products and services for businesses to managing and
           resolving service issues
         </Text>
       </Box>
-      <WizardStepper orientation="vertical" colorScheme="whiteAlpha" />
+      <WizardStepper orientation="vertical" />
     </VStack>
   )
 

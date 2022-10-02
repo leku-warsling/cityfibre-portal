@@ -16,7 +16,12 @@ export const GroupStats = () => {
       color="black"
     >
       <HStack width="100%" justifyContent="space-between">
-        <Heading fontSize="lg" fontWeight={800}>
+        <Heading
+          fontSize="2xl"
+          fontWeight={800}
+          textTransform="uppercase"
+          letterSpacing="wide"
+        >
           Overview
         </Heading>
         <Select variant="outline" borderColor="black" maxW="150px">
@@ -64,12 +69,12 @@ export const GroupStats = () => {
                 >
                   <Icon as={BiMessageError} color="black" fontSize="3xl" />
                 </Flex>
-                <Flex flexDir="column" gap={2}>
+                <Flex flexDir="column">
                   <Text
                     textTransform="uppercase"
-                    letterSpacing="wider"
-                    fontWeight={600}
-                    fontSize="sm"
+                    letterSpacing="wide"
+                    fontWeight={800}
+                    fontSize="lg"
                   >
                     Incidents
                   </Text>
@@ -115,12 +120,12 @@ export const GroupStats = () => {
                 >
                   <Icon as={BiWrench} color="black" fontSize="3xl" />
                 </Flex>
-                <Flex flexDir="column" gap={2}>
+                <Flex flexDir="column">
                   <Text
                     textTransform="uppercase"
-                    letterSpacing="wider"
-                    fontWeight={600}
-                    fontSize="sm"
+                    letterSpacing="wide"
+                    fontWeight={800}
+                    fontSize="lg"
                   >
                     Services
                   </Text>
@@ -166,12 +171,12 @@ export const GroupStats = () => {
                 >
                   <Icon as={BiMessageError} color="black" fontSize="3xl" />
                 </Flex>
-                <Flex flexDir="column" gap={2}>
+                <Flex flexDir="column">
                   <Text
                     textTransform="uppercase"
-                    letterSpacing="wider"
-                    fontWeight={600}
-                    fontSize="sm"
+                    letterSpacing="wide"
+                    fontWeight={800}
+                    fontSize="lg"
                   >
                     Networks
                   </Text>
@@ -217,12 +222,12 @@ export const GroupStats = () => {
                 >
                   <Icon as={BiMessageError} color="black" fontSize="3xl" />
                 </Flex>
-                <Flex flexDir="column" gap={2}>
+                <Flex flexDir="column">
                   <Text
                     textTransform="uppercase"
-                    letterSpacing="wider"
-                    fontWeight={600}
-                    fontSize="sm"
+                    letterSpacing="wide"
+                    fontWeight={800}
+                    fontSize="lg"
                   >
                     Reports
                   </Text>

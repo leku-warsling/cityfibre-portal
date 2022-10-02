@@ -100,7 +100,12 @@ const MainLayout = () => {
         />
       </AppBar.Section>
       <AppBar.Section>
-        <Text fontSize="lg" fontWeight={600}>
+        <Text
+          fontSize="2xl"
+          fontWeight={800}
+          textTransform="uppercase"
+          letterSpacing="wide"
+        >
           {page?.title}
         </Text>
       </AppBar.Section>

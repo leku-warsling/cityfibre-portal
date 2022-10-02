@@ -1,24 +1,21 @@
 import { AddIcon } from "@chakra-ui/icons"
-import { Badge, Flex, Spacer } from "@chakra-ui/layout"
+import { Badge } from "@chakra-ui/layout"
 import { Button } from "@chakra-ui/button"
-import { Page, Table, util } from "@ui/lib"
+import { useMediaQuery } from "@chakra-ui/media-query"
 import {
-  ColumnVisibility,
-  DataExport,
-  FieldSearch,
-  SelectFilter,
-  Statistic,
-} from "@unify/components"
+  ListingDesktopTemplate,
+  ListingTouchTemplate,
+} from "@ui/lib/templates/listing"
+import { date } from "@ui/lib/util"
+import { DataExport } from "@unify/components"
 import { SERVICE_STATUSES } from "@unify/entities"
 import { useQueryParams, useServices } from "@unify/hooks"
 import isDate from "date-fns/isDate"
 import { flow } from "fp-ts/lib/function"
 import always from "ramda/es/always"
-import difference from "ramda/es/difference"
 import ifElse from "ramda/es/ifElse"
 import path from "ramda/es/path"
 import prop from "ramda/es/prop"
-import { useMemo, useState } from "react"
 import { BiFlag } from "react-icons/bi"
 import { Link, useNavigate } from "react-router-dom"
 import { z } from "zod"
@@ -61,7 +58,7 @@ type ServiceQuery = z.infer<typeof serviceQuerySchema>
 
 const renderCellDate = flow(
   prop<"value", Date>("value"),
-  ifElse(isDate, util.date.toDateString, always("N/A"))
+  ifElse(isDate, date.toDateString, always("N/A"))
 )
 
 const TABLE_COLUMNS = [
@@ -70,7 +67,7 @@ const TABLE_COLUMNS = [
     accessor: "service_reference",
     disableFilters: true,
     Cell: ({ value }: any) => (
-      <Button to={`/orders/${value}`} variant="link" size="sm" as={Link}>
+      <Button to={`/services/${value}`} variant="link" size="sm" as={Link}>
         {value}
       </Button>
     ),
@@ -138,8 +135,6 @@ const COLUMN_MAP = TABLE_COLUMNS.reduce<Record<string, string>>((m, item) => {
   return m
 }, {})
 
-const COLUMN_KEYS = Object.keys(COLUMN_MAP)
-
 const PAGE_ACTIONS = [
   <Button
     leftIcon={<AddIcon fontSize="12px" />}
@@ -157,9 +152,8 @@ const ServicesDesktopPage = () => {
   const { params, mergeParams, renameParam, searchHandler, setParam } =
     useQueryParams<ServiceQuery>(DEFAULT_QUERY, serviceQuerySchema.parse)
   const { data = DEFAULT_DATA, isLoading, isFetching } = useServices(params)
-  const [visibleColumns, setVisibleColumns] = useState(Object.keys(COLUMN_MAP))
+  const [isTouch] = useMediaQuery("(max-width: 1024px)")
   const { totals, items } = data
-  const columns = useMemo(() => TABLE_COLUMNS, [])
   const navigate = useNavigate()
 
   const serviceActions = [
@@ -190,100 +184,80 @@ const ServicesDesktopPage = () => {
     })
   }
 
-  const _onPaginate = ({
-    pageIndex,
-    pageSize,
-  }: {
-    pageIndex: number
-    pageSize: number
-  }) => {
-    mergeParams({
-      _page: pageIndex,
-      _limit: pageSize,
-    })
-  }
+  const _onPaginate = setParam("_page")
+  const _onSizeChange = setParam("_limit")
 
   const initialState = {
-    pageIndex: params._page,
-    pageSize: params._limit,
     sortBy: [
       {
         id: "created_at",
-        desc: false,
+        desc: true,
       },
     ],
   }
 
+  const Listing = isTouch ? ListingTouchTemplate : ListingDesktopTemplate
+
+  const stats = [
+    { label: "Total", value: totals.records },
+    { label: "Live", value: totals.completed },
+    { label: "In Delivery", value: totals.in_delay },
+    { label: "Ceased", value: totals.ceased },
+    { label: "Cancelled", value: totals.cancellation_requested },
+  ]
+
+  const filters = [
+    {
+      label: `Status ${params?.status ?? "All"}`,
+      onSelect: (value: ServiceQuery["status"]) => setParam("status", value),
+      options: [
+        { label: "All", value: undefined },
+        { label: "In Delay", value: "In Delay" },
+        { label: "Progressing", value: "Progressing" },
+        { label: "Completed", value: "Completed" },
+        { label: "Cancelled", value: "Cancelled" },
+        { label: "Ceased", value: "Ceased" },
+      ],
+    },
+  ]
+
+  const search = {
+    onFieldChange: renameParam,
+    onSearch: searchHandler,
+    placeholder: "Search services...",
+    fields: [
+      { value: "q", label: "All" },
+      { value: "customer_reference_like", label: "Customer Reference" },
+      { value: "service_reference_like", label: "Service Reference" },
+    ],
+  }
+
+  const pagination = {
+    onSizeChange: _onSizeChange,
+    pageSize: params._limit,
+    onChange: _onPaginate,
+    current: params._page,
+    total: totals.pages,
+  }
+
   return (
-    <Page maxH="93vh" overflowY="auto">
-      <Page.Header mb={6} pb={2} actions={PAGE_ACTIONS}>
-        Services
-      </Page.Header>
-      <Flex gap={6} width="100%" mb={6}>
-        <Statistic label="Total" value={totals.records} />
-        <Statistic label="Live Services" value={totals.completed} />
-        <Statistic label="Services in Delivery" value={totals.in_delay} />
-        <Statistic label="Ceased" value={totals.ceased} />
-        <Statistic label="Cancelled" value={totals.cancellation_requested} />
-      </Flex>
-      <Flex gap={4} mb={6}>
-        <ColumnVisibility
-          options={Object.entries(COLUMN_MAP)}
-          onChange={setVisibleColumns}
-          value={visibleColumns}
-        />
-        <SelectFilter
-          onSelect={(value) =>
-            setParam("status", value as ServiceQuery["status"])
-          }
-          options={[
-            { label: "All", value: undefined },
-            { label: "In Delay", value: "In Delay" },
-            { label: "Progressing", value: "Progressing" },
-            { label: "Completed", value: "Completed" },
-            { label: "Cancelled", value: "Cancelled" },
-            { label: "Ceased", value: "Ceased" },
-          ]}
-        >
-          Status {params?.status ?? "All"}
-        </SelectFilter>
-        <Spacer />
-        <FieldSearch
-          onFieldChange={renameParam}
-          onChange={searchHandler}
-          placeholder="Search services..."
-          defaultField="q"
-          bgColor="white"
-          maxWidth="400px"
-          fields={[
-            { value: "q", label: "All" },
-            { value: "customer_reference_like", label: "Customer Reference" },
-            { value: "service_reference_like", label: "Service Reference" },
-          ]}
-        />
-      </Flex>
-      <Table
-        hiddenColumns={difference(COLUMN_KEYS, visibleColumns)}
-        initialState={initialState}
-        actions={serviceActions}
-        pageCount={totals.pages}
-        onPaginate={_onPaginate}
-        isFetching={isFetching}
-        isLoading={isLoading}
-        columns={columns}
-        onSort={_onSort}
-        boxShadow="base"
-        manualPagination
-        overflowY="auto"
-        bgColor="white"
-        data={items}
-        isPaginated
-        rounded={5}
-        maxH="80vh"
-        size="md"
-        isSticky
-      />
-    </Page>
+    <Listing
+      page={{
+        actions: PAGE_ACTIONS,
+        title: "Services",
+      }}
+      initialState={initialState}
+      actions={serviceActions}
+      pagination={pagination}
+      isFetching={isFetching}
+      columns={TABLE_COLUMNS}
+      isLoading={isLoading}
+      filters={filters}
+      onSort={_onSort}
+      search={search}
+      stats={stats}
+      data={items}
+    />
   )
 }
 

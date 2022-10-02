@@ -54,8 +54,9 @@ const BillingGauge = () => {
         <Flex flexDir="column" fontWeight={600}>
           <Text
             textTransform="uppercase"
-            letterSpacing="wider"
-            fontSize="sm"
+            letterSpacing="wide"
+            fontWeight={800}
+            fontSize="lg"
             lineHeight={1}
           >
             Total Income
@@ -65,8 +66,9 @@ const BillingGauge = () => {
         <Flex flexDir="column" fontWeight={600}>
           <Text
             textTransform="uppercase"
-            letterSpacing="wider"
-            fontSize="sm"
+            letterSpacing="wide"
+            fontSize="lg"
+            fontWeight={800}
             lineHeight={1}
           >
             Total Due

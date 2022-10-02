@@ -1,17 +1,27 @@
 import { Flex, FlexProps, Heading } from "@chakra-ui/layout"
-import { SystemProps } from "@chakra-ui/react"
 import { cloneElement, ReactElement } from "react"
 
 type CardHeaderProps = FlexProps & {
-  fontWeight?: SystemProps["fontWeight"]
-  fontSize?: SystemProps["fontSize"]
   size?: "sm" | "md" | "lg"
   actions?: ReactElement[]
 }
 
-const CardHeader = ({ children, actions = [], ...props }: CardHeaderProps) => (
+const CardHeader = ({
+  textTransform,
+  letterSpacing,
+  actions = [],
+  fontWeight,
+  children,
+  fontSize,
+  ...props
+}: CardHeaderProps) => (
   <Flex {...props}>
-    <Heading fontSize="lg" fontWeight={600}>
+    <Heading
+      textTransform={textTransform}
+      letterSpacing={letterSpacing}
+      fontWeight={fontWeight}
+      fontSize={fontSize}
+    >
       {children}
     </Heading>
     <Flex>
@@ -23,10 +33,12 @@ const CardHeader = ({ children, actions = [], ...props }: CardHeaderProps) => (
 CardHeader.displayName = "CardHeader"
 
 CardHeader.defaultProps = {
+  textTransform: "uppercase",
   justify: "space-between",
+  letterSpacing: "wide",
   align: "center",
-  fontSize: "lg",
-  fontWeight: 600,
+  fontSize: "2xl",
+  fontWeight: 800,
 } as const
 
 export default CardHeader

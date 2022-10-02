@@ -33,18 +33,20 @@ export const Title: FC<TitleProps & StackProps> = ({
     <VStack {...props}>
       {strapline && (
         <Text
-          color={colors?.strapline ?? "brand.500"}
-          fontWeight={weights?.strapline ?? 600}
-          fontSize={{ lg: "xl", base: "md" }}
+          color={colors?.strapline ?? "primary.500"}
+          fontWeight={weights?.strapline ?? 700}
+          fontSize={{ lg: "2xl", base: "md" }}
           lineHeight="0"
         >
           {strapline}
         </Text>
       )}
       <Heading
-        color={colors?.title ?? "gray.900"}
+        color={colors?.title ?? "black"}
         fontWeight={weights?.title ?? 800}
-        fontSize={{ lg: "4xl", base: "2xl" }}
+        textTransform="uppercase"
+        letterSpacing="wide"
+        fontSize={{ lg: "5xl", base: "2xl" }}
       >
         {children}
       </Heading>

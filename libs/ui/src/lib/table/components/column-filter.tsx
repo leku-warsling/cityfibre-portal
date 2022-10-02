@@ -35,6 +35,7 @@ export const ColumnFilter: FC<ColumnFilterProps> = ({
         rightIcon={rightIcon}
         variant={variant}
         as={Button}
+        borderColor="black"
         {...props}
       >
         {children}

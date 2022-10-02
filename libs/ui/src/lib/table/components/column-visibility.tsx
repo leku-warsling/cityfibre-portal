@@ -29,6 +29,7 @@ export const ColumnVisibility = ({
           rightIcon={<ChevronDownIcon fontSize="xl" />}
           leftIcon={<BsEye />}
           variant="outline"
+          borderColor="black"
         >
           Columns
         </Button>

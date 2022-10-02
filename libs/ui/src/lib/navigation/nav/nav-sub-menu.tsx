@@ -101,10 +101,9 @@ const NavSubMenu: FC<NavSubMenuProps> = ({
           />
           <PopoverHeader
             textTransform="uppercase"
-            letterSpacing="widest"
-            color="secondary.500"
+            letterSpacing="wide"
             fontWeight={800}
-            fontSize="sm"
+            fontSize="lg"
             border="none"
             pt={5}
             pl={6}

@@ -54,7 +54,13 @@ const DonutChart = () => {
               paddingAngle={1}
               dataKey="value"
             >
-              <Label width={30} position="center" fontWeight={600}>
+              <Label
+                width={30}
+                position="center"
+                fontWeight={800}
+                fontSize={18}
+                style={{ textTransform: "uppercase", letterSpacing: ".5px" }}
+              >
                 {`${total} Incidents`}
               </Label>
             </Pie>

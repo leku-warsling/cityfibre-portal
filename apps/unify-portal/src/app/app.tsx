@@ -54,32 +54,74 @@ import {
 import { AccessControlPage, LiveWorksPage } from "./pages/contact"
 import { SafetyReportPage } from "./pages/safety"
 import { useFlags } from "launchdarkly-react-client-sdk"
+import { sohneBuch, sohneHalbfett, sohneSchmalFett } from "../assets/fonts"
 
 const GlobalStyles = css`
+  @font-face {
+    font-family: Sohne;
+    font-style: normal;
+    font-weight: 400;
+    src: url(${sohneBuch}) format("woff2");
+  }
+
+  @font-face {
+    font-family: Sohne;
+    font-style: normal;
+    font-weight: 700;
+    src: url(${sohneHalbfett}) format("woff2");
+  }
+
+  @font-face {
+    font-family: Sohne;
+    font-style: normal;
+    font-weight: 800;
+    src: url(${sohneSchmalFett}) format("woff2");
+  }
+
   *:not(input):focus {
     outline: none !important;
     box-shadow: none !important;
   }
 
-  #registration .chakra-steps > li > div {
-    div:first-of-type span {
-      color: #1582ff;
-      font-weight: 600;
+  #registration .chakra-steps > li {
+    & > div {
+      div:first-of-type {
+        &[data-highlighted] {
+          background-color: black;
+        }
+        &[aria-current="step"] {
+          background-color: #00fa69;
+          svg {
+            color: black;
+          }
+        }
+        border-color: black;
+      }
+
+      div:first-of-type span {
+        color: black;
+        font-weight: 800;
+      }
+
+      div:last-of-type span {
+        font-weight: 800;
+        color: black !important;
+        font-size: 24px;
+        letter-spacing: 0.5px;
+        padding-left: 8px;
+      }
+
+      &:last-of-type {
+        border-color: black;
+      }
     }
 
-    div:last-of-type span {
-      font-weight: 600;
-      color: white !important;
-      font-size: 20px;
-      padding-left: 8px;
-    }
-  }
-
-  #registration .chakra-steps > li[aria-disabled="true"] > div {
-    div:first-of-type {
-      background: none;
-      span {
-        color: white;
+    &[aria-disabled="true"] > div {
+      div:first-of-type {
+        background: none;
+        span {
+          color: black;
+        }
       }
     }
   }

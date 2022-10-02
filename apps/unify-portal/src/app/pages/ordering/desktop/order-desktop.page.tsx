@@ -72,6 +72,16 @@ const OrderPage = () => {
           colorScheme="primary"
           maxWidth="860px"
           activeStep={2}
+          sx={{
+            svg: {
+              color: "black",
+            },
+            span: {
+              fontWeight: 800,
+              fontSize: "xl",
+              letterSpacing: "wide",
+            },
+          }}
         >
           <Step isCompletedStep label="Acknowledgment" />
           <Step isCompletedStep label="Commited" />

@@ -13,21 +13,11 @@ export type StatsBarProps = {
 
 const StatsBar: FC<StatsBarProps & FlexProps> = ({ items, ...props }) => {
   const stats = items.map((item, key) => (
-    <Box key={key} fontWeight={800}>
-      <Text
-        textTransform="uppercase"
-        letterSpacing="widest"
-        lineHeight={1}
-        fontSize="xs"
-      >
+    <Box key={key} fontWeight={800} textTransform="uppercase">
+      <Text fontSize="lg" letterSpacing="wide" lineHeight={1}>
         {item.label}
       </Text>
-      <Text
-        color="secondary.500"
-        fontSize="3xl"
-        lineHeight={1.3}
-        textShadow="1px 2px 5px rgba(0,0,0,0.1)"
-      >
+      <Text fontSize="3xl" letterSpacing="wider" lineHeight={1.3}>
         {item.value}
       </Text>
     </Box>

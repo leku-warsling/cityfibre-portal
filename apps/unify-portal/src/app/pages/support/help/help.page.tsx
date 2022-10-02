@@ -94,7 +94,7 @@ const HelpPage = () => {
           bgColor="primary.500"
           align="flex-start"
           boxShadow="lg"
-          color="white"
+          color="black"
           rounded={4}
           spacing={4}
           py={8}
@@ -103,11 +103,13 @@ const HelpPage = () => {
           <Icon as={BiCommentDetail} fontSize="36px" />
           <Text
             fontSize="2xl"
+            textTransform="uppercase"
+            letterSpacing="wide"
             fontWeight={800}
             lineHeight={1.2}
-            maxWidth="300px"
+            maxWidth="320px"
           >
-            Please share your feedback
+            Please share your <br /> feedback
           </Text>
           <Text fontWeight={600} maxWidth="300px">
             Have you received some excellent customer service? If so, we'd love
@@ -127,7 +129,7 @@ const HelpPage = () => {
           bgColor="primary.500"
           align="flex-start"
           boxShadow="base"
-          color="white"
+          color="black"
           rounded={4}
           spacing={4}
           py={8}
@@ -136,11 +138,13 @@ const HelpPage = () => {
           <Icon as={BiInfoCircle} fontSize="36px" />
           <Text
             fontSize="2xl"
+            textTransform="uppercase"
+            letterSpacing="wide"
             fontWeight={800}
             lineHeight={1.2}
-            maxWidth="300px"
+            maxWidth="320px"
           >
-            Make a request for information
+            Make a request for <br /> information
           </Text>
           <Text fontWeight={600} maxWidth="300px">
             If you are unable to find what you need from our FAQ's, then please
@@ -160,7 +164,7 @@ const HelpPage = () => {
           bgColor="primary.500"
           align="flex-start"
           boxShadow="base"
-          color="white"
+          color="black"
           rounded={4}
           spacing={4}
           py={8}
@@ -169,11 +173,14 @@ const HelpPage = () => {
           <Icon as={BiCommentError} fontSize="36px" />
           <Text
             fontSize="2xl"
+            textTransform="uppercase"
+            letterSpacing="wide"
             fontWeight={800}
             lineHeight={1.2}
-            maxWidth="300px"
+            maxWidth="320px"
           >
-            Raise a complaint with our service desk
+            Raise a complaint with <br />
+            our service desk
           </Text>
           <Text fontWeight={600} maxWidth="300px">
             If you are unhappy with our service, you can raise a complaint and

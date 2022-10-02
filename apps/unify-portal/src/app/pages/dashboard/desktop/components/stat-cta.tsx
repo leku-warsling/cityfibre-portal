@@ -21,13 +21,20 @@ const StatCallToAction = (props: { value: ReactNode; label: ReactNode }) => {
         align="center"
         fontSize="lg"
         color="black"
+        letterSpacing="wider"
         rounded={4}
         w={10}
         h={10}
       >
         {props.value}
       </Flex>
-      <Text flex={1} fontWeight={600}>
+      <Text
+        flex={1}
+        fontWeight={800}
+        fontSize="xl"
+        letterSpacing="wide"
+        textTransform="uppercase"
+      >
         {props.label}
       </Text>
       <Icon as={ArrowForwardIcon} fontSize="lg" mr={2} />

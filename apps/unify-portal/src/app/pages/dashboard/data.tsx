@@ -1,11 +1,12 @@
 import { flow } from "fp-ts/lib/function"
 import prop from "ramda/es/prop"
-import { util } from "@ui/lib"
 import { Badge } from "@chakra-ui/layout"
 import { Button } from "@chakra-ui/button"
 import { Link } from "react-router-dom"
+import random from "lodash-es/random"
+import { currency, date } from "@ui/lib/util"
 
-const DateCell = flow(prop<"value", Date>("value"), util.date.toDateString)
+const DateCell = flow(prop<"value", Date>("value"), date.toDateString)
 
 export const INCIDENT_DATA = [
   {
@@ -181,6 +182,29 @@ export const INVOICE_COLUMNS = [
     accessor: "total",
     disableFilters: true,
     disableSortBy: true,
-    Cell: ({ value }: any) => util.currency.toPounds(value),
+    Cell: ({ value }: any) => currency.toPounds(value),
   },
 ] as const
+
+export const STATS_BAR = [
+  {
+    label: "Invoices",
+    value: 400,
+  },
+  {
+    label: "Credit Note",
+    value: currency.toPounds(random(100000, 999999)),
+  },
+  {
+    label: "Statements",
+    value: 400,
+  },
+  {
+    label: "Orders On Hold",
+    value: 40,
+  },
+  {
+    label: "Bandwidth Usage",
+    value: "400GB",
+  },
+]
