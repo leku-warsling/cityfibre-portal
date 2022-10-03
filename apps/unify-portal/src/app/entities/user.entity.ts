@@ -6,7 +6,7 @@ export const USER_STATUSES = ["Active", "Awaiting Activation"] as const
 export const USER_ROLES = [
   "1st Support Agent",
   "2nd Support Agent",
-  "Administrators",
+  "Administrator",
   "Billing Team",
   "Default User",
   "Finance",
@@ -21,6 +21,9 @@ export const USER_ROLES = [
   "Service Desk",
   "Service Executive",
   "Service Management",
+  "Finance Manager",
+  "Support Manager",
+  "Support",
   "VOIP Custom Access",
 ] as const
 
