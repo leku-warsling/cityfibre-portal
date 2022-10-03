@@ -26,16 +26,9 @@ import NetworksCard from "./components/networks-card"
 import { useFlags } from "launchdarkly-react-client-sdk"
 
 const DashboardDesktopPage = () => {
-  const { dashboardAlt, showIspHub } = useFlags()
-  const styleProps = dashboardAlt
-    ? ({
-        flexDir: "column-reverse",
-        display: "flex",
-      } as const)
-    : {}
-
+  const { showIspHub } = useFlags()
   return (
-    <Page maxH="93vh" overflowY="auto" {...styleProps}>
+    <Page maxH="93vh" overflowY="auto">
       <Flex gap={6} mb={6}>
         <OverviewCard />
         <NetworksCard />

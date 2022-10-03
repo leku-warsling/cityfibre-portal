@@ -1,10 +1,10 @@
 import { Select } from "@chakra-ui/react"
 import OverviewStat from "@unify/components/statistic/overview-stat"
-import { BiMessageError, BiStation, BiWrench } from "react-icons/bi"
+import { BiCheckCircle, BiTimeFive, BiXCircle } from "react-icons/bi"
 import random from "lodash-es/random"
 import { Card, CardBody, CardHeader } from "@unify/components"
 
-const SupportOverviewCard = () => (
+const OrderingOverviewCard = () => (
   <Card size="lg" bgColor="primary.500">
     <CardHeader
       actions={[
@@ -17,24 +17,24 @@ const SupportOverviewCard = () => (
         </Select>,
       ]}
     >
-      Support Overview
+      Orders Overview
     </CardHeader>
     <CardBody flexDir="row" minHeight="280px" align="center" gap={8}>
       <OverviewStat
-        icon={BiMessageError}
-        label="Incidents"
+        icon={BiTimeFive}
+        label="In Progress"
         value={random(150, 450)}
         variation={random(5, 75)}
       />
       <OverviewStat
-        icon={BiWrench}
-        label="Services"
+        icon={BiCheckCircle}
+        label="Completed"
         value={random(150, 450)}
         variation={random(5, 75)}
       />
       <OverviewStat
-        icon={BiStation}
-        label="Networks"
+        icon={BiXCircle}
+        label="Cancelled"
         value={random(150, 450)}
         variation={random(5, 75)}
       />
@@ -42,4 +42,4 @@ const SupportOverviewCard = () => (
   </Card>
 )
 
-export default SupportOverviewCard
+export default OrderingOverviewCard

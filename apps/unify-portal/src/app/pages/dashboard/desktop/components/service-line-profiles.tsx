@@ -2,18 +2,22 @@ import { useToken } from "@chakra-ui/system"
 import { Select } from "@chakra-ui/select"
 import { LabelList, BarChart, XAxis, Bar, ResponsiveContainer } from "recharts"
 import random from "lodash-es/random"
-import times from "ramda/es/times"
 import { Card, CardBody, CardHeader } from "@unify/components/card"
 
-const data = times((n) => {
-  const h = n * 3
-  return {
-    time: `${h < 10 ? "0" : ""}${h.toFixed(2)} ${h > 12 ? "PM" : "AM"}`,
-    outages: random(5, 60),
-  }
-}, 8)
+const data = [
+  "T550/25/50",
+  "T220/15/40",
+  "T110/15/30",
+  "T1000/1000",
+  "G110/15/30",
+  "G1000/35/70",
+  "220/220/A/V",
+  "1000/1000/G",
+  "BF1000/40/100",
+  "550/550",
+].map((profile) => ({ profile, count: random(5, 60) }))
 
-const NetworkOutages = () => {
+const ServiceLineProfiles = () => {
   const primaryColor = useToken("colors", "primary.500")
   const actions = [
     <Select variant="outline" maxW="150px" defaultValue="1">
@@ -26,8 +30,8 @@ const NetworkOutages = () => {
     </Select>,
   ]
   return (
-    <Card maxWidth="750px" size="lg" flex={1}>
-      <CardHeader actions={actions}>Network Outages</CardHeader>
+    <Card maxWidth="650px" size="lg" flex={1}>
+      <CardHeader actions={actions}>Service Line Profiles</CardHeader>
       <CardBody>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart
@@ -41,16 +45,15 @@ const NetworkOutages = () => {
             }}
           >
             <XAxis
-              interval="preserveStartEnd"
               color="#000000"
               axisLine={false}
               tickLine={false}
               fontWeight={800}
-              dataKey="time"
-              fontSize={12}
+              dataKey="profile"
+              fontSize={10}
               dy={5}
             />
-            <Bar dataKey="outages" fill={primaryColor}>
+            <Bar dataKey="count" fill={primaryColor}>
               <LabelList
                 fill="#000000"
                 fontWeight={800}
@@ -66,4 +69,4 @@ const NetworkOutages = () => {
   )
 }
 
-export default NetworkOutages
+export default ServiceLineProfiles
