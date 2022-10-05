@@ -1,17 +1,17 @@
-import { LogoIcon, circlesBackdrop } from "@ui/lib/assets"
+import { LogoIcon, AnimatedCircles } from "@ui/lib/assets"
 import { Heading, Text } from "@chakra-ui/layout"
 import { Figure } from "@ui/lib/figure"
 
 export const PartnerSuiteBanner = () => (
   <Figure
     bgColor="secondary.500"
-    bgImage={circlesBackdrop}
     bgPos="center"
     bgSize="cover"
     maxW="750px"
     h="100vh"
     w="50%"
   >
+    <AnimatedCircles />
     <Figure.Header pt={{ lg: 10, md: 8 }} pl={{ lg: 10, md: 8 }}>
       <LogoIcon fontSize="48px" fill="#000" />
     </Figure.Header>

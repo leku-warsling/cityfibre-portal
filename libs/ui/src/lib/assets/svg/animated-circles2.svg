@@ -1,0 +1,49 @@
+<svg width="100%" height="575" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1980 1080" xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
+  <style>
+    #circle-1 {
+      animation-name: example;
+      animation-duration: 8s;
+      animation-timing-function: ease-in-out;
+    }
+
+    #circle-2 {
+      animation-timing-function: ease-in-out;
+      animation-name: example2;
+      animation-duration: 8s;
+    }
+
+    @keyframes example {
+      0% {
+        cx: 420;
+        r: 450;
+      }
+      50% {
+        cx: 1980;
+        r: 150;
+      }
+      100% {
+        cx: 420;
+        r: 450;
+      }
+    }
+
+    @keyframes example2 {
+      from {cx: 1700;}
+      50% {cx: 650;}
+      to {cx: 1700;}
+    }
+  </style>
+  <defs>
+    <circle id="circle-1" cx="420" cy="540" r="450"/>
+    <circle id="circle-2" cx="1700" cy="600" r="1000"/>
+    <clipPath id="clip-2">
+      <use href="#circle-2" />
+    </clipPath>
+  </defs>
+  <rect width="100%" height="100%" fill="#00FA69"/>
+  <g fill="none" >
+    <use href="#circle-1" fill="#00C1E4" />
+    <use href="#circle-2" fill="#00C1E4" />
+    <use href="#circle-1" fill="#00FA69" clip-path="url(#clip-2)" />
+  </g>
+</svg>
