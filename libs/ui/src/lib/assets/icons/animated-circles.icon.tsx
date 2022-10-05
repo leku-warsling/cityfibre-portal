@@ -1,4 +1,3 @@
-import { css, Global } from "@emotion/react"
 import { useToken } from "@chakra-ui/system"
 import { SVGAttributes } from "react"
 
@@ -14,55 +13,38 @@ const AnimatedCircles = ({
 }: AnimatedCirclesProps) => {
   const bc = useToken("colors", bgColor)
   const c = useToken("colors", color)
-  const styles = css`
-    #circle-1 {
-      animation-name: c1Anim;
-      animation-duration: 8s;
-      animation-timing-function: ease-in-out;
-    }
 
-    #circle-2 {
-      animation-timing-function: ease-in-out;
-      animation-name: c2Anim;
-      animation-duration: 8s;
-    }
-
-    @keyframes c1Anim {
-      0% {
-        cx: 135;
-        r: 210;
-      }
-      50% {
-        cx: 400;
-        r: 245;
-      }
-      100% {
-        cx: 135;
-        r: 210;
-      }
-    }
-
-    @keyframes c2Anim {
-      from {
-        cx: 430;
-        r: 145;
-      }
-      50% {
-        cx: 75;
-        r: 65;
-      }
-      to {
-        cx: 430;
-        r: 145;
-      }
-    }
-  `
   return (
     <svg {...props}>
-      <Global styles={styles} />
       <defs>
-        <circle id="circle-1" cx="135" cy="340" r="210" />
-        <circle id="circle-2" cx="430" cy="295" r="145" />
+        <circle id="circle-1" cx="135" cy="340" r="210">
+          <animate
+            attributeName="cx"
+            dur="4s"
+            values="135; 400; 135"
+            keyTimes="0; 0.5; 1"
+          />
+          <animate
+            attributeName="r"
+            dur="4s"
+            values="210; 245; 210"
+            keyTimes="0; 0.5; 1"
+          />
+        </circle>
+        <circle id="circle-2" cx="430" cy="295" r="145">
+          <animate
+            attributeName="cx"
+            dur="4s"
+            values="430; 75; 430"
+            keyTimes="0; 0.5; 1"
+          />
+          <animate
+            attributeName="r"
+            dur="4s"
+            values="145; 65; 145"
+            keyTimes="0; 0.5; 1"
+          />
+        </circle>
         <clipPath id="clip-circle">
           <use href="#circle-2" />
         </clipPath>
