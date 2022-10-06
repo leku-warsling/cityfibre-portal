@@ -4,7 +4,7 @@ import CompanyDetailsStep from "./steps/company-details.step"
 import CompleteStep from "./steps/complete.step"
 import { useBreakpointValue, Hide } from "@chakra-ui/media-query"
 import { Text, Box, Flex, Heading, VStack } from "@chakra-ui/layout"
-import registerBg from "../../../../assets/images/register-bg.jpg"
+import registerBg from "../../../../assets/images/register-bg.webp"
 import { LogoIcon } from "@ui/lib/assets"
 
 const RegistrationPage = () => {

@@ -2,22 +2,31 @@
   <defs>
     <circle id="circle-1" cx="420" cy="540" r="450">
       <animate
-        attributeName="cx"
-        dur="8s"
+        keySplines="0.42 0 .58 1; 0.42 0 .58 1"
         values="420; 1980; 420"
-        keyTimes="0; 0.5; 1" />
+        keyTimes="0; 0.35; 1"
+        attributeName="cx"
+        calcMode="spline"
+        dur="7.5s"
+      />
       <animate
-        attributeName="r"
-        dur="8s"
+        keySplines="0.42 0 .58 1; 0.42 0 .58 1"
         values="450; 150; 450"
-        keyTimes="0; 0.5; 1" />
+        keyTimes="0; 0.35; 1"
+        attributeName="r"
+        calcMode="spline"
+        dur="7s"
+      />
     </circle>
     <circle id="circle-2" cx="1700" cy="600" r="1000">
       <animate
-        attributeName="cx"
-        dur="8s"
+        keySplines="0.42 0 .58 1; 0.42 0 .58 1"
         values="1700; 650; 1700"
-        keyTimes="0; 0.5; 1" />
+        keyTimes="0; 0.35; 1" 
+        attributeName="cx"
+        calcMode="spline"
+        dur="8s"
+      />
     </circle>
     <clipPath id="clip-2">
       <use href="#circle-2" />

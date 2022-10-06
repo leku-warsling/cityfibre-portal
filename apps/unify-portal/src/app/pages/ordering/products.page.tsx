@@ -4,7 +4,7 @@ import { Image } from "@chakra-ui/image"
 import { Flex, ListItem, Text, UnorderedList } from "@chakra-ui/layout"
 import { Page } from "@ui/lib"
 import { Link } from "react-router-dom"
-import FTTPServicesImg from "../../../assets/images/fttp-services.jpg"
+import FTTPServicesImg from "../../../assets/images/fttp-services.webp"
 import { Card, CardBody } from "../../components/card"
 import { usePage } from "../../hooks/use-page.hook"
 

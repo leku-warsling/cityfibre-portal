@@ -61,21 +61,27 @@ const GlobalStyles = css`
     font-family: Sohne;
     font-style: normal;
     font-weight: 400;
+    font-display: swap;
     src: url(${sohneBuch}) format("woff2");
+    unicode-range: U+0020-007F;
   }
 
   @font-face {
     font-family: Sohne;
     font-style: normal;
+    font-display: swap;
     font-weight: 700;
     src: url(${sohneHalbfett}) format("woff2");
+    unicode-range: U+0020-007F;
   }
 
   @font-face {
     font-family: Sohne;
     font-style: normal;
+    font-display: swap;
     font-weight: 800;
     src: url(${sohneSchmalFett}) format("woff2");
+    unicode-range: U+0020-007F;
   }
 
   *:not(input):focus {

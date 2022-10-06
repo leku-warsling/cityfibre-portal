@@ -3,7 +3,7 @@ import ContactDetailStep from "./steps/contact-details.step"
 import LocationDetailStep from "./steps/location-details.step"
 import WorkDetailStep from "./steps/work-details.step"
 import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/layout"
-import registerBg from "../../../../assets/images/register-bg.jpg"
+import registerBg from "../../../../assets/images/register-bg.webp"
 import { LogoIcon } from "@ui/lib/assets"
 
 const AccessControlPage = () => {

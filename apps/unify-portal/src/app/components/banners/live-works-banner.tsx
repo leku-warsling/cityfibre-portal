@@ -1,5 +1,4 @@
-import liveWorksBgImg from "../../../assets/images/live-works-bg.jpg"
-import { Text, Heading } from "@chakra-ui/layout"
+import liveWorksBgImg from "../../../assets/images/live-works-bg.webp"
 import { Figure } from "@ui/lib/figure"
 import { LogoIcon } from "@ui/lib/assets"
 
@@ -15,28 +14,8 @@ export const LiveWorksBanner = () => (
     <Figure.Header pt={20} pl={14}>
       <LogoIcon
         style={{ filter: "drop-shadow(3px 5px 2px rgb(0 0 0 / 0.22))" }}
-        height="48"
+        fontSize="5xl"
       />
     </Figure.Header>
-    <Figure.Caption
-      bg="primary.500"
-      boxShadow="lg"
-      rounded={4}
-      maxW="500px"
-      ml={14}
-      mb={14}
-      gap={3}
-      px={8}
-      py={6}
-    >
-      <Heading fontSize="2xl">
-        Please Provide Information
-        <br /> On Live Works
-      </Heading>
-      <Text>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel ex
-        risus. Integer tortor dui, pulvinar eu leo vitae, faucibus maximus quam
-      </Text>
-    </Figure.Caption>
   </Figure>
 )

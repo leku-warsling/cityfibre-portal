@@ -1,0 +1,57 @@
+<svg width="100%" height="575" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1980 1080" xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
+  <defs>
+    <circle id="circle-1" cx="850" cy="1300" r="950">
+      <animate
+        keySplines="0.42 0 .58 1; 0.42 0 .58 1"
+        values="850; 1400; 850"
+        keyTimes="0; 0.35; 1" 
+        attributeName="cx"
+        calcMode="spline"
+        dur="8s"
+      />
+      <animate
+        keySplines="0.42 0 .58 1; 0.42 0 .58 1"
+        values="1300; 700; 1300"
+        keyTimes="0; 0.35; 1"
+        attributeName="cy"
+        calcMode="spline"
+        dur="8s"
+      />
+    </circle>
+    <circle id="circle-2" cx="1400" cy="700" r="640">
+      <animate
+        keySplines="0.42 0 .58 1; 0.42 0 .58 1" 
+        values="700; 600; 700"
+        keyTimes="0; 0.5; 1" 
+        attributeName="cy"
+        calcMode="spline"
+        dur="8s"
+      />
+      <animate
+        keySplines="0.42 0 .58 1; 0.42 0 .58 1" 
+        values="1400; 350; 1400"
+        keyTimes="0; 0.5; 1" 
+        attributeName="cx"
+        calcMode="spline"
+        dur="8s"
+      />
+      <animate
+        keySplines="0.42 0 .58 1; 0.42 0 .58 1" 
+        values="640; 250; 640"
+        keyTimes="0; 0.5; 1" 
+        calcMode="spline"
+        attributeName="r"
+        dur="8s"
+      />
+    </circle>
+    <clipPath id="clip-2">
+      <use href="#circle-2" />
+    </clipPath>
+  </defs>
+  <rect width="100%" height="100%" fill="#FFA556"/>
+  <g fill="none" >
+    <use href="#circle-1" fill="#FF50D7" />
+    <use href="#circle-2" fill="#FF50D7" />
+    <use href="#circle-1" fill="#FFA556" clip-path="url(#clip-2)" />
+  </g>
+</svg>

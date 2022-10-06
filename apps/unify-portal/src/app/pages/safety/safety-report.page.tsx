@@ -3,7 +3,8 @@ import YourDetailsStep from "./steps/your-details.step"
 import CompleteStep from "./steps/complete.step"
 import IncidentDetailsStep from "./steps/incident-details.step"
 import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/layout"
-import safetyBgImage from "../../../assets/images/safety-bg-2.jpg"
+import safetyBgImage from "../../../assets/images/safety-bg-2.webp"
+import { LogoIcon } from "@ui/lib"
 // import { ReactComponent as Logo } from "../../../assets/svg/logo.svg"
 
 const SafetyReportPage = () => {
@@ -11,7 +12,7 @@ const SafetyReportPage = () => {
     <VStack
       bgImage={safetyBgImage}
       bgBlendMode="color-burn"
-      bgColor="#4d9af2"
+      bgColor="primary.500"
       justify="start"
       bgPos="center"
       height="100vh"
@@ -23,19 +24,20 @@ const SafetyReportPage = () => {
       px={24}
     >
       <Box width="100%" mb={14}>
-        {/* <Logo height="48px" fill="#FFFFFF" /> */}
+        <LogoIcon fontSize="5xl" />
       </Box>
       <Box>
         <Heading
           textShadow="base"
-          fontWeight={600}
-          fontSize="32px"
-          color="white"
+          fontWeight={800}
+          fontSize="4xl"
+          color="black"
+          textTransform="uppercase"
           mb={4}
         >
-          Health & Safety <br /> Incident Report
+          Health & Safety Incident Report
         </Heading>
-        <Text color="white" textShadow="base">
+        <Text color="black" textShadow="base" fontWeight={700}>
           CityFibre are dedicated to keeping everyone safe. To do this it is
           important for us to know about health and safety incidents and near
           misses.
