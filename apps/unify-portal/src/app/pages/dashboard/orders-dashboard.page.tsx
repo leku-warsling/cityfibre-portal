@@ -7,12 +7,10 @@ import OrderOverviewCard from "./desktop/components/ordering-overview-card"
 import { EthernetIcon, FTTPIcon } from "../../../assets"
 import ISPHubOverview from "./desktop/components/isp-hub-overview"
 import ISPHubCallToAction from "./desktop/components/isp-hub-cta"
-import { useFlags } from "launchdarkly-react-client-sdk"
 import OrdersByProduct from "./desktop/components/orders-by-product"
 import OrdersTableCard from "./desktop/components/orders-table-card"
 
 const OrdersDashboardPage = () => {
-  const { showIspHub } = useFlags()
   return (
     <Page maxH="93vh" overflowY="auto">
       <Flex gap={6} mb={6}>
@@ -94,12 +92,10 @@ const OrdersDashboardPage = () => {
         </Flex>
       </Flex>
       <OrderSummary />
-      {showIspHub && (
-        <Flex gap={6} mb={6} minH="420px">
-          <ISPHubOverview />
-          <ISPHubCallToAction />
-        </Flex>
-      )}
+      <Flex gap={6} mb={6} minH="420px">
+        <ISPHubOverview />
+        <ISPHubCallToAction />
+      </Flex>
     </Page>
   )
 }

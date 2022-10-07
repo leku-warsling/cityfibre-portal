@@ -2,7 +2,6 @@ import { usePage } from "../../hooks/use-page.hook"
 import React from "react"
 import { Device } from "../../components/device"
 import { useAuth } from "@unify/providers/auth.provider"
-import { useFlags } from "launchdarkly-react-client-sdk"
 
 const getDashboard = (role = "") => {
   switch (role) {
@@ -16,16 +15,15 @@ const getDashboard = (role = "") => {
       return React.lazy(() => import("./desktop/dashboard-desktop.page"))
   }
 }
+
 const DashboardPage = () => {
   usePage({ title: "Dashboard" })
   const { user } = useAuth()
-  const { dashboardAlt } = useFlags()
-  const role = dashboardAlt ? user?.["roles"] : "default"
 
   return (
     <Device
       Touch={React.lazy(() => import("./touch/dashboard-touch.page"))}
-      Desktop={getDashboard(role)}
+      Desktop={getDashboard(user?.["roles"])}
     />
   )
 }

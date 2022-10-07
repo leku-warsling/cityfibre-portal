@@ -10,7 +10,6 @@ import {
 import { Page } from "@ui/lib/layout"
 import ISPHubOverview from "./desktop/components/isp-hub-overview"
 import ISPHubCallToAction from "./desktop/components/isp-hub-cta"
-import { useFlags } from "launchdarkly-react-client-sdk"
 import TableCard from "./desktop/components/table-card"
 import { INVOICE_COLUMNS, INVOICE_DATA } from "./data"
 import { BiCreditCard, BiDollarCircle } from "react-icons/bi"
@@ -20,7 +19,6 @@ import BillingDonutChart from "./desktop/components/billing-donut-chart"
 import BillingSummary from "./desktop/components/billing-summary"
 
 const BillingDashboardPage = () => {
-  const { showIspHub } = useFlags()
   return (
     <Page maxH="93vh" overflowY="auto">
       <Flex gap={6} mb={6}>
@@ -258,12 +256,10 @@ const BillingDashboardPage = () => {
         </Flex>
       </Flex>
       <BillingSummary />
-      {showIspHub && (
-        <Flex gap={6} mb={6} minH="420px">
-          <ISPHubOverview />
-          <ISPHubCallToAction />
-        </Flex>
-      )}
+      <Flex gap={6} mb={6} minH="420px">
+        <ISPHubOverview />
+        <ISPHubCallToAction />
+      </Flex>
     </Page>
   )
 }

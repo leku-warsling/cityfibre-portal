@@ -13,11 +13,9 @@ import NetworksCard from "./desktop/components/networks-card"
 import NetworkOutages from "./desktop/components/network-outages"
 import ISPHubOverview from "./desktop/components/isp-hub-overview"
 import ISPHubCallToAction from "./desktop/components/isp-hub-cta"
-import { useFlags } from "launchdarkly-react-client-sdk"
 import IncidentProgress from "./desktop/components/incident-progress"
 
 const SuportDashboardPage = () => {
-  const { showIspHub } = useFlags()
   return (
     <Page maxH="93vh" overflowY="auto">
       <Flex gap={6} mb={6}>
@@ -223,12 +221,10 @@ const SuportDashboardPage = () => {
         <NetworksCard />
         <NetworkOutages />
       </Flex>
-      {showIspHub && (
-        <Flex gap={6} mb={6} minH="420px">
-          <ISPHubOverview />
-          <ISPHubCallToAction />
-        </Flex>
-      )}
+      <Flex gap={6} mb={6} minH="420px">
+        <ISPHubOverview />
+        <ISPHubCallToAction />
+      </Flex>
     </Page>
   )
 }

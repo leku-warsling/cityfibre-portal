@@ -41,7 +41,6 @@ import {
   BiSupport,
 } from "react-icons/bi"
 import { TutorialModal } from "./components"
-import { useFlags } from "launchdarkly-react-client-sdk"
 
 const UserMenu = () => {
   const { logout } = useAuth()
@@ -72,7 +71,6 @@ const UserMenu = () => {
 const MainLayout = () => {
   const { isOpen, onToggle, onClose } = useDisclosure()
   const [page, setPage] = useState<PageState>({})
-  const { showIspHub } = useFlags()
 
   const header = (
     <AppBar
@@ -293,11 +291,9 @@ const MainLayout = () => {
               Products
             </Nav.Item>
           </Nav.SubMenu>
-          {showIspHub && (
-            <Nav.Item as={Link} to="/" icon={BiBookReader}>
-              ISP Hub
-            </Nav.Item>
-          )}
+          <Nav.Item as={Link} to="/" icon={BiBookReader}>
+            ISP Hub
+          </Nav.Item>
           <Divider borderColor="black" my={2} />
           <Nav.SubMenu icon={FiUsers} label="User Management">
             <Nav.Item as={Link} to="/users">

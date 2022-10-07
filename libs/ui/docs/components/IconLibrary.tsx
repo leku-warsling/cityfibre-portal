@@ -15,7 +15,7 @@ import { ComponentWithAs } from "@chakra-ui/system"
 import { matchSorter } from "match-sorter"
 import debounce from "lodash-es/debounce"
 import memoize from "fast-memoize"
-import { motion, AnimatePresence } from "framer-motion"
+import { m, AnimatePresence } from "framer-motion"
 import { FC, useMemo, useRef, useState } from "react"
 import { IconType } from "react-icons"
 import { toKeyValueCollection } from "../util"
@@ -29,7 +29,7 @@ type IconLibraryItemProps = {
   children: string
 }
 
-const MotionBox = motion(Box)
+const MotionBox = m(Box)
 
 const IconLibraryItem: FC<IconLibraryItemProps> = ({ icon, children }) => {
   const toast = useToast()

@@ -19,12 +19,12 @@ module.exports = (config) => {
       ],
     },
     // resolve: {
-    //       alias: {
-    //         react: "preact/compat",
-    //         "react-dom/test-utils": "preact/test-utils",
-    //         "react-dom": "preact/compat",
-    //         "react/jsx-runtime": "preact/jsx-runtime",
-    //       },
-    //     },
+    //   alias: {
+    //     react: "preact/compat",
+    //     "react-dom/test-utils": "preact/test-utils",
+    //     "react-dom": "preact/compat",
+    //     "react/jsx-runtime": "preact/jsx-runtime",
+    //   },
+    // },
   })
 }

@@ -23,10 +23,8 @@ import ISPHubOverview from "./components/isp-hub-overview"
 import IncidentSummary from "./components/incident-summary"
 import OverviewCard from "./components/overview-card"
 import NetworksCard from "./components/networks-card"
-import { useFlags } from "launchdarkly-react-client-sdk"
 
 const DashboardDesktopPage = () => {
-  const { showIspHub } = useFlags()
   return (
     <Page maxH="93vh" overflowY="auto">
       <Flex gap={6} mb={6}>
@@ -310,8 +308,8 @@ const DashboardDesktopPage = () => {
       </Flex>
       <IncidentSummary />
       <Flex gap={6} mb={6}>
-        {showIspHub && <ISPHubOverview />}
-        {showIspHub && <ISPHubCallToAction />}
+        <ISPHubOverview />
+        <ISPHubCallToAction />
         <BandwidthUsage />
       </Flex>
     </Page>

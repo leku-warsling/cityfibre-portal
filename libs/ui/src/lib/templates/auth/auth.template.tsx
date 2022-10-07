@@ -1,11 +1,11 @@
 import { Flex, FlexProps } from "@chakra-ui/layout"
 import { Title, TitleProps } from "../../data-display/title"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { FC } from "react"
 
 export type AuthTemplateProps = FlexProps & TitleProps
 
-const FlexMotion = motion(Flex)
+const FlexMotion = m(Flex)
 
 const AnimationConfig = {
   initial: {
