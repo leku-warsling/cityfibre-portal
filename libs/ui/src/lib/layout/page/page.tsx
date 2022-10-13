@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { Box, BoxProps } from "@chakra-ui/layout"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import PageHeader from "./page-header"
 
 type PageProps = BoxProps
@@ -9,7 +9,7 @@ type PageComponent = FC<PageProps> & {
   Header: typeof PageHeader
 }
 
-const MotionBox = motion(Box)
+const MotionBox = m(Box)
 const animationConfig = {
   initial: {
     opacity: 0,

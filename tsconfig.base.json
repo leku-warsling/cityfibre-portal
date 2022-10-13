@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@ui/*": ["libs/ui/src/*"],
-      "@unify/*": ["apps/unify-portal/src/app/*"]
+      "@unify/*": ["apps/unify-portal/src/app/*"],
+      "@partner-portal/*": ["apps/partner-portal/src/app/*"]
     }
   },
   "include": [],

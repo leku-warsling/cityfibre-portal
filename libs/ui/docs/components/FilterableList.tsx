@@ -1,6 +1,6 @@
 import { Box, Wrap, WrapItem } from "@chakra-ui/layout"
 import { Select } from "@chakra-ui/select"
-import { motion, AnimatePresence } from "framer-motion"
+import { m, AnimatePresence } from "framer-motion"
 import { FC, ReactNode, useMemo, useState } from "react"
 import prop from "ramda/es/prop"
 import uniq from "ramda/es/uniq"
@@ -15,7 +15,7 @@ type FilterableListProps = {
   filterBy: string[]
 }
 
-const MotionBox = motion(Box)
+const MotionBox = m(Box)
 const animationConfig = {
   initial: {
     opacity: 0,

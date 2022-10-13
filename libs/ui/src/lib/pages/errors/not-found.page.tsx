@@ -36,7 +36,7 @@ const NotFoundPage = () => (
           Go to Dashboard
         </Button>
       </VStack>
-      <VoidSVG height="530px" />
+      <VoidSVG fontSize="530px" />
     </HStack>
   </Flex>
 )

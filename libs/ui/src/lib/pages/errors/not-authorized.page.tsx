@@ -36,7 +36,7 @@ const NotAuthorizedPage = () => (
           Go to Dashboard
         </Button>
       </VStack>
-      <AccessSVG height="430px" />
+      <AccessSVG fontSize="430px" />
     </HStack>
   </Flex>
 )

@@ -8,7 +8,7 @@ const ServerErrorPage = () => (
   <Flex bgColor="white" width="100vw" height="100vh" align="center">
     <HStack justify="center" align="flex-start" width="100%">
       <VStack spacing={10}>
-        <ServerErrorSVG height="300px" />
+        <ServerErrorSVG fontSize="300px" />
         <VStack>
           <Text fontSize="4xl" fontWeight={600}>
             Opps, something went wrong

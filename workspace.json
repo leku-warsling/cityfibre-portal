@@ -3,8 +3,10 @@
   "projects": {
     "cams-portal": "apps/cams-portal",
     "cams-portal-e2e": "apps/cams-portal-e2e",
+    "partner-portal-e2e": "apps/partner-portal-e2e",
     "incident-portal": "apps/incident-portal",
     "incident-portal-e2e": "apps/incident-portal-e2e",
+    "partner-portal": "apps/partner-portal",
     "portal": "apps/portal",
     "portal-e2e": "apps/portal-e2e",
     "ui": "libs/ui",
