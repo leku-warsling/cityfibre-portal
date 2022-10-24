@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom"
 const Auth0ProviderWithHistory: FC = ({ children }) => {
   const navigate = useNavigate()
 
-  const { NX_AUTH0_DOMAIN, NX_AUTH0_CLIENT_ID, NX_AUTH0_AUDIENCE } = process.env
+  const { NX_AUTH_DOMAIN, NX_AUTH_CLIENT_ID, NX_AUTH_AUDIENCE } = process.env
 
   const onRedirectCallback = (appState?: AppState) => {
     navigate(appState?.returnTo || window.location.pathname)
   }
 
-  if (!(NX_AUTH0_DOMAIN && NX_AUTH0_CLIENT_ID && NX_AUTH0_AUDIENCE)) {
+  if (!(NX_AUTH_DOMAIN && NX_AUTH_CLIENT_ID && NX_AUTH_AUDIENCE)) {
     console.error(
       "Auth0Provider: domain, clientId and audience must be specified"
     )
@@ -20,9 +20,9 @@ const Auth0ProviderWithHistory: FC = ({ children }) => {
 
   return (
     <Auth0Provider
-      domain={NX_AUTH0_DOMAIN}
-      clientId={NX_AUTH0_CLIENT_ID}
-      audience={NX_AUTH0_AUDIENCE}
+      domain={NX_AUTH_DOMAIN}
+      clientId={NX_AUTH_CLIENT_ID}
+      audience={NX_AUTH_AUDIENCE}
       redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
     >

@@ -1,7 +1,6 @@
 import { usePage } from "../../hooks/use-page.hook"
 import React from "react"
 import { Device } from "../../components/device"
-import { useAuth } from "@partner-portal/providers/auth.provider"
 
 const getDashboard = (role = "") => {
   switch (role) {

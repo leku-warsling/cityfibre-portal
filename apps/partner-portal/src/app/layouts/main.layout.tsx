@@ -1,4 +1,3 @@
-import { RiDashboard3Line } from "react-icons/ri"
 import { PageState } from "../hooks/use-page.hook"
 import { Link, Outlet } from "react-router-dom"
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai"
@@ -23,23 +22,8 @@ import { Icon } from "@chakra-ui/icon"
 import { Portal } from "@chakra-ui/portal"
 import { useDisclosure } from "@chakra-ui/hooks"
 import { Hide, Show } from "@chakra-ui/media-query"
-import {
-  FiHelpCircle,
-  FiSettings,
-  FiLogOut,
-  FiUsers,
-  FiInbox,
-} from "react-icons/fi"
-import {
-  BiBasket,
-  BiBell,
-  BiBookReader,
-  BiCommentDetail,
-  BiDollar,
-  BiErrorCircle,
-  BiPhoneCall,
-  BiSupport,
-} from "react-icons/bi"
+import { FiHelpCircle, FiSettings, FiLogOut, FiInbox } from "react-icons/fi"
+import { BiBell, BiCommentDetail, BiErrorCircle } from "react-icons/bi"
 import { TutorialModal } from "./components"
 
 const UserMenu = () => {

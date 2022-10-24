@@ -7,15 +7,35 @@ import { Page, Table, util } from "@ui/lib"
 import { flow } from "fp-ts/lib/function"
 import prop from "ramda/es/prop"
 import repeat from "ramda/es/repeat"
-import { useMemo } from "react"
-import { BiCommentDetail, BiCommentError, BiInfoCircle } from "react-icons/bi"
+import { useEffect, useMemo } from "react"
+import {
+  BiCommentDetail,
+  BiCommentError,
+  BiCompass,
+  BiInfoCircle,
+} from "react-icons/bi"
 import { Link } from "react-router-dom"
 import { usePage } from "@partner-portal/hooks"
+import { useAuth0 } from "@auth0/auth0-react"
 
 const DateCell = flow(prop<"value", Date>("value"), util.date.toDateString)
 
 const HelpPage = () => {
+  // const { getAccessTokenSilently } = useAuth0()
   usePage({ title: "Contact" })
+
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const accessToken = await getAccessTokenSilently()
+  //     fetch(`http://localhost:8066/api/feedback`, {
+  //       mode: "cors",
+  //       headers: {
+  //         Authorization: `Bearer ${accessToken}`,
+  //       },
+  //     }).then((res) => res.json())
+  //   }
+  //   getData()
+  // }, [getAccessTokenSilently])
 
   const data = useMemo(
     () =>
@@ -188,6 +208,41 @@ const HelpPage = () => {
           <Text fontWeight={600} maxWidth="300px">
             If you are unhappy with our service, you can raise a complaint and
             our team will contact you.
+          </Text>
+          <Spacer />
+          <Button
+            rightIcon={<ArrowForwardIcon />}
+            bgColor="brand.700"
+            w="full"
+            size="lg"
+          >
+            Continue
+          </Button>
+        </VStack>
+        <VStack
+          bgColor="primary.500"
+          align="flex-start"
+          boxShadow="base"
+          color="black"
+          rounded={4}
+          spacing={4}
+          py={8}
+          px={8}
+        >
+          <Icon as={BiCompass} fontSize="36px" />
+          <Text
+            fontSize="2xl"
+            textTransform="uppercase"
+            letterSpacing="wide"
+            fontWeight={800}
+            lineHeight={1.2}
+            maxWidth="320px"
+          >
+            Take a tour of the <br />
+            Partner Portal
+          </Text>
+          <Text fontWeight={600} maxWidth="300px">
+            View tutorials on how to best use the Partner Portal.
           </Text>
           <Spacer />
           <Button
