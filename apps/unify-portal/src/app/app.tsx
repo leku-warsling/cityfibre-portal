@@ -1,7 +1,8 @@
 import { AnimatePresence, LazyMotion, domAnimation } from "framer-motion"
 import { ChakraProvider } from "@chakra-ui/provider"
 import { Global } from "@emotion/react"
-import { theme } from "@ui/theme"
+import { theme, rebrand } from "@ui/theme"
+import { useFlags } from "launchdarkly-react-client-sdk"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { BrowserRouter } from "react-router-dom"
 import { AuthProvider } from "./providers/auth.provider"
@@ -19,8 +20,10 @@ const queryClient = new QueryClient({
 })
 
 export function App() {
+  const { rebrandTheme } = useFlags()
+  const AppTheme = rebrandTheme ? rebrand : theme
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider theme={AppTheme}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <AuthProvider>
