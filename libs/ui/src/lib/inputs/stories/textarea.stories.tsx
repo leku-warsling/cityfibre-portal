@@ -1,6 +1,6 @@
 import { Container, Stack, TextareaProps } from "@chakra-ui/react"
-import { Story, Meta } from '@storybook/react';
-import { Textarea } from ".."
+import { Story, Meta } from "@storybook/react"
+import { Textarea } from "@chakra-ui/react"
 
 export default {
   title: "Components / Forms / Textarea",
@@ -11,7 +11,7 @@ export default {
       </Container>
     ),
   ],
-} as Meta<TextareaProps>;
+} as Meta<TextareaProps>
 
 const Template: Story<TextareaProps> = (args) => <Textarea {...args} />
 
@@ -35,7 +35,11 @@ export const States = () => (
     <Textarea placeholder="Idle textarea" />
     <Textarea isDisabled placeholder="Disabled textarea" />
     <Textarea isReadOnly placeholder="Readonly textarea" />
-    <Textarea isInvalid errorBorderColor="red:500" placeholder="Invalid textarea" />
+    <Textarea
+      isInvalid
+      errorBorderColor="red:500"
+      placeholder="Invalid textarea"
+    />
   </Stack>
 )
 

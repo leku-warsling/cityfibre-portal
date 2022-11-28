@@ -1,10 +1,10 @@
 import { Button } from "@chakra-ui/button"
-import { ArrowForwardIcon } from "@chakra-ui/icons"
 import { Image } from "@chakra-ui/image"
 import { Flex, ListItem, Text, UnorderedList } from "@chakra-ui/layout"
 import { Page } from "@ui/lib"
+import { FiArrowRight } from "react-icons/fi"
 import { Link } from "react-router-dom"
-import FTTPServicesImg from "../../../assets/images/fttp-services.webp"
+import FTTPServicesImg from "../../../assets/images/product.png"
 import { Card, CardBody } from "../../components/card"
 import { usePage } from "../../hooks/use-page.hook"
 
@@ -21,7 +21,7 @@ const ProductCard = ({
   link,
   buttonText = "Check Availability",
 }: ProductCardProps) => (
-  <Card maxWidth="320px">
+  <Card maxWidth="380px">
     <Image
       src={FTTPServicesImg}
       objectFit="cover"
@@ -29,15 +29,15 @@ const ProductCard = ({
       width="100%"
     />
     <CardBody align="flex-start" gap={4}>
-      <Text fontSize="lg" fontWeight={600}>
+      <Text fontSize="28px" fontWeight={800} textTransform="uppercase">
         {name}
       </Text>
-      <UnorderedList fontSize="sm" listStylePos="inside">
+      <UnorderedList fontSize="sm">
         {features.map((item) => (
           <ListItem>{item}</ListItem>
         ))}
       </UnorderedList>
-      <Button rightIcon={<ArrowForwardIcon />} as={Link} to={link} w="full">
+      <Button rightIcon={<FiArrowRight />} as={Link} to={link} w="full">
         {buttonText}
       </Button>
     </CardBody>

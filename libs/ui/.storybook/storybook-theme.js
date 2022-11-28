@@ -1,6 +1,6 @@
 import { create } from "@storybook/theming"
 // @ts-ignore
-import brandImage from "./storybook-logo.svg"
+import brandImage from "./logo.png"
 
 const theme = {
   manager: create({
@@ -16,7 +16,7 @@ const theme = {
     fontBase: '"Manrope", sans-serif',
     textColor: "#04091A",
     appBg: "#edf2f7",
-  }) 
+  }),
 }
 
-export default theme 
+export default theme

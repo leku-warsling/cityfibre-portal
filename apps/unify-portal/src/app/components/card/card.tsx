@@ -15,18 +15,18 @@ export type CardProps = Omit<FlexProps, "children"> & {
 
 const getSizeStyleProps = prop(__, {
   sm: {
-    px: 4,
-    py: 2,
+    px: 6,
+    py: 4,
     gap: 2,
   },
   md: {
-    px: 6,
-    py: 4,
+    px: 8,
+    py: 6,
     gap: 4,
   },
   lg: {
-    px: 8,
-    py: 6,
+    px: 10,
+    py: 8,
     gap: 6,
   },
 })

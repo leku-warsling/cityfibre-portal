@@ -1,9 +1,45 @@
-import { ArrowForwardIcon, TriangleUpIcon } from "@chakra-ui/icons"
+import { ArrowForwardIcon } from "@chakra-ui/icons"
 import { Flex, Text } from "@chakra-ui/layout"
 import { CircularProgress, CircularProgressLabel } from "@chakra-ui/progress"
 import { Select } from "@chakra-ui/select"
 import { Button } from "@chakra-ui/button"
 import { Card, CardBody, CardFooter, CardHeader } from "@unify/components"
+import { FiArrowUp } from "react-icons/fi"
+import { FC } from "react"
+
+type StatProgressProps = {
+  percentage: number
+  deviation: number
+  label: string
+  value: number
+}
+
+const StatProgress: FC<StatProgressProps> = ({
+  label,
+  value,
+  percentage,
+  deviation,
+}) => (
+  <Flex flexDir="column" align="center" gap={2}>
+    <Text
+      textTransform="uppercase"
+      letterSpacing="wide"
+      fontWeight={800}
+      fontSize="2xl"
+    >
+      {label}
+    </Text>
+    <CircularProgress value={percentage} color="primary.500" size={28}>
+      <CircularProgressLabel fontSize="28px" fontWeight={800}>
+        {value}
+      </CircularProgressLabel>
+    </CircularProgress>
+    <Flex fontSize="2xl" align="center" gap={1.5} fontWeight={800}>
+      <FiArrowUp />
+      <Text>{deviation}%</Text>
+    </Flex>
+  </Flex>
+)
 
 const IncidentSummary = () => {
   const actions = [
@@ -20,146 +56,43 @@ const IncidentSummary = () => {
     <Card maxWidth="1600px" flex={1} size="lg" mb={6} gap={10}>
       <CardHeader actions={actions}>Incident Summary</CardHeader>
       <CardBody flexDir="row" justify="space-between" px={14}>
-        <Flex flexDir="column" align="center" gap={2}>
-          <Text
-            textTransform="uppercase"
-            letterSpacing="wide"
-            fontWeight={800}
-            fontSize="lg"
-          >
-            Total
-          </Text>
-          <Flex
-            bgColor="primary.500"
-            h="108px"
-            w="108px"
-            rounded="full"
-            align="center"
-            justify="center"
-          >
-            <Text fontWeight={800} fontSize="2xl" color="black">
-              400
-            </Text>
-          </Flex>
-          <Flex align="center" gap={1.5} fontWeight={800} color="primary.500">
-            <TriangleUpIcon />
-            <Text>20%</Text>
-          </Flex>
-        </Flex>
-        <Flex flexDir="column" align="center" gap={2}>
-          <Text
-            textTransform="uppercase"
-            letterSpacing="wide"
-            fontWeight={800}
-            fontSize="lg"
-          >
-            New
-          </Text>
-          <CircularProgress value={20} color="primary.500" size={28}>
-            <CircularProgressLabel fontSize="2xl" fontWeight={800}>
-              30
-            </CircularProgressLabel>
-          </CircularProgress>
-          <Flex align="center" gap={1.5} fontWeight={800} color="primary.500">
-            <TriangleUpIcon />
-            <Text>20%</Text>
-          </Flex>
-        </Flex>
-        <Flex flexDir="column" align="center" gap={2}>
-          <Text
-            textTransform="uppercase"
-            letterSpacing="wide"
-            fontWeight={800}
-            fontSize="lg"
-          >
-            In Progress
-          </Text>
-          <CircularProgress value={30} color="primary.500" size={28}>
-            <CircularProgressLabel fontSize="2xl" fontWeight={800}>
-              52
-            </CircularProgressLabel>
-          </CircularProgress>
-          <Flex align="center" gap={1.5} fontWeight={800} color="primary.500">
-            <TriangleUpIcon />
-            <Text>20%</Text>
-          </Flex>
-        </Flex>
-        <Flex flexDir="column" align="center" gap={2}>
-          <Text
-            textTransform="uppercase"
-            letterSpacing="wide"
-            fontWeight={800}
-            fontSize="lg"
-          >
-            Submitted
-          </Text>
-          <CircularProgress value={65} color="primary.500" size={28}>
-            <CircularProgressLabel fontSize="2xl" fontWeight={800}>
-              200
-            </CircularProgressLabel>
-          </CircularProgress>
-          <Flex align="center" gap={1.5} fontWeight={800} color="primary.500">
-            <TriangleUpIcon />
-            <Text>20%</Text>
-          </Flex>
-        </Flex>
-        <Flex flexDir="column" align="center" gap={2}>
-          <Text
-            textTransform="uppercase"
-            letterSpacing="wide"
-            fontWeight={800}
-            fontSize="lg"
-          >
-            Closed
-          </Text>
-          <CircularProgress value={80} color="primary.500" size={28}>
-            <CircularProgressLabel fontSize="2xl" fontWeight={800}>
-              300
-            </CircularProgressLabel>
-          </CircularProgress>
-          <Flex align="center" gap={1.5} fontWeight={800} color="primary.500">
-            <TriangleUpIcon />
-            <Text>20%</Text>
-          </Flex>
-        </Flex>
-        <Flex flexDir="column" align="center" gap={2}>
-          <Text
-            textTransform="uppercase"
-            letterSpacing="wide"
-            fontWeight={800}
-            fontSize="lg"
-          >
-            Resolved
-          </Text>
-          <CircularProgress value={100} color="green.500" size={28}>
-            <CircularProgressLabel fontSize="2xl" fontWeight={800}>
-              400
-            </CircularProgressLabel>
-          </CircularProgress>
-          <Flex align="center" gap={1.5} fontWeight={800} color="green.500">
-            <TriangleUpIcon />
-            <Text>20%</Text>
-          </Flex>
-        </Flex>
-        <Flex flexDir="column" align="center" gap={2}>
-          <Text
-            textTransform="uppercase"
-            letterSpacing="wide"
-            fontWeight={800}
-            fontSize="lg"
-          >
-            Cancelled
-          </Text>
-          <CircularProgress value={40} color="red.600" size={28}>
-            <CircularProgressLabel fontSize="2xl" fontWeight={800}>
-              50
-            </CircularProgressLabel>
-          </CircularProgress>
-          <Flex align="center" gap={1.5} fontWeight={800} color="red.600">
-            <TriangleUpIcon />
-            <Text>20%</Text>
-          </Flex>
-        </Flex>
+        <StatProgress
+          label="Total"
+          value={400}
+          percentage={100}
+          deviation={22}
+        />
+        <StatProgress label="New" value={30} percentage={30} deviation={20} />
+        <StatProgress
+          label="In Progress"
+          value={52}
+          percentage={40}
+          deviation={20}
+        />
+        <StatProgress
+          label="Submitted"
+          value={200}
+          percentage={50}
+          deviation={20}
+        />
+        <StatProgress
+          label="Closed"
+          value={300}
+          percentage={50}
+          deviation={20}
+        />
+        <StatProgress
+          label="Resolved"
+          value={400}
+          percentage={100}
+          deviation={30}
+        />
+        <StatProgress
+          label="Cancelled"
+          value={50}
+          percentage={10}
+          deviation={10}
+        />
       </CardBody>
       <CardFooter justify="flex-end">
         <Button

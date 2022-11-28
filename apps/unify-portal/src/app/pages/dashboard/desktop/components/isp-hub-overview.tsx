@@ -12,7 +12,7 @@ const ISPHubOverview = () => {
             <Text fontWeight={600}>Course #1</Text>
             <Text fontWeight={800}>100%</Text>
           </Flex>
-          <Progress colorScheme="green" rounded="full" value={100} />
+          <Progress colorScheme="secondary" rounded="full" value={100} />
         </Box>
         <Box>
           <Flex mb={1.5} justify="space-between">

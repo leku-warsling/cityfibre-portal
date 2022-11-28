@@ -1,4 +1,4 @@
-import theme from "../src/theme"
+import { theme } from "../src/theme"
 import themes from "./storybook-theme"
 import Code from "./components/Code"
 import { withDocsContainer } from "./decorators"

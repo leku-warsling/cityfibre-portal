@@ -6,7 +6,7 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-} from ".."
+} from "@chakra-ui/react"
 
 export default {
   title: "Components / Forms / NumberInput",

@@ -9,7 +9,7 @@ import {
 import { matchSorter } from "match-sorter"
 import debounce from "lodash-es/debounce"
 import memoize from "fast-memoize"
-import { m, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { FC, ReactNode, useMemo, useState } from "react"
 import { SearchInput } from "./SearchInput"
 
@@ -21,7 +21,7 @@ type SearchableListProps = {
   filterBy: string
 }
 
-const MotionBox = m(Box)
+const MotionBox = motion(Box)
 const animationConfig = {
   initial: {
     opacity: 0,

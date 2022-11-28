@@ -9,7 +9,7 @@ import {
   Avatar,
 } from "@chakra-ui/react"
 // import { SearchInput } from "../../inputs"
-import AppBar, { AppBarProps } from "./AppBar"
+import { AppBar, AppBarProps } from "./AppBar"
 import { FiMenu } from "react-icons/fi"
 
 export default {

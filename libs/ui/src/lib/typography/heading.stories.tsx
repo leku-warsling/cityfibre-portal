@@ -1,16 +1,10 @@
-import { Container, VStack } from '@chakra-ui/layout';
-import { Heading } from '.';
+import { Container, VStack } from "@chakra-ui/layout"
+import { Heading } from "@chakra-ui/react"
 
 export default {
-  title: 'Components / Typography / Heading',
-  decorators: [
-    (story: any) => (
-      <Container mt="40px">
-        {story()}
-      </Container>
-    ),
-  ],
-};
+  title: "Components / Typography / Heading",
+  decorators: [(story: any) => <Container mt="40px">{story()}</Container>],
+}
 
 export const sizes = () => (
   <VStack spacing="6">
@@ -39,10 +33,16 @@ export const sizes = () => (
       xs Heading
     </Heading>
   </VStack>
-);
+)
 
 export const truncation = () => (
   <Heading as="h1" isTruncated>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet egestas nisi. Cras vestibulum posuere semper. Vivamus in imperdiet orci. Nullam dolor ligula, cursus a lectus at, accumsan posuere purus. Morbi sit amet viverra metus. Nam suscipit erat pretium nunc tincidunt gravida. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras venenatis purus a tincidunt viverra. Maecenas at nunc at orci fringilla interdum vel nec ante. Suspendisse a convallis dolor, vitae semper nisl
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet
+    egestas nisi. Cras vestibulum posuere semper. Vivamus in imperdiet orci.
+    Nullam dolor ligula, cursus a lectus at, accumsan posuere purus. Morbi sit
+    amet viverra metus. Nam suscipit erat pretium nunc tincidunt gravida.
+    Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras venenatis
+    purus a tincidunt viverra. Maecenas at nunc at orci fringilla interdum vel
+    nec ante. Suspendisse a convallis dolor, vitae semper nisl
   </Heading>
-);
+)

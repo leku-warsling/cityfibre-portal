@@ -10,9 +10,11 @@ export default {
   decorators: [(story: any) => <Container mt="40px">{story()}</Container>],
 } as ComponentMeta<typeof Pagination>
 
-const Template: ComponentStory<typeof Pagination> = ({ page, ...args }) => {
-  const [activeIndex, setActiveIndex] = useState<number>(page)
-  return <Pagination {...args} page={activeIndex} onChange={setActiveIndex} />
+const Template: ComponentStory<typeof Pagination> = ({ current, ...args }) => {
+  const [activeIndex, setActiveIndex] = useState<number>(current)
+  return (
+    <Pagination {...args} current={activeIndex} onChange={setActiveIndex} />
+  )
 }
 
 export const Primary = Template.bind({})

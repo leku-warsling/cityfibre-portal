@@ -1,18 +1,35 @@
 const Button = {
   baseStyle: {
-    borderRadius: "4px",
     textTransform: "uppercase",
     letterSpacing: "wide",
     fontWeight: 700,
   },
   sizes: {
+    xs: {
+      borderRadius: "6px",
+      px: 4,
+      height: 6,
+    },
+    sm: {
+      borderRadius: "8px",
+      px: 6,
+    },
     md: {
       fontSize: "sm",
+      height: 10,
+      borderRadius: "12px",
+      px: 8,
+    },
+    lg: {
+      borderRadius: "16px",
+      height: 12,
+      px: 10,
     },
     xl: {
-      py: 5,
-      px: 10,
-      fontSize: "22px",
+      px: 12,
+      height: 14,
+      fontSize: "20px",
+      borderRadius: "20px",
     },
   },
   variants: {
@@ -36,9 +53,9 @@ const Button = {
       bg: "white",
       color: "#121212",
       border: "1px solid",
-      borderColor: "#B5B5B5",
+      borderColor: "#2D2D2D",
       _hover: {
-        bg: "#EDEDED",
+        bg: "secondary.500",
       },
     },
   },

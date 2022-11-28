@@ -1,5 +1,5 @@
 import { Container, Stack } from "@chakra-ui/layout"
-import { Select } from ".."
+import { Select } from "@chakra-ui/react"
 
 export default {
   title: "Components / Forms / Select",
@@ -20,7 +20,11 @@ export const variants = () => (
       <option value="Option 3">Option 3</option>
     </Select>
 
-    <Select placeholder="Select option" variant="outline" borderColor="gray.500">
+    <Select
+      placeholder="Select option"
+      variant="outline"
+      borderColor="gray.500"
+    >
       <option value="Option 1">Option 1</option>
       <option value="Option 2">Option 2</option>
       <option value="Option 3">Option 3</option>
@@ -71,23 +75,12 @@ export const selectIcon = () => (
 
 export const states = () => (
   <Stack>
-    <Select
-      placeholder="Idle"
-    />
+    <Select placeholder="Idle" />
 
-    <Select
-      isDisabled
-      placeholder="Disabled"
-    />
+    <Select isDisabled placeholder="Disabled" />
 
-    <Select
-      isInvalid
-      placeholder="Invalid"
-    />
+    <Select isInvalid placeholder="Invalid" />
 
-    <Select
-      isReadOnly
-      placeholder="Readonly"
-    />
+    <Select isReadOnly placeholder="Readonly" />
   </Stack>
 )

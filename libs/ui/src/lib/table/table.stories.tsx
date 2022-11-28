@@ -1,20 +1,19 @@
 import {
-  Box,
   Container,
   IconButton,
   Radio,
   RadioGroup,
   Stack,
-} from '@chakra-ui/react';
-import { Story, Meta } from '@storybook/react';
-import Table, { TableProps } from './table';
-import { faker } from '@faker-js/faker';
-import { useMemo } from 'react';
-import { test, times } from 'ramda';
-import { BiChevronDown, BiChevronRight } from 'react-icons/bi';
+} from "@chakra-ui/react"
+import { Story, Meta } from "@storybook/react"
+import { Table, TableProps } from "./table"
+import { faker } from "@faker-js/faker"
+import { useMemo } from "react"
+import { test, times } from "ramda"
+import { BiChevronDown, BiChevronRight } from "react-icons/bi"
 
 export default {
-  title: 'Components / Data Display / Table',
+  title: "Components / Data Display / Table",
   component: Table,
   argTypes: {},
   decorators: [
@@ -24,30 +23,30 @@ export default {
       </Container>
     ),
   ],
-} as Meta<TableProps<object>>;
+} as Meta<TableProps<object>>
 
 const createRecord = () => ({
   name: faker.name.findName(),
   email: faker.internet.email(),
   phone: faker.phone.phoneNumber(),
   employer: faker.company.companyName(),
-});
+})
 
 type ExampleCustomer = {
-  name: string;
-  phone: string;
-  email: string;
-  employer: string;
-};
+  name: string
+  phone: string
+  email: string
+  employer: string
+}
 
-type Props = Omit<TableProps<object>, 'data' | 'columns'>;
+type Props = Omit<TableProps<object>, "data" | "columns">
 
 const Template: Story<Props> = (args) => {
-  const data = times(createRecord, 50);
+  const data = times(createRecord, 50)
 
   const columns = [
     {
-      id: 'expander',
+      id: "expander",
       Header: (col: any) => (
         <IconButton
           aria-label="Expand all rows"
@@ -70,28 +69,28 @@ const Template: Story<Props> = (args) => {
       ),
     },
     {
-      Header: 'Name',
-      accessor: 'name',
+      Header: "Name",
+      accessor: "name",
       disableFilters: true,
     },
     {
-      Header: 'Email',
-      accessor: 'email',
+      Header: "Email",
+      accessor: "email",
       Filter: EmailProviderFilter,
-      filter: 'includes',
+      filter: "includes",
     },
     {
-      Header: 'Phone',
-      accessor: 'phone',
+      Header: "Phone",
+      accessor: "phone",
       disableFilters: true,
       disableSortBy: true,
     },
     {
-      Header: 'Employer',
-      accessor: 'employer',
+      Header: "Employer",
+      accessor: "employer",
       disableFilters: true,
     },
-  ] as const;
+  ] as const
 
   return (
     <Table
@@ -104,24 +103,24 @@ const Template: Story<Props> = (args) => {
       maxH="80vh"
       overflowY="auto"
     />
-  );
-};
+  )
+}
 
-const isEmailAddress = test(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+const isEmailAddress = test(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
 
 const EmailProviderFilter = ({ column }: any) => {
-  const { filterValue, setFilter, preFilteredRows, id } = column;
+  const { filterValue, setFilter, preFilteredRows, id } = column
   const options = useMemo(() => {
-    const providers = new Set();
+    const providers = new Set()
 
     for (const { values } of preFilteredRows) {
-      if (!isEmailAddress(values[id])) continue;
-      const provider = values[id].split('@')[1].split('.')[0];
-      providers.add(provider);
+      if (!isEmailAddress(values[id])) continue
+      const provider = values[id].split("@")[1].split(".")[0]
+      providers.add(provider)
     }
 
-    return Array.from(providers);
-  }, [id, preFilteredRows]) as string[];
+    return Array.from(providers)
+  }, [id, preFilteredRows]) as string[]
 
   return (
     <RadioGroup value={filterValue} onChange={setFilter}>
@@ -134,11 +133,11 @@ const EmailProviderFilter = ({ column }: any) => {
         ))}
       </Stack>
     </RadioGroup>
-  );
-};
+  )
+}
 
-export const Primary = Template.bind({});
+export const Primary = Template.bind({})
 Primary.args = {
-  variant: 'simple',
+  variant: "simple",
   isLoading: false,
-};
+}

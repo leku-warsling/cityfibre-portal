@@ -1,7 +1,7 @@
 import { Container, HStack, PinInputProps } from "@chakra-ui/react"
 import { ComponentMeta, ComponentStory } from "@storybook/react"
 import { FC } from "react"
-import { PinInput } from ".."
+import { PinInput } from "../pin-input"
 
 type ExamplePinInputProps = PinInputProps & {
   length: number

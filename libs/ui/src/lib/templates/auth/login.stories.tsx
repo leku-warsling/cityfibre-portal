@@ -18,21 +18,21 @@ export default {
   ],
 } as Meta<AuthTemplateProps>
 
-const Template: Story<AuthTemplateProps> = (args) => (
-  <Flex
-    maxWidth="900px"
-    minHeight="95vh"
-    justify="center"
-    bgColor="white"
-    align="center"
-    boxShadow="md"
-    rounded={4}
-  >
-    <AuthTemplate title="Partner Portal" p={8} width="100%" maxWidth="550px">
-      <LoginForm width="100%" mb={8} onSubmit={(data) => console.log(data)} />
-    </AuthTemplate>
-  </Flex>
-)
+// const Template: Story<AuthTemplateProps> = (args) => (
+//   <Flex
+//     maxWidth="900px"
+//     minHeight="95vh"
+//     justify="center"
+//     bgColor="white"
+//     align="center"
+//     boxShadow="md"
+//     rounded={4}
+//   >
+//     <AuthTemplate title="Partner Portal" p={8} width="100%" maxWidth="550px">
+//       <LoginForm width="100%" mb={8} onSubmit={(data) => console.log(data)} />
+//     </AuthTemplate>
+//   </Flex>
+// )
 
-export const Primary = Template.bind({})
-Primary.args = {}
+// export const Primary = Template.bind({})
+// Primary.args = {}

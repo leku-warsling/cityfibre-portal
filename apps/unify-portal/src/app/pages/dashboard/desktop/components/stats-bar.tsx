@@ -1,6 +1,7 @@
-import { ArrowForwardIcon, Icon } from "@chakra-ui/icons"
+import { Icon } from "@chakra-ui/icons"
 import { Flex, Box, Text, FlexProps } from "@chakra-ui/layout"
 import { FC, ReactNode } from "react"
+import { FiArrowRight } from "react-icons/fi"
 
 type Stat = {
   label: ReactNode
@@ -14,10 +15,10 @@ export type StatsBarProps = {
 const StatsBar: FC<StatsBarProps & FlexProps> = ({ items, ...props }) => {
   const stats = items.map((item, key) => (
     <Box key={key} fontWeight={800} textTransform="uppercase">
-      <Text fontSize="lg" letterSpacing="wide" lineHeight={1}>
+      <Text fontSize="2xl" letterSpacing="wide" lineHeight={1}>
         {item.label}
       </Text>
-      <Text fontSize="3xl" letterSpacing="wider" lineHeight={1.3}>
+      <Text fontSize="5xl" letterSpacing="wider" lineHeight={1}>
         {item.value}
       </Text>
     </Box>
@@ -35,7 +36,7 @@ const StatsBar: FC<StatsBarProps & FlexProps> = ({ items, ...props }) => {
         w={12}
         h={12}
       >
-        <Icon as={ArrowForwardIcon} fontSize="2xl" />
+        <Icon as={FiArrowRight} fontSize="2xl" />
       </Flex>
     </Flex>
   )
@@ -49,8 +50,8 @@ StatsBar.defaultProps = {
   rounded: 4,
   gap: 6,
   mb: 6,
-  py: 6,
-  px: 8,
+  py: 8,
+  px: 10,
 }
 
 export default StatsBar

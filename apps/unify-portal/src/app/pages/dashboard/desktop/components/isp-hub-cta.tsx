@@ -1,8 +1,9 @@
-import { ArrowForwardIcon } from "@chakra-ui/icons"
 import { Box, Flex, Text } from "@chakra-ui/layout"
 import { Icon } from "@chakra-ui/icon"
 import { BiBookReader } from "react-icons/bi"
-import { ISPHubIcon } from "../../../../../assets"
+import laptopImg from "../../../../../assets/images/laptop.png"
+import { FiArrowRight } from "react-icons/fi"
+import { Image } from "@chakra-ui/react"
 
 const ISPHubCallToAction = () => (
   <Flex
@@ -35,9 +36,16 @@ const ISPHubCallToAction = () => (
       right="-5%"
       top="-15%"
       align="flex-end"
-    >
-      <ISPHubIcon fontSize="190px" ml={4} mb={4} />
-    </Flex>
+    ></Flex>
+    <Image
+      src={laptopImg}
+      alt="ISP Hub"
+      width="290"
+      position="absolute"
+      zIndex={50}
+      top="10px"
+      right="35px"
+    />
     <Flex
       fontWeight={800}
       fontSize="4xl"
@@ -54,10 +62,11 @@ const ISPHubCallToAction = () => (
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus porta
       turpis est
     </Text>
-    <ArrowForwardIcon
+    <Icon
+      as={FiArrowRight}
       position="absolute"
       fontSize="3xl"
-      color="white"
+      color="black"
       zIndex={10}
       bottom={8}
       right={8}

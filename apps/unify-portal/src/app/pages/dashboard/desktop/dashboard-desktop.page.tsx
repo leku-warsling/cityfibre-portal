@@ -1,9 +1,8 @@
-import { ArrowForwardIcon, TriangleUpIcon } from "@chakra-ui/icons"
+import { Icon } from "@chakra-ui/icons"
 import { Flex, SimpleGrid, Text } from "@chakra-ui/layout"
 import { Select } from "@chakra-ui/select"
 import { Button } from "@chakra-ui/button"
 import { Page } from "@ui/lib/layout"
-import { EthernetIcon, FTTPIcon } from "../../../../assets"
 import {
   INCIDENT_COLUMNS,
   INCIDENT_DATA,
@@ -23,6 +22,48 @@ import ISPHubOverview from "./components/isp-hub-overview"
 import IncidentSummary from "./components/incident-summary"
 import OverviewCard from "./components/overview-card"
 import NetworksCard from "./components/networks-card"
+import { FiArrowRight } from "react-icons/fi"
+import { RiHomeWifiLine } from "react-icons/ri"
+import { MdCable } from "react-icons/md"
+import { FC, ReactNode } from "react"
+import { BiUpArrowAlt } from "react-icons/bi"
+
+type StatTileProps = {
+  label: ReactNode
+  value: number
+  description: ReactNode
+  deviation: number
+}
+
+const StatTile: FC<StatTileProps> = ({
+  label,
+  value,
+  description,
+  deviation,
+}) => {
+  return (
+    <Flex
+      flexDir="column"
+      boxShadow="base"
+      bgColor="white"
+      fontWeight={700}
+      rounded={4}
+      px={8}
+      py={6}
+      gap={1}
+    >
+      <Text>{label}</Text>
+      <Flex align="center" fontWeight={800} fontSize="28px" color="primary.500">
+        <Text>{deviation}%</Text>
+        <BiUpArrowAlt />
+      </Flex>
+      <Text fontSize="6xl" fontWeight={800} lineHeight={1}>
+        {value}
+      </Text>
+      <Text fontSize="sm">{description}</Text>
+    </Flex>
+  )
+}
 
 const DashboardDesktopPage = () => {
   return (
@@ -51,7 +92,7 @@ const DashboardDesktopPage = () => {
           ]}
           footer={
             <Button
-              rightIcon={<ArrowForwardIcon />}
+              rightIcon={<FiArrowRight />}
               colorScheme="gray"
               variant="ghost"
             >
@@ -75,142 +116,30 @@ const DashboardDesktopPage = () => {
       <StatsBar items={STATS_BAR} bgColor="primary.500" />
       <Flex mb={6} gap={6}>
         <SimpleGrid columns={2} spacing={6} flex={1} maxW="500px">
-          <Flex
-            flexDir="column"
-            rounded={4}
-            boxShadow="base"
-            bgColor="white"
-            p={6}
-          >
-            <Text
-              fontSize="2xl"
-              fontWeight={800}
-              textTransform="uppercase"
-              letterSpacing="wide"
-              mb={2}
-            >
-              Total Orders
-            </Text>
-            <Text fontSize="3xl" fontWeight={800} mb={2}>
-              120
-            </Text>
-            <Flex
-              align="center"
-              gap={1}
-              fontWeight={800}
-              fontSize="lg"
-              color="primary.600"
-              mb={2}
-            >
-              <TriangleUpIcon />
-              <Text>30%</Text>
-            </Flex>
-            <Text fontWeight={600} color="gray.500" fontSize="sm">
-              Since last month
-            </Text>
-          </Flex>
-          <Flex
-            flexDir="column"
-            rounded={4}
-            boxShadow="base"
-            bgColor="white"
-            p={6}
-          >
-            <Text
-              fontSize="2xl"
-              fontWeight={800}
-              textTransform="uppercase"
-              letterSpacing="wide"
-              mb={2}
-            >
-              In Progress
-            </Text>
-            <Text fontSize="3xl" fontWeight={800} mb={1}>
-              52
-            </Text>
-            <Flex
-              align="center"
-              gap={1}
-              fontWeight={800}
-              color="primary.600"
-              fontSize="lg"
-              mb={2}
-            >
-              <TriangleUpIcon />
-              <Text>30%</Text>
-            </Flex>
-            <Text fontWeight={600} color="gray.500" fontSize="sm">
-              Since last month
-            </Text>
-          </Flex>
-          <Flex
-            flexDir="column"
-            rounded={4}
-            boxShadow="base"
-            bgColor="white"
-            p={6}
-          >
-            <Text
-              fontSize="2xl"
-              fontWeight={800}
-              textTransform="uppercase"
-              letterSpacing="wide"
-              mb={2}
-            >
-              Cancelled Orders
-            </Text>
-            <Text fontSize="3xl" fontWeight={800} mb={1}>
-              15
-            </Text>
-            <Flex
-              align="center"
-              gap={1}
-              fontWeight={800}
-              fontSize="lg"
-              color="primary.600"
-              mb={2}
-            >
-              <TriangleUpIcon />
-              <Text>30%</Text>
-            </Flex>
-            <Text fontWeight={600} color="gray.500" fontSize="sm">
-              Since last month
-            </Text>
-          </Flex>
-          <Flex
-            flexDir="column"
-            rounded={4}
-            boxShadow="base"
-            bgColor="white"
-            p={6}
-          >
-            <Text
-              fontSize="2xl"
-              fontWeight={800}
-              textTransform="uppercase"
-              letterSpacing="wide"
-              mb={2}
-            >
-              Completed Orders
-            </Text>
-            <Text fontSize="3xl" fontWeight={800} mb={1}>
-              60
-            </Text>
-            <Flex
-              align="center"
-              gap={1}
-              fontWeight={800}
-              fontSize="lg"
-              color="primary.600"
-              mb={2}
-            >
-              <TriangleUpIcon />
-              <Text>30%</Text>
-            </Flex>
-            <Text fontWeight={600} color="gray.500" fontSize="sm">
-              Since last month
-            </Text>
-          </Flex>
+          <StatTile
+            label="Total Orders"
+            value={120}
+            deviation={30}
+            description="Since last monthy"
+          />
+          <StatTile
+            label="In Progress"
+            value={52}
+            deviation={30}
+            description="Since last monthy"
+          />
+          <StatTile
+            label="Cancelled Orders"
+            value={15}
+            deviation={30}
+            description="Since last monthy"
+          />
+          <StatTile
+            label="Completed Orders"
+            value={60}
+            deviation={30}
+            description="Since last monthy"
+          />
         </SimpleGrid>
         <TableCard
           flex={1}
@@ -227,7 +156,7 @@ const DashboardDesktopPage = () => {
           ]}
           footer={
             <Button
-              rightIcon={<ArrowForwardIcon />}
+              rightIcon={<FiArrowRight />}
               colorScheme="gray"
               variant="ghost"
             >
@@ -236,7 +165,7 @@ const DashboardDesktopPage = () => {
           }
         />
       </Flex>
-      <Flex gap={6}>
+      <Flex mb={6} gap={6}>
         <Flex
           justifyContent="space-between"
           bgColor="primary.500"
@@ -246,12 +175,11 @@ const DashboardDesktopPage = () => {
           rounded={4}
           flex={1}
           gap={6}
-          mb={6}
-          py={4}
-          px={6}
+          py={6}
+          px={8}
         >
           <Flex align="center" justifyContent="space-between" gap={4}>
-            <EthernetIcon fontSize="45px" />
+            <Icon as={MdCable} fontSize="35px" />
             <Text
               fontWeight={800}
               fontSize="2xl"
@@ -261,15 +189,7 @@ const DashboardDesktopPage = () => {
               Ethernet Services
             </Text>
           </Flex>
-          <Button
-            bgColor="secondary.500"
-            color="black"
-            size="lg"
-            fontWeight={800}
-            rightIcon={<ArrowForwardIcon />}
-          >
-            Check Availability
-          </Button>
+          <Button rightIcon={<FiArrowRight />}>Check Availability</Button>
         </Flex>
         <Flex
           justifyContent="space-between"
@@ -280,12 +200,11 @@ const DashboardDesktopPage = () => {
           rounded={4}
           flex={1}
           gap={6}
-          mb={6}
-          py={4}
-          px={6}
+          py={6}
+          px={8}
         >
           <Flex align="center" justifyContent="space-between" gap={4}>
-            <FTTPIcon fontSize="60px" />
+            <Icon as={RiHomeWifiLine} fontSize="35px" />
             <Text
               fontWeight={800}
               fontSize="2xl"
@@ -295,15 +214,7 @@ const DashboardDesktopPage = () => {
               FTTP Services
             </Text>
           </Flex>
-          <Button
-            rightIcon={<ArrowForwardIcon />}
-            bgColor="secondary.500"
-            fontWeight={800}
-            color="black"
-            size="lg"
-          >
-            Check Availability
-          </Button>
+          <Button rightIcon={<FiArrowRight />}>Check Availability</Button>
         </Flex>
       </Flex>
       <IncidentSummary />

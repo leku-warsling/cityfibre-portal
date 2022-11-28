@@ -1,4 +1,4 @@
-import { ArrowForwardIcon, SearchIcon } from "@chakra-ui/icons"
+import { SearchIcon } from "@chakra-ui/icons"
 import { Badge, Flex, Spacer, Text, VStack } from "@chakra-ui/layout"
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
 import { Icon } from "@chakra-ui/icon"
@@ -7,7 +7,7 @@ import { Page, Table, util } from "@ui/lib"
 import { flow } from "fp-ts/lib/function"
 import prop from "ramda/es/prop"
 import repeat from "ramda/es/repeat"
-import { useEffect, useMemo } from "react"
+import { useMemo } from "react"
 import {
   BiCommentDetail,
   BiCommentError,
@@ -17,6 +17,7 @@ import {
 import { Link } from "react-router-dom"
 import { usePage } from "@partner-portal/hooks"
 import { useAuth0 } from "@auth0/auth0-react"
+import { FiArrowRight } from "react-icons/fi"
 
 const DateCell = flow(prop<"value", Date>("value"), util.date.toDateString)
 
@@ -140,7 +141,7 @@ const HelpPage = () => {
           </Text>
           <Spacer />
           <Button
-            rightIcon={<ArrowForwardIcon />}
+            rightIcon={<FiArrowRight />}
             bgColor="brand.700"
             w="full"
             size="lg"
@@ -175,7 +176,7 @@ const HelpPage = () => {
           </Text>
           <Spacer />
           <Button
-            rightIcon={<ArrowForwardIcon />}
+            rightIcon={<FiArrowRight />}
             bgColor="brand.700"
             w="full"
             size="lg"
@@ -211,7 +212,7 @@ const HelpPage = () => {
           </Text>
           <Spacer />
           <Button
-            rightIcon={<ArrowForwardIcon />}
+            rightIcon={<FiArrowRight />}
             bgColor="brand.700"
             w="full"
             size="lg"
@@ -246,7 +247,7 @@ const HelpPage = () => {
           </Text>
           <Spacer />
           <Button
-            rightIcon={<ArrowForwardIcon />}
+            rightIcon={<FiArrowRight />}
             bgColor="brand.700"
             w="full"
             size="lg"

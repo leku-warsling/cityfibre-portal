@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react"
 import { Container, HStack } from "@chakra-ui/react"
-import { Switch } from ".."
+import { Switch } from "@chakra-ui/react"
 
 export default {
   title: "Components / Forms / Switch",

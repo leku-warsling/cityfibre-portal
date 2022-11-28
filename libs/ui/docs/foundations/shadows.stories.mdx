@@ -1,6 +1,6 @@
-import { Meta } from '@storybook/addon-docs';
-import { Box, Wrap, WrapItem, Text } from '@chakra-ui/react';
-import theme from '../../src/theme';
+import { Meta } from "@storybook/addon-docs"
+import { Box, Wrap, WrapItem, Text } from "@chakra-ui/react"
+import { theme } from "../../src/theme"
 
 <Meta title="Docs / Foundations / Shadows" id="shadows" />
 
@@ -8,21 +8,23 @@ import theme from '../../src/theme';
 
 <Box bgColor="gray.100" p={14} rounded="5" my={8}>
   <Wrap spacing={14}>
-    {Object.keys(theme.shadows).map((shadow, idx) => (
-      <WrapItem key={idx}>
-        <Box
-          display="flex"
-          boxShadow={shadow}
-          w="100px"
-          h="100px"
-          bgColor="white"
-          justifyContent="center"
-          alignItems="center"
-          fontSize="lg"
-        >
-          <Box>{shadow}</Box>
-        </Box>
-      </WrapItem>
-    ))}
+    {Object.keys(theme.shadows).map((shadow, idx) => {
+      return (
+        <WrapItem key={idx}>
+          <Box
+            display="flex"
+            boxShadow={shadow}
+            w="100px"
+            h="100px"
+            bgColor="white"
+            justifyContent="center"
+            alignItems="center"
+            fontSize="lg"
+          >
+            <Box>{shadow}</Box>
+          </Box>
+        </WrapItem>
+      )
+    })}
   </Wrap>
 </Box>

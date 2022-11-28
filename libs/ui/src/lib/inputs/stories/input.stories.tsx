@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { CheckIcon, PhoneIcon } from '@chakra-ui/icons';
-import { 
-  Container, 
-  Stack, 
+import { useState } from "react"
+import { CheckIcon, PhoneIcon } from "@chakra-ui/icons"
+import {
+  Container,
+  Stack,
   useDisclosure,
   Input,
   InputGroup,
@@ -13,13 +13,13 @@ import {
   FormControl,
   FormErrorMessage,
   FormHelperText,
-  FormLabel, 
-} from '@chakra-ui/react';
-import { chakra } from '@chakra-ui/system';
-import { PasswordInput } from '..';
+  FormLabel,
+} from "@chakra-ui/react"
+import { chakra } from "@chakra-ui/system"
+import PasswordInput from "../password-input"
 
 export default {
-  title: 'Components / Forms / Input',
+  title: "Components / Forms / Input",
   decorators: [
     (story: Function) => (
       <Container maxW="560px" mx="auto" mt="40px">
@@ -27,17 +27,17 @@ export default {
       </Container>
     ),
   ],
-};
+}
 
-export const Basic = () => <Input placeholder="Basic input" isDisabled />;
+export const Basic = () => <Input placeholder="Basic input" isDisabled />
 
 export const sizes = () => (
   <Stack align="start" spacing={6}>
-    {['xs', 'sm', 'md', 'lg'].map((size) => (
+    {["xs", "sm", "md", "lg"].map((size) => (
       <Input key={size} size={size} placeholder={`${size} input`} />
     ))}
   </Stack>
-);
+)
 
 export const states = () => (
   <Stack align="start" spacing={6}>
@@ -46,7 +46,7 @@ export const states = () => (
     <Input isDisabled placeholder="Disabled" />
     <Input isReadOnly placeholder="Readonly" />
   </Stack>
-);
+)
 
 export const variants = () => (
   <Stack align="start" spacing={6}>
@@ -56,7 +56,7 @@ export const variants = () => (
     <Input variant="flushed" placeholder="Flushed" />
     <Input variant="unstyled" placeholder="Unstyled" />
   </Stack>
-);
+)
 
 export const WithInputAddon = () => (
   <Stack align="start">
@@ -71,7 +71,7 @@ export const WithInputAddon = () => (
       <InputRightAddon children=".com" />
     </InputGroup>
   </Stack>
-);
+)
 
 export const WithInputElement = () => (
   <Stack align="start">
@@ -86,9 +86,9 @@ export const WithInputElement = () => (
       <InputRightElement children={<CheckIcon color="green.500" />} />
     </InputGroup>
   </Stack>
-);
+)
 
-export const Password = () => <PasswordInput placeholder="Enter password" />;
+export const Password = () => <PasswordInput placeholder="Enter password" />
 
 export const WithFocusAndErrorColors = () => (
   <Stack align="start" spacing="10">
@@ -111,7 +111,7 @@ export const WithFocusAndErrorColors = () => (
       placeholder="Here is a sample placeholder"
     />
   </Stack>
-);
+)
 
 function FormError(props: any) {
   return (
@@ -124,11 +124,11 @@ function FormError(props: any) {
       borderRadius="sm"
       {...props}
     />
-  );
+  )
 }
 
 export const WithFormControl = () => {
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(false)
   return (
     <Stack align="start">
       <FormControl id="first-name" isInvalid={isError}>
@@ -147,11 +147,11 @@ export const WithFormControl = () => {
       </FormControl>
       <button onClick={() => setIsError((s) => !s)}>Toggle Invalid</button>
     </Stack>
-  );
-};
+  )
+}
 
 export const WithInputElementBug = () => {
-  const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: true });
+  const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: true })
   return (
     <>
       <button onClick={onToggle}>Toggle element</button>
@@ -160,5 +160,5 @@ export const WithInputElementBug = () => {
         <Input name="input" placeholder="placeholder" />
       </InputGroup>
     </>
-  );
-};
+  )
+}

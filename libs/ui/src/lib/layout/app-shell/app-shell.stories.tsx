@@ -14,11 +14,11 @@ import {
   Flex,
 } from "@chakra-ui/react"
 // import { SearchInput } from "../../inputs"
-import AppShell, { AppShellProps } from "./app-shell"
-import AppBar from "../appbar/AppBar"
-import Sidebar from "../sidebar"
+import { AppShell, AppShellProps } from "./app-shell"
+import { AppBar } from "../appbar/AppBar"
+import { Sidebar } from "../sidebar"
 import Nav from "../../navigation/nav"
-import Page from "../page"
+import { Page } from "../page"
 import {
   FiMenu,
   FiSettings,

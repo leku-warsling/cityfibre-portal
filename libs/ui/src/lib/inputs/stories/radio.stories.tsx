@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Stack, Container, VStack } from "@chakra-ui/layout"
-import { Radio, RadioGroup } from ".."
+import { Radio, RadioGroup } from "@chakra-ui/react"
 import { get } from "lodash-es"
 import { Button } from "@chakra-ui/react"
 

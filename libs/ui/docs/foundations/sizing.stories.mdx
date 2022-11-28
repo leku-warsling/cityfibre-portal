@@ -1,14 +1,14 @@
-import { Meta } from '@storybook/addon-docs';
-import { Box, Wrap, WrapItem, Text, HStack } from '@chakra-ui/react';
+import { Meta } from "@storybook/addon-docs"
+import { Box, Wrap, WrapItem, Text, HStack } from "@chakra-ui/react"
 import {
   withPixelRef,
   toKeyValueCollection,
   remToPx,
   sortByValue,
-} from '../util';
-import Table from '../components/Table';
-import { Tabs, TabPanel } from '../components/Tabs';
-import theme from '../../src/theme';
+} from "../util"
+import Table from "../components/Table"
+import { Tabs, TabPanel } from "../components/Tabs"
+import { theme } from "../../src/theme"
 
 <Meta title="Docs / Foundations / Sizing" id="sizing" />
 
@@ -16,7 +16,7 @@ import theme from '../../src/theme';
 
 ![CSS Box Model](https://media.gcflearnfree.org/content/5ef2084faaf0ac46dc9c10be_06_23_2020/box_model.png)
 
-<br/>
+<br />
 
 ## Spacing
 
@@ -29,16 +29,16 @@ Space in graphic design is the distance around the area between different design
     <Table
       columns={[
         {
-          key: 'key',
-          title: 'Name',
+          key: "key",
+          title: "Name",
         },
         {
-          key: 'value',
-          title: 'Value',
+          key: "value",
+          title: "Value",
         },
         {
-          key: 'value',
-          title: 'Example',
+          key: "value",
+          title: "Example",
           render: (value) => <Box bgColor="#FED7D7" w={value} h="25px" />,
         },
       ]}
@@ -94,12 +94,12 @@ Space in graphic design is the distance around the area between different design
     <Table
       columns={[
         {
-          key: 'key',
-          title: 'Name',
+          key: "key",
+          title: "Name",
         },
         {
-          key: 'value',
-          title: 'Value',
+          key: "value",
+          title: "Value",
         },
       ]}
       data={toKeyValueCollection(theme.borders)}
@@ -137,12 +137,12 @@ Space in graphic design is the distance around the area between different design
     <Table
       columns={[
         {
-          key: 'key',
-          title: 'Name',
+          key: "key",
+          title: "Name",
         },
         {
-          key: 'value',
-          title: 'Value',
+          key: "value",
+          title: "Value",
         },
       ]}
       data={toKeyValueCollection(theme.radii)}
@@ -180,30 +180,29 @@ Space in graphic design is the distance around the area between different design
 <Table
   columns={[
     {
-      key: 'key',
-      title: 'Name',
+      key: "key",
+      title: "Name",
     },
     {
-      key: 'value',
-      title: 'Value',
+      key: "value",
+      title: "Value",
     },
   ]}
   data={sortByValue(toKeyValueCollection(theme.breakpoints))}
   mb={10}
 />
-  
 
 ## Containers
 
 <Table
   columns={[
     {
-      key: 'key',
-      title: 'Name',
+      key: "key",
+      title: "Name",
     },
     {
-      key: 'value',
-      title: 'Value',
+      key: "value",
+      title: "Value",
     },
   ]}
   data={sortByValue(toKeyValueCollection(theme.sizes.container))}

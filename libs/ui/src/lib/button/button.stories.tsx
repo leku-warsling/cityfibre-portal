@@ -90,15 +90,14 @@ export default {
   decorators: [(story: Function) => <Container mt="40px">{story()}</Container>],
 } as Meta<ButtonProps>
 
-const Template: Story<ButtonProps> = (args) => <Button {...args} />
+const Template: Story<ButtonProps> = ({ as, ...args }) => <Button {...args} />
 
 export const Primary = Template.bind({})
 Primary.args = {
   isActive: false,
   isDisabled: false,
   isLoading: false,
-  variant: "solid",
-  colorScheme: "primary",
+  variant: "primary",
   loadingText: "Loading",
   size: "md",
   spinnerPlacement: "start",
@@ -189,7 +188,7 @@ export const variants = () => (
     <HStack spacing={6}>
       <Button variant="primary">Primary</Button>
       <Button variant="secondary">Secondary</Button>
-      <Button colorScheme="blue" variant="primary">
+      <Button colorScheme="blue" variant="solid">
         Solid
       </Button>
     </HStack>
@@ -579,38 +578,3 @@ export const attachedButtons = () => (
     </ButtonGroup>
   </Stack>
 )
-
-// const motionConfig = {
-//   initial: false,
-//   transition: {
-//     type: 'spring',
-//     duration: 2,
-//     bounce: 0,
-//   },
-// };
-
-// const MotionButton = motion(Button);
-// const BG_GRADIENT_SOFT = `linear-gradient(to right, #fa8080, #F40000)`;
-// const BG_GRADIENT_SOFT_REVERSED = `linear-gradient(to right, #F40000, #fa8080)`;
-
-// export const WithMotion = () => {
-//   const [binary, setBinary] = React.useState(false);
-//   return (
-//     <>
-//       <Button onClick={() => setBinary((binary) => !binary)}>
-//         Toggle binary state: {String(binary)}
-//       </Button>
-//       <MotionButton
-//         {...motionConfig}
-//         animate={{
-//           scale: binary ? 1.2 : 1,
-//           backgroundImage: binary
-//             ? BG_GRADIENT_SOFT
-//             : BG_GRADIENT_SOFT_REVERSED,
-//         }}
-//       >
-//         ({String(binary)}) Doesn't work
-//       </MotionButton>
-//     </>
-//   );
-// };

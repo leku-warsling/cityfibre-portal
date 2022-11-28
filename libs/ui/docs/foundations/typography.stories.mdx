@@ -1,25 +1,16 @@
-import { Meta } from "@storybook/addon-docs";
-import {
-  Box,
-  Wrap,
-  WrapItem,
-  Text,
-  Stack,
-  Heading,
-} from '@chakra-ui/react'
+import { Meta } from "@storybook/addon-docs"
+import { Box, Wrap, WrapItem, Text, Stack, Heading } from "@chakra-ui/react"
 import { withPixelRef, toKeyValueCollection } from "../util"
 import Table from "../components/Table"
-import theme from "../../src/theme"
+import { theme } from "../../src/theme"
 
-<Meta
-  title="Docs / Foundations / Typography"
-  id="typography"
-/>
+<Meta title="Docs / Foundations / Typography" id="typography" />
 
 <!-- ![Typography Anatomy](https://ithemes.com/wp-content/uploads/2017/06/Anatomy-of-Typography.png) -->
+
 ![Typography Anatomy](https://www.fotor.com/blog/wp-content/uploads/2019/03/1-anatomy-of-type.jpg)
 
-<br/>
+<br />
 
 ## Fonts
 
@@ -27,17 +18,17 @@ import theme from "../../src/theme"
   columns={[
     {
       key: "key",
-      title: "Name"
+      title: "Name",
     },
     {
       key: "value",
-      title: "Value", 
-    }
+      title: "Value",
+    },
   ]}
   data={toKeyValueCollection(theme.fonts)}
 />
 
-<br/>
+<br />
 
 ## Font Sizes
 
@@ -45,18 +36,18 @@ import theme from "../../src/theme"
   columns={[
     {
       key: "key",
-      title: "Name"
+      title: "Name",
     },
     {
       key: "value",
       title: "Value",
-      render: withPixelRef, 
-    }
+      render: withPixelRef,
+    },
   ]}
   data={toKeyValueCollection(theme.fontSizes)}
 />
 
-<br/>
+<br />
 
 ## Font Weights
 
@@ -64,11 +55,11 @@ import theme from "../../src/theme"
   columns={[
     {
       key: "key",
-      title: "Name"
+      title: "Name",
     },
     {
       key: "value",
-      title: "Value", 
+      title: "Value",
     },
     {
       key: "key",
@@ -77,13 +68,13 @@ import theme from "../../src/theme"
         <Text fontFamily="arial" fontWeight={value}>
           {value}
         </Text>
-      )
+      ),
     },
   ]}
   data={toKeyValueCollection(theme.fontWeights)}
 />
 
-<br/>
+<br />
 
 ## Line Heights
 
@@ -91,17 +82,17 @@ import theme from "../../src/theme"
   columns={[
     {
       key: "key",
-      title: "Name"
+      title: "Name",
     },
     {
       key: "value",
-      title: "Value", 
-    }
+      title: "Value",
+    },
   ]}
   data={toKeyValueCollection(theme.lineHeights)}
 />
 
-<br/>
+<br />
 
 ## Letter Spacing
 
@@ -109,26 +100,24 @@ import theme from "../../src/theme"
   columns={[
     {
       key: "key",
-      title: "Name"
+      title: "Name",
     },
     {
       key: "value",
       title: "Value",
-      render: withPixelRef, 
+      render: withPixelRef,
     },
     {
       key: "key",
       title: "Example",
-      render: (value) => (
-        <Text letterSpacing={value}>
-          {value}
-        </Text>
-      )
+      render: (value) => <Text letterSpacing={value}>{value}</Text>,
     },
   ]}
   data={toKeyValueCollection(theme.letterSpacings)}
 />
 
 ## Terminology
+
 ## Text hierarchy
+
 ## Vertical Rythim
