@@ -3,7 +3,7 @@ import { PageState } from "../hooks/use-page.hook"
 import { Link, Outlet } from "react-router-dom"
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai"
 import { SearchIcon } from "@chakra-ui/icons"
-import { useAuth } from "../providers/auth.provider"
+import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { AppShell, Sidebar, AppBar } from "@ui/lib/layout"
 import { PartnersIcon, LogoIcon } from "@ui/lib/assets"
@@ -43,7 +43,7 @@ import {
 import { TutorialModal } from "./components"
 
 const UserMenu = () => {
-  const { logout } = useAuth()
+  const navigate = useNavigate()
   const { isOpen, onClose, onOpen } = useDisclosure()
   return (
     <>
@@ -59,7 +59,7 @@ const UserMenu = () => {
             Tutorials
           </MenuItem>
           <MenuDivider />
-          <MenuItem icon={<FiLogOut />} onClick={logout}>
+          <MenuItem icon={<FiLogOut />} onClick={() => navigate("/auth")}>
             Logout
           </MenuItem>
         </MenuList>

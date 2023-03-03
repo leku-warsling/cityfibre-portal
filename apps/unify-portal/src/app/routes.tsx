@@ -8,28 +8,22 @@ import billingRoutes from "./pages/billing"
 import authRoutes from "./pages/auth"
 import { AccessControlPage, LiveWorksPage } from "./pages/contact"
 import { SafetyReportPage } from "./pages/safety"
-import ProtectedRoute from "./components/route/protected-route"
 import { useRoutes } from "react-router-dom"
 
 const Router = () => {
   const element = useRoutes([
     {
-      element: <ProtectedRoute />,
+      path: "/",
+      element: <MainLayout />,
       children: [
         {
-          path: "/",
-          element: <MainLayout />,
-          children: [
-            {
-              index: true,
-              element: <DashboardPage />,
-            },
-            ...supportRoutes,
-            ...orderRoutes,
-            ...userRoutes,
-            ...billingRoutes,
-          ],
+          index: true,
+          element: <DashboardPage />,
         },
+        ...supportRoutes,
+        ...orderRoutes,
+        ...userRoutes,
+        ...billingRoutes,
       ],
     },
     ...authRoutes,

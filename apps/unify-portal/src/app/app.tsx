@@ -5,7 +5,6 @@ import { theme, rebrand } from "@ui/theme"
 import { useFlags } from "launchdarkly-react-client-sdk"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { BrowserRouter } from "react-router-dom"
-import { AuthProvider } from "./providers/auth.provider"
 import styles from "./global.styles"
 import Router from "./routes"
 
@@ -26,14 +25,12 @@ export function App() {
     <ChakraProvider theme={AppTheme}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <AuthProvider>
             <Global styles={styles} />
             <LazyMotion features={domAnimation}>
               <AnimatePresence>
                 <Router />
               </AnimatePresence>
             </LazyMotion>
-          </AuthProvider>
         </BrowserRouter>
       </QueryClientProvider>
     </ChakraProvider>

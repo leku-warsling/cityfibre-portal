@@ -2,8 +2,8 @@ import { useBreakpointValue } from "@chakra-ui/media-query"
 import { Button } from "@chakra-ui/button"
 import { Text, VStack } from "@chakra-ui/layout"
 import { AuthTemplate, LoginForm, TextDivider } from "@ui/lib"
-import { Link } from "react-router-dom"
-import { useAuth } from "../../providers/auth.provider"
+import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
 
 export type LoginPageProps = {
   showForgottenPassword?: boolean
@@ -18,8 +18,17 @@ const LoginPage = ({
   strapline,
   title,
 }: LoginPageProps) => {
-  const { login, isLoading } = useAuth()
+  const navigate = useNavigate()
+  const [isLoading, setLoading] = useState(false)
   const size = useBreakpointValue({ base: "md", lg: "lg" } as const)
+
+  const onLogin = () => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+      navigate("/")
+    }, 3000)
+  }
 
   const register = showRegister && (
     <>
@@ -56,7 +65,7 @@ const LoginPage = ({
       p={{ base: 4, lg: 8 }}
     >
       <LoginForm
-        onSubmit={(data: any) => login(data)}
+        onSubmit={onLogin}
         spacing={{ base: 4, lg: 6 }}
         isLoading={isLoading}
         width="100%"
